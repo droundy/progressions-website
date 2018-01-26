@@ -1,0 +1,56 @@
+
+.course-prereq {
+    margin: 0;
+    padding: 0;
+    line-height: 165%;
+    width: 100%;
+    background-color: lightblue;
+    padding: 0.25em;
+    border-radius: 0.5em;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.course-prereq > .course {
+    font-weight: bold;
+    width: 100%;
+}
+
+.course-prereq > .concept {
+    display: block;
+    width: 30%;
+}
+
+.prereq {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.activity-grouping {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.activity-grouping > .activity {
+    margin-left: 50%;
+    margin-right: 50%;
+}
+
+.activity-grouping > .concept {
+    display: block;
+    width: 1fr;
+}
+
+.activity {
+    background-color: lightgreen;
+    margin: 0.5em;
+    padding: 0.6em;
+    border-radius: 50%/50%;
+}
+
+.concept {
+    background-color: pink;
+    margin: 0.5em;
+    padding: 0.2em;
+}
