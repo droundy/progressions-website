@@ -88,9 +88,30 @@ article {
     border-radius: 10em;
 }
 
+.representation {
+    background-color: cyan;
+    padding: 0 0.75em 0 0.75em;
+    border-radius: 10em;
+}
+
 article > .activity {
+    position: relative;
     grid-column-start: 1;
     grid-column-end: -1;
     font-weight: bold;
+    padding: 10%;
+    margin: 0 -10% 0 -10%;
     text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    grid-gap: 0.5em;
+}
+
+article > .activity > .activity {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: transparent;
 }
