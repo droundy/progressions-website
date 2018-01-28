@@ -1,6 +1,12 @@
 
+article {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    grid-gap: 1.0em;
+}
+
 .course-prereq {
-    margin: 0;
+    margin: 1em 0.5em 0.5em 0.5em;
     padding: 0;
     line-height: 165%;
     width: 100%;
@@ -8,33 +14,54 @@
     padding: 0.25em;
     border-radius: 0.5em;
 
-    display: flex;
-    flex-wrap: wrap;
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    grid-gap: 0.5em;
+}
+
+.has2 {
+    grid-column-end: span 2;
+}
+
+.has3 {
+    grid-column-end: span 3;
 }
 
 .course-prereq > .course {
     font-weight: bold;
-    width: 100%;
+    position: absolute;
+    top: -1.2em;
+    left: 2em;
 }
 
 .course-prereq > .concept {
     display: block;
-    width: 30%;
 }
 
 .prereq {
-    display: flex;
-    flex-wrap: wrap;
+    grid-column-start: 1;
+    grid-column-end: -1;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    grid-gap: 0.5em;
 }
 
 .activity-grouping {
-    display: flex;
-    flex-wrap: wrap;
+    position: relative;
+
+    padding-top: 2em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    grid-gap: 0.5em;
 }
 
 .activity-grouping > .activity {
-    margin-left: 50%;
-    margin-right: 50%;
+    position: absolute;
+    top: -1.2em;
+    left: 2em;
 }
 
 .activity-grouping > .concept {
@@ -51,6 +78,19 @@
 
 .concept {
     background-color: pink;
-    margin: 0.5em;
+    margin: 0.1em;
     padding: 0.2em;
+}
+
+.course {
+    background-color: violet;
+    padding: 0 0.75em 0 0.75em;
+    border-radius: 10em;
+}
+
+article > .activity {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    font-weight: bold;
+    text-align: center;
 }
