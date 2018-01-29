@@ -127,3 +127,31 @@ article > .activity > .activity {
     background-color: transparent;
     border-style: none;
 }
+
+article > .activity > .activity:before {
+    position:absolute;
+    width: 0;
+    height: 0;
+    border-left: 50vw solid transparent;
+    border-right: 50vw solid transparent;
+    border-top: 5em solid blue;
+    content: "";
+    bottom: 3em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+}
+
+article > .activity > .activity:after {
+    position:absolute;
+    width: 50vw;
+    height: 100vw;
+    background-color: blue;
+    content: "";
+    bottom: 8em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+}
