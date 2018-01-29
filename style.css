@@ -50,6 +50,9 @@ article {
     position: absolute;
     top: 0em;
     left: 2em;
+    /* left: 0; */
+    /* right: 0; */
+    /* margin: auto; */
 }
 
 .activity-grouping > .concept {
@@ -64,6 +67,7 @@ article {
     border-radius: 50%/50%;
     border-color: black;
     border-style: solid;
+    text-align: center;
 }
 
 .concept {
@@ -121,7 +125,7 @@ article > .activity > .activity:before {
     height: 0;
     border-left: 50vw solid transparent;
     border-right: 50vw solid transparent;
-    border-top: 5em solid blue;
+    border-top: 5em solid #aaf;
     content: "";
     bottom: 3em;
     left: 0;
@@ -134,7 +138,7 @@ article > .activity > .activity:after {
     position:absolute;
     width: 50vw;
     height: 100vh;
-    background-color: blue;
+    background-color: #aaf;
     content: "";
     bottom: 8em;
     left: 0;
