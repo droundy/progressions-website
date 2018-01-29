@@ -10,7 +10,7 @@ article {
     padding: 0;
     line-height: 165%;
     width: 100%;
-    background-color: lightblue;
+    background-color: #ddd;
     padding: 0.25em;
     border-radius: 0.5em;
 
@@ -19,14 +19,6 @@ article {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
     grid-gap: 0.5em;
-}
-
-.has2 {
-    grid-column-end: span 2;
-}
-
-.has3 {
-    grid-column-end: span 3;
 }
 
 .course-prereq > .course {
@@ -154,4 +146,19 @@ article > .activity > .activity:after {
     right: 0;
     margin: auto;
     z-index: -1;
+}
+
+@media only screen and (min-width: 50em) {
+    .has3 .has2 {
+        grid-column-end: span 1;
+    }
+}
+
+@media only screen and (min-width: 70em) {
+    .has3 {
+        grid-column-end: span 3;
+    }
+    .has2 {
+        grid-column-end: span 2;
+    }
 }
