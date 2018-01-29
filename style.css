@@ -41,15 +41,15 @@ article {
     position: relative;
 
     margin-top: -0.9em;
-    padding-top: 3em;
+    padding-top: 1em;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
 .activity-grouping > .activity {
-    position: absolute;
-    top: 0em;
-    left: 2em;
+    position: relative;
+    top: -1em;
+    left: 0em;
     /* left: 0; */
     /* right: 0; */
     /* margin: auto; */
@@ -148,12 +148,24 @@ article > .activity > .activity:after {
 }
 
 @media only screen and (min-width: 30em) {
-    .has3,.has2 {
+    .has3,.has2,.has4 {
         grid-column-end: span 2;
     }
 }
 
 @media only screen and (min-width: 45em) {
+    .has3,has4 {
+        grid-column-end: span 3;
+    }
+    .has2 {
+        grid-column-end: span 2;
+    }
+}
+
+@media only screen and (min-width: 60em) {
+    .has4 {
+        grid-column-end: span 4;
+    }
     .has3 {
         grid-column-end: span 3;
     }
