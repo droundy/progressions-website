@@ -1,6 +1,7 @@
 
 article {
     display: grid;
+    flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
@@ -15,6 +16,7 @@ article {
     position: relative;
 
     display: grid;
+    flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
@@ -34,6 +36,7 @@ article {
     grid-column-end: -1;
 
     display: grid;
+    flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
@@ -43,6 +46,7 @@ article {
     margin-top: -0.9em;
     padding-top: 1em;
     display: grid;
+    flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
@@ -78,6 +82,8 @@ article {
     align-self: start;
     border-color: black;
     border-style: solid;
+    min-width: 10em;
+    flex-grow: 1;
 }
 
 .course {
@@ -101,6 +107,7 @@ article > .activity {
     position: relative;
     grid-column-start: 1;
     grid-column-end: -1;
+    width: 100%;
     font-weight: bold;
     padding: 10%;
     margin: 0 -10% 0 -10%;
@@ -148,28 +155,34 @@ article > .activity > .activity:after {
 }
 
 @media only screen and (min-width: 30em) {
-    .has3,.has2,.has4 {
+    .has3, .has2, .has4 {
         grid-column-end: span 2;
+        flex-grow: 2;
     }
 }
 
 @media only screen and (min-width: 45em) {
-    .has3,has4 {
+    .has3, .has4 {
         grid-column-end: span 3;
+        flex-grow: 3;
     }
     .has2 {
         grid-column-end: span 2;
+        flex-grow: 2;
     }
 }
 
 @media only screen and (min-width: 60em) {
     .has4 {
         grid-column-end: span 4;
+        flex-grow: 4;
     }
     .has3 {
         grid-column-end: span 3;
+        flex-grow: 3;
     }
     .has2 {
         grid-column-end: span 2;
+        flex-grow: 2;
     }
 }
