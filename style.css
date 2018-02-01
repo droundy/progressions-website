@@ -67,6 +67,10 @@ article {
     display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
 }
 
 .course-prereq > .course {
@@ -106,6 +110,9 @@ article {
     display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
 }
 
 .activity-grouping > .activity {
@@ -230,35 +237,54 @@ article > .concept > .concept:after {
     z-index: -1;
 }
 
-@media only screen and (min-width: 30em) {
+.has1, .has3, .has2, .has4 {
+    grid-column-end: span 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
+}
+
+@media only screen and (min-width: 24em) {
     .has3, .has2, .has4 {
         grid-column-end: span 2;
         flex-grow: 2;
+        flex-shrink: 2;
+        flex-basis: 20em;
     }
 }
 
-@media only screen and (min-width: 45em) {
+@media only screen and (min-width: 36em) {
     .has3, .has4 {
         grid-column-end: span 3;
         flex-grow: 3;
+        flex-shrink: 3;
+        flex-basis: 30em;
     }
     .has2 {
         grid-column-end: span 2;
         flex-grow: 2;
+        flex-shrink: 2;
+        flex-basis: 20em;
     }
 }
 
-@media only screen and (min-width: 60em) {
+@media only screen and (min-width: 48em) {
     .has4 {
         grid-column-end: span 4;
         flex-grow: 4;
+        flex-shrink: 4;
+        flex-basis: 40em;
     }
     .has3 {
         grid-column-end: span 3;
         flex-grow: 3;
+        flex-shrink: 3;
+        flex-basis: 30em;
     }
     .has2 {
         grid-column-end: span 2;
         flex-grow: 2;
+        flex-shrink: 2;
+        flex-basis: 20em;
     }
 }
