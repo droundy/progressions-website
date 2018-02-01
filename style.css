@@ -1,6 +1,6 @@
 
 article {
-    display: grid;
+    display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
@@ -15,7 +15,7 @@ article {
 
     position: relative;
 
-    display: grid;
+    display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
@@ -35,7 +35,7 @@ article {
     grid-column-start: 1;
     grid-column-end: -1;
 
-    display: grid;
+    display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
@@ -44,7 +44,7 @@ article {
     grid-column-start: 1;
     grid-column-end: -1;
 
-    display: grid;
+    display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
@@ -54,7 +54,7 @@ article {
 
     margin-top: -0.9em;
     padding-top: 1em;
-    display: grid;
+    display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
@@ -81,6 +81,9 @@ article {
     border-color: black;
     border-style: solid;
     text-align: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
 }
 
 .concept {
@@ -93,6 +96,8 @@ article {
     border-style: solid;
     min-width: 10em;
     flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
 }
 
 .course {
@@ -120,7 +125,7 @@ article > .activity {
     padding: 10%;
     margin: 0 -10% 0 -10%;
     text-align: center;
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
@@ -132,7 +137,7 @@ article > .concept {
     padding: 1%;
     margin: 1em 1em 1em 1em;
     text-align: center;
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
