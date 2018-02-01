@@ -190,7 +190,6 @@ article > .activity > .activity:before {
     margin: auto;
     z-index: -1;
 }
-
 article > .activity > .activity:after {
     position:absolute;
     width: 50vw;
@@ -198,6 +197,33 @@ article > .activity > .activity:after {
     background-color: #aaf;
     content: "";
     bottom: 8em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+}
+
+article > .concept > .concept:before {
+    position:absolute;
+    width: 0;
+    height: 0;
+    border-left: 50vw solid transparent;
+    border-right: 50vw solid transparent;
+    border-top: 5em solid #aaf;
+    content: "";
+    bottom: 2em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+}
+article > .concept > .concept:after {
+    position:absolute;
+    width: 50vw;
+    height: 100vh;
+    background-color: #aaf;
+    content: "";
+    bottom: 7em;
     left: 0;
     right: 0;
     margin: auto;
