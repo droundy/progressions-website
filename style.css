@@ -1,3 +1,52 @@
+.activity {
+    background-color: lightgreen;
+    margin: 0.5em;
+    padding: 0.6em;
+    border-radius: 2em 2em 0 0;
+    border-color: black;
+    border-style: solid;
+    text-align: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.concept {
+    background-color: pink;
+    margin: 0.25em;
+    padding: 0.2em;
+    /* justify-self: center; */
+    align-self: start;
+    border-color: black;
+    border-style: solid;
+    min-width: 10em;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
+}
+
+.course {
+    background-color: violet;
+    padding: 0 0.75em 0 0.75em;
+    border-radius: 10em;
+    border-color: black;
+    border-style: solid;
+}
+
+.representation {
+    background-color: cyan;
+    padding: 0.5em 0.75em 0.5em 0.75em;
+    border-radius: 10em;
+    justify-self: center;
+    border-color: black;
+    border-style: solid;
+
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    /* flex-grow: 1; */
+    /* flex-shrink: 1; */
+    /* flex-basis: 10em; */
+}
+
 
 article {
     display: flex;
@@ -53,17 +102,17 @@ article {
 .activity-grouping {
     position: relative;
 
-    margin-top: -0.9em;
-    padding-top: 1em;
+    padding-top: 3em;
     display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
 .activity-grouping > .activity {
-    position: relative;
-    top: -1em;
-    left: 0em;
+    position: absolute;
+    top: .2em;
+    height: 1.2em;
+    left: 1em;
     /* left: 0; */
     /* right: 0; */
     /* margin: auto; */
@@ -74,57 +123,11 @@ article {
     width: 1fr;
 }
 
-.activity {
-    background-color: lightgreen;
-    margin: 0.5em;
-    padding: 0.6em;
-    border-radius: 50%/50%;
-    border-color: black;
-    border-style: solid;
-    text-align: center;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 10em;
-}
-
-.concept {
-    background-color: pink;
-    margin: 0.25em;
-    padding: 0.2em;
-    /* justify-self: center; */
-    align-self: start;
-    border-color: black;
-    border-style: solid;
-    min-width: 10em;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 10em;
-}
-
-.course {
-    background-color: violet;
-    padding: 0 0.75em 0 0.75em;
-    border-radius: 10em;
-    border-color: black;
-    border-style: solid;
-}
-
-.representation {
-    background-color: cyan;
-    padding: 0.5em 0.75em 0.5em 0.75em;
-    border-radius: 10em;
-    justify-self: center;
-    border-color: black;
-    border-style: solid;
-}
-
 article > .activity {
     position: relative;
     grid-column-start: 1;
     grid-column-end: -1;
-    font-weight: bold;
-    padding: 10%;
-    margin: 0 -10% 0 -10%;
+    padding: 2em 1em 1em 1em;
     text-align: center;
     display: flex;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -135,9 +138,8 @@ article > .concept {
     position: relative;
     grid-column-start: 1;
     grid-column-end: -1;
-    font-weight: bold;
-    padding: 1%;
-    margin: 1em 1em 1em 1em;
+    padding: 2em 1em 1em 1em;
+    margin: 3em 1em 1em 1em;
     text-align: center;
     display: flex;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -146,22 +148,32 @@ article > .concept {
 
 article > .activity > .activity {
     position: absolute;
-    top: 5%;
+    top: 0;
     left: 0;
     right: 0;
     margin: auto;
+    font-weight: bold;
+    font-size: 1.5em;
     background-color: transparent;
     border-style: none;
 }
 
 article > .concept > .concept {
     position: absolute;
-    top: 5%;
+    top: 0;
     left: 0;
     right: 0;
     margin: auto;
+    font-weight: bold;
+    font-size: 1.5em;
     background-color: transparent;
     border-style: none;
+}
+article > .concept > .activity {
+    position: absolute;
+    top: -3.3em;
+    left: 0em;
+    height: 1.2em;
 }
 
 article > .activity > .activity:before {
