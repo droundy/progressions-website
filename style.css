@@ -40,6 +40,15 @@ article {
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
+.output {
+    grid-column-start: 1;
+    grid-column-end: -1;
+
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+}
+
 .activity-grouping {
     position: relative;
 
@@ -107,7 +116,6 @@ article > .activity {
     position: relative;
     grid-column-start: 1;
     grid-column-end: -1;
-    width: 100%;
     font-weight: bold;
     padding: 10%;
     margin: 0 -10% 0 -10%;
@@ -116,7 +124,29 @@ article > .activity {
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
+article > .concept {
+    position: relative;
+    grid-column-start: 1;
+    grid-column-end: -1;
+    font-weight: bold;
+    padding: 1%;
+    margin: 1em 1em 1em 1em;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+}
+
 article > .activity > .activity {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: transparent;
+    border-style: none;
+}
+
+article > .concept > .concept {
     position: absolute;
     top: 5%;
     left: 0;

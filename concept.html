@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Demo  view</title>
+  <title>Demo activity view</title>
   <link rel="stylesheet" href="style.css">
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -18,7 +18,11 @@
 </head>
 <body>
   <nav>
-    Navigation here
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="activity.html">Activity view</a></li>
+      <li><a href="concept.html">Concept view</a></li>
+    </ul>
   </nav>
   <main>
     <header>
@@ -26,7 +30,84 @@
     </header>
 
     <article>
-      $content
+      <div class="course-prereq has3">
+        <div class="course">
+          Single Variable Calculus
+        </div>
+        <div class="concept">
+          The derivative is a ratio of small changes
+        </div>
+        <div class="concept">
+          Variables can be held constant
+        </div>
+        <div class="concept">
+          The derivative can be a function
+        </div>
+      </div>
+
+      <div class="course-prereq has2">
+        <div class="course">
+          Multi Variable Calculus
+        </div>
+        <div class="concept">
+          Derivatives can be found while holding some variables constant
+        </div>
+        <div class="concept">
+          A partial derivative can be expressed in terms of other
+          partial derivatives (Multivariable chain rule)
+        </div>
+      </div>
+
+      <div class="prereq">
+        <div class="activity-grouping has3">
+          <div class="activity">
+            Partial Derivative Machine Derivatives
+          </div>
+          <div class="concept">
+            Partial derivatives depend on what you hold constant
+          </div>
+          <div class="concept">
+            Partial derivatives are coefficients in a differentials equation
+          </div>
+        </div>
+        <div class="activity-grouping has4">
+          <div class="activity">
+            Zapping with d
+          </div>
+          <div class="concept">
+            Differentials are small changes or differences
+          </div>
+          <div class="concept">
+            Equations can be zapped with $d$ to relate differentials
+          </div>
+          <div class="concept">
+            Individual differentials can be manipulated algebraically
+          </div>
+        </div>
+      </div>
+      <div class="concept">
+        <div class="concept">
+          Chain rules
+        </div>
+        <div class="representation">
+          $dF$
+        </div>
+        <div class="representation">
+          Tree diagrams
+        </div>
+      </div>
+      <div class="output">
+        <div class="concept">
+          You can flip a partial derivative
+          \[\left(\frac{\partial F}{\partial T}\right)_S = \frac{1}{\left(\frac{\partial F}{\partial T}\right)_S} \]
+        </div>
+        <div class="concept">
+          There might be experimjental limits on what quantities you can measure
+        </div>
+        <div class="concept">
+          Differentials allow finding partial derivatives when a variable cannot be solved for
+        </div>
+      </div>
     </article>
   </main>
 </body>
