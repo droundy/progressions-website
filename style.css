@@ -187,11 +187,11 @@ article > .activity > .activity:before {
     position:absolute;
     width: 0;
     height: 0;
-    border-left: 50vw solid transparent;
-    border-right: 50vw solid transparent;
+    border-left: 45vw solid transparent;
+    border-right: 45vw solid transparent;
     border-top: 5em solid #aaf;
     content: "";
-    bottom: 3em;
+    bottom: 2em;
     left: 0;
     right: 0;
     margin: auto;
@@ -199,11 +199,11 @@ article > .activity > .activity:before {
 }
 article > .activity > .activity:after {
     position:absolute;
-    width: 50vw;
+    width: 40vw;
     height: 100vh;
     background-color: #aaf;
     content: "";
-    bottom: 8em;
+    bottom: 7em;
     left: 0;
     right: 0;
     margin: auto;
@@ -214,8 +214,8 @@ article > .concept > .concept:before {
     position:absolute;
     width: 0;
     height: 0;
-    border-left: 50vw solid transparent;
-    border-right: 50vw solid transparent;
+    border-left: 45vw solid transparent;
+    border-right: 45vw solid transparent;
     border-top: 5em solid #aaf;
     content: "";
     bottom: 2em;
@@ -226,7 +226,7 @@ article > .concept > .concept:before {
 }
 article > .concept > .concept:after {
     position:absolute;
-    width: 50vw;
+    width: 40vw;
     height: 100vh;
     background-color: #aaf;
     content: "";
