@@ -47,6 +47,7 @@ article {
     display: flex;
     flex-wrap: wrap;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    flex-basis: 100%;
 }
 
 .activity-grouping {
@@ -127,6 +128,7 @@ article > .activity {
     text-align: center;
     display: flex;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    flex-basis: 100%;
 }
 
 article > .concept {
@@ -139,6 +141,7 @@ article > .concept {
     text-align: center;
     display: flex;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    flex-basis: 100%;
 }
 
 article > .activity > .activity {
