@@ -1,3 +1,9 @@
+#arrows-svg {
+    z-index: 10;
+    position:absolute;
+    pointer-events: none;
+}
+
 .activity {
     background-color: lightgreen;
     margin: 0.5em;
@@ -242,6 +248,32 @@ article > .concept > .concept:after {
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: 10em;
+}
+
+.progression {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    flex-basis: 100%;
+}
+.progression > .activity-grouping {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    flex-basis: 100%;
+
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: [actions] minmax(10em, 1fr) 1fr [concepts] minmax(10em, 3fr);
+}
+.progression > .activity-grouping > .activity {
+    grid-column: actions;
+    position: static;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+.progression > .activity-grouping > .concept {
+    grid-column: concepts;
 }
 
 @media only screen and (min-width: 24em) {
