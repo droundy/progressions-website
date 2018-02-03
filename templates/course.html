@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Course: {{ course.name }}</title>
+  <title>Course {{ course.number }}: {{ course.name }}</title>
   <link rel="stylesheet" href="style.css">
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -30,7 +30,7 @@
   </nav>
   <main>
     <header>
-      <h1>Course: {{ course.name }}</h1>
+      <h1>Course {{ course.number }}: {{ course.name }}</h1>
     </header>
 
     <svg id="arrows-svg" width="0" height="0">
@@ -67,6 +67,20 @@
       </div>
 
       <div class="progression">
+
+        {% for activity in course.activities %}
+        <div class="activity-grouping">
+          <div class="activity" id="{{ activity.urlname }}">
+            {{ activity.name }}
+          </div>
+          {% for concept in activity.concepts %}
+          <div class="concept" id="{{ concept }}">
+            {{ concept }}
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+
         <div class="activity-grouping">
           <div class="activity" id="thing1">
             Partial Derivative Machine Derivatives

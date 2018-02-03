@@ -1,0 +1,338 @@
+#arrows-svg {
+    z-index: 10;
+    position:absolute;
+    pointer-events: none;
+}
+
+.activity {
+    background-color: lightgreen;
+    margin: 0.5em;
+    padding: 0.6em;
+    border-radius: 2em 2em 0 0;
+    border-width: .1em;
+    border-color: black;
+    border-style: solid;
+    text-align: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.concept {
+    background-color: pink;
+    margin: 0.25em;
+    padding: 0.2em;
+    /* justify-self: center; */
+    align-self: start;
+    border-width: .1em;
+    border-color: black;
+    border-style: solid;
+    min-width: 10em;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
+}
+
+.course {
+    font-weight: bold;
+    background-color: violet;
+    padding: 0 0.75em 0 0.75em;
+    border-radius: 10em;
+    border-width: .1em;
+    border-color: black;
+    border-style: solid;
+}
+
+.representation {
+    background-color: cyan;
+    padding: 0.5em 0.75em 0.5em 0.75em;
+    border-radius: 10em;
+    justify-self: center;
+    border-width: .1em;
+    border-color: black;
+    border-style: solid;
+
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    /* flex-grow: 1; */
+    /* flex-shrink: 1; */
+    /* flex-basis: 10em; */
+}
+
+
+article {
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+}
+
+.course-prereq {
+    margin: 1em 0.5em 0.5em 0.5em;
+    padding: 0;
+    line-height: 165%;
+    background-color: #ddd;
+    padding: 0.25em;
+    border-radius: 0.5em;
+
+    position: relative;
+
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
+}
+
+.course-prereq > .course {
+    position: absolute;
+    top: -1.2em;
+    left: 2em;
+}
+
+.course-prereq > .concept {
+    display: block;
+}
+
+.prereq {
+    grid-column-start: 1;
+    grid-column-end: -1;
+
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+}
+
+.output {
+    grid-column-start: 1;
+    grid-column-end: -1;
+
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    flex-basis: 100%;
+}
+
+.activity-grouping {
+    position: relative;
+
+    padding-top: 3em;
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
+}
+
+.activity-grouping > .activity {
+    position: absolute;
+    top: .2em;
+    height: 1.2em;
+    left: 1em;
+    /* left: 0; */
+    /* right: 0; */
+    /* margin: auto; */
+}
+
+.activity-grouping > .concept {
+    display: block;
+    width: 1fr;
+}
+
+article > .activity {
+    position: relative;
+    grid-column-start: 1;
+    grid-column-end: -1;
+    padding: 2em 1em 1em 1em;
+    text-align: center;
+    display: flex;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    flex-basis: 100%;
+}
+
+article > .concept {
+    position: relative;
+    grid-column-start: 1;
+    grid-column-end: -1;
+    padding: 2em 1em 1em 1em;
+    margin: 3em 1em 1em 1em;
+    text-align: center;
+    display: flex;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+    flex-basis: 100%;
+}
+
+article > .activity > .activity {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: transparent;
+    border-style: none;
+}
+
+article > .concept > .concept {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color: transparent;
+    border-style: none;
+}
+article > .concept > .activity {
+    position: absolute;
+    top: -3.1em;
+    left: 0em;
+    height: 1.2em;
+}
+
+article > .activity > .activity:before {
+    position:absolute;
+    width: 0;
+    height: 0;
+    border-left: 45vw solid transparent;
+    border-right: 45vw solid transparent;
+    border-top: 5em solid #aaf;
+    content: "";
+    bottom: 2em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+}
+article > .activity > .activity:after {
+    position:absolute;
+    width: 40vw;
+    height: 100vh;
+    background-color: #aaf;
+    content: "";
+    bottom: 7em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+}
+
+article > .concept > .concept:before {
+    position:absolute;
+    width: 0;
+    height: 0;
+    border-left: 45vw solid transparent;
+    border-right: 45vw solid transparent;
+    border-top: 5em solid #aaf;
+    content: "";
+    bottom: 2em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+}
+article > .concept > .concept:after {
+    position:absolute;
+    width: 40vw;
+    height: 100vh;
+    background-color: #aaf;
+    content: "";
+    bottom: 7em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: -1;
+}
+
+.has1, .has3, .has2, .has4 {
+    grid-column-end: span 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 10em;
+}
+
+.progression {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    flex-basis: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.progression > .course {
+    flex-grow: 0;
+    flex-basis: content;
+    font-size: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.progression > .activity-grouping {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    flex-basis: 100%;
+
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: [actions] minmax(10em, 1fr) 1fr [concepts] minmax(10em, 3fr);
+}
+.progression > .activity-grouping > .activity {
+    grid-column: actions;
+    position: static;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+.progression > .activity-grouping > .concept {
+    grid-column: concepts;
+}
+
+@media only screen and (min-width: 24em) {
+    .has3, .has2, .has4 {
+        grid-column-end: span 2;
+        flex-grow: 2;
+        flex-shrink: 2;
+        flex-basis: 20em;
+    }
+}
+
+@media only screen and (min-width: 36em) {
+    .has3, .has4 {
+        grid-column-end: span 3;
+        flex-grow: 3;
+        flex-shrink: 3;
+        flex-basis: 30em;
+    }
+    .has2 {
+        grid-column-end: span 2;
+        flex-grow: 2;
+        flex-shrink: 2;
+        flex-basis: 20em;
+    }
+}
+
+@media only screen and (min-width: 48em) {
+    .has4 {
+        grid-column-end: span 4;
+        flex-grow: 4;
+        flex-shrink: 4;
+        flex-basis: 40em;
+    }
+    .has3 {
+        grid-column-end: span 3;
+        flex-grow: 3;
+        flex-shrink: 3;
+        flex-basis: 30em;
+    }
+    .has2 {
+        grid-column-end: span 2;
+        flex-grow: 2;
+        flex-shrink: 2;
+        flex-basis: 20em;
+    }
+}
