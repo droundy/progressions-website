@@ -70,12 +70,12 @@
 
         {% for activity in course.activities %}
         <div class="activity-grouping">
-          <div class="activity" id="{{ activity.urlname }}">
+          <div class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{ activity.urlname }}">
             {{ activity.name }}
           </div>
           {% for concept in activity.concepts %}
-          <div class="concept" id="{{ concept }}">
-            {{ concept }}
+          <div class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">
+            {{ concept.name }}
           </div>
           {% endfor %}
         </div>

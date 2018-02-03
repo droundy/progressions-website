@@ -13,23 +13,55 @@ concepts = []
 activity_map = {}
 concept_map = {}
 
-def new_activity(urlname, name, course, prereqs, concepts):
-    activities.append({
-        'name': name,
-        'urlname': urlname,
-        'course': course,
-        'prereqs': prereqs,
-        'concepts': concepts,
-    })
-def new_concept(urlname, name, prereqs):
-    concepts.append({
-        'name': name,
-        'urlname': urlname,
-        'course': None,
-        'prereqs': prereqs,
-    })
+def lookup_activity(a):
+    if a not in activity_map:
+        new_activity(a,a,'???', [], [])
+    return activity_map[a]
+def lookup_concept(c):
+    if c not in concept_map:
+        new_concept(c,c,[])
+    return concept_map[c]
+def fix_concept_list(xs):
+    output = []
+    for x in xs:
+        output.append(lookup_concept(x))
+    return output
 
-new_concept('eating', 'eating', ['food']
+def new_activity(urlname, name, course, prereqs, concepts):
+    if urlname in activity_map:
+        c = activity_map[urlname]
+    elif name in  activity_map:
+        c = activity_map[name]
+    else:
+        c = {}
+    c['name'] = name
+    c['urlname'] =  urlname
+    c['course'] = course
+    c['prereqs'] = fix_concept_list(prereqs)
+    c['concepts'] = fix_concept_list(concepts)
+    for x in c['concepts']:
+        x['activity'] = c;
+    activities.append(c)
+    activity_map[urlname] = c
+    activity_map[name] = c
+    return c
+def new_concept(urlname, name, prereqs):
+    if urlname in concept_map:
+        c = concept_map[urlname]
+    elif name in  concept_map:
+        c = concept_map[name]
+    else:
+        c = {}
+    c['name'] = name
+    c['urlname'] =  urlname
+    c['course'] = None
+    c['prereqs'] = fix_concept_list(prereqs)
+    concepts.append(c)
+    concept_map[urlname] = c
+    concept_map[name] = c
+    return c
+
+new_concept('eating', 'eating', ['food'])
 new_activity('activity-1', 'activity 1', 'PH423', ['writing', 'reading'], ['eating'])
 new_activity('activity-2', 'activity 2', 'PH423', ['arithmetic', 'eating'], ['sewing'])
 
