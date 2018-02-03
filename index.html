@@ -205,14 +205,8 @@ function connectAll() {
     });
 }
 
-function connectAllThrice() {
-    connectAll();
-    setTimeout(connectAll, 200);
-    setTimeout(connectAll, 400);
-}
-
 $(document).ready(function() {
-    $(window).resize(connectAllThrice);
+    $(window).resize(connectAll);
     connectAll();
 });
   </script>
