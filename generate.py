@@ -75,6 +75,8 @@ new_concept('eating', 'eating', ['food'])
 
 new_activity('activity-1', 'activity 1', 'PH423', ['writing', 'reading'], ['eating'])
 new_activity('activity-2', 'activity 2', 'PH423', ['food', 'arithmetic', 'eating'], ['sewing'])
+new_activity('activity-0', 'activity 0 (last)', 'PH423', ['sewing'],
+             ['fitting', 'tailoring'])
 
 os.makedirs('output', exist_ok=True)
 
