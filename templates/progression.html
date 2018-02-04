@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Course {{ course.number }}: {{ course.name }}</title>
+  <title>Learning progression</title>
   <link rel="stylesheet" href="style.css">
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -27,7 +27,7 @@
   </nav>
   <main>
     <header>
-      <h1>Course {{ course.number }}: {{ course.name }}</h1>
+      <h1>Learning progression</h1>
     </header>
 
     <svg id="arrows-svg" width="0" height="0">
@@ -35,12 +35,12 @@
           fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" />
     </svg>
     <article>
-      {% for course, concepts in course.prereq_courses %}
-      <div class="course-prereq has{{concepts|length}}">
+      {% for course in prereq_courses %}
+      <div class="course-prereq has{{course.concepts|length}}">
         <a href="{{course.number}}.html"><div class="course">
           {{ course.name }}
         </div></a>
-        {% for concept in concepts %}
+        {% for concept in course.concepts %}
         <div class="concept">
           {{ concept.name }}
         </div>
@@ -49,10 +49,13 @@
       {% endfor %}
 
       <div class="progression">
-
+        {% for course in courses %}
+        <a href="{{course.number}}.html"><div class="course">
+          {{ course.number }}: {{ course.name }}
+        </div></a>
         {% for activity in course.activities %}
         <div class="activity-grouping">
-          <div class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{ activity.urlname }}">
+          <div class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{activity.urlname}}">
             {{ activity.name }}
           </div>
           {% for concept in activity.concepts %}
@@ -61,6 +64,7 @@
           </div>
           {% endfor %}
         </div>
+        {% endfor %}
         {% endfor %}
       </div>
     </article>

@@ -84,7 +84,7 @@ article {
     flex-basis: 10em;
 }
 
-.course-prereq > .course {
+.course-prereq .course {
     position: absolute;
     top: -1.2em;
     left: 2em;
@@ -263,10 +263,17 @@ article > .concept > .concept:after {
     flex-wrap: wrap;
 }
 
-.progression > .course {
+.progression .course {
     flex-grow: 0;
     flex-basis: content;
     font-size: 2em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.progression a {
+    flex-grow: 0;
+    flex-basis: content;
     margin-left: auto;
     margin-right: auto;
 }
