@@ -38,33 +38,18 @@
           fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" />
     </svg>
     <article>
-      <div class="course-prereq has3">
+      {% for course, concepts in course.prereq_courses %}
+      <div class="course-prereq has{{concepts|length}}">
         <div class="course">
-          Single Variable Calculus
+          {{ course }}
         </div>
+        {% for concept in concepts %}
         <div class="concept">
-          The derivative is a ratio of small changes
+          {{ concept.name }}
         </div>
-        <div class="concept">
-          Variables can be held constant
-        </div>
-        <div class="concept">
-          The derivative can be a function
-        </div>
+        {% endfor %}
       </div>
-
-      <div class="course-prereq has2">
-        <div class="course">
-          Multi Variable Calculus
-        </div>
-        <div class="concept">
-          Derivatives can be found while holding some variables constant
-        </div>
-        <div class="concept">
-          A partial derivative can be expressed in terms of other
-          partial derivatives (Multivariable chain rule)
-        </div>
-      </div>
+      {% endfor %}
 
       <div class="progression">
 
@@ -80,32 +65,6 @@
           {% endfor %}
         </div>
         {% endfor %}
-
-        <div class="activity-grouping">
-          <div class="activity" id="thing1">
-            Partial Derivative Machine Derivatives
-          </div>
-          <div class="concept">
-            Partial derivatives depend on what you hold constant
-          </div>
-          <div class="concept">
-            Partial derivatives are coefficients in a differentials equation
-          </div>
-        </div>
-        <div class="activity-grouping">
-          <div class="activity from-thing2">
-            Zapping with d
-          </div>
-          <div class="concept" id="thing2">
-            Differentials are small changes or differences
-          </div>
-          <div class="concept from-thing1">
-            Equations can be zapped with $d$ to relate differentials
-          </div>
-          <div class="concept from-thing1">
-            Individual differentials can be manipulated algebraically
-          </div>
-        </div>
       </div>
     </article>
   </main>
