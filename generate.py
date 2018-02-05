@@ -164,6 +164,8 @@ for concept in concepts:
         ps = list(filter(lambda c: c['urlname'] in output_concepts, a['concepts']))
         if len(ps) > 0:
             output_groups.append((a, ps))
+        elif concept in a['prereqs']:
+            output_groups.append((a,[]))
     concept['output_groups'] = output_groups
     with open('output/concept-%s.html' % concept['urlname'], 'w') as f:
         f.write(env.get_template('concept.html').render(concept=concept))
