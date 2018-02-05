@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Demo activity view</title>
+  <title>{{activity.name}}</title>
   <link rel="stylesheet" href="style.css">
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -20,75 +20,46 @@
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="course.html">Course view</a></li>
-      <li><a href="activity.html">Activity view</a></li>
-      <li><a href="concept.html">Concept view</a></li>
+      <li><a href="../{{activity.course.number}}.html">{{activity.course.number}}</a></li>
     </ul>
   </nav>
   <main>
     <header>
-      <h1>Activity view demo</h1>
+      <h1>{{activity.name}}</h1>
     </header>
 
     <article>
-      <div class="course-prereq has3">
-        <div class="course">
-          Single Variable Calculus
-        </div>
-        <div class="concept">
-          The derivative is a ratio of small changes
-        </div>
-        <div class="concept">
-          Variables can be held constant
-        </div>
-        <div class="concept">
-          The derivative can be a function
-        </div>
+      {% for course, concepts in activity.prereq_courses %}
+      <div class="course-prereq has{{concepts|length}}">
+        <a href="{{course.number}}.html" class="course">
+          {{ course.name }}
+        </a>
+        {% for c in concepts %}
+        <a href="{{c.urlname}}.html" class="concept">
+          {{ c.name }}
+        </a>
+        {% endfor %}
       </div>
-
-      <div class="course-prereq has2">
-        <div class="course">
-          Multi Variable Calculus
-        </div>
-        <div class="concept">
-          Derivatives can be found while holding some variables constant
-        </div>
-        <div class="concept">
-          A partial derivative can be expressed in terms of other
-          partial derivatives (Multivariable chain rule)
-        </div>
-      </div>
+      {% endfor %}
 
       <div class="prereq">
-        <div class="activity-grouping has3">
-          <div class="activity">
-            Partial Derivative Machine Derivatives
-          </div>
-          <div class="concept">
-            Partial derivatives depend on what you hold constant
-          </div>
-          <div class="concept">
-            Partial derivatives are coefficients in a differentials equation
-          </div>
+        {% for activity, concepts in activity.prereq_groups %}
+        <div class="activity-grouping has{{concepts|length}}">
+          <a href="../activity/{{activity.urlname}}.html" class="activity">
+            {{activity.name}}
+          </a>
+          {% for c in concepts %}
+          <a href="{{c.urlname}}.html" class="concept">
+            {{ c.name }}
+          </a>
+          {% endfor %}
         </div>
-        <div class="activity-grouping has4">
-          <div class="activity">
-            Zapping with d
-          </div>
-          <div class="concept">
-            Differentials are small changes or differences
-          </div>
-          <div class="concept">
-            Equations can be zapped with $d$ to relate differentials
-          </div>
-          <div class="concept">
-            Individual differentials can be manipulated algebraically
-          </div>
-        </div>
+        {% endfor %}
       </div>
+
       <div class="activity">
         <div class="activity">
-          Chain rules
+          {{activity.name}}
         </div>
         <div class="representation">
           $dF$
@@ -98,16 +69,11 @@
         </div>
       </div>
       <div class="output">
-        <div class="concept">
-          You can flip a partial derivative
-          \[\left(\frac{\partial F}{\partial T}\right)_S = \frac{1}{\left(\frac{\partial F}{\partial T}\right)_S} \]
-        </div>
-        <div class="concept">
-          There might be experimjental limits on what quantities you can measure
-        </div>
-        <div class="concept">
-          Differentials allow finding partial derivatives when a variable cannot be solved for
-        </div>
+        {% for c in activity.concepts %}
+        <a href="../concept/{{c.urlname}}.html" class="concept">
+          {{ c.name }}
+        </a>
+        {% endfor %}
       </div>
     </article>
   </main>

@@ -169,6 +169,29 @@ for concept in concepts:
     with open('output/concept/%s.html' % concept['urlname'], 'w') as f:
         f.write(env.get_template('concept.html').render(concept=concept))
 
+for activity in activities:
+    prereq_courses = {}
+    for p in activity['prereqs']:
+        if p['course'] != activity['course']:
+            if p['course']['number'] not in prereq_courses:
+                prereq_courses[p['course']['number']] = []
+                prereq_courses[p['course']['number']].append(p)
+    prereq_list = []
+    for c in all_courses:
+        if c['number'] in prereq_courses:
+            prereq_list.append((c, prereq_courses[c['number']]))
+    activity['prereq_courses'] = prereq_list
+
+    prereq_groups = []
+    for a in activities:
+        ps = list(filter(lambda c: c in activity['prereqs'], a['concepts']))
+        if len(ps) > 0:
+            prereq_groups.append((a, ps))
+    activity['prereq_groups'] = prereq_groups
+
+    with open('output/activity/%s.html' % activity['urlname'], 'w') as f:
+        f.write(env.get_template('activity.html').render(activity=activity))
+
 with open('output/index.html', 'w') as f:
     f.write(env.get_template('progression.html').render(
         all_courses = all_courses,
