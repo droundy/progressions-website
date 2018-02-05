@@ -4,6 +4,11 @@
     pointer-events: none;
 }
 
+a, a:link, a:active, a:hover {
+    text-decoration: none;
+    color: black;
+}
+
 .activity {
     background-color: lightgreen;
     margin: 0.5em;
@@ -90,7 +95,7 @@ article {
     left: 2em;
 }
 
-.course-prereq > .concept {
+.course-prereq .concept {
     display: block;
 }
 
@@ -125,7 +130,7 @@ article {
     flex-basis: 10em;
 }
 
-.activity-grouping > .activity {
+.activity-grouping .activity {
     position: absolute;
     top: .2em;
     height: 1.2em;
@@ -135,7 +140,7 @@ article {
     /* margin: auto; */
 }
 
-.activity-grouping > .concept {
+.activity-grouping .concept {
     display: block;
     width: 1fr;
 }
@@ -163,7 +168,7 @@ article > .concept {
     flex-basis: 100%;
 }
 
-article > .activity > .activity {
+article > .activity .activity {
     position: absolute;
     top: 0;
     left: 0;
@@ -175,7 +180,7 @@ article > .activity > .activity {
     border-style: none;
 }
 
-article > .concept > .concept {
+article > .concept .concept {
     position: absolute;
     top: 0;
     left: 0;
@@ -186,14 +191,14 @@ article > .concept > .concept {
     background-color: transparent;
     border-style: none;
 }
-article > .concept > .activity {
+article > .concept .activity {
     position: absolute;
     top: -3.1em;
     left: 0em;
     height: 1.2em;
 }
 
-article > .activity > .activity:before {
+article > .activity .activity:before {
     position:absolute;
     width: 0;
     height: 0;
@@ -207,7 +212,7 @@ article > .activity > .activity:before {
     margin: auto;
     z-index: -1;
 }
-article > .activity > .activity:after {
+article > .activity .activity:after {
     position:absolute;
     width: 40vw;
     height: 100vh;
@@ -220,7 +225,7 @@ article > .activity > .activity:after {
     z-index: -1;
 }
 
-article > .concept > .concept:before {
+article > .concept .concept:before {
     position:absolute;
     width: 0;
     height: 0;
@@ -234,7 +239,7 @@ article > .concept > .concept:before {
     margin: auto;
     z-index: -1;
 }
-article > .concept > .concept:after {
+article > .concept .concept:after {
     position:absolute;
     width: 40vw;
     height: 100vh;
@@ -271,14 +276,7 @@ article > .concept > .concept:after {
     margin-right: auto;
 }
 
-.progression a {
-    flex-grow: 0;
-    flex-basis: content;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.progression > .activity-grouping {
+.progression .activity-grouping {
     grid-column-start: 1;
     grid-column-end: -1;
     flex-basis: 100%;
@@ -288,14 +286,14 @@ article > .concept > .concept:after {
     display: grid;
     grid-template-columns: [actions] minmax(10em, 1fr) 1fr [concepts] minmax(10em, 3fr);
 }
-.progression > .activity-grouping > .activity {
+.progression .activity-grouping .activity {
     grid-column: actions;
     position: static;
     height: auto;
     padding: 0;
     margin: 0;
 }
-.progression > .activity-grouping > .concept {
+.progression .activity-grouping .concept {
     grid-column: concepts;
 }
 

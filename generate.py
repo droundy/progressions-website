@@ -89,6 +89,8 @@ new_concept('writing', 'writing', [], 'elementary school')
 new_concept('arithmetic', 'arithmetic', [], 'elementary school')
 new_concept('food', 'food', [], 'grocery store')
 
+new_concept('tailoring', 'tailoring', ['sewing'])
+
 new_concept('eating', 'eating', ['food'])
 
 new_activity('activity-1', 'activity 1', 'PH423', ['writing', 'reading'], ['eating'])
@@ -99,9 +101,10 @@ new_activity('activity-0', 'activity 0 (last)', 'PH423', ['sewing'],
 new_activity('senior-1', 'senior activity', 'PH441', ['tailoring'],
              ['fashion'])
 
-os.makedirs('output', exist_ok=True)
+os.makedirs('output/activity', exist_ok=True)
+os.makedirs('output/concept', exist_ok=True)
 
-def create_course(course):
+for course in all_courses:
     name = course['name']
     number = course['number']
     prereq_courses = {}
@@ -132,8 +135,39 @@ def create_course(course):
             'prereq_courses': prereq_list,
         }))
 
-for c in all_courses:
-    create_course(c)
+for activity in activities:
+    with open('output/activity/%s.html' % activity['urlname'], 'w') as f:
+        f.write(env.get_template('activity.html').render(activity=activity))
+
+for concept in concepts:
+    prereq_courses = {}
+    for p in concept['prereqs']:
+        if p['course'] != concept['course']:
+            if p['course']['number'] not in prereq_courses:
+                prereq_courses[p['course']['number']] = []
+                prereq_courses[p['course']['number']].append(p)
+    prereq_list = []
+    for c in all_courses:
+        if c['number'] in prereq_courses:
+            prereq_list.append((c, prereq_courses[c['number']]))
+    concept['prereq_courses'] = prereq_list
+
+    prereq_groups = []
+    for a in activities:
+        ps = list(filter(lambda c: c in concept['prereqs'], a['concepts']))
+        if len(ps) > 0:
+            prereq_groups.append((a, ps))
+    concept['prereq_groups'] = prereq_groups
+
+    output_concepts = list(map(lambda c: c['urlname'], filter(lambda c: concept in c['prereqs'], concepts)))
+    output_groups = []
+    for a in activities:
+        ps = list(filter(lambda c: c['urlname'] in output_concepts, a['concepts']))
+        if len(ps) > 0:
+            output_groups.append((a, ps))
+    concept['output_groups'] = output_groups
+    with open('output/concept/%s.html' % concept['urlname'], 'w') as f:
+        f.write(env.get_template('concept.html').render(concept=concept))
 
 with open('output/index.html', 'w') as f:
     f.write(env.get_template('progression.html').render(

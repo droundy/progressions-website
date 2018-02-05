@@ -37,13 +37,13 @@
     <article>
       {% for course in prereq_courses %}
       <div class="course-prereq has{{course.concepts|length}}">
-        <a href="{{course.number}}.html"><div class="course">
+        <a href="{{course.number}}.html" class="course">
           {{ course.name }}
-        </div></a>
+        </a>
         {% for concept in course.concepts %}
-        <div class="concept">
+        <a href="concept/{{concept.urlname}}.html" class="concept">
           {{ concept.name }}
-        </div>
+        </a>
         {% endfor %}
       </div>
       {% endfor %}
@@ -55,13 +55,13 @@
         </div></a>
         {% for activity in course.activities %}
         <div class="activity-grouping">
-          <div class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{activity.urlname}}">
+          <a href="activity/{{activity.urlname}}.html" class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{activity.urlname}}">
             {{ activity.name }}
-          </div>
+          </a>
           {% for concept in activity.concepts %}
-          <div class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">
+          <a href="concept/{{concept.urlname}}.html" class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">
             {{ concept.name }}
-          </div>
+          </a>
           {% endfor %}
         </div>
         {% endfor %}
@@ -133,7 +133,7 @@ function connectAll() {
     $(".activity").each(function(i,from) {
         if (from.id != '') {
             $(".concept.from-"+from.id).each(function(i,to) {
-                console.log('arrow connecting', from, to);
+                // console.log('arrow connecting', from, to);
                 connectElements(svg, arrows, from, to);
             });
         }
@@ -141,7 +141,7 @@ function connectAll() {
     $(".concept").each(function(i,from) {
         if (from.id != '') {
             $(".activity.from-"+from.id).each(function(i,to) {
-                console.log('arrow connecting', from, to);
+                // console.log('arrow connecting', from, to);
                 connectElements(svg, arrows, from, to);
             });
         }

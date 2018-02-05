@@ -1,3 +1,7 @@
 | python3 generate.py
 
 | mkdir -p output && cp style.css output/
+
+| mkdir -p output/concept && cp style.css output/concept/
+
+| mkdir -p output/activity && cp style.css output/activity/

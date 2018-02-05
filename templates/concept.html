@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{concept.name}}</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    TeX: { equationNumbers: { autoNumber: "AMS" } },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+    });
+  </script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="course.html">Course view</a></li>
+      <li><a href="activity.html">Activity view</a></li>
+      <li><a href="concept.html">Concept view</a></li>
+    </ul>
+  </nav>
+  <main>
+    <header>
+      <h1>{{concept.name}}</h1>
+    </header>
+
+    <article>
+      {% for course, concepts in concept.prereq_courses %}
+      <div class="course-prereq has{{concepts|length}}">
+        <a href="{{course.number}}.html" class="course">
+          {{ course.name }}
+        </a>
+        {% for c in concepts %}
+        <a href="{{c.urlname}}.html" class="concept">
+          {{ c.name }}
+        </a>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+      <div class="prereq">
+        {% for activity, concepts in concept.prereq_groups %}
+        <div class="activity-grouping has{{concepts|length}}">
+          <a href="../activity/{{activity.urlname}}.html" class="activity">
+            {{activity.name}}
+          </a>
+          {% for c in concepts %}
+          <a href="{{c.urlname}}.html" class="concept">
+            {{ c.name }}
+          </a>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="concept">
+        {% if concept.activity %}
+        <a class="activity">
+          {{concept.activity.name}}
+        </a>
+        {% endif %}
+        <div class="concept">
+          {{concept.name}}
+        </div>
+        <div class="representation">
+          $dF$
+        </div>
+        <div class="representation">
+          Tree diagrams
+        </div>
+      </div>
+      {% for activity, concepts in concept.output_groups %}
+      <div class="activity-grouping has{{concepts|length}}">
+        <a href="../activity/{{activity.urlname}}.html" class="activity">
+          {{activity.name}}
+        </a>
+        {% for c in concepts %}
+        <a href="{{c.urlname}}.html" class="concept">
+          {{ c.name }}
+        </a>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </article>
+  </main>
+</body>
+  <script>
+    document.body.onclick= function(e){
+      e=window.event? event.srcElement: e.target;
+      if(e.parentNode.nodeName && e.parentNode.nodeName == 'DETAIL' && e.nodeName == 'H1') {
+        e.parentNode.classList.toggle('active');
+      }
+    }
+  </script>
+</html>
+
