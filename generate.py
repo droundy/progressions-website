@@ -101,8 +101,7 @@ new_activity('activity-0', 'activity 0 (last)', 'PH423', ['sewing'],
 new_activity('senior-1', 'senior activity', 'PH441', ['tailoring'],
              ['fashion'])
 
-os.makedirs('output/activity', exist_ok=True)
-os.makedirs('output/concept', exist_ok=True)
+os.makedirs('output', exist_ok=True)
 
 for course in all_courses:
     name = course['name']
@@ -166,7 +165,7 @@ for concept in concepts:
         if len(ps) > 0:
             output_groups.append((a, ps))
     concept['output_groups'] = output_groups
-    with open('output/concept/%s.html' % concept['urlname'], 'w') as f:
+    with open('output/concept-%s.html' % concept['urlname'], 'w') as f:
         f.write(env.get_template('concept.html').render(concept=concept))
 
 for activity in activities:
@@ -189,7 +188,7 @@ for activity in activities:
             prereq_groups.append((a, ps))
     activity['prereq_groups'] = prereq_groups
 
-    with open('output/activity/%s.html' % activity['urlname'], 'w') as f:
+    with open('output/activity-%s.html' % activity['urlname'], 'w') as f:
         f.write(env.get_template('activity.html').render(activity=activity))
 
 with open('output/index.html', 'w') as f:

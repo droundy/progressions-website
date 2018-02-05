@@ -41,7 +41,7 @@
           {{ course.name }}
         </a>
         {% for concept in course.concepts %}
-        <a href="concept/{{concept.urlname}}.html" class="concept">
+        <a href="concept-{{concept.urlname}}.html" class="concept">
           {{ concept.name }}
         </a>
         {% endfor %}
@@ -55,11 +55,11 @@
         </div></a>
         {% for activity in course.activities %}
         <div class="activity-grouping">
-          <a href="activity/{{activity.urlname}}.html" class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{activity.urlname}}">
+          <a href="activity-{{activity.urlname}}.html" class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{activity.urlname}}">
             {{ activity.name }}
           </a>
           {% for concept in activity.concepts %}
-          <a href="concept/{{concept.urlname}}.html" class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">
+          <a href="concept-{{concept.urlname}}.html" class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">
             {{ concept.name }}
           </a>
           {% endfor %}
