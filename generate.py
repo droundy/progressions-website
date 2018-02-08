@@ -1,5 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
-import os
+import os, csv, slugify
 
 env = Environment(
     loader=FileSystemLoader('templates'),
@@ -16,8 +16,11 @@ concept_map = {}
 all_courses = [
     {'number': 'winco', 'name': 'grocery store'},
     {'number': 'K12', 'name': 'elementary school'},
-    {'number': 'PH423', 'name': 'Energy and Entropy'},
-    {'number': 'PH441', 'name': 'Thermal Capstone'},
+    {'number': 'PH 423', 'name': 'Energy and Entropy'},
+    {'number': 'PH 441', 'name': 'Thermal Capstone'},
+    {'number': 'PH 422', 'name': 'Static Fields'},
+    {'number': 'MTH 251', 'name': 'Differential Calculus'},
+    {'number': 'MTH 254', 'name': 'Multivariable Calculus'},
 ]
 course_map = {}
 for c in all_courses:
@@ -84,6 +87,36 @@ def new_concept(urlname, name, prereqs, course=None):
     concept_map[name] = c
     return c
 
+def parse_list(s):
+    if s[0] == '[' and s[-1] == ']':
+        return list(filter(lambda x: x not in [''], s[1:-1].split(',')))
+    else:
+        return []
+
+with open('progression.csv', 'r') as csvfile:
+     lines = list(csv.reader(csvfile, delimiter=',', quotechar='"'))
+     for line in lines:
+         kind = line[0]
+         name = line[1]
+         urlname = line[2]
+         if urlname == '':
+             urlname = slugify.slugify(name)
+         prereqs = parse_list(line[3])
+         new_concepts = parse_list(line[4])
+         representations = parse_list(line[5])
+         course_number = line[6]
+         generic_course = line[7]
+         description = line[8]
+         external_url = line[9]
+         status = line[10]
+         if status == 'Active':
+             if kind == 'Concept':
+                 print('concept:', name, urlname)
+                 new_concept(urlname, name, prereqs, course_number)
+             elif kind == 'Activity':
+                 print('activity:', name)
+                 new_activity(urlname, name, course_number, prereqs, new_concepts)
+
 new_concept('reading', 'reading', [], 'elementary school')
 new_concept('writing', 'writing', [], 'elementary school')
 new_concept('arithmetic', 'arithmetic', [], 'elementary school')
@@ -93,12 +126,12 @@ new_concept('tailoring', 'tailoring', ['sewing'])
 
 new_concept('eating', 'eating', ['food'])
 
-new_activity('activity-1', 'activity 1', 'PH423', ['writing', 'reading'], ['eating'])
-new_activity('activity-2', 'activity 2', 'PH423', ['food', 'arithmetic', 'eating'], ['sewing'])
-new_activity('activity-0', 'activity 0 (last)', 'PH423', ['sewing'],
+new_activity('activity-1', 'activity 1', 'PH 423', ['writing', 'reading'], ['eating'])
+new_activity('activity-2', 'activity 2', 'PH 423', ['food', 'arithmetic', 'eating'], ['sewing'])
+new_activity('activity-0', 'activity 0 (last)', 'PH 423', ['sewing'],
              ['fitting', 'tailoring'])
 
-new_activity('senior-1', 'senior activity', 'PH441', ['tailoring'],
+new_activity('senior-1', 'senior activity', 'PH 441', ['tailoring'],
              ['fashion'])
 
 os.makedirs('output', exist_ok=True)
@@ -117,7 +150,7 @@ for course in all_courses:
             c.append(x)
     for x in a:
         for p in x['prereqs']:
-            if p['course'] != course:
+            if p['course'] != course and p['course'] is not None:
                 if p['course']['number'] not in prereq_courses:
                     prereq_courses[p['course']['number']] = []
                 prereq_courses[p['course']['number']].append(p)
@@ -141,7 +174,7 @@ for activity in activities:
 for concept in concepts:
     prereq_courses = {}
     for p in concept['prereqs']:
-        if p['course'] != concept['course']:
+        if p['course'] != concept['course'] and p['course'] is not None:
             if p['course']['number'] not in prereq_courses:
                 prereq_courses[p['course']['number']] = []
                 prereq_courses[p['course']['number']].append(p)
@@ -173,7 +206,7 @@ for concept in concepts:
 for activity in activities:
     prereq_courses = {}
     for p in activity['prereqs']:
-        if p['course'] != activity['course']:
+        if p['course'] != activity['course'] and p['course'] is not None:
             if p['course']['number'] not in prereq_courses:
                 prereq_courses[p['course']['number']] = []
                 prereq_courses[p['course']['number']].append(p)
