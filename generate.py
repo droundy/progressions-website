@@ -14,9 +14,9 @@ activity_map = {}
 concept_map = {}
 
 all_courses = [
-    {'number': 'winco', 'name': 'grocery store'},
-    {'number': 'K12', 'name': 'elementary school'},
-    {'number': 'PH 423', 'name': 'Energy and Entropy'},
+    # {'number': 'winco', 'name': 'grocery store'},
+    # {'number': 'K12', 'name': 'elementary school'},
+    # {'number': 'PH 423', 'name': 'Energy and Entropy'},
     {'number': 'PH 441', 'name': 'Thermal Capstone'},
     {'number': 'PH 422', 'name': 'Static Fields'},
     {'number': 'MTH 251', 'name': 'Differential Calculus'},
@@ -117,22 +117,22 @@ with open('progression.csv', 'r') as csvfile:
                  print('activity:', name)
                  new_activity(urlname, name, course_number, prereqs, new_concepts)
 
-new_concept('reading', 'reading', [], 'elementary school')
-new_concept('writing', 'writing', [], 'elementary school')
-new_concept('arithmetic', 'arithmetic', [], 'elementary school')
-new_concept('food', 'food', [], 'grocery store')
+# new_concept('reading', 'reading', [], 'elementary school')
+# new_concept('writing', 'writing', [], 'elementary school')
+# new_concept('arithmetic', 'arithmetic', [], 'elementary school')
+# new_concept('food', 'food', [], 'grocery store')
 
-new_concept('tailoring', 'tailoring', ['sewing'])
+# new_concept('tailoring', 'tailoring', ['sewing'])
 
-new_concept('eating', 'eating', ['food'])
+# new_concept('eating', 'eating', ['food'])
 
-new_activity('activity-1', 'activity 1', 'PH 423', ['writing', 'reading'], ['eating'])
-new_activity('activity-2', 'activity 2', 'PH 423', ['food', 'arithmetic', 'eating'], ['sewing'])
-new_activity('activity-0', 'activity 0 (last)', 'PH 423', ['sewing'],
-             ['fitting', 'tailoring'])
+# new_activity('activity-1', 'activity 1', 'PH 423', ['writing', 'reading'], ['eating'])
+# new_activity('activity-2', 'activity 2', 'PH 423', ['food', 'arithmetic', 'eating'], ['sewing'])
+# new_activity('activity-0', 'activity 0 (last)', 'PH 423', ['sewing'],
+#              ['fitting', 'tailoring'])
 
-new_activity('senior-1', 'senior activity', 'PH 441', ['tailoring'],
-             ['fashion'])
+# new_activity('senior-1', 'senior activity', 'PH 441', ['tailoring'],
+#              ['fashion'])
 
 os.makedirs('output', exist_ok=True)
 

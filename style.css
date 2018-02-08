@@ -298,7 +298,7 @@ article > .concept .concept:after {
 }
 
 @media only screen and (min-width: 24em) {
-    .has3, .has2, .has4 {
+    .has3, .has2, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
         grid-column-end: span 2;
         flex-grow: 2;
         flex-shrink: 2;
@@ -307,7 +307,7 @@ article > .concept .concept:after {
 }
 
 @media only screen and (min-width: 36em) {
-    .has3, .has4 {
+    .has3, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
         grid-column-end: span 3;
         flex-grow: 3;
         flex-shrink: 3;
@@ -322,6 +322,66 @@ article > .concept .concept:after {
 }
 
 @media only screen and (min-width: 48em) {
+    .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
+        grid-column-end: span 4;
+        flex-grow: 4;
+        flex-shrink: 4;
+        flex-basis: 40em;
+    }
+    .has3 {
+        grid-column-end: span 3;
+        flex-grow: 3;
+        flex-shrink: 3;
+        flex-basis: 30em;
+    }
+    .has2 {
+        grid-column-end: span 2;
+        flex-grow: 2;
+        flex-shrink: 2;
+        flex-basis: 20em;
+    }
+}
+
+@media only screen and (min-width: 60em) {
+    .has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
+        grid-column-end: span 5;
+        flex-grow: 5;
+        flex-shrink: 5;
+        flex-basis: 50em;
+    }
+    .has4 {
+        grid-column-end: span 4;
+        flex-grow: 4;
+        flex-shrink: 4;
+        flex-basis: 40em;
+    }
+    .has3 {
+        grid-column-end: span 3;
+        flex-grow: 3;
+        flex-shrink: 3;
+        flex-basis: 30em;
+    }
+    .has2 {
+        grid-column-end: span 2;
+        flex-grow: 2;
+        flex-shrink: 2;
+        flex-basis: 20em;
+    }
+}
+
+@media only screen and (min-width: 72em) {
+    .has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
+        grid-column-end: span 6;
+        flex-grow: 6;
+        flex-shrink: 6;
+        flex-basis: 60em;
+    }
+    .has5, {
+        grid-column-end: span 5;
+        flex-grow: 5;
+        flex-shrink: 5;
+        flex-basis: 50em;
+    }
     .has4 {
         grid-column-end: span 4;
         flex-grow: 4;
