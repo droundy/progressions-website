@@ -1,3 +1,5 @@
 | python3 generate.py
 
 | mkdir -p output && cp style.css output/
+
+| libreoffice --headless --convert-to csv progression.xlsx
