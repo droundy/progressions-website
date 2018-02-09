@@ -135,7 +135,7 @@ for course in all_courses:
         }))
 
 for activity in activities:
-    with open('output/activity/%s.html' % activity['urlname'], 'w') as f:
+    with open('output/activity-%s.html' % activity['urlname'], 'w') as f:
         f.write(env.get_template('activity.html').render(activity=activity))
 
 for concept in concepts:
