@@ -17,10 +17,10 @@ all_courses = [
     # {'number': 'winco', 'name': 'grocery store'},
     # {'number': 'K12', 'name': 'elementary school'},
     # {'number': 'PH 423', 'name': 'Energy and Entropy'},
-    {'number': 'PH 441', 'name': 'Thermal Capstone'},
-    {'number': 'PH 422', 'name': 'Static Fields'},
     {'number': 'MTH 251', 'name': 'Differential Calculus'},
     {'number': 'MTH 254', 'name': 'Multivariable Calculus'},
+    {'number': 'PH 422', 'name': 'Static Fields'},
+    {'number': 'PH 441', 'name': 'Thermal Capstone'},
 ]
 course_map = {}
 for c in all_courses:
@@ -31,11 +31,11 @@ for c in all_courses:
 
 def lookup_activity(a):
     if a not in activity_map:
-        new_activity(a,a,'???', [], [])
+        new_activity(slugify.slugify(a),a,'???', [], [])
     return activity_map[a]
 def lookup_concept(c):
     if c not in concept_map:
-        new_concept(c,c,[])
+        new_concept(slugify.slugify(c),c,[])
     return concept_map[c]
 def fix_concept_list(xs):
     output = []
