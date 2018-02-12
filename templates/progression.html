@@ -50,13 +50,18 @@
 
       <div class="progression">
         {% for course in courses %}
-        <a href="{{course.number}}.html"><div class="course">
+        <a href="{{course.number}}.html" class="course">
           {{ course.number }}: {{ course.name }}
-        </div></a>
+        </a>
         {% for activity in course.activities %}
         <div class="activity-grouping">
           <a href="activity-{{activity.urlname}}.html" class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{activity.urlname}}">
             {{ activity.name }}
+            {% for r in activity.representations %}
+            <div class="representation">
+              {{ r }}
+            </div>
+            {% endfor %}
           </a>
           {% for concept in activity.concepts %}
           <a href="concept-{{concept.urlname}}.html" class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">

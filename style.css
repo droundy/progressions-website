@@ -49,15 +49,14 @@ a, a:link, a:active, a:hover {
 
 .representation {
     background-color: cyan;
-    padding: 0.5em 0.75em 0.5em 0.75em;
+    padding: 0.25em 0.5em 0.25em 0.5em;
     border-radius: 10em;
     justify-self: center;
     border-width: .1em;
     border-color: black;
     border-style: solid;
 
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+    margin: 0.125em 0.25em 0.125em 0.25em;
     /* flex-grow: 1; */
     /* flex-shrink: 1; */
     /* flex-basis: 10em; */
@@ -168,18 +167,6 @@ article > .concept {
     flex-basis: 100%;
 }
 
-article > .activity .activity {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    font-weight: bold;
-    font-size: 1.5em;
-    background-color: transparent;
-    border-style: none;
-}
-
 article > .concept .concept {
     position: absolute;
     top: 0;
@@ -274,6 +261,7 @@ article > .concept .concept:after {
     font-size: 2em;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 1em;
 }
 
 .progression .activity-grouping {
@@ -286,15 +274,35 @@ article > .concept .concept:after {
     display: grid;
     grid-template-columns: [actions] minmax(10em, 1fr) 1fr [concepts] minmax(10em, 3fr);
 }
-.progression .activity-grouping .activity {
+.progression .activity-grouping > .activity {
     grid-column: actions;
-    position: static;
+    position: relative;
     height: auto;
     padding: 0;
+    padding-top: 1.5em;
     margin: 0;
+
+    display: flex;
+    flex-wrap: wrap;
 }
 .progression .activity-grouping .concept {
     grid-column: concepts;
+}
+
+.activity .activity {
+    position: absolute;
+    top: -.5em;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: transparent;
+    border-style: none;
+}
+
+article > .activity .activity {
+    top: 0;
+    font-weight: bold;
+    font-size: 1.5em;
 }
 
 @media only screen and (min-width: 24em) {

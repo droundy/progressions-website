@@ -61,12 +61,11 @@
         <div class="activity">
           {{activity.name}}
         </div>
+        {% for r in activity.representations %}
         <div class="representation">
-          $dF$
+          {{ r }}
         </div>
-        <div class="representation">
-          Tree diagrams
-        </div>
+        {% endfor %}
       </div>
       <div class="output">
         {% for c in activity.concepts %}

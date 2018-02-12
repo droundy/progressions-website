@@ -65,12 +65,11 @@
         <div class="concept">
           {{concept.name}}
         </div>
+        {% for r in concept.representations %}
         <div class="representation">
-          $dF$
+          {{ r }}
         </div>
-        <div class="representation">
-          Tree diagrams
-        </div>
+        {% endfor %}
       </div>
       {% for activity, concepts in concept.output_groups %}
       <div class="activity-grouping has{{concepts|length}}">

@@ -43,7 +43,7 @@ def fix_concept_list(xs):
         output.append(lookup_concept(x))
     return output
 
-def new_activity(urlname, name, course, prereqs, concepts):
+def new_activity(urlname, name, course, prereqs, concepts, representations=[]):
     if urlname in activity_map:
         c = activity_map[urlname]
     elif name in  activity_map:
@@ -55,6 +55,7 @@ def new_activity(urlname, name, course, prereqs, concepts):
     course = course_map[course]
     course['activities'].append(c)
     c['course'] = course
+    c['representations'] = representations
     c['prereqs'] = fix_concept_list(prereqs)
     c['concepts'] = fix_concept_list(concepts)
     for x in c['concepts']:
@@ -104,6 +105,8 @@ with open('progression.csv', 'r') as csvfile:
          prereqs = parse_list(line[3])
          new_concepts = parse_list(line[4])
          representations = parse_list(line[5])
+         if len(representations) > 0:
+             print('representations:', representations)
          course_number = line[6]
          generic_course = line[7]
          description = line[8]
@@ -115,7 +118,8 @@ with open('progression.csv', 'r') as csvfile:
                  new_concept(urlname, name, prereqs, course_number)
              elif kind == 'Activity':
                  print('activity:', name)
-                 new_activity(urlname, name, course_number, prereqs, new_concepts)
+                 new_activity(urlname, name, course_number, prereqs, new_concepts,
+                              representations=representations)
 
 # new_concept('reading', 'reading', [], 'elementary school')
 # new_concept('writing', 'writing', [], 'elementary school')
