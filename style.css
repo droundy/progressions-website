@@ -279,10 +279,11 @@ article > .concept .concept:after {
     grid-column: actions;
     position: relative;
     height: auto;
-    margin-bottom: auto;
     padding: 0;
     padding-top: 1.5em;
     margin: 0;
+
+    align-self: start;
 
     display: flex;
     flex-wrap: wrap;
