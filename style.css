@@ -269,7 +269,8 @@ article > .concept .concept:after {
     grid-column-end: -1;
     flex-basis: 100%;
 
-    margin: 0;
+    margin: 0.5em 0 0 0;
+    padding: 0;
 
     display: grid;
     grid-template-columns: [actions] minmax(10em, 1fr) 1fr [concepts] minmax(10em, 3fr);
@@ -278,6 +279,7 @@ article > .concept .concept:after {
     grid-column: actions;
     position: relative;
     height: auto;
+    margin-bottom: auto;
     padding: 0;
     padding-top: 1.5em;
     margin: 0;
@@ -285,8 +287,9 @@ article > .concept .concept:after {
     display: flex;
     flex-wrap: wrap;
 }
-.progression .activity-grouping .concept {
+.progression .activity-grouping .concepts {
     grid-column: concepts;
+    display: block;
 }
 
 .activity .activity {

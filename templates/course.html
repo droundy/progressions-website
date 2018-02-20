@@ -62,11 +62,13 @@
             </div>
             {% endfor %}
           </a>
-          {% for concept in activity.concepts %}
-          <a href="concept-{{concept.urlname}}.html" class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">
-            {{ concept.name }}
-          </a>
-          {% endfor %}
+          <div class="concepts">
+            {% for concept in activity.concepts %}
+            <a href="concept-{{concept.urlname}}.html" class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">
+              {{ concept.name }}
+            </a>
+            {% endfor %}
+          </div>
         </div>
         {% endfor %}
       </div>
