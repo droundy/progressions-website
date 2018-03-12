@@ -6,7 +6,7 @@ fac -v
 
 SITEDIR=public_html/progression
 
-ssh science.oregonstate.edu "rm -fv $SITEDIR"
+ssh science.oregonstate.edu "rm -rfv $SITEDIR"
 ssh science.oregonstate.edu "mkdir -p $SITEDIR"
 
 scp output/* science.oregonstate.edu:$SITEDIR/
