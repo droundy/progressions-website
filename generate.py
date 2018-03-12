@@ -20,7 +20,7 @@ all_courses = [
     {'number': 'MTH 251', 'name': 'Differential Calculus'},
     {'number': 'MTH 254', 'name': 'Multivariable Calculus'},
     {'number': 'PH 422', 'name': 'Static Fields'},
-    {'number': 'PH 441', 'name': 'Thermal Capstone'},
+    # {'number': 'PH 441', 'name': 'Thermal Capstone'},
 ]
 course_map = {}
 for c in all_courses:
