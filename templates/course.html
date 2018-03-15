@@ -32,8 +32,10 @@
     </header>
 
     <svg id="arrows-svg" width="0" height="0">
-    <path id="arrows" d="M0 0"
-          fill="none" stroke="blue" stroke-width="2" stroke-linecap="round" />
+    <path id="left-arrows" d="M0 0"
+          fill="none" stroke-width="2" stroke-linecap="round" />
+    <path id="right-arrows" d="M0 0"
+          fill="none" stroke-width="2" stroke-linecap="round" />
     </svg>
     <article>
       {% for course, concepts in course.prereq_courses %}
@@ -133,7 +135,7 @@ function connectAll() {
     $("#arrows-svg").attr("height", "0");
     $("#arrows-svg").attr("width", "0");
     var svg = $("#arrows-svg");
-    var arrows = $("#arrows");
+    var arrows = $("#left-arrows");
     arrows.attr("d", "M0 0");
 
     $(".activity").each(function(i,from) {
@@ -144,6 +146,9 @@ function connectAll() {
             });
         }
     });
+
+    var arrows = $("#right-arrows");
+    arrows.attr("d", "M0 0");
     $(".concept").each(function(i,from) {
         if (from.id != '') {
             $(".activity.from-"+from.id).each(function(i,to) {

@@ -3,6 +3,12 @@
     position:absolute;
     pointer-events: none;
 }
+#left-arrows {
+    stroke: red;
+}
+#right-arrows {
+    stroke: #f90;
+}
 
 a, a:link, a:active, a:hover {
     text-decoration: none;
