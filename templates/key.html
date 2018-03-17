@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{{activity.name}}</title>
+  <title>Key</title>
   <link rel="stylesheet" href="style.css">
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -30,7 +30,7 @@
 
     <article>
       <div class="course-prereq has2">
-        <a href="{{course.number}}.html" class="course">
+        <a href="key.html" class="course">
           Prereq course
         </a>
         <a href="concept.html" class="concept">
@@ -42,36 +42,40 @@
       </div>
 
       <div class="prereq">
-        {% for activity, concepts in activity.prereq_groups %}
-        <div class="activity-grouping has{{concepts|length}}">
-          <a href="activity-{{activity.urlname}}.html" class="activity">
-            {{activity.name}}
+        <div class="activity-grouping has3">
+          <a href="activity-test.html" class="activity">
+            Test activity
           </a>
-          {% for c in concepts %}
-          <a href="concept-{{c.urlname}}.html" class="concept">
-            {{ c.name }}
+          <a href="concept-demo.html" class="concept">
+            First concept
           </a>
-          {% endfor %}
+          <a href="concept-demo.html" class="concept">
+            Second concept
+          </a>
+          <a href="concept-demo.html" class="concept">
+            Third concept
+          </a>
         </div>
-        {% endfor %}
       </div>
 
       <div class="activity">
         <div class="activity">
-          {{activity.name}}
+          This activity
         </div>
-        {% for r in activity.representations %}
         <div class="representation">
-          {{ r }}
+          First representation
         </div>
-        {% endfor %}
+        <div class="representation">
+          Second representation
+        </div>
       </div>
       <div class="output">
-        {% for c in activity.concepts %}
-        <a href="concept-{{c.urlname}}.html" class="concept">
-          {{ c.name }}
+        <a href="concept-key.html" class="concept">
+          Concept taught in activity
         </a>
-        {% endfor %}
+        <a href="concept-key.html" class="concept">
+          Another concept taught in activity
+        </a>
       </div>
     </article>
   </main>
