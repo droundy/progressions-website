@@ -236,3 +236,6 @@ with open('output/index.html', 'w') as f:
         courses = [c for c in all_courses if len(c['activities']) > 0],
         prereq_courses = [c for c in all_courses if len(c['activities']) == 0],
     ))
+
+with open('output/key.html', 'w') as f:
+    f.write(env.get_template('key.html').render())
