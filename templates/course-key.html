@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Key</title>
+  <title>Key for course pages</title>
   <link rel="stylesheet" href="style.css">
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -15,6 +15,9 @@
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+          integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+          crossorigin="anonymous"></script>
 </head>
 <body>
   <nav>
@@ -25,67 +28,185 @@
   </nav>
   <main>
     <header>
-      <h1>Key</h1>
+      <h1>Key for course pages</h1>
     </header>
 
+    <svg id="arrows-svg" width="0" height="0">
+    <path id="left-arrows" d="M0 0"
+          fill="none" stroke-width="2" stroke-linecap="round" />
+    <path id="right-arrows" d="M0 0"
+          fill="none" stroke-width="2" stroke-linecap="round" />
+    </svg>
     <article>
-      <div class="course-prereq has2">
+      <div class="course-prereq has3">
         <a href="key.html" class="course">
-          Courses look like this
+          Prerequisite course
         </a>
-        <a href="concept.html" class="concept">
-          Concepts look like this
+        <a href="concept-key.html" class="concept">
+          Concepts from this prerequisite that students should know
+          for this activity.
         </a>
-        <a href="concept.html" class="concept">
-          The shading grouping these concepts indicates that they are
-          all taught in the same prerequisite course.
+        <a href="concept-key.html" class="concept">
+          Another concept required for this activity.
+        </a>
+        <a href="concept-key.html" class="concept">
+          As in all our pages, time is ordered in a downward direction.
         </a>
       </div>
 
-      <div class="prereq">
-        <div class="activity-grouping has2">
-          <a href="activity-test.html" class="activity">
-            Activity in teaching concepts needed for this activity
-          </a>
-          <a href="concept-demo.html" class="concept">
-            Concepts taught in an activity are grouped below it
-          </a>
-          <a href="concept-demo.html" class="concept">
-            We only show the concepts taught which are prerequisites
-            for the main activity described on an activity page.
-          </a>
-        </div>
+      <div class="course-prereq has1">
+        <a href="key.html" class="course">
+          Another prerequisite course
+        </a>
+        <a href="concept-key.html" class="concept">
+          The activity page shows a focus on a single activity.  All
+          concepts shown are either prerequisites for doing that
+          activity, or (at the bottom) are concepts taught in the main
+          activity.
+        </a>
       </div>
 
-      <div class="activity">
-        <div class="activity">
-          An activity looks like this
+      <div class="progression">
+        <div class="activity-grouping">
+          <a href="activity-key.html" class="activity from-foo" id="first-activity">
+            <div class="activity">
+              First activity in the class
+            </div>
+            <div class="representation">
+              First representation
+            </div>
+            <div class="representation">
+              Second representation
+            </div>
+          </a>
+          <div class="concepts">
+            <a href="concept-key.html" class="concept from-first-activity" id="first">
+              The concepts taught in each activity are listed over here.
+            </a>
+            <a href="concept-key.html" class="concept from-first-activity" id="second">
+              Most activities introduce several concepts.
+            </a>
+            <a href="concept-key.html" class="concept from-first-activity" id="third">
+              This is the third concept introduced in the course.
+            </a>
+          </div>
         </div>
-        <div class="representation">
-          First representation used in the activity
+        <div class="activity-grouping">
+          <a href="activity-key.html" class="activity from-first" id="bar">
+            <div class="activity">
+              The second activity in the class.  This activity
+              requires the first concept taught in the previous
+              activity, but not the other two.
+            </div>
+          </a>
+          <div class="concepts">
+            <a href="concept-key.html" class="concept from-bar" id="next">
+              This concept is taught in the second activity.
+            </a>
+          </div>
         </div>
-        <div class="representation">
-          Second representation used in the activity
+        <div class="activity-grouping">
+          <a href="activity-key.html" class="activity from-second from-next" id="a3">
+            <div class="activity">
+              The third activity in the class, which depends on two
+              prior activities.
+            </div>
+          </a>
+          <div class="concepts">
+            <a href="concept-key.html" class="concept from-a3" id="last">
+              This concept is taught in the third activity.
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="output">
-        <a href="concept-key.html" class="concept">
-          Concept taught in activity
-        </a>
-        <a href="concept-key.html" class="concept">
-          Another concept taught in activity
-        </a>
       </div>
     </article>
   </main>
 </body>
   <script>
-    document.body.onclick= function(e){
-      e=window.event? event.srcElement: e.target;
-      if(e.parentNode.nodeName && e.parentNode.nodeName == 'DETAIL' && e.nodeName == 'H1') {
-        e.parentNode.classList.toggle('active');
-      }
+function connectElements(svg, path, start, end) {
+    var stroke = 0;// path.attr("stroke-width");
+
+    end = $(end); // always convert to a jQuery "thing"
+    start = $(start); // always convert to a jQuery "thing"
+    var startWidth = start.outerWidth();
+    var startHeight = start.outerHeight();
+    var endWidth = end.outerWidth();
+    var endHeight = end.outerHeight();
+
+    var svgcoord = svg.offset();
+    var startcoord = start.offset();
+    var endcoord = end.offset();
+    var startX = startcoord.left + 0.5*startWidth - svgcoord.left;
+    var startY = startcoord.top + startHeight - svgcoord.top;
+    var endX = endcoord.left + 0.5*endWidth - svgcoord.left;
+    var endY = endcoord.top - svgcoord.top;
+    var rightgoing = endX > startX + 10;
+    var leftgoing = endX + 10 < startX;
+    if (rightgoing) {
+        startX = startcoord.left + startWidth - svgcoord.left;
+        startY = startcoord.top + 0.5*startHeight - svgcoord.top;
+    } else if (leftgoing) {
+        startX = startcoord.left - svgcoord.left;
+        startY = startcoord.top + 0.5*startHeight - svgcoord.top;
     }
+    if (leftgoing) {
+        endX = endcoord.left + endWidth - svgcoord.left;
+        endY = endcoord.top + 0.5*endHeight - svgcoord.top;
+    } else if (rightgoing) {
+        endX = endcoord.left - svgcoord.left;
+        endY = endcoord.top + 0.5*endHeight - svgcoord.top;
+    }
+
+    // check if the svg is big enough to draw the path, if not, set heigh/width
+    svg.attr("width", Math.max(svg.attr("width"), startX, endX));
+    svg.attr("height", Math.max(svg.attr("height"), startY+startHeight, endY+endHeight));
+
+    var dist = Math.sqrt(Math.pow(startX-endX,2)+Math.pow(startY-endY,2));
+    var theta = 0.2;
+    var dx = 20*(endX - startX)/dist;
+    var dy = 20*(endY - startY)/dist;
+    path.attr("d",  path.attr("d")
+              + " M"  + startX + " " + startY
+              + " L" + endX + " " + endY
+              + " M" + (endX - dx*Math.cos(theta) - dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) + dx*Math.sin(theta))
+              + " L" + endX + " " + endY
+              + " M" + (endX - dx*Math.cos(theta) + dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) - dx*Math.sin(theta))
+              + " L" + endX + " " + endY );
+}
+
+function connectAll() {
+    // reset svg each time
+    $("#arrows-svg").attr("height", "0");
+    $("#arrows-svg").attr("width", "0");
+    var svg = $("#arrows-svg");
+    var arrows = $("#left-arrows");
+    arrows.attr("d", "M0 0");
+
+    $(".activity").each(function(i,from) {
+        if (from.id != '') {
+            $(".concept.from-"+from.id).each(function(i,to) {
+                console.log('arrow connecting', from, to);
+                connectElements(svg, arrows, from, to);
+            });
+        }
+    });
+
+    var arrows = $("#right-arrows");
+    arrows.attr("d", "M0 0");
+    $(".concept").each(function(i,from) {
+        if (from.id != '') {
+            $(".activity.from-"+from.id).each(function(i,to) {
+                console.log('arrow connecting', from, to);
+                connectElements(svg, arrows, from, to);
+            });
+        }
+    });
+}
+
+$(document).ready(function() {
+    $(window).resize(connectAll);
+    connectAll();
+});
   </script>
 </html>
 
