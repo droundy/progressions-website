@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Key for concept pages</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    TeX: { equationNumbers: { autoNumber: "AMS" } },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+    });
+  </script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="key.html">Key</a></li>
+    </ul>
+  </nav>
+  <main>
+    <header>
+      <h1>Key for concept pages</h1>
+    </header>
+
+    <article>
+      <div class="course-prereq has3">
+        <a href="key.html" class="course">
+          Prerequisite course
+        </a>
+        <a href="concept-key.html" class="concept">
+          Concepts from this prerequisite that students should know
+          in order to learn the main concept of this page.
+        </a>
+        <a href="concept-key.html" class="concept">
+          Another concept required for this concept.
+        </a>
+        <a href="concept-key.html" class="concept">
+          As in all our pages, time is ordered in a downward direction.
+        </a>
+      </div>
+
+      <div class="course-prereq has1">
+        <a href="key.html" class="course">
+          Another prerequisite course
+        </a>
+        <a href="concept-key.html" class="concept">
+          The concept page shows a focus on a single concept.  All
+          concepts shown are either prerequisites for doing that
+          activity, or (at the bottom) are concepts that require the
+          main concept of this page to be taught first.
+        </a>
+      </div>
+
+      <div class="prereq">
+        <div class="activity-grouping has2">
+          <a href="activity-key.html" class="activity">
+            Activity which teaches concepts needed for this concept
+          </a>
+          <a href="concept-key.html" class="concept">
+            We group concepts that are taught in the same course as
+            the main concept according to which activity introduces
+            those concepts.
+          </a>
+          <a href="concept-key.html" class="concept">
+            We only show the concepts taught by this activity which
+            are prerequisites for the main concept described on a
+            concept page.
+          </a>
+        </div>
+        <div class="activity-grouping has1">
+          <a href="activity-key.html" class="activity">
+            A second activity
+          </a>
+          <a href="concept-key.html" class="concept">
+            Each course, activity, or concept may be clicked on to see
+            its own page.
+          </a>
+        </div>
+      </div>
+
+      <div class="concept">
+        <a href="activity-key.html" class="activity">
+          The activity that teaches this concept
+        </a>
+        <div class="concept">
+          The concept this page is about
+        </div>
+        <div class="representation">
+          A representation that is associated with this activity
+        </div>
+        <div class="representation">
+          A second representation associated with this activity
+        </div>
+        A long description of the concept is here.  This description
+        should be adequate to understand why this concept is
+        important, and how it is distinct from other related
+        concepts.
+      </div>
+      <div class="activity-grouping has1">
+        <a href="activity-key.html" class="activity">
+          Activity that relies students having learned this concept
+        </a>
+        <a href="concept-key.html" class="concept">
+          A concept taught by this activty, which inherently requires
+          students to have learned the main concept of the page.
+        </a>
+      </div>
+      <div class="activity-grouping has2">
+        <a href="activity-key.html" class="activity">
+          Another activity depending on the main concept
+        </a>
+        <a href="concept-key.html" class="concept">
+          As usual, we only show concepts here that explictly require
+          the main concept, rather than all concepts taught by these
+          activities.
+        </a>
+        <a href="concept-key.html" class="concept">
+          Another concept requiring the main one.
+        </a>
+      </div>
+    </article>
+  </main>
+</body>
+  <script>
+    document.body.onclick= function(e){
+      e=window.event? event.srcElement: e.target;
+      if(e.parentNode.nodeName && e.parentNode.nodeName == 'DETAIL' && e.nodeName == 'H1') {
+        e.parentNode.classList.toggle('active');
+      }
+    }
+  </script>
+</html>
+

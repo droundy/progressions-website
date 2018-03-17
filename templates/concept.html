@@ -20,8 +20,8 @@
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="key.html">Key</a></li>
-      <li><a href="{{concept.course.number}}.html">{{concept.course.number}}</a></li>
+      <li><a href="concept-key.html">Concept page key</a></li>
+      <li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
     </ul>
   </nav>
   <main>
@@ -59,7 +59,7 @@
       </div>
       <div class="concept">
         {% if concept.activity %}
-        <a class="activity">
+        <a href="activity-{{concept.activity.urlname}}.html" class="activity">
           {{concept.activity.name}}
         </a>
         {% endif %}

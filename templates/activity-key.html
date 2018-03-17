@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Key for activity pages</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    TeX: { equationNumbers: { autoNumber: "AMS" } },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+    });
+  </script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="key.html">Key</a></li>
+    </ul>
+  </nav>
+  <main>
+    <header>
+      <h1>Key for activity pages</h1>
+    </header>
+
+    <article>
+      <div class="course-prereq has3">
+        <a href="key.html" class="course">
+          Prerequisite course
+        </a>
+        <a href="concept-key.html" class="concept">
+          Concepts from this prerequisite that students should know
+          for this activity.
+        </a>
+        <a href="concept-key.html" class="concept">
+          Another concept required for this activity.
+        </a>
+        <a href="concept-key.html" class="concept">
+          As in all our pages, time is ordered in a downward direction.
+        </a>
+      </div>
+
+      <div class="course-prereq has1">
+        <a href="key.html" class="course">
+          Another prerequisite course
+        </a>
+        <a href="concept-key.html" class="concept">
+          The activity page shows a focus on a single activity.  All
+          concepts shown are either prerequisites for doing that
+          activity, or (at the bottom) are concepts taught in the main
+          activity.
+        </a>
+      </div>
+
+      <div class="prereq">
+        <div class="activity-grouping has2">
+          <a href="activity-key.html" class="activity">
+            Activity which teaches concepts needed for this activity
+          </a>
+          <a href="concept-key.html" class="concept">
+            We group concepts that are taught in the same course as
+            the activity is in according to which activity introduces
+            those concepts.
+          </a>
+          <a href="concept-key.html" class="concept">
+            We only show the concepts taught by this activity which
+            are prerequisites for the main activity described on an
+            activity page.
+          </a>
+        </div>
+        <div class="activity-grouping has1">
+          <a href="activity-key.html" class="activity">
+            A second activity
+          </a>
+          <a href="concept-key.html" class="concept">
+            Each course, activity, or concept may be clicked on to see
+            its own page.
+          </a>
+        </div>
+      </div>
+
+      <div class="activity">
+        <div class="activity">
+          The activity this page is about
+        </div>
+        <div class="representation">
+          First representation used in this activity
+        </div>
+        <div class="representation">
+          Second representation used in this activity
+        </div>
+        A description of this activity, giving useful information for
+        deciding when and how you might be interested in teaching it.
+        Part of this description will include a link to more thorough
+        instructions on using it in the classroom.
+      </div>
+      <div class="output">
+        <a href="concept-key.html" class="concept">
+          Concepts taught in the activity are down here.
+        </a>
+        <a href="concept-key.html" class="concept">
+          Another concept taught in activity
+        </a>
+      </div>
+    </article>
+  </main>
+</body>
+  <script>
+    document.body.onclick= function(e){
+      e=window.event? event.srcElement: e.target;
+      if(e.parentNode.nodeName && e.parentNode.nodeName == 'DETAIL' && e.nodeName == 'H1') {
+        e.parentNode.classList.toggle('active');
+      }
+    }
+  </script>
+</html>
+

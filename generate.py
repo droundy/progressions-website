@@ -1,5 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
-import os, csv, slugify
+import os, csv, slugify, glob
 
 env = Environment(
     loader=FileSystemLoader('templates'),
@@ -237,5 +237,8 @@ with open('output/index.html', 'w') as f:
         prereq_courses = [c for c in all_courses if len(c['activities']) == 0],
     ))
 
-with open('output/key.html', 'w') as f:
-    f.write(env.get_template('key.html').render())
+for key in glob.glob('templates/*key.html'):
+    print(key)
+    key = key[len('templates/'):]
+    with open('output/'+key, 'w') as f:
+        f.write(env.get_template(key).render())
