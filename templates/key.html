@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{activity.name}}</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    TeX: { equationNumbers: { autoNumber: "AMS" } },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+    });
+  </script>
+  <script type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML">
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="key.html">Key</a></li>
+    </ul>
+  </nav>
+  <main>
+    <header>
+      <h1>Key</h1>
+    </header>
+
+    <article>
+      <div class="course-prereq has2">
+        <a href="{{course.number}}.html" class="course">
+          Prereq course
+        </a>
+        <a href="concept.html" class="concept">
+          Example concept
+        </a>
+        <a href="concept.html" class="concept">
+          Example concept
+        </a>
+      </div>
+
+      <div class="prereq">
+        {% for activity, concepts in activity.prereq_groups %}
+        <div class="activity-grouping has{{concepts|length}}">
+          <a href="activity-{{activity.urlname}}.html" class="activity">
+            {{activity.name}}
+          </a>
+          {% for c in concepts %}
+          <a href="concept-{{c.urlname}}.html" class="concept">
+            {{ c.name }}
+          </a>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="activity">
+        <div class="activity">
+          {{activity.name}}
+        </div>
+        {% for r in activity.representations %}
+        <div class="representation">
+          {{ r }}
+        </div>
+        {% endfor %}
+      </div>
+      <div class="output">
+        {% for c in activity.concepts %}
+        <a href="concept-{{c.urlname}}.html" class="concept">
+          {{ c.name }}
+        </a>
+        {% endfor %}
+      </div>
+    </article>
+  </main>
+</body>
+  <script>
+    document.body.onclick= function(e){
+      e=window.event? event.srcElement: e.target;
+      if(e.parentNode.nodeName && e.parentNode.nodeName == 'DETAIL' && e.nodeName == 'H1') {
+        e.parentNode.classList.toggle('active');
+      }
+    }
+  </script>
+</html>
+
