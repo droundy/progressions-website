@@ -8,6 +8,7 @@ html {
     --left-arrows-color: red;
     --right-arrows-color: #f90;
     --menu-color: #eee;
+    --minwidth: 10em;
 }
 
 /* ul li{display:block;position:relative;float:left;margin:0;height:2em;} */
@@ -83,10 +84,10 @@ a, a:link, a:active, a:hover {
     border-width: .1em;
     border-color: black;
     border-style: solid;
-    min-width: 10em;
+    min-width: var(--minwidth);
     flex-grow: 1;
     flex-shrink: 1;
-    flex-basis: 10em;
+    flex-basis: var(--minwidth);
 }
 
 .course {
@@ -111,14 +112,13 @@ a, a:link, a:active, a:hover {
     margin: 0.125em 0.25em 0.125em 0.25em;
     /* flex-grow: 1; */
     /* flex-shrink: 1; */
-    /* flex-basis: 10em; */
+    /* flex-basis: var(--minwidth); */
 }
 
 
 article {
     display: flex;
     flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
 .course-prereq {
@@ -133,11 +133,10 @@ article {
 
     display: flex;
     flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 
     flex-grow: 1;
     flex-shrink: 1;
-    flex-basis: 10em;
+    flex-basis: var(--minwidth);
 }
 
 .course-prereq .course {
@@ -151,21 +150,13 @@ article {
 }
 
 .prereq {
-    grid-column-start: 1;
-    grid-column-end: -1;
-
     display: flex;
     flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
 }
 
 .output {
-    grid-column-start: 1;
-    grid-column-end: -1;
-
     display: flex;
     flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
     flex-basis: 100%;
 }
 
@@ -175,10 +166,9 @@ article {
     padding-top: 3em;
     display: flex;
     flex-wrap: wrap;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
     flex-grow: 1;
     flex-shrink: 1;
-    flex-basis: 10em;
+    flex-basis: var(--minwidth);
 }
 
 .activity-grouping .activity {
@@ -198,24 +188,18 @@ article {
 
 article > .activity {
     position: relative;
-    grid-column-start: 1;
-    grid-column-end: -1;
     padding: 2em 1em 1em 1em;
     text-align: center;
     display: flex;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
     flex-basis: 100%;
 }
 
 article > .concept {
     position: relative;
-    grid-column-start: 1;
-    grid-column-end: -1;
     padding: 2em 1em 1em 1em;
     margin: 3em 1em 1em 1em;
     text-align: center;
     display: flex;
-    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
     flex-basis: 100%;
 }
 
@@ -292,15 +276,12 @@ article > .concept .concept:after {
 }
 
 .has1, .has3, .has2, .has4 {
-    grid-column-end: span 1;
     flex-grow: 1;
     flex-shrink: 1;
-    flex-basis: 10em;
+    flex-basis: var(--minwidth);
 }
 
 .progression {
-    grid-column-start: 1;
-    grid-column-end: -1;
     flex-basis: 100%;
 
     display: flex;
@@ -317,15 +298,13 @@ article > .concept .concept:after {
 }
 
 .progression .activity-grouping {
-    grid-column-start: 1;
-    grid-column-end: -1;
     flex-basis: 100%;
 
     margin: 0.5em 0 0 0;
     padding: 0;
 
     display: grid;
-    grid-template-columns: [actions] minmax(10em, 1fr) 1fr [concepts] minmax(10em, 3fr);
+    grid-template-columns: [actions] minmax(var(--minwidth), 1fr) 1fr [concepts] minmax(var(--minwidth), 3fr);
 }
 .progression .activity-grouping > .activity {
     grid-column: actions;
@@ -363,105 +342,40 @@ article > .activity .activity {
 
 @media only screen and (min-width: 24em) {
     .has3, .has2, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
-        grid-column-end: span 2;
         flex-grow: 2;
         flex-shrink: 2;
-        flex-basis: 20em;
+        flex-basis: calc(2*var(--minwidth));
     }
 }
 
-@media only screen and (min-width: 36em) {
+@media only screen and (min-width:  36em) {
     .has3, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
-        grid-column-end: span 3;
         flex-grow: 3;
         flex-shrink: 3;
-        flex-basis: 30em;
-    }
-    .has2 {
-        grid-column-end: span 2;
-        flex-grow: 2;
-        flex-shrink: 2;
-        flex-basis: 20em;
+        flex-basis: 3*var(--minwidth);
     }
 }
 
 @media only screen and (min-width: 48em) {
     .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
-        grid-column-end: span 4;
         flex-grow: 4;
         flex-shrink: 4;
-        flex-basis: 40em;
-    }
-    .has3 {
-        grid-column-end: span 3;
-        flex-grow: 3;
-        flex-shrink: 3;
-        flex-basis: 30em;
-    }
-    .has2 {
-        grid-column-end: span 2;
-        flex-grow: 2;
-        flex-shrink: 2;
-        flex-basis: 20em;
+        flex-basis: calc(4*var(--minwidth));
     }
 }
 
 @media only screen and (min-width: 60em) {
     .has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
-        grid-column-end: span 5;
         flex-grow: 5;
         flex-shrink: 5;
-        flex-basis: 50em;
-    }
-    .has4 {
-        grid-column-end: span 4;
-        flex-grow: 4;
-        flex-shrink: 4;
-        flex-basis: 40em;
-    }
-    .has3 {
-        grid-column-end: span 3;
-        flex-grow: 3;
-        flex-shrink: 3;
-        flex-basis: 30em;
-    }
-    .has2 {
-        grid-column-end: span 2;
-        flex-grow: 2;
-        flex-shrink: 2;
-        flex-basis: 20em;
+        flex-basis: calc(5*var(--minwidth));
     }
 }
 
 @media only screen and (min-width: 72em) {
     .has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
-        grid-column-end: span 6;
         flex-grow: 6;
         flex-shrink: 6;
-        flex-basis: 60em;
-    }
-    .has5, {
-        grid-column-end: span 5;
-        flex-grow: 5;
-        flex-shrink: 5;
-        flex-basis: 50em;
-    }
-    .has4 {
-        grid-column-end: span 4;
-        flex-grow: 4;
-        flex-shrink: 4;
-        flex-basis: 40em;
-    }
-    .has3 {
-        grid-column-end: span 3;
-        flex-grow: 3;
-        flex-shrink: 3;
-        flex-basis: 30em;
-    }
-    .has2 {
-        grid-column-end: span 2;
-        flex-grow: 2;
-        flex-shrink: 2;
-        flex-basis: 20em;
+        flex-basis: calc(6*var(--minwidth));
     }
 }
