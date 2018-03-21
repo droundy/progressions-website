@@ -165,6 +165,9 @@ function connectAll() {
 $(document).ready(function() {
     $(window).resize(connectAll);
     connectAll();
+    setTimeout(connectAll, 200); // reconnect to correct for errors introduced by mathjax
+    setTimeout(connectAll, 400); // mathjax changes size of things gradually :(
+    setTimeout(connectAll, 1000);
 });
   </script>
 </html>
