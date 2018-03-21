@@ -310,6 +310,7 @@ article > .concept .concept:after {
     grid-column: actions;
     position: relative;
     height: auto;
+    min-height: 1em;
     padding: 0;
     padding-top: 1.5em;
     margin: 0;
@@ -338,6 +339,12 @@ article > .activity .activity {
     top: 0;
     font-weight: bold;
     font-size: 1.5em;
+}
+
+.has1 .has3, .has2, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: calc(1*var(--minwidth));
 }
 
 @media only screen and (min-width: 24em) {
