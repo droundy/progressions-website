@@ -92,6 +92,16 @@ def parse_list(s):
     else:
         return []
 
+def clean_representation(r):
+    reprs = {
+        'partial f/partial x': r'$\frac{\partial f}{\partial x}$',
+        'Del f': r'$\vec\nabla f$',
+        'df': r'$df$',
+    }
+    if r in reprs:
+        return reprs[r]
+    return r
+
 with open('progression.csv', 'r') as csvfile:
      lines = list(csv.reader(csvfile, delimiter=',', quotechar='"'))
      for line in lines:
@@ -102,7 +112,7 @@ with open('progression.csv', 'r') as csvfile:
              urlname = slugify.slugify(name)
          prereqs = parse_list(line[3])
          new_concepts = parse_list(line[4])
-         representations = parse_list(line[5])
+         representations = [clean_representation(r) for r in parse_list(line[5])]
          if len(representations) > 0:
              print('representations:', representations)
          course_number = line[6]
