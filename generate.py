@@ -14,11 +14,9 @@ activity_map = {}
 concept_map = {}
 
 all_courses = [
-    # {'number': 'winco', 'name': 'grocery store'},
-    # {'number': 'K12', 'name': 'elementary school'},
-    # {'number': 'PH 423', 'name': 'Energy and Entropy'},
     {'number': 'MTH 251', 'name': 'Differential Calculus'},
     {'number': 'MTH 254', 'name': 'Multivariable Calculus'},
+    {'number': 'PH 423', 'name': 'Energy and Entropy'},
     {'number': 'PH 422', 'name': 'Static Fields'},
     # {'number': 'PH 441', 'name': 'Thermal Capstone'},
 ]
@@ -114,10 +112,10 @@ with open('progression.csv', 'r') as csvfile:
          status = line[10]
          if status == 'Active':
              if kind == 'Concept':
-                 print('concept:', name, urlname)
+                 #print('concept:', name, urlname)
                  new_concept(urlname, name, prereqs, course_number)
              elif kind == 'Activity':
-                 print('activity:', name)
+                 print('activity:', name, course_number)
                  new_activity(urlname, name, course_number, prereqs, new_concepts,
                               representations=representations)
 
