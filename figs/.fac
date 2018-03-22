@@ -1,4 +1,4 @@
 | python3 contour-map.py
 
-| cp contour-map.svg ../output/
+| cp *.svg *.jpg ../output/
 < contour-map.svg
