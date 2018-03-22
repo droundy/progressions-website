@@ -22,15 +22,11 @@ class Course:
         if name is not None:
             self.__p[number]['name'] = name
     def __repr__(self):
-        return repr({'name': self.name,
-                     'number': self.number,
-                     'activities': self.activities,
-                     'concepts': self.concepts,
-                     })
+        return 'Course(%s)' % self.number
     def __eq__(self, other):
-        other is not None and self.number == other.number
-    def __str__(self):
-        return self.number
+        return other is not None and self.number == other.number
+    def __ne__(self, other):
+        return other is None or self.number != other.number
     @property
     def name(self):
         return self.__p[self.number]['name']
@@ -62,7 +58,6 @@ class Activity:
             else:
                 self.__p[name]['course'] = Course(course)
                 self.course.activities.append(self)
-                print("ACTIVITY TAUGHT:", self.course, self.name)
         for p in [Concept(p) for p in prereqs if p is not '']:
             self.prereqs.append(p)
         for p in [Concept(p) for p in concepts if p is not '']:
@@ -74,6 +69,10 @@ class Activity:
             while r[0] == ' ': # cut any leading whitespace
                 r = r[1:]
             self.representations.append(r)
+    def __eq__(self, other):
+        return other is not None and self.name == other.name
+    def __ne__(self, other):
+        return other is None or self.name != other.name
     def __repr__(self):
         return 'Activity(%s)' % self.name
     @property
@@ -118,7 +117,6 @@ class Concept:
             else:
                 self.__p[name]['course'] = Course(course)
                 self.course.concepts.append(self)
-                print("CONCEPT TAUGHT:", self.course, self.name)
         if course is not None:
             self.__p[name]['course'] = Course(course)
             self.course.concepts.append(self)
@@ -126,6 +124,10 @@ class Concept:
             self.prereqs.append(p)
         if description is not None:
             self.__p[name]['description'] = description
+    def __eq__(self, other):
+        return other is not None and self.name == other.name
+    def __ne__(self, other):
+        return other is None or self.name != other.name
     def __repr__(self):
         return 'Concept(%s)' % self.name
     @property
@@ -148,8 +150,8 @@ class Concept:
         self.__p[self.name]['activity'] = a
 
 all_courses = [Course('MTH 251', 'Differential Calculus'),
-               Course('PH 423', 'Energy and Entropy'),
                Course('MTH 254', 'Multivariable Calculus'),
+               Course('PH 423', 'Energy and Entropy'),
                Course('MTH 255', 'Vector Calculus'),
                Course('PH 422', 'Static Fields'),
 ]
@@ -226,6 +228,7 @@ with open('progression.csv', 'r') as csvfile:
 os.makedirs('output', exist_ok=True)
 
 for course in all_courses:
+    print('COURSE', course)
     name = course.name
     number = course.number
     prereq_courses = {}
@@ -233,6 +236,9 @@ for course in all_courses:
     for x in activities:
         if x.course == course:
             a.append(x)
+            print('including', x)
+        else:
+            print('    not including', x.course, '!=', course, x)
     c = []
     for x in concepts:
         if x.course == course:
@@ -294,14 +300,11 @@ for concept in concepts:
 
 for activity in activities:
     prereq_courses = {}
-    print('xxxxxxxxxxxxxxxxxxxxxxx', activity.name)
     for p in activity.prereqs:
-        print('working on prereq', p.course,': "%s"' % p.name)
         if p.course is not None and p.course.number != activity.course.number:
             if p.course.number not in prereq_courses:
                 prereq_courses[p.course.number] = []
                 prereq_courses[p.course.number].append(p)
-                print('activity', activity.name, 'requires', p.name, 'from', p.course.number)
     prereq_list = []
     for c in all_courses:
         if c.number in prereq_courses:
@@ -330,3 +333,5 @@ for key in glob.glob('templates/*key.html'):
     key = key[len('templates/'):]
     with open('output/'+key, 'w') as f:
         f.write(env.get_template(key).render())
+
+print('activities are', activities)
