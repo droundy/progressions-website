@@ -188,23 +188,24 @@ article {
 
 article > .activity {
     position: relative;
-    padding: 2em 1em 1em 1em;
+    padding: 0 .25em .25em .25em;
     text-align: center;
     display: flex;
+    flex-wrap: wrap;
     flex-basis: 100%;
 }
 
 article > .concept {
     position: relative;
-    padding: 2em 1em 1em 1em;
+    padding: 0 .25em .25em .25em;
     margin: 3em 1em 1em 1em;
     text-align: center;
     display: flex;
+    flex-wrap: wrap;
     flex-basis: 100%;
 }
 
 article > .concept .concept {
-    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -213,6 +214,9 @@ article > .concept .concept {
     font-size: 1.5em;
     background-color: transparent;
     border-style: none;
+    flex-basis: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
 }
 article > .concept .activity {
     position: absolute;
@@ -326,13 +330,14 @@ article > .concept .concept:after {
 }
 
 .activity .activity {
-    position: absolute;
-    top: -.5em;
     left: 0;
     right: 0;
     margin: auto;
     background-color: transparent;
     border-style: none;
+    flex-basis: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
 }
 
 article > .activity .activity {

@@ -41,7 +41,8 @@ def fix_concept_list(xs):
         output.append(lookup_concept(x))
     return output
 
-def new_activity(urlname, name, course, prereqs, concepts, representations=[]):
+def new_activity(urlname, name, course, prereqs, concepts, representations=[],
+                 description=''):
     if urlname in activity_map:
         c = activity_map[urlname]
     elif name in  activity_map:
@@ -56,6 +57,7 @@ def new_activity(urlname, name, course, prereqs, concepts, representations=[]):
     c['representations'] = representations
     c['prereqs'] = fix_concept_list(prereqs)
     c['concepts'] = fix_concept_list(concepts)
+    c['description'] = description
     for x in c['concepts']:
         x['activity'] = c;
         if x['course'] is not None and x['course'] != c['course']:
@@ -67,7 +69,7 @@ def new_activity(urlname, name, course, prereqs, concepts, representations=[]):
     activity_map[urlname] = c
     activity_map[name] = c
     return c
-def new_concept(urlname, name, prereqs, course=None):
+def new_concept(urlname, name, prereqs, course=None, description=''):
     if urlname in concept_map:
         c = concept_map[urlname]
     elif name in  concept_map:
@@ -81,6 +83,7 @@ def new_concept(urlname, name, prereqs, course=None):
         c['course'] = course_map[course]
         course_map[course]['concepts'].append(c)
     c['prereqs'] = fix_concept_list(prereqs)
+    c['description'] = description
     concepts.append(c)
     concept_map[urlname] = c
     concept_map[name] = c
@@ -123,10 +126,12 @@ with open('progression.csv', 'r') as csvfile:
          if status == 'Active':
              if kind == 'Concept':
                  #print('concept:', name, urlname)
-                 new_concept(urlname, name, prereqs, course_number)
+                 new_concept(urlname, name, prereqs, course_number,
+                             description=description)
              elif kind == 'Activity':
                  print('activity:', name, course_number)
                  new_activity(urlname, name, course_number, prereqs, new_concepts,
+                              description=description,
                               representations=representations)
 
 # new_concept('reading', 'reading', [], 'elementary school')
