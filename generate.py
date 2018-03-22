@@ -99,6 +99,7 @@ def parse_list(s):
 def clean_representation(r):
     reprs = {
         'partial f/partial x': r'$\frac{\partial f}{\partial x}$',
+        'partial f/partial x fixing y': r'$\left(\frac{\partial f}{\partial x}\right)_y$',
         'Del f': r'$\vec\nabla f$',
         'Del dot f': r'$\vec\nabla\cdot\vec f$',
         'df': r'$df$',
