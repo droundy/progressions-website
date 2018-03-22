@@ -27,6 +27,8 @@ class Course:
         return other is not None and self.number == other.number
     def __ne__(self, other):
         return other is None or self.number != other.number
+    def __hash__(self):
+        return hash(self.number)
     @property
     def name(self):
         return self.__p[self.number]['name']
@@ -62,7 +64,8 @@ class Activity:
             self.prereqs.append(p)
         for p in [Concept(p) for p in concepts if p is not '']:
             p.activity = self
-            self.concepts.append(p)
+            if p not in self.concepts:
+                self.concepts.append(p)
         if description is not None:
             self.__p[name]['description'] = description
         for r in representations:
@@ -73,6 +76,8 @@ class Activity:
         return other is not None and self.name == other.name
     def __ne__(self, other):
         return other is None or self.name != other.name
+    def __hash__(self):
+        return hash(self.name)
     def __repr__(self):
         return 'Activity(%s)' % self.name
     @property
@@ -116,10 +121,12 @@ class Concept:
                 assert(self.course == Course(course))
             else:
                 self.__p[name]['course'] = Course(course)
-                self.course.concepts.append(self)
+                if self not in self.course.concepts:
+                    self.course.concepts.append(self)
         if course is not None:
             self.__p[name]['course'] = Course(course)
-            self.course.concepts.append(self)
+            if self not in self.course.concepts:
+                self.course.concepts.append(self)
         for p in [Concept(p) for p in prereqs if p is not '']:
             self.prereqs.append(p)
         if description is not None:
@@ -128,6 +135,8 @@ class Concept:
         return other is not None and self.name == other.name
     def __ne__(self, other):
         return other is None or self.name != other.name
+    def __hash__(self):
+        return hash(self.name)
     def __repr__(self):
         return 'Concept(%s)' % self.name
     @property
@@ -246,13 +255,14 @@ for course in all_courses:
     for x in a:
         for p in x.prereqs:
             if p.course != course and p.course is not None:
-                if p.course.number not in prereq_courses:
-                    prereq_courses[p.course.number] = []
-                prereq_courses[p.course.number].append(p)
+                if p.course not in prereq_courses:
+                    prereq_courses[p.course] = set()
+                prereq_courses[p.course].add(p)
     prereq_list = []
     for c in all_courses:
-        if c.number in prereq_courses:
-            prereq_list.append((c, prereq_courses[c.number]))
+        if c in prereq_courses:
+            these_concepts = [x for x in concepts if x in prereq_courses[c]]
+            prereq_list.append((c, these_concepts))
     with open('output/%s.html' % number, 'w') as f:
         f.write(course_template.render(course={
             'name': name,
@@ -270,13 +280,14 @@ for concept in concepts:
     prereq_courses = {}
     for p in concept.prereqs:
         if p.course != concept.course and p.course is not None:
-            if p.course.number not in prereq_courses:
-                prereq_courses[p.course.number] = []
-                prereq_courses[p.course.number].append(p)
+            if p.course not in prereq_courses:
+                prereq_courses[p.course] = set()
+            prereq_courses[p.course].add(p)
     prereq_list = []
     for c in all_courses:
-        if c.number in prereq_courses:
-            prereq_list.append((c, prereq_courses[c.number]))
+        if c in prereq_courses:
+            these_concepts = [x for x in concepts if x in prereq_courses[c]]
+            prereq_list.append((c, these_concepts))
     concept.prereq_courses = prereq_list
 
     prereq_groups = []
@@ -301,18 +312,19 @@ for concept in concepts:
 for activity in activities:
     prereq_courses = {}
     for p in activity.prereqs:
-        if p.course is not None and p.course.number != activity.course.number:
-            if p.course.number not in prereq_courses:
-                prereq_courses[p.course.number] = []
-                prereq_courses[p.course.number].append(p)
+        if p.course is not None and p.course != activity.course:
+            if p.course not in prereq_courses:
+                prereq_courses[p.course] = set()
+            prereq_courses[p.course].add(p)
     prereq_list = []
     for c in all_courses:
-        if c.number in prereq_courses:
-            prereq_list.append((c, prereq_courses[c.number]))
+        if c in prereq_courses:
+            these_concepts = [x for x in concepts if x in prereq_courses[c]]
+            prereq_list.append((c, these_concepts))
     activity.prereq_courses = prereq_list
 
     prereq_groups = []
-    for a in filter(lambda a: a.course.number == activity.course.number, activities):
+    for a in filter(lambda a: a.course == activity.course, activities):
         ps = [c for c in a.concepts if c in activity.prereqs]
         if len(ps) > 0:
             prereq_groups.append((a, ps))
