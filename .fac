@@ -2,5 +2,5 @@
 
 | mkdir -p output && cp style.css output/
 
-| libreoffice --headless --convert-to csv progression.xlsx
+| libreoffice --headless --convert-to csv --infilter=csv:44,34,76 progression.xlsx
 C ~/.config/libreoffice/4/user/registrymodifications.xcu

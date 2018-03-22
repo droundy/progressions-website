@@ -4,3 +4,5 @@ output
 *.csv
 .~*
 .nfs*
+figs/*.png
+figs/*.svg
