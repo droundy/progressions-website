@@ -1,5 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
-import os, csv, slugify, glob
+import os, csv, slugify, glob, copy
 
 env = Environment(
     loader=FileSystemLoader('templates'),
@@ -10,85 +10,149 @@ course_template = env.get_template('course.html')
 activities = []
 concepts = []
 
-activity_map = {}
-concept_map = {}
+class Course:
+    """ A course """
+    __p = {}
+    def __init__(self, number, name=None):
+        if number not in Course.__p:
+            self.__p[number] = {'number': number, 'name': name, 'activities': [], 'concepts': []}
+            if name is not None:
+                Course.__p[name] = self.__p[number] # can look up Courses either way
+        self.number = self.__p[number]['number'] # in case we were given name instead!
+        if name is not None:
+            self.__p[number]['name'] = name
+    def __repr__(self):
+        return repr({'name': self.name,
+                     'number': self.number,
+                     'activities': self.activities,
+                     'concepts': self.concepts,
+                     })
+    def __eq__(self, other):
+        other is not None and self.number == other.number
+    def __str__(self):
+        return self.number
+    @property
+    def name(self):
+        return self.__p[self.number]['name']
+    @property
+    def activities(self):
+        return self.__p[self.number]['activities']
+    @property
+    def concepts(self):
+        return self.__p[self.number]['concepts']
 
-all_courses = [
-    {'number': 'MTH 251', 'name': 'Differential Calculus'},
-    {'number': 'MTH 254', 'name': 'Multivariable Calculus'},
-    {'number': 'PH 423', 'name': 'Energy and Entropy'},
-    {'number': 'MTH 255', 'name': 'Vector Calculus'},
-    {'number': 'PH 422', 'name': 'Static Fields'},
-    # {'number': 'PH 441', 'name': 'Thermal Capstone'},
-]
-course_map = {}
-for c in all_courses:
-    course_map[c['name']] = c
-    course_map[c['number']] = c
-    c['activities'] = []
-    c['concepts'] = []
-
-def lookup_activity(a):
-    if a not in activity_map:
-        new_activity(slugify.slugify(a),a,'???', [], [])
-    return activity_map[a]
-def lookup_concept(c):
-    if c not in concept_map:
-        new_concept(slugify.slugify(c),c,[])
-    return concept_map[c]
-def fix_concept_list(xs):
-    output = []
-    for x in xs:
-        output.append(lookup_concept(x))
-    return output
-
-def new_activity(urlname, name, course, prereqs, concepts, representations=[],
+class Activity:
+    """ A teaching activity """
+    __p = {}
+    def __init__(self, name, course=None, prereqs=[], concepts=[], representations=[],
                  description=''):
-    if urlname in activity_map:
-        c = activity_map[urlname]
-    elif name in  activity_map:
-        c = activity_map[name]
-    else:
-        c = {}
-    c['name'] = name
-    c['urlname'] =  urlname
-    course = course_map[course]
-    course['activities'].append(c)
-    c['course'] = course
-    c['representations'] = representations
-    c['prereqs'] = fix_concept_list(prereqs)
-    c['concepts'] = fix_concept_list(concepts)
-    c['description'] = description
-    for x in c['concepts']:
-        x['activity'] = c;
-        if x['course'] is not None and x['course'] != c['course']:
-            print('Inconsistency: activity {} and concept {} have inconsistent courses: {} vs. {}'.format(
-                name, x['name'], course, x['course']
-            ))
-        x['course'] = c['course']
-    activities.append(c)
-    activity_map[urlname] = c
-    activity_map[name] = c
-    return c
-def new_concept(urlname, name, prereqs, course=None, description=''):
-    if urlname in concept_map:
-        c = concept_map[urlname]
-    elif name in  concept_map:
-        c = concept_map[name]
-    else:
-        c = {}
-    c['name'] = name
-    c['urlname'] =  urlname
-    c['course'] = None
-    if course is not None and course in course_map:
-        c['course'] = course_map[course]
-        course_map[course]['concepts'].append(c)
-    c['prereqs'] = fix_concept_list(prereqs)
-    c['description'] = description
-    concepts.append(c)
-    concept_map[urlname] = c
-    concept_map[name] = c
-    return c
+        self.name = name
+        if name not in self.__p:
+            self.__p[name] = {
+                'name': name,
+                'course': None,
+                'prereqs': [],
+                'concepts': [],
+                'representations': [],
+                'description': description,
+            }
+        if course is not None:
+            if self.course is not None:
+                assert(self.course == Course(course))
+            else:
+                self.__p[name]['course'] = Course(course)
+                self.course.activities.append(self)
+                print("ACTIVITY TAUGHT:", self.course, self.name)
+        for p in [Concept(p) for p in prereqs if p is not '']:
+            self.prereqs.append(p)
+        for p in [Concept(p) for p in concepts if p is not '']:
+            p.activity = self
+            self.concepts.append(p)
+        if description is not None:
+            self.__p[name]['description'] = description
+        for r in representations:
+            while r[0] == ' ': # cut any leading whitespace
+                r = r[1:]
+            self.representations.append(r)
+    def __repr__(self):
+        return 'Activity(%s)' % self.name
+    @property
+    def urlname(self):
+        return slugify.slugify(self.name)
+    @property
+    def course(self):
+        return self.__p[self.name]['course']
+    @property
+    def prereqs(self):
+        return self.__p[self.name]['prereqs']
+    @property
+    def concepts(self):
+        return self.__p[self.name]['concepts']
+    @property
+    def representations(self):
+        return self.__p[self.name]['representations']
+    @property
+    def description(self):
+        return self.__p[self.name]['description']
+
+class Concept:
+    """ A concept """
+    __p = {}
+    def __init__(self, name, course=None, prereqs=[], description=None):
+        while name[0] == ' ':
+            name = name[1:]
+        self.name = name
+        if name not in self.__p:
+            self.__p[name] = {
+                'name': name,
+                'course': None,
+                'activity': None,
+                'prereqs': [],
+                'description': description,
+            }
+        if course is not None:
+            if self.course is not None:
+                print('error', '"%s"' % self.course, '"%s"' % course, name, '"%s"' % name)
+                print('"%s"' % Course(course))
+                assert(self.course == Course(course))
+            else:
+                self.__p[name]['course'] = Course(course)
+                self.course.concepts.append(self)
+                print("CONCEPT TAUGHT:", self.course, self.name)
+        if course is not None:
+            self.__p[name]['course'] = Course(course)
+            self.course.concepts.append(self)
+        for p in [Concept(p) for p in prereqs if p is not '']:
+            self.prereqs.append(p)
+        if description is not None:
+            self.__p[name]['description'] = description
+    def __repr__(self):
+        return 'Concept(%s)' % self.name
+    @property
+    def urlname(self):
+        return slugify.slugify(self.name)
+    @property
+    def course(self):
+        return self.__p[self.name]['course']
+    @property
+    def prereqs(self):
+        return self.__p[self.name]['prereqs']
+    @property
+    def description(self):
+        return self.__p[self.name]['description']
+    @property
+    def activity(self):
+        return self.__p[self.name]['activity']
+    @activity.setter
+    def activity(self, a):
+        self.__p[self.name]['activity'] = a
+
+all_courses = [Course('MTH 251', 'Differential Calculus'),
+               Course('PH 423', 'Energy and Entropy'),
+               Course('MTH 254', 'Multivariable Calculus'),
+               Course('MTH 255', 'Vector Calculus'),
+               Course('PH 422', 'Static Fields'),
+]
 
 def parse_list(s):
     if s[0] == '[' and s[-1] == ']':
@@ -131,16 +195,16 @@ with open('progression.csv', 'r') as csvfile:
          description = line[8]
          external_url = line[9]
          status = line[10]
-         if status == 'Active':
+         if status == 'Active' and name != '':
              if kind == 'Concept':
                  #print('concept:', name, urlname)
-                 new_concept(urlname, name, prereqs, course_number,
-                             description=description)
+                 concepts.append(Concept(name, course_number, prereqs,
+                                         description=description))
              elif kind == 'Activity':
                  print('activity:', name, course_number)
-                 new_activity(urlname, name, course_number, prereqs, new_concepts,
-                              description=description,
-                              representations=representations)
+                 activities.append(Activity(name, course_number, prereqs, new_concepts,
+                                            description=description,
+                                            representations=representations))
 
 # new_concept('reading', 'reading', [], 'elementary school')
 # new_concept('writing', 'writing', [], 'elementary school')
@@ -162,27 +226,27 @@ with open('progression.csv', 'r') as csvfile:
 os.makedirs('output', exist_ok=True)
 
 for course in all_courses:
-    name = course['name']
-    number = course['number']
+    name = course.name
+    number = course.number
     prereq_courses = {}
     a = []
     for x in activities:
-        if x['course'] == course:
+        if x.course == course:
             a.append(x)
     c = []
     for x in concepts:
-        if x['course'] == course:
+        if x.course == course:
             c.append(x)
     for x in a:
-        for p in x['prereqs']:
-            if p['course'] != course and p['course'] is not None:
-                if p['course']['number'] not in prereq_courses:
-                    prereq_courses[p['course']['number']] = []
-                prereq_courses[p['course']['number']].append(p)
+        for p in x.prereqs:
+            if p.course != course and p.course is not None:
+                if p.course.number not in prereq_courses:
+                    prereq_courses[p.course.number] = []
+                prereq_courses[p.course.number].append(p)
     prereq_list = []
     for c in all_courses:
-        if c['number'] in prereq_courses:
-            prereq_list.append((c, prereq_courses[c['number']]))
+        if c.number in prereq_courses:
+            prereq_list.append((c, prereq_courses[c.number]))
     with open('output/%s.html' % number, 'w') as f:
         f.write(course_template.render(course={
             'name': name,
@@ -193,69 +257,72 @@ for course in all_courses:
         }))
 
 for activity in activities:
-    with open('output/activity-%s.html' % activity['urlname'], 'w') as f:
+    with open('output/activity-%s.html' % activity.urlname, 'w') as f:
         f.write(env.get_template('activity.html').render(activity=activity))
 
 for concept in concepts:
     prereq_courses = {}
-    for p in concept['prereqs']:
-        if p['course'] != concept['course'] and p['course'] is not None:
-            if p['course']['number'] not in prereq_courses:
-                prereq_courses[p['course']['number']] = []
-                prereq_courses[p['course']['number']].append(p)
+    for p in concept.prereqs:
+        if p.course != concept.course and p.course is not None:
+            if p.course.number not in prereq_courses:
+                prereq_courses[p.course.number] = []
+                prereq_courses[p.course.number].append(p)
     prereq_list = []
     for c in all_courses:
-        if c['number'] in prereq_courses:
-            prereq_list.append((c, prereq_courses[c['number']]))
-    concept['prereq_courses'] = prereq_list
+        if c.number in prereq_courses:
+            prereq_list.append((c, prereq_courses[c.number]))
+    concept.prereq_courses = prereq_list
 
     prereq_groups = []
     for a in activities:
-        ps = list(filter(lambda c: c in concept['prereqs'], a['concepts']))
+        ps = list(filter(lambda c: c in concept.prereqs, a.concepts))
         if len(ps) > 0:
             prereq_groups.append((a, ps))
-    concept['prereq_groups'] = prereq_groups
+    concept.prereq_groups = prereq_groups
 
-    output_concepts = list(map(lambda c: c['urlname'], filter(lambda c: concept in c['prereqs'], concepts)))
+    output_concepts = list(map(lambda c: c.urlname, filter(lambda c: concept in c.prereqs, concepts)))
     output_groups = []
     for a in activities:
-        ps = list(filter(lambda c: c['urlname'] in output_concepts, a['concepts']))
+        ps = list(filter(lambda c: c.urlname in output_concepts, a.concepts))
         if len(ps) > 0:
             output_groups.append((a, ps))
-        elif concept in a['prereqs']:
+        elif concept in a.prereqs:
             output_groups.append((a,[]))
-    concept['output_groups'] = output_groups
-    with open('output/concept-%s.html' % concept['urlname'], 'w') as f:
+    concept.output_groups = output_groups
+    with open('output/concept-%s.html' % concept.urlname, 'w') as f:
         f.write(env.get_template('concept.html').render(concept=concept))
 
 for activity in activities:
     prereq_courses = {}
-    for p in activity['prereqs']:
-        if p['course'] != activity['course'] and p['course'] is not None:
-            if p['course']['number'] not in prereq_courses:
-                prereq_courses[p['course']['number']] = []
-                prereq_courses[p['course']['number']].append(p)
+    print('xxxxxxxxxxxxxxxxxxxxxxx', activity.name)
+    for p in activity.prereqs:
+        print('working on prereq', p.course,': "%s"' % p.name)
+        if p.course is not None and p.course.number != activity.course.number:
+            if p.course.number not in prereq_courses:
+                prereq_courses[p.course.number] = []
+                prereq_courses[p.course.number].append(p)
+                print('activity', activity.name, 'requires', p.name, 'from', p.course.number)
     prereq_list = []
     for c in all_courses:
-        if c['number'] in prereq_courses:
-            prereq_list.append((c, prereq_courses[c['number']]))
-    activity['prereq_courses'] = prereq_list
+        if c.number in prereq_courses:
+            prereq_list.append((c, prereq_courses[c.number]))
+    activity.prereq_courses = prereq_list
 
     prereq_groups = []
-    for a in activities:
-        ps = list(filter(lambda c: c in activity['prereqs'], a['concepts']))
+    for a in filter(lambda a: a.course.number == activity.course.number, activities):
+        ps = [c for c in a.concepts if c in activity.prereqs]
         if len(ps) > 0:
             prereq_groups.append((a, ps))
-    activity['prereq_groups'] = prereq_groups
+    activity.prereq_groups = prereq_groups
 
-    with open('output/activity-%s.html' % activity['urlname'], 'w') as f:
+    with open('output/activity-%s.html' % activity.urlname, 'w') as f:
         f.write(env.get_template('activity.html').render(activity=activity))
 
 with open('output/index.html', 'w') as f:
     f.write(env.get_template('progression.html').render(
         all_courses = all_courses,
-        courses = [c for c in all_courses if len(c['activities']) > 0],
-        prereq_courses = [c for c in all_courses if len(c['activities']) == 0],
+        courses = [c for c in all_courses if len(c.activities) > 0],
+        prereq_courses = [c for c in all_courses if len(c.activities) == 0],
     ))
 
 for key in glob.glob('templates/*key.html'):
