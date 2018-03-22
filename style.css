@@ -102,6 +102,8 @@ a, a:link, a:active, a:hover {
 
 .representation {
     background-color: var(--representation-color);
+    clear: right;
+    float: right;
     padding: 0.25em 0.5em 0.25em 0.5em;
     border-radius: 10em;
     justify-self: center;
@@ -109,12 +111,16 @@ a, a:link, a:active, a:hover {
     border-color: black;
     border-style: solid;
 
-    margin: 0.125em 0.25em 0.125em 0.25em;
+    margin: 0.25em 0.25em 0.125em 0.25em;
     /* flex-grow: 1; */
     /* flex-shrink: 1; */
     /* flex-basis: var(--minwidth); */
 }
 
+.representation:nth-child(odd) {
+    clear: left;
+    float: left;
+}
 
 article {
     display: flex;
@@ -190,8 +196,8 @@ article > .activity {
     position: relative;
     padding: 0 .25em .25em .25em;
     text-align: center;
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
     flex-basis: 100%;
 }
 
@@ -200,8 +206,8 @@ article > .concept {
     padding: 0 .25em .25em .25em;
     margin: 3em 1em 1em 1em;
     text-align: center;
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
     flex-basis: 100%;
 }
 
@@ -285,6 +291,23 @@ article > .concept .concept:after {
     flex-basis: var(--minwidth);
 }
 
+.activity .activity {
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: transparent;
+    border-style: none;
+    flex-basis: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+article > .activity .activity {
+    top: 0;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
 .progression {
     flex-basis: 100%;
 
@@ -310,13 +333,17 @@ article > .concept .concept:after {
     display: grid;
     grid-template-columns: [actions] minmax(var(--minwidth), 1fr) 1fr [concepts] minmax(var(--minwidth), 3fr);
 }
+.progression .activity-grouping > .activity .activity {
+    position: static;
+    height: auto;
+    padding: .125em;
+}
 .progression .activity-grouping > .activity {
     grid-column: actions;
     position: relative;
     height: auto;
     min-height: 1em;
     padding: 0;
-    padding-top: 1.5em;
     margin: 0;
 
     align-self: start;
@@ -327,23 +354,6 @@ article > .concept .concept:after {
 .progression .activity-grouping .concepts {
     grid-column: concepts;
     display: block;
-}
-
-.activity .activity {
-    left: 0;
-    right: 0;
-    margin: auto;
-    background-color: transparent;
-    border-style: none;
-    flex-basis: 100%;
-    flex-grow: 1;
-    flex-shrink: 0;
-}
-
-article > .activity .activity {
-    top: 0;
-    font-weight: bold;
-    font-size: 1.5em;
 }
 
 .has1 .has3, .has2, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {

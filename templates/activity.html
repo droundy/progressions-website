@@ -59,17 +59,17 @@
       </div>
 
       <div class="activity">
+        {% for r in activity.representations %}
+        <div class="representation">
+          {{ r }}
+        </div>
+        {% endfor %}
         <div class="activity">
           {{activity.name}}
         </div>
         <div class="description">
           {{activity.description}}
         </div>
-        {% for r in activity.representations %}
-        <div class="representation">
-          {{ r }}
-        </div>
-        {% endfor %}
       </div>
       <div class="output">
         {% for c in activity.concepts %}

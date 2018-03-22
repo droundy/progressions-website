@@ -17,6 +17,7 @@ all_courses = [
     {'number': 'MTH 251', 'name': 'Differential Calculus'},
     {'number': 'MTH 254', 'name': 'Multivariable Calculus'},
     {'number': 'PH 423', 'name': 'Energy and Entropy'},
+    {'number': 'MTH 255', 'name': 'Vector Calculus'},
     {'number': 'PH 422', 'name': 'Static Fields'},
     # {'number': 'PH 441', 'name': 'Thermal Capstone'},
 ]
@@ -99,10 +100,14 @@ def clean_representation(r):
     reprs = {
         'partial f/partial x': r'$\frac{\partial f}{\partial x}$',
         'Del f': r'$\vec\nabla f$',
+        'Del dot f': r'$\vec\nabla\cdot\vec f$',
         'df': r'$df$',
     }
     if r in reprs:
         return reprs[r]
+    if r[0] == ' ' and r[1:] in reprs:
+        return reprs[r[1:]]
+    print('not in reprs: "%s"' % r)
     return r
 
 with open('progression.csv', 'r') as csvfile:
