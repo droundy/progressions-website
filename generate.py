@@ -334,4 +334,3 @@ for key in glob.glob('templates/*key.html'):
     with open('output/'+key, 'w') as f:
         f.write(env.get_template(key).render())
 
-print('activities are', activities)
