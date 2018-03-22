@@ -80,7 +80,7 @@ def new_concept(urlname, name, prereqs, course=None, description=''):
     c['name'] = name
     c['urlname'] =  urlname
     c['course'] = None
-    if course is not None:
+    if course is not None and course in course_map:
         c['course'] = course_map[course]
         course_map[course]['concepts'].append(c)
     c['prereqs'] = fix_concept_list(prereqs)
