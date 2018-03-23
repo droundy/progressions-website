@@ -9,6 +9,7 @@ html {
     --right-arrows-color: #f90;
     --menu-color: #eee;
     --minwidth: 10em;
+    --imgheight: 1.5em;
 }
 
 /* ul li{display:block;position:relative;float:left;margin:0;height:2em;} */
@@ -84,6 +85,7 @@ a, a:link, a:active, a:hover {
     border-width: .1em;
     border-color: black;
     border-style: solid;
+    overflow: hidden;
     min-width: var(--minwidth);
     flex-grow: 1;
     flex-shrink: 1;
@@ -203,6 +205,7 @@ article > .activity {
 }
 
 article > .concept {
+    overflow: visible;
     position: relative;
     padding: 0 .25em .25em .25em;
     margin: 3em 1em 1em 1em;
@@ -292,8 +295,8 @@ article > .concept .concept:after {
     flex-basis: var(--minwidth);
 }
 
-.activity img {
-    height: 1.5em;
+img {
+    height: var(--imgheight);
 }
 
 .activity .activity {
@@ -312,8 +315,13 @@ article > .activity .activity {
     font-weight: bold;
     font-size: 1.5em;
 }
+article > .activity {
+    --imgheight: 6em;
+}
+article > .concept {
+    --imgheight: 6em;
+}
 article > .activity img {
-    height: 6em;
     margin: 1em;
 }
 
@@ -365,7 +373,13 @@ article > .activity img {
     display: block;
 }
 
-.has1 .has3, .has2, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
+.hint {
+    border-style: dotted;
+    border-width: 0.25em;
+    /* display: none; */
+}
+
+.has0 .has1 .has3, .has2, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: calc(1*var(--minwidth));

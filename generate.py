@@ -102,7 +102,7 @@ class Activity:
 class Concept:
     """ A concept """
     __p = {}
-    def __init__(self, name, course=None, prereqs=[], description=None):
+    def __init__(self, name, course=None, prereqs=[], description=None, representations=[]):
         while name[0] == ' ':
             name = name[1:]
         self.name = name
@@ -112,6 +112,7 @@ class Concept:
                 'course': None,
                 'activity': None,
                 'prereqs': [],
+                'representations': [],
                 'description': description,
             }
         if course is not None:
@@ -123,10 +124,10 @@ class Concept:
                 self.__p[name]['course'] = Course(course)
                 if self not in self.course.concepts:
                     self.course.concepts.append(self)
-        if course is not None:
-            self.__p[name]['course'] = Course(course)
-            if self not in self.course.concepts:
-                self.course.concepts.append(self)
+        for r in representations:
+            while r[0] == ' ': # cut any leading whitespace
+                r = r[1:]
+            self.representations.append(r)
         for p in [Concept(p) for p in prereqs if p is not '']:
             self.prereqs.append(p)
         if description is not None:
@@ -157,6 +158,9 @@ class Concept:
     @activity.setter
     def activity(self, a):
         self.__p[self.name]['activity'] = a
+    @property
+    def representations(self):
+        return self.__p[self.name]['representations']
 
 all_courses = [Course('MTH 251', 'Differential Calculus'),
                Course('MTH 254', 'Multivariable Calculus'),
@@ -210,7 +214,8 @@ with open('progression.csv', 'r') as csvfile:
              if kind == 'Concept':
                  #print('concept:', name, urlname)
                  concepts.append(Concept(name, course_number, prereqs,
-                                         description=description))
+                                         description=description,
+                                         representations=representations))
              elif kind == 'Activity':
                  print('activity:', name, course_number)
                  activities.append(Activity(name, course_number, prereqs, new_concepts,
@@ -292,19 +297,23 @@ for concept in concepts:
 
     prereq_groups = []
     for a in activities:
-        ps = list(filter(lambda c: c in concept.prereqs, a.concepts))
-        if len(ps) > 0:
-            prereq_groups.append((a, ps))
+        ps = [c for c in a.concepts if c in concept.prereqs]
+        hints = []
+        if concept.activity is not None:
+            hints = [c for c in a.concepts if c in concept.activity.prereqs and c not in concept.prereqs]
+        if len(ps) > 0 or len(hints) > 0:
+            prereq_groups.append((a, ps, hints))
     concept.prereq_groups = prereq_groups
 
     output_concepts = list(map(lambda c: c.urlname, filter(lambda c: concept in c.prereqs, concepts)))
     output_groups = []
     for a in activities:
         ps = list(filter(lambda c: c.urlname in output_concepts, a.concepts))
+        hints = list(filter(lambda c: c.urlname not in output_concepts, a.concepts))
         if len(ps) > 0:
-            output_groups.append((a, ps))
+            output_groups.append((a, ps, hints))
         elif concept in a.prereqs:
-            output_groups.append((a,[]))
+            output_groups.append((a,[], hints))
     concept.output_groups = output_groups
     with open('output/concept-%s.html' % concept.urlname, 'w') as f:
         f.write(env.get_template('concept.html').render(concept=concept))

@@ -44,7 +44,7 @@
       {% endfor %}
 
       <div class="prereq">
-        {% for activity, concepts in concept.prereq_groups %}
+        {% for activity, concepts, hints in concept.prereq_groups %}
         <div class="activity-grouping has{{concepts|length}}">
           <a href="activity-{{activity.urlname}}.html" class="activity">
             {{activity.name}}
@@ -54,11 +54,21 @@
             {{ c.name }}
           </a>
           {% endfor %}
+          {% for c in hints %}
+          <a href="concept-{{c.urlname}}.html" class="concept hint">
+            {{ c.name }}
+          </a>
+          {% endfor %}
         </div>
         {% endfor %}
       </div>
       <div class="concept">
         {% if concept.activity %}
+        {% for r in concept.representations %}
+        <div class="representation">
+          {{ r }}
+        </div>
+        {% endfor %}
         <a href="activity-{{concept.activity.urlname}}.html" class="activity">
           {{concept.activity.name}}
         </a>
@@ -69,19 +79,19 @@
         <div class="description">
           {{concept.description}}
         </div>
-        {% for r in concept.representations %}
-        <div class="representation">
-          {{ r }}
-        </div>
-        {% endfor %}
       </div>
-      {% for activity, concepts in concept.output_groups %}
+      {% for activity, concepts, hints in concept.output_groups %}
       <div class="activity-grouping has{{concepts|length}}">
         <a href="activity-{{activity.urlname}}.html" class="activity">
           {{activity.name}}
         </a>
         {% for c in concepts %}
         <a href="concept-{{c.urlname}}.html" class="concept">
+          {{ c.name }}
+        </a>
+        {% endfor %}
+        {% for c in hints %}
+        <a href="concept-{{c.urlname}}.html" class="concept hint">
           {{ c.name }}
         </a>
         {% endfor %}
