@@ -43,7 +43,7 @@ class Activity:
     """ A teaching activity """
     __p = {}
     def __init__(self, name, course=None, prereqs=[], concepts=[], representations=[],
-                 description=''):
+                 description='', rownum=None):
         self.name = name
         if name not in self.__p:
             self.__p[name] = {
@@ -53,6 +53,7 @@ class Activity:
                 'concepts': [],
                 'representations': [],
                 'description': description,
+                'rownum': '?',
             }
         if course is not None:
             if self.course is not None:
@@ -72,6 +73,8 @@ class Activity:
             while r[0] == ' ': # cut any leading whitespace
                 r = r[1:]
             self.representations.append(r)
+        if rownum is not None:
+            self.__p[name]['rownum'] = rownum
     def __eq__(self, other):
         return other is not None and self.name == other.name
     def __ne__(self, other):
@@ -98,11 +101,15 @@ class Activity:
     @property
     def description(self):
         return self.__p[self.name]['description']
+    @property
+    def rownum(self):
+        return self.__p[self.name]['rownum']
 
 class Concept:
     """ A concept """
     __p = {}
-    def __init__(self, name, course=None, prereqs=[], description=None, representations=[]):
+    def __init__(self, name, course=None, prereqs=[], description=None, representations=[],
+                 rownum=None):
         while name[0] == ' ':
             name = name[1:]
         self.name = name
@@ -114,6 +121,7 @@ class Concept:
                 'prereqs': [],
                 'representations': [],
                 'description': description,
+                'rownum': '?',
             }
         if course is not None:
             if self.course is not None:
@@ -132,6 +140,8 @@ class Concept:
             self.prereqs.append(p)
         if description is not None:
             self.__p[name]['description'] = description
+        if rownum is not None:
+            self.__p[name]['rownum'] = rownum
     def __eq__(self, other):
         return other is not None and self.name == other.name
     def __ne__(self, other):
@@ -152,6 +162,9 @@ class Concept:
     @property
     def description(self):
         return self.__p[self.name]['description']
+    @property
+    def rownum(self):
+        return self.__p[self.name]['rownum']
     @property
     def activity(self):
         return self.__p[self.name]['activity']
@@ -197,9 +210,7 @@ with open('progression.csv', 'r') as csvfile:
      for line in lines:
          kind = line[0]
          name = line[1]
-         urlname = line[2]
-         if urlname == '':
-             urlname = slugify.slugify(name)
+         rownum = line[2]
          prereqs = parse_list(line[3])
          new_concepts = parse_list(line[4])
          representations = [clean_representation(r) for r in parse_list(line[5])]
@@ -215,10 +226,12 @@ with open('progression.csv', 'r') as csvfile:
                  #print('concept:', name, urlname)
                  concepts.append(Concept(name, course_number, prereqs,
                                          description=description,
+                                         rownum=rownum,
                                          representations=representations))
              elif kind == 'Activity':
                  print('activity:', name, course_number)
                  activities.append(Activity(name, course_number, prereqs, new_concepts,
+                                            rownum=rownum,
                                             description=description,
                                             representations=representations))
 
@@ -283,16 +296,28 @@ for activity in activities:
 
 for concept in concepts:
     prereq_courses = {}
+    prereq_course_hints = {}
     for p in concept.prereqs:
         if p.course != concept.course and p.course is not None:
             if p.course not in prereq_courses:
                 prereq_courses[p.course] = set()
             prereq_courses[p.course].add(p)
+    if concept.activity is not None:
+        for p in concept.activity.prereqs:
+            if p.course != concept.course and p.course is not None:
+                if p.course not in prereq_course_hints:
+                    prereq_course_hints[p.course] = set()
+                prereq_course_hints[p.course].add(p)
     prereq_list = []
     for c in all_courses:
-        if c in prereq_courses:
-            these_concepts = [x for x in concepts if x in prereq_courses[c]]
-            prereq_list.append((c, these_concepts))
+        if c in prereq_courses or c in prereq_course_hints:
+            these_concepts = []
+            if c in prereq_courses:
+                these_concepts = [x for x in concepts if x in prereq_courses[c]]
+            hints = []
+            if c in prereq_course_hints:
+                hints = [x for x in concepts if x in prereq_course_hints[c] and x not in these_concepts]
+            prereq_list.append((c, these_concepts, hints))
     concept.prereq_courses = prereq_list
 
     prereq_groups = []

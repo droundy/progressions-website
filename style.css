@@ -373,10 +373,15 @@ article > .activity img {
     display: block;
 }
 
+.rownum {
+    border-radius: 100%;
+    padding: 0.25em;
+    float: right;
+}
 .hint {
     border-style: dotted;
     border-width: 0.25em;
-    /* display: none; */
+    /* display: none !important; */
 }
 
 .has0 .has1 .has3, .has2, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {

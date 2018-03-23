@@ -45,6 +45,7 @@
         </a>
         {% for concept in course.concepts %}
         <a href="concept-{{concept.urlname}}.html" class="concept">
+          <span class="rownum hint">{{ concept.rownum }}</span>
           {{ concept.name }}
         </a>
         {% endfor %}
@@ -71,6 +72,7 @@
           <div class="concepts">
             {% for concept in activity.concepts %}
             <a href="concept-{{concept.urlname}}.html" class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">
+              <span class="rownum hint">{{ concept.rownum }}</span>
               {{ concept.name }}
               {% for r in concept.representations %}
               <div class="representation">
