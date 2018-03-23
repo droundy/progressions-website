@@ -71,7 +71,7 @@
         </div>
         {% endfor %}
       </div>
-      <div class="concept">
+      <a {% if concept.url %}href="{{concept.url}}" {% endif %} class="concept">
         {% if concept.activity %}
         {% for r in concept.representations %}
         <div class="representation">
@@ -89,7 +89,7 @@
         <div class="description">
           {{concept.description}}
         </div>
-      </div>
+      </a>
       {% for activity, concepts, hints in concept.output_groups %}
       <div class="activity-grouping has{{concepts|length}}">
         <a href="activity-{{activity.urlname}}.html" class="activity">

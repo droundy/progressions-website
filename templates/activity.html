@@ -61,7 +61,7 @@
         {% endfor %}
       </div>
 
-      <div class="activity">
+      <a {% if activity.url %}href="{{activity.url}}" {% endif %} class="activity">
         {% for r in activity.representations %}
         <div class="representation">
           {{ r }}
@@ -82,7 +82,7 @@
           {{ c.name }}
         </a>
         {% endfor %}
-      </div>
+      </a>
     </article>
   </main>
 </body>

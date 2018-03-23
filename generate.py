@@ -43,7 +43,7 @@ class Activity:
     """ A teaching activity """
     __p = {}
     def __init__(self, name, course=None, prereqs=[], concepts=[], representations=[],
-                 description='', rownum=None):
+                 description='', rownum=None, url=None):
         self.name = name
         if name not in self.__p:
             self.__p[name] = {
@@ -54,6 +54,7 @@ class Activity:
                 'representations': [],
                 'description': description,
                 'rownum': '?',
+                'url': None,
             }
         if course is not None:
             if self.course is not None:
@@ -75,6 +76,8 @@ class Activity:
             self.representations.append(r)
         if rownum is not None:
             self.__p[name]['rownum'] = rownum
+        if url is not None:
+            self.__p[name]['url'] = url
     def __eq__(self, other):
         return other is not None and self.name == other.name
     def __ne__(self, other):
@@ -104,12 +107,15 @@ class Activity:
     @property
     def rownum(self):
         return self.__p[self.name]['rownum']
+    @property
+    def url(self):
+        return self.__p[self.name]['url']
 
 class Concept:
     """ A concept """
     __p = {}
     def __init__(self, name, course=None, prereqs=[], description=None, representations=[],
-                 rownum=None):
+                 rownum=None, url=None):
         while name[0] == ' ':
             name = name[1:]
         self.name = name
@@ -122,6 +128,7 @@ class Concept:
                 'representations': [],
                 'description': description,
                 'rownum': '?',
+                'url': None,
             }
         if course is not None:
             if self.course is not None:
@@ -142,6 +149,8 @@ class Concept:
             self.__p[name]['description'] = description
         if rownum is not None:
             self.__p[name]['rownum'] = rownum
+        if url is not None:
+            self.__p[name]['url'] = url
     def __eq__(self, other):
         return other is not None and self.name == other.name
     def __ne__(self, other):
@@ -162,6 +171,9 @@ class Concept:
     @property
     def description(self):
         return self.__p[self.name]['description']
+    @property
+    def url(self):
+        return self.__p[self.name]['url']
     @property
     def rownum(self):
         return self.__p[self.name]['rownum']
@@ -220,6 +232,8 @@ with open('progression.csv', 'r') as csvfile:
          generic_course = line[7]
          description = line[8]
          external_url = line[9]
+         if ':' not in external_url:
+             external_url = "http://physics.oregonstate.edu/portfolioswiki/activities:guides:" + external_url
          status = line[10]
          if status == 'Active' and name != '':
              if kind == 'Concept':
@@ -227,12 +241,14 @@ with open('progression.csv', 'r') as csvfile:
                  concepts.append(Concept(name, course_number, prereqs,
                                          description=description,
                                          rownum=rownum,
+                                         url=external_url,
                                          representations=representations))
              elif kind == 'Activity':
                  print('activity:', name, course_number)
                  activities.append(Activity(name, course_number, prereqs, new_concepts,
                                             rownum=rownum,
                                             description=description,
+                                            url=external_url,
                                             representations=representations))
 
 # new_concept('reading', 'reading', [], 'elementary school')
