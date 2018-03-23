@@ -4,8 +4,8 @@ set -ev
 
 if test -e ~/box/Learning\ Progressions\ for\ Partial\ Derivatives/Learning\ Progression\ Database.xlsx; then
     # copy latest version of the learning progression from box
-    cp ~/box/Learning\ Progressions\ for\ Partial\ Derivatives/Learning\ Progression\ Database.xlsx progression.xlsx
-    cp -v ~/box/Learning\ Progressions\ for\ Partial\ Derivatives/Figures/* figs/
+    rsync -a ~/box/Learning\ Progressions\ for\ Partial\ Derivatives/Learning\ Progression\ Database.xlsx progression.xlsx
+    rsync -a ~/box/Learning\ Progressions\ for\ Partial\ Derivatives/Figures/* figs/
 fi
 
 fac
