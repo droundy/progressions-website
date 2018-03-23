@@ -61,6 +61,7 @@
         <div class="activity-grouping">
           <a href="activity-{{activity.urlname}}.html" class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{activity.urlname}}">
             <div class="activity">
+              <span class="rownum hint">{{ activity.rownum }}</span>
               {{ activity.name }}
             </div>
             {% for r in activity.representations %}
