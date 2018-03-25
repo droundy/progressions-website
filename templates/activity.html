@@ -61,20 +61,22 @@
         {% endfor %}
       </div>
 
-      <a {% if activity.url %}href="{{activity.url}}" {% endif %} class="activity">
-        {% for r in activity.representations %}
-        <div class="representation">
-          {{ r }}
+      {% if activity.url != "" %}<a href="{{activity.url}}">{% endif %}
+        <div {% if activity.url %}href="{{activity.url}}" {% endif %} class="activity">
+          {% for r in activity.representations %}
+          <div class="representation">
+            {{ r }}
+          </div>
+          {% endfor %}
+          <div class="activity">
+            <span class="rownum hint">{{ activity.rownum }}</span>
+            {{activity.name}}
+          </div>
+          <div class="description">
+            {{activity.description}}
+          </div>
         </div>
-        {% endfor %}
-        <div class="activity">
-          <span class="rownum hint">{{ activity.rownum }}</span>
-          {{activity.name}}
-        </div>
-        <div class="description">
-          {{activity.description}}
-        </div>
-      </div>
+        {% if activity.url != "" %}</a>{% endif %}
       <div class="output">
         {% for c in activity.concepts %}
         <a href="concept-{{c.urlname}}.html" class="concept">
