@@ -72,14 +72,14 @@
           </a>
           <div class="concepts">
             {% for concept in activity.concepts %}
-            <a href="concept-{{concept.urlname}}.html" class="concept{% if concept.activity%} from-{{concept.activity.urlname}}{%endif%}" id="{{ concept.urlname }}">
+            <a href="concept-{{concept.urlname}}.html" class="concept{% for a in concept.activities%} from-{{a.urlname}}{%endfor%}" id="{{ concept.urlname }}">
               <span class="rownum hint">{{ concept.rownum }}</span>
-              {{ concept.name }}
               {% for r in concept.representations %}
               <div class="representation">
                 {{ r }}
               </div>
               {% endfor %}
+              {{ concept.name }}
             </a>
             {% endfor %}
           </div>

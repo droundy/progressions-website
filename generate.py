@@ -65,7 +65,7 @@ class Activity:
         for p in [Concept(p) for p in prereqs if p is not '']:
             self.prereqs.append(p)
         for p in [Concept(p) for p in concepts if p is not '']:
-            p.activity = self
+            p.activities.append(self)
             if p not in self.concepts:
                 self.concepts.append(p)
         if description is not None:
@@ -123,7 +123,7 @@ class Concept:
             self.__p[name] = {
                 'name': name,
                 'course': None,
-                'activity': None,
+                'activities': [],
                 'prereqs': [],
                 'representations': [],
                 'description': description,
@@ -178,11 +178,8 @@ class Concept:
     def rownum(self):
         return self.__p[self.name]['rownum']
     @property
-    def activity(self):
-        return self.__p[self.name]['activity']
-    @activity.setter
-    def activity(self, a):
-        self.__p[self.name]['activity'] = a
+    def activities(self):
+        return self.__p[self.name]['activities']
     @property
     def representations(self):
         return self.__p[self.name]['representations']
@@ -232,7 +229,7 @@ with open('progression.csv', 'r') as csvfile:
          generic_course = line[7]
          description = line[8]
          external_url = line[9]
-         if ':' not in external_url:
+         if ':' not in external_url and len(external_url) > 0:
              external_url = "http://physics.oregonstate.edu/portfolioswiki/activities:guides:" + external_url
          status = line[10]
          if status == 'Active' and name != '':
@@ -250,23 +247,6 @@ with open('progression.csv', 'r') as csvfile:
                                             description=description,
                                             url=external_url,
                                             representations=representations))
-
-# new_concept('reading', 'reading', [], 'elementary school')
-# new_concept('writing', 'writing', [], 'elementary school')
-# new_concept('arithmetic', 'arithmetic', [], 'elementary school')
-# new_concept('food', 'food', [], 'grocery store')
-
-# new_concept('tailoring', 'tailoring', ['sewing'])
-
-# new_concept('eating', 'eating', ['food'])
-
-# new_activity('activity-1', 'activity 1', 'PH 423', ['writing', 'reading'], ['eating'])
-# new_activity('activity-2', 'activity 2', 'PH 423', ['food', 'arithmetic', 'eating'], ['sewing'])
-# new_activity('activity-0', 'activity 0 (last)', 'PH 423', ['sewing'],
-#              ['fitting', 'tailoring'])
-
-# new_activity('senior-1', 'senior activity', 'PH 441', ['tailoring'],
-#              ['fashion'])
 
 os.makedirs('output', exist_ok=True)
 
@@ -318,8 +298,8 @@ for concept in concepts:
             if p.course not in prereq_courses:
                 prereq_courses[p.course] = set()
             prereq_courses[p.course].add(p)
-    if concept.activity is not None:
-        for p in concept.activity.prereqs:
+    for a in concept.activities:
+        for p in a.prereqs:
             if p.course != concept.course and p.course is not None:
                 if p.course not in prereq_course_hints:
                     prereq_course_hints[p.course] = set()
@@ -337,11 +317,11 @@ for concept in concepts:
     concept.prereq_courses = prereq_list
 
     prereq_groups = []
+    concept_activity_prereqs = set([c for a in concept.activities for c in a.prereqs])
+    concept_activity_prereqs = concept_activity_prereqs.difference(concept.prereqs)
     for a in activities:
         ps = [c for c in a.concepts if c in concept.prereqs]
-        hints = []
-        if concept.activity is not None:
-            hints = [c for c in a.concepts if c in concept.activity.prereqs and c not in concept.prereqs]
+        hints = [c for c in a.concepts if c in concept_activity_prereqs]
         if len(ps) > 0 or len(hints) > 0:
             prereq_groups.append((a, ps, hints))
     concept.prereq_groups = prereq_groups
