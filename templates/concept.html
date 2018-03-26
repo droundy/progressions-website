@@ -73,12 +73,14 @@
       </div>
       {% if concept.url != "" %}<a href="{{concept.url}}">{% endif %}
         <div class="concept">
-          <div class="activities">
-            {% for a in concept.activities %}
-            <a href="activity-{{a.urlname}}.html" class="activity">
-              {{a.name}}
-            </a>
-            {% endfor %}
+          <div class="taughtby">
+            <div class="taughtby">
+              {% for a in concept.activities %}
+              <a href="activity-{{a.urlname}}.html" class="activity">
+                {{a.name}}
+              </a>
+              {% endfor %}
+            </div>
           </div>
           {% for r in concept.representations %}
           <div class="representation">
