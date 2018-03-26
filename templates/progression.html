@@ -89,6 +89,7 @@
           <div class="concepts">
             {% for concept in course.orphan_concepts %}
             <a href="concept-{{concept.urlname}}.html" class="concept{% for a in concept.activities%} from-{{a.urlname}}{%endfor%}" id="{{ concept.urlname }}">
+              <span class="rownum hint">{{ concept.rownum }}</span>
               {% for r in concept.representations %}
               <div class="representation">
                 {{ r }}
