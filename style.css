@@ -9,11 +9,10 @@ html {
     --representation-color: hsl(var(--representation-hue), 100%, 90%);
     --course-color: hsl(var(--course-hue), 100%, 90%);
 
-    --prereq-course-color: #aaa;
+    --prereq-course-color: #ddd;
 
     --time-arrow-color: hsl(var(--course-hue), 100%, 90%);
 
-    --menu-color: #aaa;
     --minwidth: 10em;
     --imgheight: 1.5em;
     --activity-padding: 0.6em;
@@ -21,6 +20,7 @@ html {
 }
 
 html {
+    --menu-color: var(--prereq-course-color);
     --left-arrows-color: hsl(var(--concept-hue), 100%, 70%);
     --right-arrows-color: hsl(var(--activity-hue), 80%, 75%);
 }
