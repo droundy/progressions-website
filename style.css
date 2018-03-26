@@ -1,20 +1,28 @@
 html {
-    --concept-color: hsl(5, 100%, 76%);
-    --activity-color: hsl(125, 100%, 76%);
-    --representation-color: hsl(59, 100%, 76%);
-    --course-color: hsl(206, 100%, 76%);
+    --concept-hue: 207;
+    --activity-hue: 112;
+    --representation-hue: 56;
+    --course-hue: 360;
+
+    --concept-color: hsl(var(--concept-hue), 100%, 90%);
+    --activity-color: hsl(var(--activity-hue), 100%, 90%);
+    --representation-color: hsl(var(--representation-hue), 100%, 90%);
+    --course-color: hsl(var(--course-hue), 100%, 90%);
 
     --prereq-course-color: #aaa;
 
-    --time-arrow-color: hsl(206, 100%, 86%);
-    --left-arrows-color: hsl(5, 100%, 50%);
-    --right-arrows-color: hsl(125, 100%, 76%);
+    --time-arrow-color: hsl(var(--course-hue), 100%, 90%);
 
     --menu-color: #aaa;
     --minwidth: 10em;
     --imgheight: 1.5em;
     --activity-padding: 0.6em;
     --border-width: .1em;
+}
+
+html {
+    --left-arrows-color: hsl(var(--concept-hue), 100%, 70%);
+    --right-arrows-color: hsl(var(--activity-hue), 80%, 75%);
 }
 
 /* ul li{display:block;position:relative;float:left;margin:0;height:2em;} */
@@ -268,7 +276,7 @@ article > .activity .activity:before {
     height: 0;
     border-left: 45vw solid transparent;
     border-right: 45vw solid transparent;
-    border-top: 5em solid #aaf;
+    border-top: 5em solid var(--time-arrow-color);
     content: "";
     bottom: 2em;
     left: 0;
@@ -295,7 +303,7 @@ article > .concept .concept:before {
     height: 0;
     border-left: 45vw solid transparent;
     border-right: 45vw solid transparent;
-    border-top: 5em solid #aaf;
+    border-top: 5em solid var(--time-arrow-color);
     content: "";
     bottom: 2.5em;
     left: 0;
