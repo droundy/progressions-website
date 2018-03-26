@@ -29,7 +29,13 @@ class Course:
     __p = {}
     def __init__(self, number, name=None):
         if number not in Course.__p:
-            self.__p[number] = {'number': number, 'name': name, 'activities': [], 'concepts': []}
+            self.__p[number] = {
+                'number': number,
+                'name': name,
+                'activities': [],
+                'concepts': [],
+                'orphan_concepts': [],
+            }
             if name is not None:
                 Course.__p[name] = self.__p[number] # can look up Courses either way
         self.number = self.__p[number]['number'] # in case we were given name instead!
@@ -52,6 +58,9 @@ class Course:
     @property
     def concepts(self):
         return self.__p[self.number]['concepts']
+    @property
+    def orphan_concepts(self):
+        return self.__p[self.number]['orphan_concepts']
 
 class Activity:
     """ A teaching activity """
@@ -270,16 +279,11 @@ for course in all_courses:
     number = course.number
     prereq_courses = {}
     a = []
+    concepts_in_activities = set()
     for x in activities:
         if x.course == course:
             a.append(x)
-            print('including', x)
-        else:
-            print('    not including', x.course, '!=', course, x)
-    c = []
-    for x in concepts:
-        if x.course == course:
-            c.append(x)
+            concepts_in_activities.update(x.concepts)
     for x in a:
         for p in x.prereqs:
             if p.course != course and p.course is not None:
@@ -291,12 +295,17 @@ for course in all_courses:
         if c in prereq_courses:
             these_concepts = [x for x in concepts if x in prereq_courses[c]]
             prereq_list.append((c, these_concepts))
+    course_concepts = [x for x in concepts if x.course == course]
+    course.orphan_concepts.extend([x for x in course_concepts if x not in concepts_in_activities])
+    for x in course.orphan_concepts:
+        print('  orphan:', x)
     with open('output/%s.html' % number, 'w') as f:
         f.write(course_template.render(course={
             'name': name,
             'number': number,
             'activities': a,
-            'concepts': c,
+            'concepts': course_concepts,
+            'orphan_concepts': course.orphan_concepts,
             'prereq_courses': prereq_list,
         }, style_css=style_css))
 

@@ -85,6 +85,20 @@
           </div>
         </div>
         {% endfor %}
+        <div class="activity-grouping">
+          <div class="concepts">
+            {% for concept in course.orphan_concepts %}
+            <a href="concept-{{concept.urlname}}.html" class="concept{% for a in concept.activities%} from-{{a.urlname}}{%endfor%}" id="{{ concept.urlname }}">
+              {% for r in concept.representations %}
+              <div class="representation">
+                {{ r }}
+              </div>
+              {% endfor %}
+              {{ concept.name }}
+            </a>
+            {% endfor %}
+          </div>
+        </div>
         {% endfor %}
       </div>
     </article>
