@@ -1,9 +1,23 @@
 from jinja2 import Environment, FileSystemLoader
 import os, csv, slugify, glob, copy
+import hashlib
+
+def file_hash(filename):
+  h = hashlib.sha256()
+  with open(filename, 'rb', buffering=0) as f:
+    for b in iter(lambda : f.read(128*1024), b''):
+      h.update(b)
+  return h.hexdigest()
 
 env = Environment(
     loader=FileSystemLoader('templates'),
 )
+
+style_css = file_hash('style.css')[:8] + '.css'
+os.system('mkdir -p output')
+os.system('rm -f output/*.css')
+os.system('cp -v style.css output/' + style_css)
+os.system('cp -v style.css output/')
 
 course_template = env.get_template('course.html')
 
@@ -284,11 +298,12 @@ for course in all_courses:
             'activities': a,
             'concepts': c,
             'prereq_courses': prereq_list,
-        }))
+        }, style_css=style_css))
 
 for activity in activities:
     with open('output/activity-%s.html' % activity.urlname, 'w') as f:
-        f.write(env.get_template('activity.html').render(activity=activity))
+        f.write(env.get_template('activity.html').render(activity=activity,
+                                                         style_css=style_css))
 
 for concept in concepts:
     prereq_courses = {}
@@ -337,7 +352,8 @@ for concept in concepts:
             output_groups.append((a,[], hints))
     concept.output_groups = output_groups
     with open('output/concept-%s.html' % concept.urlname, 'w') as f:
-        f.write(env.get_template('concept.html').render(concept=concept))
+        f.write(env.get_template('concept.html').render(concept=concept,
+                                                        style_css=style_css))
 
 for activity in activities:
     prereq_courses = {}
@@ -361,11 +377,13 @@ for activity in activities:
     activity.prereq_groups = prereq_groups
 
     with open('output/activity-%s.html' % activity.urlname, 'w') as f:
-        f.write(env.get_template('activity.html').render(activity=activity))
+        f.write(env.get_template('activity.html').render(activity=activity,
+                                                         style_css=style_css))
 
 with open('output/index.html', 'w') as f:
     f.write(env.get_template('progression.html').render(
         all_courses = all_courses,
+        style_css=style_css,
         courses = [c for c in all_courses if len(c.activities) > 0],
         prereq_courses = [c for c in all_courses if len(c.activities) == 0],
     ))
@@ -374,5 +392,5 @@ for key in glob.glob('templates/*key.html'):
     print(key)
     key = key[len('templates/'):]
     with open('output/'+key, 'w') as f:
-        f.write(env.get_template(key).render())
+        f.write(env.get_template(key).render(style_css=style_css))
 
