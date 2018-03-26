@@ -1,13 +1,16 @@
 html {
-    --concept-color: pink;
-    --prereq-course-color: #ddd;
-    --course-color: violet;
-    --representation-color: cyan;
-    --activity-color: lightgreen;
-    --time-arrow-color: #aaf;
-    --left-arrows-color: black;
-    --right-arrows-color: #f90;
-    --menu-color: #eee;
+    --concept-color: hsl(5, 100%, 76%);
+    --activity-color: hsl(125, 100%, 76%);
+    --representation-color: hsl(59, 100%, 76%);
+    --course-color: hsl(206, 100%, 76%);
+
+    --prereq-course-color: #aaa;
+
+    --time-arrow-color: hsl(206, 100%, 86%);
+    --left-arrows-color: hsl(5, 100%, 50%);
+    --right-arrows-color: hsl(125, 100%, 76%);
+
+    --menu-color: #aaa;
     --minwidth: 10em;
     --imgheight: 1.5em;
     --activity-padding: 0.6em;
