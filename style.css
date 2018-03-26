@@ -187,15 +187,12 @@ article {
     top: .5em;
     height: 1.2em;
     left: 1em;
-    z-index: -1;
-    /* left: 0; */
-    /* right: 0; */
-    /* margin: auto; */
 }
 
 .activity-grouping .concept {
     display: block;
     width: 1fr;
+    z-index: 1;
 }
 
 article > .activity {
