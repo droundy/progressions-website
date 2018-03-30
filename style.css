@@ -407,6 +407,10 @@ article > .activity img {
     grid-column: concepts;
     display: block;
 }
+.progression .activity-grouping > .activity {
+    position: relative;
+    top: -2em;
+}
 
 .rownum {
     border-radius: 100%;
