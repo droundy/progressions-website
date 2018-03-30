@@ -270,59 +270,59 @@ article > .concept .taughtby .taughtby .activity {
     margin: 0 0 0 1em;
 }
 
-article > .activity .activity:before {
-    position:absolute;
-    width: 0;
-    height: 0;
-    border-left: 45vw solid transparent;
-    border-right: 45vw solid transparent;
-    border-top: 5em solid var(--time-arrow-color);
-    content: "";
-    bottom: 2em;
-    left: 0;
-    right: 0;
-    margin: auto;
-    z-index: -2;
-}
-article > .activity .activity:after {
-    position:absolute;
-    width: 40vw;
-    height: 100vh;
-    background-color: var(--time-arrow-color);
-    content: "";
-    bottom: 7em;
-    left: 0;
-    right: 0;
-    margin: auto;
-    z-index: -2;
-}
+/* article > .activity .activity:before { */
+/*     position:absolute; */
+/*     width: 0; */
+/*     height: 0; */
+/*     border-left: 45vw solid transparent; */
+/*     border-right: 45vw solid transparent; */
+/*     border-top: 5em solid var(--time-arrow-color); */
+/*     content: ""; */
+/*     bottom: 2em; */
+/*     left: 0; */
+/*     right: 0; */
+/*     margin: auto; */
+/*     z-index: -2; */
+/* } */
+/* article > .activity .activity:after { */
+/*     position:absolute; */
+/*     width: 40vw; */
+/*     height: 100vh; */
+/*     background-color: var(--time-arrow-color); */
+/*     content: ""; */
+/*     bottom: 7em; */
+/*     left: 0; */
+/*     right: 0; */
+/*     margin: auto; */
+/*     z-index: -2; */
+/* } */
 
-article > .concept .concept:before {
-    position:absolute;
-    width: 0;
-    height: 0;
-    border-left: 45vw solid transparent;
-    border-right: 45vw solid transparent;
-    border-top: 5em solid var(--time-arrow-color);
-    content: "";
-    bottom: 2.5em;
-    left: 0;
-    right: 0;
-    margin: auto;
-    z-index: -2;
-}
-article > .concept .concept:after {
-    position:absolute;
-    width: 40vw;
-    height: 100vh;
-    background-color: var(--time-arrow-color);
-    content: "";
-    bottom: 7em;
-    left: 0;
-    right: 0;
-    margin: auto;
-    z-index: -2;
-}
+/* article > .concept .concept:before { */
+/*     position:absolute; */
+/*     width: 0; */
+/*     height: 0; */
+/*     border-left: 45vw solid transparent; */
+/*     border-right: 45vw solid transparent; */
+/*     border-top: 5em solid var(--time-arrow-color); */
+/*     content: ""; */
+/*     bottom: 2.5em; */
+/*     left: 0; */
+/*     right: 0; */
+/*     margin: auto; */
+/*     z-index: -2; */
+/* } */
+/* article > .concept .concept:after { */
+/*     position:absolute; */
+/*     width: 40vw; */
+/*     height: 100vh; */
+/*     background-color: var(--time-arrow-color); */
+/*     content: ""; */
+/*     bottom: 7em; */
+/*     left: 0; */
+/*     right: 0; */
+/*     margin: auto; */
+/*     z-index: -2; */
+/* } */
 
 .has1, .has3, .has2, .has4 {
     flex-grow: 1;
