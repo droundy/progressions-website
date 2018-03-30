@@ -361,6 +361,7 @@ article > .activity img {
 }
 
 .progression {
+    padding-top: 2em;
     flex-basis: 100%;
 
     display: flex;
