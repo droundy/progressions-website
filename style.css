@@ -361,6 +361,7 @@ article > .activity img {
 }
 
 .progression {
+    padding-top: 2em;
     flex-basis: 100%;
 
     display: flex;
@@ -406,6 +407,10 @@ article > .activity img {
 .progression .activity-grouping .concepts {
     grid-column: concepts;
     display: block;
+}
+.progression .activity-grouping > .activity {
+    position: relative;
+    top: -2em;
 }
 
 .rownum {
