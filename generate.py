@@ -228,6 +228,8 @@ def clean_representation(r):
         'Del dot f': r'$\vec\nabla\cdot\vec f$',
         'df': r'$df$',
         'Contour Maps': r'<img src="contour-map.svg"/>',
+        'PDM': r'<img src="pdm.jpg"/>',
+        'picture of PDM': r'<img src="pdm.jpg"/>',
         'Inclinometer': r'<img src="inclinometer.jpg"/>',
     }
     if r in reprs:
