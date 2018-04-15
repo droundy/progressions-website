@@ -138,6 +138,7 @@ a, a:link, a:active, a:hover {
 }
 
 .description {
+    text-align: justify;
     grid-column: main;
 }
 
@@ -149,7 +150,11 @@ a, a:link, a:active, a:hover {
 .figure {
     grid-column: left;
     background-color: red;
-    height: 5em;
+    width: 15em;
+    height: auto;
+    flex-basis: auto;
+    flex-shrink: 10;
+    flex-grow: 0;
 }
 
 article {
@@ -225,10 +230,9 @@ article > .activity {
     position: relative;
     padding: 0 .25em .25em .25em;
     text-align: center;
-    /* display: flex; */
-    /* flex-wrap: wrap; */
+    display: flex;
+    flex-wrap: wrap;
     flex-basis: 100%;
-    display: grid;
     grid-template-columns: [left] minmax(var(--minwidth), 1fr) [main] 3fr [right] minmax(var(--minwidth), 1fr);
 }
 
@@ -366,6 +370,7 @@ article > .activity .activity {
     top: 0;
     font-weight: bold;
     font-size: 1.5em;
+    flex-basis: auto;
 }
 article > .activity {
     --imgheight: 6em;
@@ -375,6 +380,17 @@ article > .concept {
 }
 article > .activity img {
     margin: 1em;
+}
+
+.middle {
+    flex-basis: 10em;
+    flex-grow: 5;
+    flex-shrink: 1;
+}
+
+.right {
+    flex-basis: auto;
+    flex-shrink: 5;
 }
 
 .progression {

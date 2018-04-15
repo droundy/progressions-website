@@ -62,20 +62,24 @@
       </div>
 
       <a {% if activity.url != "" %}href="{{activity.url}}"{% endif %} class="activity">
+        {% if  activity.figure != "" %}
+        <img src="{{activity.figure}}" class="figure"/>
+        {% endif %}
+        <div class="middle">
+          <div class="activity">
+            <span class="rownum hint">{{ activity.rownum }}</span>
+            {{activity.name}}
+          </div>
+          <div class="description">
+            {{activity.description}}
+          </div>
+        </div>
+        <div class="right">
         {% for r in activity.representations %}
         <div class="representation">
           {{ r }}
         </div>
         {% endfor %}
-        <div class="figure">
-          THIS WILL HOLD A FIGURE!
-        </div>
-        <div class="activity">
-          <span class="rownum hint">{{ activity.rownum }}</span>
-          {{activity.name}}
-        </div>
-        <div class="description">
-          {{activity.description}}
         </div>
       </a>
       <div class="output">

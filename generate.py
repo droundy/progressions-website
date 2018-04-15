@@ -66,7 +66,7 @@ class Activity:
     """ A teaching activity """
     __p = {}
     def __init__(self, name, course=None, prereqs=[], concepts=[], representations=[],
-                 description='', rownum=None, url=None):
+                 description='', rownum=None, url=None, figure=None):
         self.name = name
         if name not in self.__p:
             self.__p[name] = {
@@ -101,6 +101,8 @@ class Activity:
             self.__p[name]['rownum'] = rownum
         if url is not None:
             self.__p[name]['url'] = url
+        if figure is not None:
+            self.__p[name]['figure'] = figure
     def __eq__(self, other):
         return other is not None and self.name == other.name
     def __ne__(self, other):
@@ -133,12 +135,15 @@ class Activity:
     @property
     def url(self):
         return self.__p[self.name]['url']
+    @property
+    def figure(self):
+        return self.__p[self.name]['figure']
 
 class Concept:
     """ A concept """
     __p = {}
     def __init__(self, name, course=None, prereqs=[], description=None, representations=[],
-                 rownum=None, url=None):
+                 rownum=None, url=None, figure=None):
         while name[0] == ' ':
             name = name[1:]
         self.name = name
@@ -174,6 +179,8 @@ class Concept:
             self.__p[name]['rownum'] = rownum
         if url is not None:
             self.__p[name]['url'] = url
+        if figure is not None:
+            self.__p[name]['figure'] = figure
     def __eq__(self, other):
         return other is not None and self.name == other.name
     def __ne__(self, other):
@@ -197,6 +204,9 @@ class Concept:
     @property
     def url(self):
         return self.__p[self.name]['url']
+    @property
+    def figure(self):
+        return self.__p[self.name]['figure']
     @property
     def rownum(self):
         return self.__p[self.name]['rownum']
@@ -251,7 +261,7 @@ with open('progression.csv', 'r') as csvfile:
          if len(representations) > 0:
              print('representations:', representations)
          course_number = line[6]
-         generic_course = line[7]
+         figure = line[7]
          description = line[8]
          external_url = line[9]
          if ':' not in external_url and len(external_url) > 0:
@@ -264,6 +274,7 @@ with open('progression.csv', 'r') as csvfile:
                                          description=description,
                                          rownum=rownum,
                                          url=external_url,
+                                         figure=figure,
                                          representations=representations))
              elif kind == 'Activity':
                  print('activity:', name, course_number)
@@ -271,6 +282,7 @@ with open('progression.csv', 'r') as csvfile:
                                             rownum=rownum,
                                             description=description,
                                             url=external_url,
+                                            figure=figure,
                                             representations=representations))
 
 os.makedirs('output', exist_ok=True)
