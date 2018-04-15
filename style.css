@@ -120,7 +120,7 @@ a, a:link, a:active, a:hover {
 
 .representation {
     grid-column: right;
-    /* overflow: hidden, */
+    overflow: hidden;
     background-color: var(--representation-color);
     clear: right;
     float: right;
@@ -146,16 +146,6 @@ a, a:link, a:active, a:hover {
 /*     clear: left; */
 /*     float: left; */
 /* } */
-
-.figure {
-    grid-column: left;
-    background-color: red;
-    width: 15em;
-    height: auto;
-    flex-basis: auto;
-    flex-shrink: 10;
-    flex-grow: 0;
-}
 
 article {
     display: flex;
@@ -373,23 +363,31 @@ article > .activity .activity {
     flex-basis: auto;
 }
 article > .activity {
-    --imgheight: 6em;
+    --imgheight: 10em;
 }
 article > .concept {
     --imgheight: 6em;
 }
-article > .activity img {
-    margin: 1em;
+
+.figure {
+    grid-column: left;
+    padding: .5em;
+    object-fit: contain;
+    width: auto;
+    height: auto;
+    flex-basis: 1em;
+    flex-shrink: 1;
+    flex-grow: 1;
 }
 
 .middle {
-    flex-basis: 10em;
+    flex-basis: 30em;
     flex-grow: 5;
     flex-shrink: 1;
 }
 
 .right {
-    flex-basis: auto;
+    flex-basis: 10em;
     flex-shrink: 5;
 }
 
