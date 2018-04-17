@@ -95,7 +95,7 @@ a, a:link, a:active, a:hover {
     grid-column: main;
     background-color: var(--concept-color);
     margin: 0.25em;
-    padding: 0.2em;
+    padding: 0.5em;
     /* justify-self: center; */
     align-self: start;
     border-width: var(--border-width);
@@ -155,7 +155,7 @@ article {
 .course-prereq {
     margin: 1em 0.5em 0.5em 0.5em;
     padding: 0;
-    line-height: 165%;
+    /* line-height: 165%; why did I do this? */
     background-color: var(--prereq-course-color);
     padding: 0.25em;
     border-radius: 0.5em;
