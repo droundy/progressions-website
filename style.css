@@ -122,6 +122,7 @@ a, a:link, a:active, a:hover {
     grid-column: right;
     overflow: hidden;
     background-color: var(--representation-color);
+    max-height: calc(2*var(--imgheight));
     clear: right;
     float: right;
     padding: 0.25em 0.5em 0.25em 0.5em;

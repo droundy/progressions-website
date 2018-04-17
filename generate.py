@@ -241,6 +241,8 @@ def clean_representation(r):
         'PDM': r'<img src="pdm.jpg"/>',
         'picture of PDM': r'<img src="pdm.jpg"/>',
         'Inclinometer': r'<img src="inclinometer.jpg"/>',
+        'Table': r'$\begin{array}{c|c}x&y\\3&0.2\\4&0.6\\5&0.9\end{array}$',
+        'extable.jpg': r'$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$',
     }
     if r in reprs:
         return reprs[r]
