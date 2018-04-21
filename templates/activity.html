@@ -30,26 +30,12 @@
     </header>
 
     <article>
-      {% for course, concepts in activity.prereq_courses %}
-      <div class="course-prereq has{{concepts|length}}">
-        <a href="{{course.number}}.html" class="course">
-          {{ course.name }}
-        </a>
-        {% for c in concepts %}
-        <a href="concept-{{c.urlname}}.html" class="concept">
-          <span class="rownum hint">{{ c.rownum }}</span>
-          {{ c.name }}
-        </a>
-        {% endfor %}
-      </div>
-      {% endfor %}
-
-      <div class="prereq">
-        {% for activity, concepts in activity.prereq_groups %}
-        <div class="activity-grouping has{{concepts|length}}">
-          <a href="activity-{{activity.urlname}}.html" class="activity">
-            <span class="rownum hint">{{ activity.rownum }}</span>
-            {{activity.name}}
+      <div class="allprereqs">
+        <h3>Prerequisites</h3>
+        {% for course, concepts in activity.prereq_courses %}
+        <div class="course-prereq has{{concepts|length}}">
+          <a href="{{course.number}}.html" class="course">
+            {{ course.name }}
           </a>
           {% for c in concepts %}
           <a href="concept-{{c.urlname}}.html" class="concept">
@@ -59,37 +45,60 @@
           {% endfor %}
         </div>
         {% endfor %}
+
+        <div class="prereq">
+          {% for activity, concepts in activity.prereq_groups %}
+          <div class="activity-grouping has{{concepts|length}}">
+            <a href="activity-{{activity.urlname}}.html" class="activity">
+              <span class="rownum hint">{{ activity.rownum }}</span>
+              {{activity.name}}
+            </a>
+            {% for c in concepts %}
+            <a href="concept-{{c.urlname}}.html" class="concept">
+              <span class="rownum hint">{{ c.rownum }}</span>
+              {{ c.name }}
+            </a>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
       </div>
 
       <a {% if activity.url != "" %}href="{{activity.url}}"{% endif %} class="activity">
+        <span class="rownum hint">{{ activity.rownum }}</span>
+        <h1>{{activity.name}}</h1>
         {% if  activity.figure != "" %}
         <img src="{{activity.figure}}" class="figure"/>
         {% endif %}
-        <div class="middle">
-          <div class="activity">
-            <span class="rownum hint">{{ activity.rownum }}</span>
-            {{activity.name}}
-          </div>
-          <div class="description">
-            {{activity.description}}
-          </div>
+        <div class="description">
+          {{activity.description}}
         </div>
-        <div class="right">
-        {% for r in activity.representations %}
-        <div class="representation">
-          {{ r }}
+        <h3>Representations used</h3>
+        <div class="row">
+          {% for r in activity.representations %}
+          <div class="representation">
+            {{ r }}
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
+        <h3>Concepts taught</h3>
+        <div class="row">
+          {% for c in activity.concepts %}
+          <div href="concept-{{c.urlname}}.html" class="concept">
+            <span class="rownum hint">{{ c.rownum }}</span>
+            {{ c.name }}
+          </div>
+          {% endfor %}
         </div>
       </a>
-      <div class="output">
-        {% for c in activity.concepts %}
-        <a href="concept-{{c.urlname}}.html" class="concept">
-          <span class="rownum hint">{{ c.rownum }}</span>
-          {{ c.name }}
-        </a>
-        {% endfor %}
-      </div>
+      <!-- <div class="output"> -->
+      <!--   {% for c in activity.concepts %} -->
+      <!--   <a href="concept-{{c.urlname}}.html" class="concept"> -->
+      <!--     <span class="rownum hint">{{ c.rownum }}</span> -->
+      <!--     {{ c.name }} -->
+      <!--   </a> -->
+      <!--   {% endfor %} -->
+      <!-- </div> -->
     </article>
   </main>
 </body>

@@ -9,7 +9,8 @@ html {
     --representation-color: hsl(var(--representation-hue), 100%, 90%);
     --course-color: hsl(var(--course-hue), 100%, 90%);
 
-    --prereq-course-color: #ddd;
+    --prereq-course-color: #aaa;
+    --all-prereq-color: #ddd;
 
     --time-arrow-color: hsl(var(--course-hue), 100%, 90%);
 
@@ -106,6 +107,7 @@ a, a:link, a:active, a:hover {
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: var(--minwidth);
+    /* flex-basis: auto; */
 }
 
 .course {
@@ -187,6 +189,20 @@ article {
     flex-basis: 100%;
 }
 
+.allprereqs {
+    padding: 0.5em;
+    border-radius: 0.5em;
+    background-color: var(--all-prereq-color);
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+
+.allprereqs h3 {
+    flex-basis: 100%;
+    margin: 0 0 0.5em 0;
+}
+
 .output {
     display: flex;
     flex-wrap: wrap;
@@ -221,7 +237,7 @@ article > .activity {
     position: relative;
     padding: 0 .25em .25em .25em;
     text-align: center;
-    display: flex;
+    display: block;
     flex-wrap: wrap;
     flex-basis: 100%;
     grid-template-columns: [left] minmax(var(--minwidth), 1fr) [main] 3fr [right] minmax(var(--minwidth), 1fr);
@@ -336,6 +352,23 @@ article > .concept .taughtby .taughtby .activity {
 /*     z-index: -2; */
 /* } */
 
+.activity .representation {
+    float: none;
+    width: auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    --imgheight: 6em;
+}
+
+.row .representation {
+    height: calc(var(--imgheight)+1em);
+    padding: 1em;
+}
+
 .has1, .has3, .has2, .has4 {
     flex-grow: 1;
     flex-shrink: 1;
@@ -371,6 +404,7 @@ article > .concept {
 }
 
 .figure {
+    float: left;
     grid-column: left;
     padding: .5em;
     object-fit: contain;
