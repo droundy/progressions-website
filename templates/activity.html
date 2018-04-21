@@ -64,7 +64,9 @@
         </div>
       </div>
 
-      <a {% if activity.url != "" %}href="{{activity.url}}"{% endif %} class="activity">
+      <div {% if activity.url != ""
+           %}onclick="location.href='{{activity.url}}';" style="cursor: pointer;"{%
+           endif %} class="activity">
         <span class="rownum hint">{{ activity.rownum }}</span>
         <h1>{{activity.name}}</h1>
         {% if  activity.figure != "" %}
@@ -84,13 +86,13 @@
         <h3>Concepts taught</h3>
         <div class="row">
           {% for c in activity.concepts %}
-          <div href="concept-{{c.urlname}}.html" class="concept">
+          <a href="concept-{{c.urlname}}.html" class="concept">
             <span class="rownum hint">{{ c.rownum }}</span>
             {{ c.name }}
-          </div>
+          </a>
           {% endfor %}
         </div>
-      </a>
+      </div>
       <!-- <div class="output"> -->
       <!--   {% for c in activity.concepts %} -->
       <!--   <a href="concept-{{c.urlname}}.html" class="concept"> -->

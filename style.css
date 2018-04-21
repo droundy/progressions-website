@@ -97,6 +97,7 @@ a, a:link, a:active, a:hover {
     background-color: var(--concept-color);
     margin: 0.25em;
     padding: 0.5em;
+    text-align: justify;
     /* justify-self: center; */
     align-self: start;
     border-width: var(--border-width);
@@ -125,6 +126,11 @@ a, a:link, a:active, a:hover {
     overflow: hidden;
     background-color: var(--representation-color);
     max-height: calc(2*var(--imgheight));
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     clear: right;
     float: right;
     padding: 0.25em 0.5em 0.25em 0.5em;
@@ -409,6 +415,7 @@ article > .concept {
     padding: .5em;
     object-fit: contain;
     width: auto;
+    max-width: 50%;
     height: auto;
     flex-basis: 1em;
     flex-shrink: 1;
