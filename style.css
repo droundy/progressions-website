@@ -195,10 +195,15 @@ article {
     flex-basis: 100%;
 }
 
-.allprereqs {
+details.allprereqs {
     padding: 0.5em;
+    margin: 0.5em;
     border-radius: 0.5em;
     background-color: var(--all-prereq-color);
+    display: block;
+    flex-basis: 100%;
+}
+div.allprereqs {
     display: flex;
     flex-wrap: wrap;
     flex-basis: 100%;
@@ -207,7 +212,7 @@ article {
 .allprereqs summary {
     font-weight: bold;
     flex-basis: 100%;
-    margin: 0 0 1.5em 0;
+    margin: 0 0 0.5em 0;
 }
 
 .output {
