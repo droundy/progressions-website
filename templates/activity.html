@@ -30,8 +30,8 @@
     </header>
 
     <article>
-      <div class="allprereqs">
-        <h3>Prerequisites</h3>
+      <details class="allprereqs">
+        <summary>Prerequisites</summary>
         {% for course, concepts in activity.prereq_courses %}
         <div class="course-prereq has{{concepts|length}}">
           <a href="{{course.number}}.html" class="course">
@@ -62,7 +62,7 @@
           </div>
           {% endfor %}
         </div>
-      </div>
+      </details>
 
       <div {% if activity.url != ""
            %}onclick="location.href='{{activity.url}}';" style="cursor: pointer;"{%
