@@ -502,7 +502,7 @@ article > .concept {
     padding: 0.25em;
     float: right;
 }
-.hint {
+.concept.hint {
     border-style: dotted;
     border-width: 0.25em;
     /* display: none !important; */

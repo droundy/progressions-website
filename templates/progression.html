@@ -186,6 +186,10 @@ function connectAll() {
 }
 
 $(document).ready(function() {
+    $('.hint').hide();
+    $('h1').click(function(){
+        $('.hint').toggle();
+    });
     $(window).resize(connectAll);
     connectAll();
     setTimeout(connectAll, 200); // reconnect to correct for errors introduced by mathjax

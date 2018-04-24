@@ -13,6 +13,9 @@
   <script type="text/javascript"
           src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML">
   </script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+          integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+          crossorigin="anonymous"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -33,7 +36,7 @@
       <details class="allprereqs">
         <summary>Prerequisite concepts</summary>
         {% for course, concepts, hints in concept.prereq_courses %}
-        <div class="course-prereq has{{concepts|length}}">
+        <div class="course-prereq has{{concepts|length}}{% if not concepts %} hint{% endif %}">
           <a href="{{course.number}}.html" class="course">
             {{ course.name }}
           </a>
@@ -54,7 +57,7 @@
 
         <div class="prereq">
           {% for activity, concepts, hints in concept.prereq_groups %}
-          <div class="activity-grouping has{{concepts|length}}">
+          <div class="activity-grouping has{{concepts|length}}{% if not concepts %} hint{% endif %}">
             <div class="taughtby">
               <div class="taughtby">
                 <a href="activity-{{activity.urlname}}.html" class="activity">
@@ -134,12 +137,12 @@
   </main>
 </body>
   <script>
-    document.body.onclick= function(e){
-      e=window.event? event.srcElement: e.target;
-      if(e.parentNode.nodeName && e.parentNode.nodeName == 'DETAIL' && e.nodeName == 'H1') {
-        e.parentNode.classList.toggle('active');
-      }
-    }
+   $(document).ready(function() {
+       $('.hint').hide();
+       $('h1').click(function(){
+           $('.hint').toggle();
+       });
+   });
   </script>
 </html>
 
