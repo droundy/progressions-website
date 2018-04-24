@@ -55,9 +55,13 @@
         <div class="prereq">
           {% for activity, concepts, hints in concept.prereq_groups %}
           <div class="activity-grouping has{{concepts|length}}">
-            <a href="activity-{{activity.urlname}}.html" class="activity">
-              {{activity.name}}
-            </a>
+            <div class="taughtby">
+              <div class="taughtby">
+                <a href="activity-{{activity.urlname}}.html" class="activity">
+                  {{activity.name}}
+                </a>
+              </div>
+            </div>
             {% for c in concepts %}
             <a href="concept-{{c.urlname}}.html" class="concept">
               <span class="rownum hint">{{ c.rownum }}</span>
@@ -105,9 +109,13 @@
       </div>
       {% for activity, concepts, hints in concept.output_groups %}
       <div class="activity-grouping has{{concepts|length}}">
-        <a href="activity-{{activity.urlname}}.html" class="activity">
-          {{activity.name}}
-        </a>
+        <div class="taughtby">
+          <div class="taughtby">
+            <a href="activity-{{activity.urlname}}.html" class="activity">
+              {{activity.name}}
+            </a>
+          </div>
+        </div>
         {% for c in concepts %}
         <a href="concept-{{c.urlname}}.html" class="concept">
           <span class="rownum hint">{{ c.rownum }}</span>

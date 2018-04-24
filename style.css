@@ -17,7 +17,7 @@ html {
     --minwidth: 10em;
     --imgheight: 1.5em;
     --activity-padding: 0.6em;
-    --border-width: .1em;
+    --border-width: 0.1em;
 }
 
 html {
@@ -223,7 +223,7 @@ div.allprereqs {
 .activity-grouping {
     position: relative;
 
-    padding-top: 3em;
+    margin-top: 3em;
     display: flex;
     flex-wrap: wrap;
     flex-grow: 1;
@@ -242,6 +242,7 @@ div.allprereqs {
     display: block;
     width: 1fr;
     z-index: 1;
+    margin-top: 0;
 }
 
 article > .activity {
@@ -279,20 +280,22 @@ article > .concept .concept {
     flex-shrink: 0;
 }
 
+.taughtby {
+    position: absolute;
+}
+
 /* The following pair of taughtby is a trick (hopefully correct) to
    align the *bottom* of the activities with the *top* of the
    surrounding element.  I couldn't come up with a better way than
    putting two containers in between. */
-article > .concept .taughtby {
-    position: absolute;
+article > .concept > .taughtby, .activity-grouping > .taughtby {
     top: 0;
     left: 0;
     height: 5em;
     width: 100%;
     background-color: transparent;
 }
-article > .concept .taughtby .taughtby  {
-    position: absolute;
+article > .concept .taughtby > .taughtby, .taughtby > .taughtby  {
     bottom: 5em;
     top: auto;
     left: 0;
@@ -300,13 +303,15 @@ article > .concept .taughtby .taughtby  {
     width: auto;
     background-color: transparent;
 }
-article > .concept .taughtby .taughtby .activity {
+.taughtby > .taughtby .activity {
     position: relative;
     top: auto;
     bottom: 0;
-    z-index: -1;
-    border-bottom: 0;
+    border-bottom: none;
     margin: 0 0 0 1em;
+}
+.concept > .taughtby > .taughtby .activity {
+    bottom: calc(1*var(--border-width));
 }
 
 /* article > .activity .activity:before { */
@@ -492,6 +497,7 @@ article > .concept {
 }
 
 .rownum {
+    font-size: 0.75em;
     border-radius: 100%;
     padding: 0.25em;
     float: right;
