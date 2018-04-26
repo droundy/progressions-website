@@ -103,6 +103,7 @@
         <div class="description">
           {{concept.description}}
         </div>
+        {% if concept.representations %}
         <h3>Representations used</h3>
         <div class="row">
           {% for r in concept.representations %}
@@ -111,6 +112,7 @@
           </div>
           {% endfor %}
         </div>
+        {% endif %}
       </div>
       {% for activity, concepts, hints in concept.output_groups %}
       <div class="activity-grouping has{{concepts|length}}">

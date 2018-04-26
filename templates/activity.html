@@ -84,6 +84,7 @@
         <div class="description">
           {{activity.description}}
         </div>
+        {% if activity.representations %}
         <h3>Representations used</h3>
         <div class="row">
           {% for r in activity.representations %}
@@ -92,6 +93,7 @@
           </div>
           {% endfor %}
         </div>
+        {% endif %}
         <h3>Concepts taught</h3>
         <div class="row">
           {% for c in activity.concepts %}
