@@ -6,6 +6,7 @@ if test -e ~/box/Learning\ Progressions\ for\ Partial\ Derivatives/Learning\ Pro
     # copy latest version of the learning progression from box
     rsync -a ~/box/Learning\ Progressions\ for\ Partial\ Derivatives/Learning\ Progression\ Database.xlsx progression.xlsx
     rsync -a ~/box/Learning\ Progressions\ for\ Partial\ Derivatives/Figures/* figs/
+    git add figs
 fi
 
 fac
