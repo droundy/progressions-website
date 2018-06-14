@@ -241,6 +241,9 @@ def clean_representation(r):
         'PDM': r'<img src="pdm.jpg"/>',
         'picture of PDM': r'<img src="pdm.jpg"/>',
         'Inclinometer': r'<img src="inclinometer.jpg"/>',
+        'Kinesthetic': r'<img src="kin.jpg"/>',
+        'Vector Field Map': r'<img src="vector-field-map.jpg"/>',
+        '3D plots': r'<img src="3dplot.jpg"/>',
         'Table': r'$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$',
         'extable.jpg': r'$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$',
     }
