@@ -45,6 +45,10 @@
             <a href="concept-{{c.urlname}}.html" class="concept">
               <span class="rownum hint">{{ c.rownum }}</span>
               {{ c.name }}
+              <div class="description hint">
+                <br/>
+                {{c.description}}
+              </div>
             </a>
             {% endfor %}
           </div>
@@ -65,6 +69,10 @@
               <a href="concept-{{c.urlname}}.html" class="concept">
                 <span class="rownum hint">{{ c.rownum }}</span>
                 {{ c.name }}
+                <div class="description hint">
+                  <br/>
+                  {{c.description}}
+                </div>
               </a>
               {% endfor %}
             </div>
@@ -100,6 +108,10 @@
           <a href="concept-{{c.urlname}}.html" class="concept">
             <span class="rownum hint">{{ c.rownum }}</span>
             {{ c.name }}
+            <div class="description hint">
+              <br/>
+              {{c.description}}
+            </div>
           </a>
           {% endfor %}
         </div>
