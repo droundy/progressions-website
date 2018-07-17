@@ -422,3 +422,25 @@ for key in glob.glob('templates/*key.html'):
     with open('output/'+key, 'w') as f:
         f.write(env.get_template(key).render(style_css=style_css))
 
+all_representations = [
+  r'$\frac{\partial f}{\partial x}$',
+  r'$\left(\frac{\partial f}{\partial x}\right)_y$',
+  r'$\vec\nabla f$',
+  r'$\vec\nabla\cdot\vec f$',
+  r'$df$',
+  r'<img src="contour-map.svg"/>',
+  r'<img src="pdm.jpg"/>',
+  r'<img src="pdm.jpg"/>',
+  r'<img src="inclinometer.jpg"/>',
+  r'<img src="kin.jpg"/>',
+  r'<img src="vector-field-map.jpg"/>',
+  r'<img src="3dplot.jpg"/>',
+  r'$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$',
+]
+
+for r in all_representations:
+    urlname = slugify.slugify(r)
+    with open('output/representation-%s.html' % urlname, 'w') as f:
+        f.write(env.get_template('representation.html').render(representation=r,
+                                                               urlname=urlname,
+                                                               style_css=style_css))
