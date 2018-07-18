@@ -316,7 +316,7 @@ with open('progression.csv', 'r') as csvfile:
          description = line[8]
          external_url = line[9]
          if ':' not in external_url and len(external_url) > 0:
-             external_url = "http://physics.oregonstate.edu/portfolioswiki/courses:activities:{}act:{}".format(external_url[:2], external_url)
+             external_url = "http://physics.oregonstate.edu/portfolioswiki/acts:{}".format(external_url)
          status = line[10]
          if status == 'Active' and name != '':
              if kind == 'Concept':
