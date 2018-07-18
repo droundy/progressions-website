@@ -95,6 +95,8 @@ class Activity:
             self.__p[name]['description'] = description
         for r in representations:
             self.representations.append(r)
+            if self not in r.activities:
+              r.activities.append(self)
         if rownum is not None:
             self.__p[name]['rownum'] = rownum
         if url is not None:
@@ -167,6 +169,8 @@ class Concept:
                     self.course.concepts.append(self)
         for r in representations:
             self.representations.append(r)
+            if self not in r.concepts:
+              r.concepts.append(self)
         for p in [Concept(p) for p in prereqs if p is not '']:
             self.prereqs.append(p)
         if description is not None:
@@ -269,6 +273,8 @@ class Representation:
             self.__p[name] = {
               'name': name,
               'icon': icon,
+              'activities': [],
+              'concepts': [],
             }
         if description is not None:
             self.__p[name]['description'] = description
@@ -299,6 +305,12 @@ class Representation:
     @property
     def figure(self):
       return self.__p[self.name]['figure']
+    @property
+    def activities(self):
+      return self.__p[self.name]['activities']
+    @property
+    def concepts(self):
+      return self.__p[self.name]['concepts']
 
 with open('progression.csv', 'r') as csvfile:
      lines = list(csv.reader(csvfile, delimiter=',', quotechar='"'))
@@ -470,6 +482,17 @@ for key in glob.glob('templates/*key.html'):
 
 for r in all_representations:
     print(dir(r))
+    other_concepts = copy.copy(r.concepts)
+    groups = []
+    for a in r.activities:
+        ps = list(filter(lambda c: r in c.representations, a.concepts))
+        for x in ps:
+          other_concepts.remove(x)
+        hints = []
+        if len(ps) > 0:
+            groups.append((a, ps, hints))
+    r.groups = groups
+    r.other_concepts = other_concepts
     with open('output/representation-%s.html' % r.urlname, 'w') as f:
         f.write(env.get_template('representation.html').render(representation=r,
                                                                style_css=style_css))

@@ -35,6 +35,39 @@
         <h1>{{representation.icon}}</h1>
         <br/>
         Here is some nice text for us.
+        <div class="row">
+          {% for c in representation.other_concepts %}
+          <a href="concept-{{c.urlname}}.html" class="concept">
+            <span class="rownum hint">{{ c.rownum }}</span>
+            {{ c.name }}
+          </a>
+          {% endfor %}
+        </div>
+        <div class="row">
+          {% for activity, concepts, hints in representation.groups %}
+          <div class="activity-grouping has{{concepts|length}}">
+            <div class="taughtby">
+              <div class="taughtby">
+                <a href="activity-{{activity.urlname}}.html" class="activity">
+                  {{activity.name}}
+                </a>
+              </div>
+            </div>
+            {% for c in concepts %}
+            <a href="concept-{{c.urlname}}.html" class="concept">
+              <span class="rownum hint">{{ c.rownum }}</span>
+              {{ c.name }}
+            </a>
+            {% endfor %}
+            {% for c in hints %}
+            <a href="concept-{{c.urlname}}.html" class="concept hint">
+              <span class="rownum hint">{{ c.rownum }}</span>
+              {{ c.name }}
+            </a>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
       </div>
     </article>
   </main>
