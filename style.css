@@ -285,6 +285,13 @@ article > .representation {
     --imgheight: 20em;
 }
 
+article > .representation:hover {
+    background-color: var(--representation-color);
+}
+article > .concept:hover {
+    background-color: var(--concept-color);
+}
+
 article > .concept {
     overflow: visible;
     position: relative;
