@@ -96,9 +96,9 @@
         <h3>Representations used</h3>
         <div class="row">
           {% for r in activity.representations %}
-          <div class="representation">
-            {{ r }}
-          </div>
+          <a href="representation-{{r.urlname}}.html" class="representation">
+            {{ r.icon }}
+          </a>
           {% endfor %}
         </div>
         {% endif %}

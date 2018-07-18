@@ -94,8 +94,6 @@ class Activity:
         if description is not None:
             self.__p[name]['description'] = description
         for r in representations:
-            while r[0] == ' ': # cut any leading whitespace
-                r = r[1:]
             self.representations.append(r)
         if rownum is not None:
             self.__p[name]['rownum'] = rownum
@@ -168,8 +166,6 @@ class Concept:
                 if self not in self.course.concepts:
                     self.course.concepts.append(self)
         for r in representations:
-            while r[0] == ' ': # cut any leading whitespace
-                r = r[1:]
             self.representations.append(r)
         for p in [Concept(p) for p in prereqs if p is not '']:
             self.prereqs.append(p)
@@ -230,29 +226,79 @@ def parse_list(s):
     else:
         return []
 
-def clean_representation(r):
-    reprs = {
-        'partial f/partial x': r'$\frac{\partial f}{\partial x}$',
-        'partial f/partial x fixing y': r'$\left(\frac{\partial f}{\partial x}\right)_y$',
-        'Del f': r'$\vec\nabla f$',
-        'Del dot f': r'$\vec\nabla\cdot\vec f$',
-        'df': r'$df$',
-        'Contour Maps': r'<img src="contour-map.svg"/>',
-        'PDM': r'<img src="pdm.jpg"/>',
-        'picture of PDM': r'<img src="pdm.jpg"/>',
-        'Inclinometer': r'<img src="inclinometer.jpg"/>',
-        'Kinesthetic': r'<img src="kin.jpg"/>',
-        'Vector Field Map': r'<img src="vector-field-map.jpg"/>',
-        '3D plots': r'<img src="3dplot.jpg"/>',
-        'Table': r'$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$',
-        'extable.jpg': r'$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$',
-    }
-    if r in reprs:
-        return reprs[r]
-    if r[0] == ' ' and r[1:] in reprs:
-        return reprs[r[1:]]
-    print('not in reprs: "%s"' % r)
-    return r
+all_representations = []
+
+class Representation:
+    """ A representation """
+    __p = {}
+    def __init__(self, name, description = None, figure = None):
+        while name[0] == ' ':
+            name = name[1:]
+        names = {
+          'partial f/partial x': r'$\frac{\partial f}{\partial x}$',
+          'partial f/partial x fixing y': r'$\left(\frac{\partial f}{\partial x}\right)_y$',
+          'Del f': r'$\vec\nabla f$',
+          'Del dot f': r'$\vec\nabla\cdot\vec f$',
+          'df': r'$df$',
+          'picture of PDM': 'PDM',
+          'extable.jpg': 'Table',
+        }
+        if name in names:
+          name = names[name]
+        icons = {
+          'partial f/partial x': r'$\frac{\partial f}{\partial x}$',
+          'partial f/partial x fixing y': r'$\left(\frac{\partial f}{\partial x}\right)_y$',
+          'Del f': r'$\vec\nabla f$',
+          'Del dot f': r'$\vec\nabla\cdot\vec f$',
+          'df': r'$df$',
+          'Contour Maps': r'<img src="contour-map.svg"/>',
+          'PDM': r'<img src="pdm.jpg"/>',
+          'picture of PDM': r'<img src="pdm.jpg"/>',
+          'Inclinometer': r'<img src="inclinometer.jpg"/>',
+          'Kinesthetic': r'<img src="kin.jpg"/>',
+          'Vector Field Map': r'<img src="vector-field-map.jpg"/>',
+          '3D plots': r'<img src="3dplot.jpg"/>',
+          'Table': r'$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$',
+        }
+        icon = name
+        if name in icons:
+          icon = icons[name]
+
+        self.name = name
+        if name not in self.__p:
+            self.__p[name] = {
+              'name': name,
+              'icon': icon,
+            }
+        if description is not None:
+            self.__p[name]['description'] = description
+        if figure is not None:
+            self.__p[name]['figure'] = figure
+        if self not in all_representations:
+          all_representations.append(self)
+    def __eq__(self, other):
+        return other is not None and self.name == other.name
+    def __ne__(self, other):
+        return other is None or self.name != other.name
+    def __hash__(self):
+        return hash(self.name)
+    def __repr__(self):
+        return 'Representation(%s)' % self.name
+    @property
+    def icon(self):
+        return self.__p[self.name]['icon']
+    @property
+    def urlname(self):
+        return slugify.slugify(self.name)
+    @property
+    def description(self):
+      return self.__p[self.name]['description']
+    @property
+    def url(self):
+      return self.__p[self.name]['url']
+    @property
+    def figure(self):
+      return self.__p[self.name]['figure']
 
 with open('progression.csv', 'r') as csvfile:
      lines = list(csv.reader(csvfile, delimiter=',', quotechar='"'))
@@ -262,7 +308,7 @@ with open('progression.csv', 'r') as csvfile:
          rownum = line[2]
          prereqs = parse_list(line[3])
          new_concepts = parse_list(line[4])
-         representations = [clean_representation(r) for r in parse_list(line[5])]
+         representations = [Representation(r) for r in parse_list(line[5])]
          if len(representations) > 0:
              print('representations:', representations)
          course_number = line[6]
@@ -422,25 +468,8 @@ for key in glob.glob('templates/*key.html'):
     with open('output/'+key, 'w') as f:
         f.write(env.get_template(key).render(style_css=style_css))
 
-all_representations = [
-  r'$\frac{\partial f}{\partial x}$',
-  r'$\left(\frac{\partial f}{\partial x}\right)_y$',
-  r'$\vec\nabla f$',
-  r'$\vec\nabla\cdot\vec f$',
-  r'$df$',
-  r'<img src="contour-map.svg"/>',
-  r'<img src="pdm.jpg"/>',
-  r'<img src="pdm.jpg"/>',
-  r'<img src="inclinometer.jpg"/>',
-  r'<img src="kin.jpg"/>',
-  r'<img src="vector-field-map.jpg"/>',
-  r'<img src="3dplot.jpg"/>',
-  r'$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$',
-]
-
 for r in all_representations:
-    urlname = slugify.slugify(r)
-    with open('output/representation-%s.html' % urlname, 'w') as f:
+    print(dir(r))
+    with open('output/representation-%s.html' % r.urlname, 'w') as f:
         f.write(env.get_template('representation.html').render(representation=r,
-                                                               urlname=urlname,
                                                                style_css=style_css))

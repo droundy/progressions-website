@@ -61,8 +61,10 @@
             </div>
             <span class="rownum hint">{{ activity.rownum }}</span>
             {% for r in activity.representations %}
-            <div class="representation">
-              {{ r }}
+            <div onclick="document.location.href ='representation-{{r.urlname}}.html'; return false"
+                 style="cursor: pointer;"
+                 class="representation">
+              {{ r.icon }}
             </div>
             {% endfor %}
           </a>
@@ -71,8 +73,10 @@
             <a href="concept-{{concept.urlname}}.html" class="concept{% for a in concept.activities%} from-{{a.urlname}}{%endfor%}" id="{{ concept.urlname }}">
               <span class="rownum hint">{{ concept.rownum }}</span>
               {% for r in concept.representations %}
-              <div class="representation">
-                {{ r }}
+              <div onclick="document.location.href ='representation-{{r.urlname}}.html'; return false"
+                   style="cursor: pointer;"
+                   class="representation">
+                {{ r.icon }}
               </div>
               {% endfor %}
               {{ concept.name }}
@@ -87,8 +91,10 @@
             <a href="concept-{{concept.urlname}}.html" class="concept{% for a in concept.activities%} from-{{a.urlname}}{%endfor%}" id="{{ concept.urlname }}">
               <span class="rownum hint">{{ concept.rownum }}</span>
               {% for r in concept.representations %}
-              <div class="representation">
-                {{ r }}
+              <div onclick="document.location.href ='representation-{{r.urlname}}.html'; return false"
+                   style="cursor: pointer;"
+                   class="representation">
+                {{ r.icon }}
               </div>
               {% endfor %}
               {{ concept.name }}

@@ -9,6 +9,11 @@ html {
     --representation-color: hsl(var(--representation-hue), 100%, 90%);
     --course-color: hsl(var(--course-hue), 100%, 90%);
 
+    --hover-concept-color: hsl(var(--concept-hue), 100%, 60%);
+    --hover-activity-color: hsl(var(--activity-hue), 100%, 60%);
+    --hover-representation-color: hsl(var(--representation-hue), 100%, 60%);
+    --hover-course-color: hsl(var(--course-hue), 100%, 60%);
+
     --prereq-course-color: #999;
     --all-prereq-color: #ddd;
 
@@ -117,6 +122,19 @@ a, a:link, a:active, a:hover {
     border-width: var(--border-width);
     border-color: black;
     border-style: solid;
+}
+
+.representation:hover {
+    background-color: var(--hover-representation-color);
+}
+.activity:hover {
+    background-color: var(--hover-activity-color);
+}
+.concept:hover {
+    background-color: var(--hover-concept-color);
+}
+.course:hover {
+    background-color: var(--hover-course-color);
 }
 
 .representation {
@@ -253,6 +271,18 @@ article > .activity {
     flex-wrap: wrap;
     flex-basis: 100%;
     grid-template-columns: [left] minmax(var(--minwidth), 1fr) [main] 3fr [right] minmax(var(--minwidth), 1fr);
+}
+
+article > .representation {
+    overflow: visible;
+    position: relative;
+    padding: 0 .25em .25em .25em;
+    margin: 3em 1em 1em 1em;
+    text-align: center;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    flex-basis: 100%;
+    --imgheight: 20em;
 }
 
 article > .concept {
