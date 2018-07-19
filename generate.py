@@ -1,5 +1,5 @@
 from jinja2 import Environment, FileSystemLoader
-import os, csv, slugify, glob, copy
+import os, csv, slugify, glob, copy, markdown
 import hashlib
 
 def file_hash(filename):
@@ -237,7 +237,7 @@ all_representations = []
 class Representation:
     """ A representation """
     __p = {}
-    def __init__(self, name, description = None, figure = None):
+    def __init__(self, name, figure = None):
         while name[0] == ' ':
             name = name[1:]
         names = {
@@ -277,9 +277,15 @@ class Representation:
               'icon': icon,
               'activities': [],
               'concepts': [],
+              'description': 'NEED DESCRIPTION',
             }
-        if description is not None:
-            self.__p[name]['description'] = description
+        try:
+          with open('descriptions/representation-{}.md'.format(self.urlname),'r') as f:
+            self.__p[name]['description'] = f.read()
+        except:
+          print('unable to open', 'descriptions/representation-{}.md'.format(self.urlname))
+          pass
+
         if figure is not None:
             self.__p[name]['figure'] = figure
         if self not in all_representations:
@@ -483,7 +489,6 @@ for key in glob.glob('templates/*key.html'):
         f.write(env.get_template(key).render(style_css=style_css))
 
 for r in all_representations:
-    print(dir(r))
     other_concepts = copy.copy(r.concepts)
     groups = []
     for a in r.activities:

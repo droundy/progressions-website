@@ -34,7 +34,7 @@
       <div class="representation">
         <h1>{{representation.icon}}</h1>
         <br/>
-        Here is some nice text for us.
+        {{representation.description}}
         <div class="row">
           {% for c in representation.other_concepts %}
           <a href="concept-{{c.urlname}}.html" class="concept">
