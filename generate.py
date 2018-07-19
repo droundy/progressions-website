@@ -225,6 +225,8 @@ all_courses = [Course('MTH 251', 'Differential Calculus'),
 ]
 
 def parse_list(s):
+    if len(s) == 0:
+        return []
     if s[0] == '[' and s[-1] == ']':
         return list(filter(lambda x: x not in [''], s[1:-1].split(',')))
     else:
