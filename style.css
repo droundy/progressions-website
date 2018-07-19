@@ -9,10 +9,10 @@ html {
     --representation-color: hsl(var(--representation-hue), 100%, 90%);
     --course-color: hsl(var(--course-hue), 100%, 90%);
 
-    --hover-concept-color: hsl(var(--concept-hue), 100%, 60%);
-    --hover-activity-color: hsl(var(--activity-hue), 100%, 60%);
-    --hover-representation-color: hsl(var(--representation-hue), 100%, 60%);
-    --hover-course-color: hsl(var(--course-hue), 100%, 60%);
+    --hover-concept-color: hsl(var(--concept-hue), 100%, 80%);
+    --hover-activity-color: hsl(var(--activity-hue), 100%, 80%);
+    --hover-representation-color: hsl(var(--representation-hue), 100%, 80%);
+    --hover-course-color: hsl(var(--course-hue), 100%, 80%);
 
     --prereq-course-color: #999;
     --all-prereq-color: #ddd;
