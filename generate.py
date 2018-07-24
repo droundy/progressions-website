@@ -488,6 +488,7 @@ for key in glob.glob('templates/*key.html'):
     with open('output/'+key, 'w') as f:
         f.write(env.get_template(key).render(style_css=style_css))
 
+print('all descriptions:', glob.glob('descriptions/representation-*.md'))
 for r in all_representations:
     other_concepts = copy.copy(r.concepts)
     groups = []

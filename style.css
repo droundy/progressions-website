@@ -287,7 +287,8 @@ article > .representation {
     --imgheight: 10em;
 }
 
-article > .representation h1 img {
+article > .representation h1 {
+    padding: 0.5em;
     float: left;
 }
 
