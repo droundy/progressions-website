@@ -287,6 +287,10 @@ article > .representation {
     --imgheight: 10em;
 }
 
+article > .representation h1 img {
+    float: left;
+}
+
 article > .representation h1 {
     text-align: center;
     margin: 0.5em 0 -1em 0;
