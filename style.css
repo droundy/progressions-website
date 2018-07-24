@@ -278,18 +278,18 @@ article > .representation {
     overflow: visible;
     position: relative;
     padding: 0 1em 1em 1em;
-    margin: 0 0.25em 0 0.25em;
+    margin: 0;
     display: block;
     flex-wrap: wrap;
     flex-basis: 100%;
     grid-template-columns: [left] minmax(var(--minwidth), 1fr) [main] 3fr [right] minmax(var(--minwidth), 1fr);
     text-align: justify;
-    --imgheight: 20em;
+    --imgheight: 10em;
 }
 
 article > .representation h1 {
     text-align: center;
-    margin: 1em 0 0 0;
+    margin: 0.5em 0 -1em 0;
 }
 
 article > .representation:hover {

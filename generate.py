@@ -281,7 +281,7 @@ class Representation:
             }
         try:
           with open('descriptions/representation-{}.md'.format(self.urlname),'r') as f:
-            self.__p[name]['description'] = f.read()
+            self.__p[name]['description'] = markdown.markdown(f.read())
         except:
           print('unable to open', 'descriptions/representation-{}.md'.format(self.urlname))
           pass
