@@ -274,9 +274,10 @@ article > .activity {
 }
 
 article > .representation {
+    border-radius: 3em;
     overflow: visible;
     position: relative;
-    padding: 0 4em 2em 4em;
+    padding: 0 1em 1em 1em;
     margin: 0 0.25em 0 0.25em;
     display: block;
     flex-wrap: wrap;
@@ -533,10 +534,13 @@ article > .concept {
 .progression .activity-grouping .concepts {
     grid-column: concepts;
     display: block;
+
+    position: relative;
+    top: 2em;
 }
 .progression .activity-grouping > .activity {
     position: relative;
-    top: -2em;
+    top: 0em;
 }
 
 .rownum {
