@@ -291,6 +291,19 @@ article > .representation h1 {
     padding: 1em;
     float: left;
 }
+article > .representation figure {
+    margin: 1em;
+    float: right;
+    clear: right;
+}
+article > .representation figure:nth-child(odd) {
+    float: left;
+    clear: left;
+}
+figure img {
+    height: auto;
+    width: 30vw;
+}
 
 article > .representation h1 {
     text-align: center;
