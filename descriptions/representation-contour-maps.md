@@ -7,7 +7,9 @@
 <figcaption>Figure 1</figcaption>
 </figure>
 <figure>
+<a href="representation-contour-maps-fig-2.png">
 <img src="representation-contour-maps-fig-2.png"/>
+</a>
 <figcaption>Figure 2 (maybe cut entropy curves)</figcaption>
 </figure>
 
