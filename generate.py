@@ -496,7 +496,7 @@ for r in all_representations:
         for x in ps:
           other_concepts.remove(x)
         hints = []
-        if len(ps) > 0:
+        if len(ps) > 0 or r in a.representations:
             groups.append((a, ps, hints))
     r.groups = groups
     r.other_concepts = other_concepts
