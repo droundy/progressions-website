@@ -10,14 +10,10 @@
     "HTML-CSS": { availableFonts: ["TeX"] }
     });
   </script>
-  <script type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML">
-  </script>
+  <script type="text/javascript" src="libraries/MathJax-2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+  <script type="text/javascript" src="libraries/jquery.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-          integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-          crossorigin="anonymous"></script>
 </head>
 <body>
   <nav>
@@ -201,6 +197,8 @@ $(document).ready(function() {
     setTimeout(connectAll, 200); // reconnect to correct for errors introduced by mathjax
     setTimeout(connectAll, 400); // mathjax changes size of things gradually :(
     setTimeout(connectAll, 1000);
+    setTimeout(connectAll, 2000);
+    setTimeout(connectAll, 3000);
 });
   </script>
 </html>

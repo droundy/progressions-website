@@ -1,6 +1,6 @@
 *~
 *.tum
-output
+/output
 *.csv
 .~*
 .nfs*

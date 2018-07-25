@@ -1,4 +1,4 @@
 | python3 contour-map.py
 
-| cp *.svg *.jpg *.png ../output/
+| mkdir -p ../output && cp *.svg *.jpg *.png ../output/
 < contour-map.svg

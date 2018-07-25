@@ -9,6 +9,9 @@ if test -e ~/box/Learning\ Progressions\ for\ Partial\ Derivatives/Learning\ Pro
     git add figs
 fi
 
+# wget -O libraries/MathJax.js https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML
+# wget -O libraries/jquery.js https://code.jquery.com/jquery-3.3.1.min.js
+
 fac
 
 SITEDIR=public_html/progression
@@ -16,7 +19,7 @@ SITEDIR=public_html/progression
 ssh science.oregonstate.edu "rm -rf $SITEDIR"
 ssh science.oregonstate.edu "mkdir -p $SITEDIR"
 
-scp output/* science.oregonstate.edu:$SITEDIR/
+scp -r output/* science.oregonstate.edu:$SITEDIR/
 
 # rsync -v *.svg *.png *.py *.html *.css $SITE/
 # rsync -v figs/*.svg $SITE/figs/
