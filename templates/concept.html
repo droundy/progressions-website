@@ -1,41 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>{{concept.name}}</title>
-  <link rel="stylesheet" href="{{style_css}}">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-    TeX: { equationNumbers: { autoNumber: "AMS" } },
-    "HTML-CSS": { availableFonts: ["TeX"] }
-    });
-  </script>
-  <script type="text/javascript" src="libraries/MathJax-2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
-  <script type="text/javascript" src="libraries/jquery.js"></script>
-  <script>
-   $(document).ready(function() {
-       $('.hint').hide();
-       $('h1').click(function(){
-           $('.hint').toggle();
-       });
-   });
-  </script>
-</head>
-<body>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
-      <li><a href="concept-key.html">Concept page key</a></li>
-    </ul>
-  </nav>
-  <main>
-    <header>
-      <h1>{{concept.name}}</h1>
-    </header>
-
+{% extends "base.html" %}
+{% block title %}{{concept.name}}{% endblock %}
+{% block nav %}<li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
+      <li><a href="concept-key.html">Concept page key</a></li>{% endblock %}
+{% block content %}
     <article>
       <details class="allprereqs">
         <summary>Prerequisite concepts</summary>
@@ -142,7 +109,4 @@
       </div>
       {% endfor %}
     </article>
-  </main>
-</body>
-</html>
-
+{% endblock %}
