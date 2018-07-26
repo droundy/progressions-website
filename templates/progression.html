@@ -1,32 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Learning Progression for Partial Derivatives</title>
-  <link rel="stylesheet" href="{{style_css}}">
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
-    TeX: { equationNumbers: { autoNumber: "AMS" } },
-    "HTML-CSS": { availableFonts: ["TeX"] }
-    });
-  </script>
-  <script type="text/javascript" src="libraries/MathJax-2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
-  <script type="text/javascript" src="libraries/jquery.js"></script>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="key.html">Key</a></li>
-    </ul>
-  </nav>
-  <main>
-    <header>
-      <h1>Learning progression</h1>
-    </header>
+{% extends "base.html" %}
+{% block title %}Learning Progression for Partial Derivatives{% endblock %}
 
+{% block content %}
     <svg id="arrows-svg" width="0" height="0">
     <path id="right-arrows" d="M0 0"
           fill="none" stroke-width="2" stroke-linecap="round" />
@@ -105,9 +80,9 @@
         {% endfor %}
       </div>
     </article>
-  </main>
-</body>
-  <script>
+{% endblock %}
+
+{% block extrajs %}
 function connectElements(svg, path, start, end) {
     var stroke = 0;// path.attr("stroke-width");
 
@@ -186,12 +161,9 @@ function connectAll() {
         }
     });
 }
+{% endblock %}
 
-$(document).ready(function() {
-    $('.hint').hide();
-    $('h1').click(function(){
-        $('.hint').toggle();
-    });
+{% block readyjs %}
     $(window).resize(connectAll);
     connectAll();
     setTimeout(connectAll, 200); // reconnect to correct for errors introduced by mathjax
@@ -199,7 +171,5 @@ $(document).ready(function() {
     setTimeout(connectAll, 1000);
     setTimeout(connectAll, 2000);
     setTimeout(connectAll, 3000);
-});
-  </script>
-</html>
+{% endblock %}
 
