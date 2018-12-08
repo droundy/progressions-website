@@ -6,3 +6,6 @@
 .nfs*
 figs/*.png
 figs/*.svg
+
+/target
+**/*.rs.bk

@@ -1,0 +1,1455 @@
+---
+concepts:
+  - id: 0
+    name: Difference / Change
+    prereq_concepts: []
+    representations:
+      - 0
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 1
+    name: How much $f$ changes as $x$ changes
+    prereq_concepts: []
+    representations:
+      - 0
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 2
+    name: The derivative is a ratio of small changes
+    prereq_concepts: []
+    representations:
+      - 1
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 3
+    name: The derivative can be approximated by the slope of a secant line
+    prereq_concepts: []
+    representations:
+      - 2
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 4
+    name: The derivative at a point is the slope of a tangent line at that point
+    prereq_concepts: []
+    representations:
+      - 2
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 5
+    name: The derivative is a limit
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 6
+    name: The derivative can be a function
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 7
+    name: The derivative of a constant is zero
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 8
+    name: The derivative is a linear function
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 9
+    name: Power law
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 10
+    name: The derivative at a cusp is undefined
+    prereq_concepts: []
+    representations:
+      - 2
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 11
+    name: Variables can be held constant
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 12
+    name: Product rule
+    prereq_concepts: []
+    representations:
+      - 3
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 13
+    name: Single variable chain rule
+    prereq_concepts: []
+    representations:
+      - 3
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 14
+    name: You can flip a derivative
+    prereq_concepts: []
+    representations:
+      - 3
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 15
+    name: "\"With respect to what\" matters"
+    prereq_concepts: []
+    representations:
+      - 3
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 16
+    name: Derivatives can be found while holding one or more variables constant
+    prereq_concepts:
+      - 11
+    representations:
+      - 4
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 17
+    name: There is a partial derivative in every direction at any point
+    prereq_concepts: []
+    representations:
+      - 5
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 18
+    name: There is a tangent line in every direction at every point
+    prereq_concepts: []
+    representations:
+      - 5
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 19
+    name: The derivative is related to the density of contour lines
+    prereq_concepts: []
+    representations:
+      - 6
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 20
+    name: The value of a partial derivative depends on the value(s) of what is held constant
+    prereq_concepts: []
+    representations:
+      - 4
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 21
+    name: A partial derivative can be expressed in terms of other partial derivatives
+    prereq_concepts:
+      - 13
+    representations:
+      - 7
+      - 4
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 22
+    name: The gradient is a vector
+    prereq_concepts: []
+    representations:
+      - 8
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 23
+    name: The magnitude of the gradient is the value of the slope in the steepest direction
+    prereq_concepts:
+      - 4
+    representations:
+      - 8
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 24
+    name: The gradient is perpendicular to contour lines
+    prereq_concepts: []
+    representations:
+      - 6
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 25
+    name: All partial derivatives can be found as a slope of a tangent plane
+    prereq_concepts:
+      - 4
+      - 17
+    representations:
+      - 5
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 26
+    name: The derivative is local quantity
+    prereq_concepts: []
+    representations:
+      - 3
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 27
+    name: Partial derivatives are functions
+    prereq_concepts: []
+    representations:
+      - 7
+      - 4
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 28
+    name: The gradient is a function
+    prereq_concepts: []
+    representations:
+      - 8
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 29
+    name: The components of the gradient are partial derivatives
+    prereq_concepts: []
+    representations:
+      - 8
+      - 4
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 30
+    name: " Variables can be held constant"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 31
+    name: " \"With respect to what\" matters"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 32
+    name: " The derivative can be a function"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 33
+    name: " The derivative at a cusp is undefined"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 34
+    name: " There is a tangent line in every direction at every point"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 35
+    name: " The derivative is related to the density of contour lines"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 36
+    name: " The value of a partial derivative depends on the value(s) of what is held constant"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 37
+    name: " The derivative is a linear function"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 38
+    name: " Product rule"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 39
+    name: " Single variable chain rule"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 40
+    name: " A partial derivative can be expressed in terms of other partial derivatives"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 41
+    name: " Derivatives can be found while holding one or more variables constant"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 42
+    name: " There is a partial derivative in every direction at any point"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 43
+    name: " The gradient is perpendicular to contour lines"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 44
+    name: " The components of the gradient are partial derivatives"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 45
+    name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors. "
+    prereq_concepts:
+      - 0
+    representations:
+      - 11
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 46
+    name: "The magnitude of $d\\vec r$ is the length of a small step along a path"
+    prereq_concepts:
+      - 0
+    representations:
+      - 11
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 47
+    name: "The direction of $d\\vec r$ is tangent to a path"
+    prereq_concepts: []
+    representations:
+      - 11
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 48
+    name: The gradient can tell you a small change in a function in any direction (differentials edition)
+    prereq_concepts:
+      - 0
+    representations:
+      - 8
+      - 11
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 49
+    name: The divergence is a scalar field
+    prereq_concepts: []
+    representations:
+      - 12
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 50
+    name: ""
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 51
+    name: Vector Differentials
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 52
+    name: "Differential form of $\\vec r$ in spherical and cylindrical coordinates"
+    prereq_concepts:
+      - 51
+    representations:
+      - 11
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 53
+    name: "The gradient's dimension is the same as real space. The gradient lives in the domain"
+    prereq_concepts: []
+    representations:
+      - 8
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 54
+    name: The gradient is a local quantity
+    prereq_concepts: []
+    representations:
+      - 8
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 55
+    name: The electric field is the negative gradient of the electric potential
+    prereq_concepts: []
+    representations:
+      - 8
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 56
+    name: The divergence is related to the total flux through a closed surface
+    prereq_concepts: []
+    representations:
+      - 12
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 57
+    name: The divergence is a function
+    prereq_concepts: []
+    representations:
+      - 12
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 58
+    name: The divergence is a local quantity
+    prereq_concepts: []
+    representations:
+      - 12
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 59
+    name: The divergence of the electric field is equal to
+    prereq_concepts: []
+    representations:
+      - 12
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 60
+    name: The divergence of the magnetic field is zero
+    prereq_concepts: []
+    representations:
+      - 12
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 61
+    name: "The curl is related to the line integral around a closed loop. (\"circulation\")"
+    prereq_concepts: []
+    representations:
+      - 13
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 62
+    name: the curl is a (vector) function
+    prereq_concepts: []
+    representations:
+      - 13
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 63
+    name: The curl is a local quantity
+    prereq_concepts: []
+    representations:
+      - 13
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 64
+    name: The magnetic field is equal to the curl of the magnetic vector potential
+    prereq_concepts: []
+    representations:
+      - 13
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 65
+    name: The curl of the electric field is zero in electrostatics
+    prereq_concepts: []
+    representations:
+      - 13
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 66
+    name: The divergence of the curl is equal to mu times the current in magneto-statics
+    prereq_concepts: []
+    representations:
+      - 12
+      - 13
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 67
+    name: " Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors. "
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 68
+    name: " The magnitude of $d\\vec r$ is the length of a small step along a path"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 69
+    name: " The direction of $d\\vec r$ is tangent to a path"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 70
+    name: " The gradient is a local quantity"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 71
+    name: " The derivative is a limit"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 72
+    name: " The divergence is a scalar field"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 73
+    name: " The divergence is a function"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 74
+    name: " The divergence is a local quantity"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 75
+    name: " the curl is a (vector) function"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 76
+    name: " The curl is a local quantity"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 77
+    name: Differentials are small changes or differences
+    prereq_concepts:
+      - 0
+    representations:
+      - 19
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 78
+    name: "Equations can be 'zapped with d' to relate differentials"
+    prereq_concepts: []
+    representations:
+      - 19
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 79
+    name: Individual differentials can be manipulated algebraically
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 80
+    name: Total differentials are linear
+    prereq_concepts: []
+    representations:
+      - 19
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 81
+    name: Differentials are small chunks
+    prereq_concepts: []
+    representations:
+      - 19
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 82
+    name: There are experimental limits to how $small$ of a change can be measured
+    prereq_concepts:
+      - 2
+    representations:
+      - 0
+      - 20
+      - 21
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 83
+    name: The derivative can be interpreted physically
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 84
+    name: Partial derivatives that do not have the same variable(s) held constant are not the same derivative
+    prereq_concepts:
+      - 16
+      - 20
+    representations:
+      - 4
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 85
+    name: Partial derivatives are coefficients in a differentials equation
+    prereq_concepts:
+      - 2
+      - 77
+    representations:
+      - 7
+      - 4
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 86
+    name: You can flip a partial derivative if the same variable(s) are constant
+    prereq_concepts:
+      - 14
+      - 41
+    representations:
+      - 4
+      - 7
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 87
+    name: There might be experimental limits on which quantities you can measure
+    prereq_concepts: []
+    representations:
+      - 21
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 88
+    name: Differentials allow the finding of partial derivatives when a variable cannot be solved for
+    prereq_concepts:
+      - 80
+    representations:
+      - 19
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 89
+    name: " The derivative is a ratio of small changes"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 90
+    name: " The derivative can be approximated by the slope of a secant line"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 91
+    name: " Equations can be 'zapped with d' to relate differentials"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 92
+    name: " Individual differentials can be manipulated algebraically"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 93
+    name: " Total differentials are linear"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 94
+    name: " Differentials are small changes or differences"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 95
+    name: " The derivative can be interpreted physically"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 96
+    name: " Partial derivatives that do not have the same variable(s) held constant are not the same derivative"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 97
+    name: " Partial derivatives are coefficients in a differentials equation"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 98
+    name: " There might be experimental limits on which quantities you can measure"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 99
+    name: " Differentials allow the finding of partial derivatives when a variable cannot be solved for"
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+activities:
+  - id: 0
+    name: The Heater II
+    prereq_concepts:
+      - 2
+      - 30
+      - 31
+    new_concepts:
+      - 16
+    representations:
+      - 6
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 1
+    name: The Hot Plate
+    prereq_concepts:
+      - 4
+      - 32
+      - 33
+      - 31
+    new_concepts:
+      - 17
+      - 34
+      - 35
+      - 36
+    representations:
+      - 7
+      - 9
+      - 10
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 2
+    name: Chain Rule
+    prereq_concepts:
+      - 6
+      - 37
+      - 30
+      - 38
+      - 31
+      - 39
+    new_concepts:
+      - 21
+    representations:
+      - 7
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 3
+    name: Chain Rule Measurements
+    prereq_concepts:
+      - 4
+      - 40
+    new_concepts: []
+    representations:
+      - 7
+      - 10
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 4
+    name: The Hillside
+    prereq_concepts:
+      - 4
+      - 41
+      - 42
+      - 34
+    new_concepts:
+      - 23
+      - 43
+    representations:
+      - 7
+      - 10
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 5
+    name: Directional Derivatives
+    prereq_concepts:
+      - 8
+      - 42
+      - 40
+    new_concepts:
+      - 25
+      - 44
+    representations:
+      - 7
+      - 10
+      - 8
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 6
+    name: The Hill
+    prereq_concepts:
+      - 16
+      - 42
+      - 35
+      - 36
+    new_concepts:
+      - 23
+      - 43
+    representations:
+      - 6
+      - 14
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 7
+    name: The Valley
+    prereq_concepts:
+      - 29
+    new_concepts:
+      - 48
+    representations:
+      - 6
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 8
+    name: Vector Differentials
+    prereq_concepts:
+      - 0
+      - 67
+    new_concepts:
+      - 52
+      - 68
+      - 69
+    representations:
+      - 11
+      - 15
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 9
+    name: Acting out the Gradient
+    prereq_concepts:
+      - 23
+    new_concepts:
+      - 53
+      - 70
+    representations:
+      - 16
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 10
+    name: Visualizing Gradient
+    prereq_concepts:
+      - 23
+      - 43
+    new_concepts:
+      - 53
+      - 70
+    representations:
+      - 16
+      - 17
+      - 9
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 11
+    name: Visualizing Divergence
+    prereq_concepts:
+      - 2
+      - 71
+      - 32
+      - 72
+    new_concepts:
+      - 56
+      - 73
+      - 74
+    representations:
+      - 18
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 12
+    name: Visualizing Curl
+    prereq_concepts:
+      - 2
+      - 71
+      - 32
+    new_concepts:
+      - 61
+      - 75
+      - 76
+    representations:
+      - 18
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 13
+    name: Zapping with d
+    prereq_concepts:
+      - 0
+      - 89
+      - 90
+      - 71
+      - 32
+      - 30
+    new_concepts:
+      - 77
+      - 91
+      - 92
+      - 93
+    representations:
+      - 19
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 14
+    name: Energy and Integrals
+    prereq_concepts:
+      - 77
+      - 92
+    new_concepts:
+      - 81
+    representations:
+      - 22
+      - 23
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 15
+    name: Partial Derivative Machine Derivatives
+    prereq_concepts:
+      - 2
+      - 30
+      - 41
+      - 36
+      - 94
+    new_concepts:
+      - 82
+      - 95
+      - 96
+      - 97
+    representations:
+      - 22
+      - 24
+      - 4
+      - 25
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 16
+    name: Chain Rules
+    prereq_concepts:
+      - 2
+      - 32
+      - 30
+      - 41
+      - 40
+      - 94
+      - 91
+      - 92
+      - 96
+      - 97
+    new_concepts:
+      - 86
+      - 98
+      - 99
+    representations:
+      - 19
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+representations:
+  - id: 0
+    name: "$\\Delta x$"
+  - id: 1
+    name: "$\\frac{\\Delta f}{\\Delta x}$"
+  - id: 2
+    name: 1D Graph
+  - id: 3
+    name: "$\\frac{d f}{d x}$"
+  - id: 4
+    name: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+  - id: 5
+    name: 2D Graph
+  - id: 6
+    name: Contour Maps
+  - id: 7
+    name: "$\\frac{\\partial f}{\\partial x}$"
+  - id: 8
+    name: "$\\vec \\nabla f$"
+  - id: 9
+    name: " Contour Maps"
+  - id: 10
+    name: " Inclinometer"
+  - id: 11
+    name: "$d \\vec r$"
+  - id: 12
+    name: "$\\vec \\nabla \\cdot \\vec v$"
+  - id: 13
+    name: "$\\vec \\nabla \\times \\vec v$"
+  - id: 14
+    name: " $\\vec \\nabla f$"
+  - id: 15
+    name: " 3D plots"
+  - id: 16
+    name: Kinesthetic
+  - id: 17
+    name: " Vector Field Map"
+  - id: 18
+    name: Vector Field Map
+  - id: 19
+    name: $df$
+  - id: 20
+    name: $dx$
+  - id: 21
+    name: Experiment
+  - id: 22
+    name: PDM
+  - id: 23
+    name: " $df$"
+  - id: 24
+    name: " $\\frac{\\partial f}{\\partial x}$"
+  - id: 25
+    name: Table
