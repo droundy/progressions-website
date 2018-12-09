@@ -2,6 +2,7 @@ use std::cell::RefCell;
 use serde_derive::{Serialize, Deserialize};
 use crate::atomicfile::AtomicFile;
 use serde_yaml;
+use internment::Intern;
 
 #[derive(Debug,Clone,Copy,PartialEq,Eq,PartialOrd,Ord,Serialize,Deserialize)]
 pub struct ConceptID(usize);
@@ -47,12 +48,18 @@ pub struct Representation {
     pub id: RepresentationID,
     pub name: String,
 }
+#[derive(Debug,Clone,PartialEq,Eq,PartialOrd,Ord,Serialize)]
+pub struct Course {
+    pub id: CourseID,
+    pub number: String,
+}
 
 #[derive(Debug,Serialize)]
 pub struct Data {
     concepts: RefCell<Vec<Concept>>,
     activities: RefCell<Vec<Activity>>,
     representations: RefCell<Vec<Representation>>,
+    courses: RefCell<Vec<Course>>,
     // activities: Vec<Activity>,
 }
 
@@ -67,6 +74,7 @@ impl Data {
             concepts: RefCell::new(Vec::new()),
             activities: RefCell::new(Vec::new()),
             representations: RefCell::new(Vec::new()),
+            courses: RefCell::new(Vec::new()),
             // activities: Vec::new(),
         }
     }
@@ -121,10 +129,65 @@ impl Data {
         });
         newid
     }
+    pub fn course_by_name(&self, name: &str) -> CourseID {
+        if let Some(c) = self.courses.borrow().iter()
+            .filter(|c| &c.number == name).next() {
+                return c.id;
+            }
+        let newid = CourseID(self.courses.borrow().len());
+        self.courses.borrow_mut().push(Course {
+            id: newid,
+            number: name.to_string(),
+        });
+        newid
+    }
     pub fn set_concept(&mut self, id: ConceptID, c: Concept) {
         self.concepts.borrow_mut()[id.0] = c;
     }
     pub fn set_activity(&mut self, id: ActivityID, c: Activity) {
         self.activities.borrow_mut()[id.0] = c;
+    }
+
+    pub fn concept_view(&self, id: ConceptID) -> Intern<ConceptView> {
+        let c = self.concepts.borrow()[id.0];
+        Intern::new(ConceptView {
+            id,
+            name: c.name.clone(),
+
+            prereq_concepts: Vec::new(),
+            needed_for_concepts: Vec::new(),
+
+            representations: c.representations.clone(),
+            courses: c.courses.clone(),
+            figure: c.figure.clone(),
+            long_description: c.long_description.clone(),
+            external_url: c.external_url.clone(),
+            status: c.status.clone(),
+            notes: c.notes.clone(),
+        })
+    }
+}
+
+/// This is a concept, but with all the relationships filled in.
+#[derive(Debug,Clone,Serialize)]
+pub struct ConceptView {
+    pub id: ConceptID,
+    pub name: String,
+
+    pub prereq_concepts: Vec<Intern<ConceptView>>,
+    pub needed_for_concepts: Vec<Intern<ConceptView>>,
+
+    pub representations: Vec<RepresentationID>,
+    pub courses: Vec<CourseID>,
+    pub figure: Option<String>,
+    pub long_description: String,
+    pub external_url: Option<String>,
+    pub status: Option<String>,
+    pub notes: Option<String>,
+}
+use std::hash::Hash;
+impl Hash for ConceptView {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.id.hash(state);
     }
 }

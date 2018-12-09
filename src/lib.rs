@@ -1,3 +1,3 @@
-pub mod types;
+pub mod data;
 
 mod atomicfile;
