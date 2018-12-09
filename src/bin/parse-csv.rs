@@ -1,13 +1,15 @@
+use serde_derive::Deserialize;
 use std::error::Error;
 use std::io;
 use std::process;
-use serde_derive::Deserialize;
 
-use progression_website::data::{Data, Concept, Activity};
+use progression_website::data::{Activity, Concept, Data};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
 enum ThingType {
-    Activity, Concept, Neither
+    Activity,
+    Concept,
+    Neither,
 }
 
 #[derive(Deserialize)]
@@ -37,7 +39,10 @@ fn parse_list(s: &str) -> Vec<String> {
     if x.pop() != Some(']') {
         return Vec::new();
     }
-    x.split(',').filter(|y| y.len() > 0).map(|y| y.to_string()).collect()
+    x.split(',')
+        .filter(|y| y.len() > 0)
+        .map(|y| y.to_string())
+        .collect()
 }
 
 fn nonempty_string(s: &str) -> Option<String> {
@@ -56,14 +61,23 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
         // error here..
         let record = result?;
         let datum: Row = record.deserialize(None)?;
-        let prereqs: Vec<_> = parse_list(datum.prereq_concepts).iter()
-            .map(|c| data.concept_by_name(c)).collect();
-        let new_concepts: Vec<_> = parse_list(datum.new_concepts).iter()
-            .map(|c| data.concept_by_name(c)).collect();
-        let representations: Vec<_> = parse_list(datum.representations).iter()
-            .map(|c| data.representation_by_name(c)).collect();
+        let prereqs: Vec<_> = parse_list(datum.prereq_concepts)
+            .iter()
+            .map(|c| data.concept_by_name(c))
+            .collect();
+        let new_concepts: Vec<_> = parse_list(datum.new_concepts)
+            .iter()
+            .map(|c| data.concept_by_name(c))
+            .collect();
+        let representations: Vec<_> = parse_list(datum.representations)
+            .iter()
+            .map(|c| data.representation_by_name(c))
+            .collect();
         let courses: Vec<_> = if datum.course_number.len() == 0 {
-            Vec::new() } else { vec![data.course_by_name(datum.course_number)] };
+            Vec::new()
+        } else {
+            vec![data.course_by_name(datum.course_number)]
+        };
         if datum.thingtype == "Concept" || datum.thingtype == "concept" {
             let c = Concept {
                 id: data.concept_by_name(datum.name),
@@ -93,7 +107,7 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                 notes: nonempty_string(datum.notes),
             };
             data.set_activity(c.id, c);
-         } else {
+        } else {
             println!("   {}: {}", datum.thingtype, datum.name);
         }
         data.save();

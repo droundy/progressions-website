@@ -1,22 +1,23 @@
-use std::cell::RefCell;
-use serde_derive::{Serialize, Deserialize};
 use crate::atomicfile::AtomicFile;
-use serde_yaml;
 use internment::Intern;
+use serde_derive::{Deserialize, Serialize};
+use serde_yaml;
+use std::cell::RefCell;
+use std::hash::Hash;
 
-#[derive(Debug,Clone,Copy,PartialEq,Eq,PartialOrd,Ord,Serialize,Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ConceptID(usize);
 
-#[derive(Debug,Clone,Copy,PartialEq,Eq,PartialOrd,Ord,Serialize,Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ActivityID(usize);
 
-#[derive(Debug,Clone,Copy,PartialEq,Eq,PartialOrd,Ord,Serialize,Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct RepresentationID(usize);
 
-#[derive(Debug,Clone,Copy,PartialEq,Eq,PartialOrd,Ord,Serialize,Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct CourseID(usize);
 
-#[derive(Debug,Clone,PartialEq,Eq,PartialOrd,Ord,Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
 pub struct Concept {
     pub id: ConceptID,
     pub name: String,
@@ -29,7 +30,7 @@ pub struct Concept {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
-#[derive(Debug,Clone,PartialEq,Eq,PartialOrd,Ord,Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
 pub struct Activity {
     pub id: ActivityID,
     pub name: String,
@@ -43,18 +44,18 @@ pub struct Activity {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
-#[derive(Debug,Clone,PartialEq,Eq,PartialOrd,Ord,Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
 pub struct Representation {
     pub id: RepresentationID,
     pub name: String,
 }
-#[derive(Debug,Clone,PartialEq,Eq,PartialOrd,Ord,Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
 pub struct Course {
     pub id: CourseID,
     pub number: String,
 }
 
-#[derive(Debug,Serialize)]
+#[derive(Debug, Serialize)]
 pub struct Data {
     concepts: RefCell<Vec<Concept>>,
     activities: RefCell<Vec<Activity>>,
@@ -65,8 +66,7 @@ pub struct Data {
 
 impl Data {
     pub fn save(&self) {
-        let f = AtomicFile::create("progression.yaml")
-            .expect("error creating save file");
+        let f = AtomicFile::create("progression.yaml").expect("error creating save file");
         serde_yaml::to_writer(&f, self).expect("error writing yaml")
     }
     pub fn new() -> Self {
@@ -79,7 +79,13 @@ impl Data {
         }
     }
     pub fn concept_by_name(&self, name: &str) -> ConceptID {
-        if let Some(c) = self.concepts.borrow().iter().filter(|c| &c.name == name).next() {
+        if let Some(c) = self
+            .concepts
+            .borrow()
+            .iter()
+            .filter(|c| &c.name == name)
+            .next()
+        {
             return c.id;
         }
         let newid = ConceptID(self.concepts.borrow().len());
@@ -98,7 +104,13 @@ impl Data {
         newid
     }
     pub fn activity_by_name(&self, name: &str) -> ActivityID {
-        if let Some(c) = self.activities.borrow().iter().filter(|c| &c.name == name).next() {
+        if let Some(c) = self
+            .activities
+            .borrow()
+            .iter()
+            .filter(|c| &c.name == name)
+            .next()
+        {
             return c.id;
         }
         let newid = ActivityID(self.activities.borrow().len());
@@ -118,10 +130,15 @@ impl Data {
         newid
     }
     pub fn representation_by_name(&self, name: &str) -> RepresentationID {
-        if let Some(c) = self.representations.borrow().iter()
-            .filter(|c| &c.name == name).next() {
-                return c.id;
-            }
+        if let Some(c) = self
+            .representations
+            .borrow()
+            .iter()
+            .filter(|c| &c.name == name)
+            .next()
+        {
+            return c.id;
+        }
         let newid = RepresentationID(self.representations.borrow().len());
         self.representations.borrow_mut().push(Representation {
             id: newid,
@@ -130,10 +147,15 @@ impl Data {
         newid
     }
     pub fn course_by_name(&self, name: &str) -> CourseID {
-        if let Some(c) = self.courses.borrow().iter()
-            .filter(|c| &c.number == name).next() {
-                return c.id;
-            }
+        if let Some(c) = self
+            .courses
+            .borrow()
+            .iter()
+            .filter(|c| &c.number == name)
+            .next()
+        {
+            return c.id;
+        }
         let newid = CourseID(self.courses.borrow().len());
         self.courses.borrow_mut().push(Course {
             id: newid,
@@ -169,7 +191,7 @@ impl Data {
 }
 
 /// This is a concept, but with all the relationships filled in.
-#[derive(Debug,Clone,Serialize)]
+#[derive(Debug, Clone, Serialize)]
 pub struct ConceptView {
     pub id: ConceptID,
     pub name: String,
@@ -185,7 +207,6 @@ pub struct ConceptView {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
-use std::hash::Hash;
 impl Hash for ConceptView {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
         self.id.0.hash(state);
