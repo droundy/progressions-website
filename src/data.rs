@@ -172,12 +172,12 @@ impl Data {
 
     pub fn concept_view(&self, id: ConceptID) -> Intern<ConceptView> {
         let c = &self.concepts.borrow()[id.0];
-        Intern::new(ConceptView {
+        let view = Intern::new(ConceptView {
             id,
             name: c.name.clone(),
 
-            prereq_concepts: Vec::new(),
-            needed_for_concepts: Vec::new(),
+            prereq_concepts: RefCell::new(Vec::new()),
+            needed_for_concepts: RefCell::new(Vec::new()),
 
             representations: c.representations.clone(),
             courses: c.courses.clone(),
@@ -186,7 +186,30 @@ impl Data {
             external_url: c.external_url.clone(),
             status: c.status.clone(),
             notes: c.notes.clone(),
-        })
+
+            am_initialized: RefCell::new(false),
+        });
+        if !*view.am_initialized.borrow() {
+            // We haven't generated this view yet, so we need to add
+            // the related concepts.  am_initialized allows me to
+            // avoid any infinite loops where we keep generating the
+            // same views.
+            *view.am_initialized.borrow_mut() = true;
+            for p in c.prereq_concepts.iter() {
+                let pre = self.concept_view(*p);
+                view.prereq_concepts.borrow_mut().push(pre);
+            }
+            *view.prereq_concepts.borrow_mut() =
+                c.prereq_concepts.iter()
+                .map(|x| self.concept_view(*x))
+                .collect();
+            *view.needed_for_concepts.borrow_mut() =
+                self.concepts.borrow().iter()
+                .filter(|x| x.prereq_concepts.contains(&id))
+                .map(|x| self.concept_view(x.id))
+                .collect();
+        }
+        view
     }
 }
 
@@ -196,8 +219,8 @@ pub struct ConceptView {
     pub id: ConceptID,
     pub name: String,
 
-    pub prereq_concepts: Vec<Intern<ConceptView>>,
-    pub needed_for_concepts: Vec<Intern<ConceptView>>,
+    pub prereq_concepts: RefCell<Vec<Intern<ConceptView>>>,
+    pub needed_for_concepts: RefCell<Vec<Intern<ConceptView>>>,
 
     pub representations: Vec<RepresentationID>,
     pub courses: Vec<CourseID>,
@@ -206,6 +229,8 @@ pub struct ConceptView {
     pub external_url: Option<String>,
     pub status: Option<String>,
     pub notes: Option<String>,
+
+    pub am_initialized: RefCell<bool>,
 }
 impl Hash for ConceptView {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
