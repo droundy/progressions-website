@@ -149,7 +149,7 @@ impl Data {
     }
 
     pub fn concept_view(&self, id: ConceptID) -> Intern<ConceptView> {
-        let c = self.concepts.borrow()[id.0];
+        let c = &self.concepts.borrow()[id.0];
         Intern::new(ConceptView {
             id,
             name: c.name.clone(),
@@ -188,6 +188,12 @@ pub struct ConceptView {
 use std::hash::Hash;
 impl Hash for ConceptView {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        self.id.hash(state);
+        self.id.0.hash(state);
     }
 }
+impl PartialEq for ConceptView {
+    fn eq(&self, other: &ConceptView) -> bool {
+        self.id == other.id
+    }
+}
+impl Eq for ConceptView {}
