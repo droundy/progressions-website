@@ -1,0 +1,120 @@
+"#
+let extrajs = {};
+let readyjs = {};
+let title = { self.name };
+let nav = { r#"<li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
+  <li><a href="concept-key.html">Concept page key</a></li>"# };
+let content = {
+  r#"<article>
+      <details class="allprereqs">
+        <summary>Prerequisite concepts</summary>
+        {% for course, concepts, hints in concept.prereq_courses %}
+        <div class="allprereqs">
+          <div class="course-prereq has{{concepts|length}}{% if not concepts %} hint{% endif %}">
+            <a href="{{course.number}}.html" class="course">
+              {{ course.name }}
+            </a>
+            {% for c in concepts %}
+            <a href="concept-{{c.urlname}}.html" class="concept">
+              <span class="rownum hint">{{ c.rownum }}</span>
+              {{ c.name }}
+            </a>
+            {% endfor %}
+            {% for c in hints %}
+            <a href="concept-{{c.urlname}}.html" class="concept hint">
+              <span class="rownum hint">{{ c.rownum }}</span>
+              {{ c.name }}
+            </a>
+            {% endfor %}
+          </div>
+          {% endfor %}
+
+          <div class="prereq">
+            {% for activity, concepts, hints in concept.prereq_groups %}
+            <div class="activity-grouping has{{concepts|length}}{% if not concepts %} hint{% endif %}">
+              <div class="taughtby">
+                <div class="taughtby">
+                  <a href="activity-{{activity.urlname}}.html" class="activity">
+                    {{activity.name}}
+                  </a>
+                </div>
+              </div>
+              {% for c in concepts %}
+              <a href="concept-{{c.urlname}}.html" class="concept">
+                <span class="rownum hint">{{ c.rownum }}</span>
+                {{ c.name }}
+              </a>
+              {% endfor %}
+              {% for c in hints %}
+              <a href="concept-{{c.urlname}}.html" class="concept hint">
+                <span class="rownum hint">{{ c.rownum }}</span>
+                {{ c.name }}
+              </a>
+              {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </details>
+      <div {% if concept.url != ""
+           %}onclick="location.href='{{concept.url}}';" style="cursor: pointer;"{%
+           endif %} class="concept">
+        <div class="taughtby">
+          <div class="taughtby">
+            {% for a in concept.activities %}
+            <a href="activity-{{a.urlname}}.html" class="activity">
+              {{a.name}}
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        <span class="rownum hint">{{ concept.rownum }}</span>
+        <h1>{{concept.name}}</h1>
+        {% if  concept.figure != "" %}
+        <img src="{{concept.figure}}" class="figure"/>
+        {% endif %}
+        <div class="description">
+          {{concept.description}}
+        </div>
+"# if self.representations.len() > 0 { r#"
+        <h3>Representations used</h3>
+        <div class="row"> "#
+          for r in self.representations.iter() { r#"
+          <a href="representation-"# r.0 r#".html" class="representation">
+            Representation "# r.0 r#" (really icon)
+          </a>
+          "#
+          }
+          r#"
+        </div>
+"# } r#"
+        {% endif %}
+      </div>
+      {% for activity, concepts, hints in concept.output_groups %}
+      <div class="activity-grouping has{{concepts|length}}">
+        <div class="taughtby">
+          <div class="taughtby">
+            <a href="activity-{{activity.urlname}}.html" class="activity">
+              {{activity.name}}
+            </a>
+          </div>
+        </div>
+        {% for c in concepts %}
+        <a href="concept-{{c.urlname}}.html" class="concept">
+          <span class="rownum hint">{{ c.rownum }}</span>
+          {{ c.name }}
+        </a>
+        {% endfor %}
+        {% for c in hints %}
+        <a href="concept-{{c.urlname}}.html" class="concept hint">
+          <span class="rownum hint">{{ c.rownum }}</span>
+          {{ c.name }}
+        </a>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </article>
+    "#
+    };
+    include!("base.html");
+r#"

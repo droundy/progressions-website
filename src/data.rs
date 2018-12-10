@@ -243,7 +243,7 @@ impl Hash for ConceptView {
         self.id.0.hash(state);
     }
 }
-#[with_template("Concept: " self.name " with id " self.id.0)]
+#[with_template("concept.html")]
 impl DisplayAs<HTML> for ConceptView {}
 
 impl PartialEq for ConceptView {
