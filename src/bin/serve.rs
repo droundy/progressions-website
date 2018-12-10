@@ -15,9 +15,11 @@ fn main() {
             Data::new().progression_view().display_as(HTML).into_reply()
         });
     let style_css = path!("style.css").and(warp::fs::file("style.css"));
+    let libraries = path!("libraries").and(warp::fs::dir("libraries"));
 
     warp::serve(concept
                 .or(style_css)
+                .or(libraries)
                 .or(index))
         .run(([0, 0, 0, 0], 3030));
 }
