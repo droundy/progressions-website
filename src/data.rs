@@ -4,6 +4,7 @@ use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
 use std::cell::RefCell;
 use std::hash::Hash;
+use display_as::{with_template, HTML, DisplayAs};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ConceptID(usize);
@@ -237,6 +238,9 @@ impl Hash for ConceptView {
         self.id.0.hash(state);
     }
 }
+#[with_template("hello world" " hello world")]
+impl DisplayAs<HTML> for ConceptView {}
+
 impl PartialEq for ConceptView {
     fn eq(&self, other: &ConceptView) -> bool {
         self.id == other.id
