@@ -18,7 +18,7 @@ pub struct RepresentationID(usize);
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct CourseID(usize);
 
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Concept {
     pub id: ConceptID,
     pub name: String,
@@ -31,7 +31,7 @@ pub struct Concept {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Activity {
     pub id: ActivityID,
     pub name: String,
@@ -45,18 +45,18 @@ pub struct Activity {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Representation {
     pub id: RepresentationID,
     pub name: String,
 }
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize)]
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Course {
     pub id: CourseID,
     pub number: String,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Data {
     concepts: RefCell<Vec<Concept>>,
     activities: RefCell<Vec<Activity>>,
@@ -71,6 +71,11 @@ impl Data {
         serde_yaml::to_writer(&f, self).expect("error writing yaml")
     }
     pub fn new() -> Self {
+        if let Ok(f) = ::std::fs::File::open("progression.yaml") {
+            if let Ok(s) = serde_yaml::from_reader::<_,Self>(&f) {
+                return s;
+            }
+        }
         Data {
             concepts: RefCell::new(Vec::new()),
             activities: RefCell::new(Vec::new()),
@@ -238,7 +243,7 @@ impl Hash for ConceptView {
         self.id.0.hash(state);
     }
 }
-#[with_template("hello world" " hello world")]
+#[with_template("Concept: " self.name " with id " self.id.0)]
 impl DisplayAs<HTML> for ConceptView {}
 
 impl PartialEq for ConceptView {
