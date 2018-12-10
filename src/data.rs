@@ -255,8 +255,20 @@ impl Data {
     }
 
     pub fn progression_view(&self) -> ProgressionView {
+        let courses: Vec<_> = self.courses.borrow().iter().map(|c| self.course_sequence(c.id))
+            .filter(|x| x.groups.len() > 1) // FIXME should handle prereqs better?
+            .collect();
+        let prereq_courses: Vec<_> = self.courses.borrow().iter().take(courses[0].course.id.0).cloned()
+            .map(|course| PrereqCourse {
+                course: course.clone(),
+                concepts: self.concepts.borrow().iter()
+                    .filter(|c| c.courses.contains(&course.id))
+                    .cloned().collect(),
+            })
+            .collect();
         ProgressionView {
-            courses: self.courses.borrow().iter().map(|c| self.course_sequence(c.id)).collect(),
+            prereq_courses,
+            courses,
         }
     }
 
@@ -356,6 +368,7 @@ pub struct CourseSequence {
 impl DisplayAs<HTML> for CourseSequence {}
 
 pub struct ProgressionView {
+    prereq_courses: Vec<PrereqCourse>,
     courses: Vec<CourseSequence>,
 }
 #[with_template("progression.html")]

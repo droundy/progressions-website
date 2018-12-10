@@ -104,19 +104,11 @@ let content = {
           fill="none" stroke-width="2" stroke-linecap="round" />
     </svg>
     <article>
-      {% for course in prereq_courses %}
-      <div class="course-prereq has{{course.concepts|length}}">
-        <a href="{{course.number}}.html" class="course">
-          {{ course.name }}
-        </a>
-        {% for concept in course.concepts %}
-        <a href="concept-{{concept.urlname}}.html" class="concept">
-          <span class="rownum hint">{{ concept.rownum }}</span>
-          {{ concept.name }}
-        </a>
-        {% endfor %}
-      </div>
-      {% endfor %}
+      "##
+      for course in self.prereq_courses.iter() {
+        course
+      }
+      r##"
 
       <div class="progression">
         "## for course in self.courses.iter() { r##"
