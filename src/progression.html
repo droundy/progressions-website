@@ -141,7 +141,7 @@ let content = {
           </a>
           <div class="concepts">
             "## for concept in group.concepts.iter() { r##"
-            <a href="concept-{{concept.urlname}}.html" class="concept"## for a in concept.activities.iter() {
+            <a href="/concept/"## slug::slugify(&concept.name) r##"" class="concept"## for a in concept.activities.iter() {
                        r##" from-"## slug::slugify(&a.name) } r##"" id=""## slug::slugify(&concept.name) r##"">
               "## for r in concept.representations.iter() { r##"
               <div onclick="document.location.href ='representation/"## slug::slugify("r.name") r##"'; return false"
