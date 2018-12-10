@@ -60,21 +60,21 @@ let content = {
            %}onclick="location.href='{{concept.url}}';" style="cursor: pointer;"{%
            endif %} class="concept">
         <div class="taughtby">
-          <div class="taughtby">
-            {% for a in concept.activities %}
-            <a href="activity-{{a.urlname}}.html" class="activity">
-              {{a.name}}
-            </a>
-            {% endfor %}
+          <div class="taughtby"> "#
+            for a in self.activities.iter() {
+            r#"<a href="activity/"# slug::slugify(&a.name) r#".html" class="activity">
+              "# a.name r#"
+            </a>"#
+            } r#"
           </div>
         </div>
-        <span class="rownum hint">{{ concept.rownum }}</span>
-        <h1>{{concept.name}}</h1>
-        {% if  concept.figure != "" %}
-        <img src="{{concept.figure}}" class="figure"/>
-        {% endif %}
+        <span class="rownum hint">"# self.id.0 r#"</span>
+        <h1>"# self.name r#"</h1>
+        "# if let Some(ref figure) = self.figure { r#"
+        <img src=""# figure r#"" class="figure"/>
+        "# } r#"
         <div class="description">
-          {{concept.description}}
+          "# self.long_description r#"
         </div>
 "# if self.representations.len() > 0 { r#"
         <h3>Representations used</h3>
@@ -88,7 +88,6 @@ let content = {
           r#"
         </div>
 "# } r#"
-        {% endif %}
       </div>
       {% for activity, concepts, hints in concept.output_groups %}
       <div class="activity-grouping has{{concepts|length}}">

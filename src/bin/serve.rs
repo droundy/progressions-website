@@ -4,13 +4,15 @@ use display_as::{DisplayAs, HTML};
 
 fn main() {
     // GET /hello/warp => 200 OK with body "Hello, warp!"
-    let hello = path!("concept" / String)
-        .map(move |name: String| {
+    let concept = path!("concept" / String)
+        .map(|name: String| {
             let data = Data::new();
             data.concept_view(data.concept_by_name(&name))
                 .display_as(HTML).into_reply()
         });
+    let style_css = path!("style.css").and(warp::fs::file("style.css"));
 
-    warp::serve(hello)
+    warp::serve(concept
+                .or(style_css))
         .run(([0, 0, 0, 0], 3030));
 }

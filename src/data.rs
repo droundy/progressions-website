@@ -178,9 +178,13 @@ impl Data {
 
     pub fn concept_view(&self, id: ConceptID) -> Intern<ConceptView> {
         let c = &self.concepts.borrow()[id.0];
+        let activities: Vec<_> = self.activities.borrow().iter()
+            .filter(|a| a.new_concepts.contains(&id)).cloned().collect();
         let view = Intern::new(ConceptView {
             id,
             name: c.name.clone(),
+
+            activities,
 
             prereq_concepts: RefCell::new(Vec::new()),
             needed_for_concepts: RefCell::new(Vec::new()),
@@ -224,6 +228,8 @@ impl Data {
 pub struct ConceptView {
     pub id: ConceptID,
     pub name: String,
+
+    pub activities: Vec<Activity>,
 
     pub prereq_concepts: RefCell<Vec<Intern<ConceptView>>>,
     pub needed_for_concepts: RefCell<Vec<Intern<ConceptView>>>,
