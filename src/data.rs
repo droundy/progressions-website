@@ -180,13 +180,25 @@ impl Data {
         let c = &self.concepts.borrow()[id.0];
         let activities: Vec<_> = self.activities.borrow().iter()
             .filter(|a| a.new_concepts.contains(&id)).cloned().collect();
+        let my_prereq_concepts: Vec<_> =
+            self.concepts.borrow().iter().filter(|x| c.prereq_concepts.contains(&x.id)).cloned().collect();
+        let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
+            .map(|course| PrereqCourse {
+                course: course.clone(),
+                concepts: my_prereq_concepts.iter().filter(|c| c.courses.contains(&course.id)).cloned().collect(),
+            })
+            .filter(|xx| xx.concepts.len() > 0 && !c.courses.contains(&xx.course.id))
+            .collect();
+        let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
         let view = Intern::new(ConceptView {
             id,
             name: c.name.clone(),
 
             activities,
+            prereq_courses,
 
             prereq_concepts: RefCell::new(Vec::new()),
+            prereq_groups: RefCell::new(Vec::new()),
             needed_for_concepts: RefCell::new(Vec::new()),
 
             representations: c.representations.clone(),
@@ -212,16 +224,28 @@ impl Data {
             *view.prereq_concepts.borrow_mut() =
                 c.prereq_concepts.iter()
                 .map(|x| self.concept_view(*x))
+                .filter(|x| !the_prereq_courses.iter().any(|z| x.courses.contains(&z.id)))
                 .collect();
             *view.needed_for_concepts.borrow_mut() =
                 self.concepts.borrow().iter()
                 .filter(|x| x.prereq_concepts.contains(&id))
                 .map(|x| self.concept_view(x.id))
                 .collect();
+            *view.prereq_groups.borrow_mut() =
+                group_concepts(view.prereq_concepts.borrow().clone());
         }
         view
     }
 }
+
+/// This is a course and concepts it teaches.
+#[derive(Debug, Clone, Serialize)]
+pub struct PrereqCourse {
+    pub course: Course,
+    pub concepts: Vec<Concept>,
+}
+#[with_template("prereq-course.html")]
+impl DisplayAs<HTML> for PrereqCourse {}
 
 /// This is a concept, but with all the relationships filled in.
 #[derive(Debug, Clone, Serialize)]
@@ -231,7 +255,9 @@ pub struct ConceptView {
 
     pub activities: Vec<Activity>,
 
+    pub prereq_courses: Vec<PrereqCourse>,
     pub prereq_concepts: RefCell<Vec<Intern<ConceptView>>>,
+    pub prereq_groups: RefCell<Vec<ActivityGroup>>,
     pub needed_for_concepts: RefCell<Vec<Intern<ConceptView>>>,
 
     pub representations: Vec<RepresentationID>,
@@ -258,3 +284,31 @@ impl PartialEq for ConceptView {
     }
 }
 impl Eq for ConceptView {}
+
+/// This is an activity and concepts it teaches.
+#[derive(Debug, Clone, Serialize)]
+pub struct ActivityGroup {
+    pub activity: Activity,
+    pub concepts: Vec<Intern<ConceptView>>,
+}
+#[with_template("activity-group.html")]
+impl DisplayAs<HTML> for ActivityGroup {}
+fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
+    let mut out: Vec<ActivityGroup> = Vec::new();
+    for c in x.into_iter() {
+        let act: Vec<_> = c.activities.iter().map(|x| x.id).collect();
+        if let Some(ref mut group) = out.iter_mut()
+            .filter(|x: &&mut ActivityGroup| act.contains(&x.activity.id))
+            .next()
+        {
+            group.concepts.push(c);
+        } else {
+            if act.len() >= 1 {
+                out.push(ActivityGroup { activity: c.activities[0].clone(), concepts: vec![c] });
+            } else {
+                println!("There is an orphan concept! What should I do?");
+            }
+        }
+    }
+    out
+}

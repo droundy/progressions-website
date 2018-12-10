@@ -1,0 +1,15 @@
+<div class="activity-grouping has"# self.concepts.len() r#"">
+  <div class="taughtby">
+    <div class="taughtby">
+      <a href="activity/"# slug::slugify(&self.activity.name) r#"" class="activity">
+        "# self.activity.name r#"
+      </a>
+    </div>
+  </div>
+  "# for c in self.concepts.iter() {
+    r#"
+  <a href="concept/"# slug::slugify(&c.name) r#"" class="concept">
+    "# c.name r#"
+  </a>
+  "# } r#"
+</div>

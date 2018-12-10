@@ -1,0 +1,11 @@
+<div class="course-prereq has"# self.concepts.len() r#"">
+  <a href=""# self.course.number r#".html" class="course">
+    "# self.course.number r#"
+  </a>
+  "# for c in self.concepts.iter() {
+    r#"
+  <a href="/concept/"# slug::slugify(&c.name) r#"" class="concept">
+    "# c.name r#"
+  </a>
+  "# } r#"
+</div>
