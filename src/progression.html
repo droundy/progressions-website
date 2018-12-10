@@ -1,0 +1,181 @@
+"##
+let extrajs = { r##"
+function connectElements(svg, path, start, end) {
+    var stroke = 0;// path.attr("stroke-width");
+
+    end = $(end); // always convert to a jQuery "thing"
+    start = $(start); // always convert to a jQuery "thing"
+    var startWidth = start.outerWidth();
+    var startHeight = start.outerHeight();
+    var endWidth = end.outerWidth();
+    var endHeight = end.outerHeight();
+
+    var svgcoord = svg.offset();
+    var startcoord = start.offset();
+    var endcoord = end.offset();
+    var startX = startcoord.left + 0.5*startWidth - svgcoord.left;
+    var startY = startcoord.top + startHeight - svgcoord.top;
+    var endX = endcoord.left + 0.5*endWidth - svgcoord.left;
+    var endY = endcoord.top - svgcoord.top;
+    var rightgoing = endX > startX + 10;
+    var leftgoing = endX + 10 < startX;
+    if (rightgoing) {
+        startX = startcoord.left + startWidth - svgcoord.left;
+        startY = startcoord.top + 0.5*startHeight - svgcoord.top;
+    } else if (leftgoing) {
+        startX = startcoord.left - svgcoord.left;
+        startY = startcoord.top + 0.5*startHeight - svgcoord.top;
+    }
+    if (leftgoing) {
+        endX = endcoord.left + endWidth - svgcoord.left;
+        endY = endcoord.top + 0.5*endHeight - svgcoord.top;
+    } else if (rightgoing) {
+        endX = endcoord.left - svgcoord.left;
+        endY = endcoord.top + 0.5*endHeight - svgcoord.top;
+    }
+
+    // check if the svg is big enough to draw the path, if not, set heigh/width
+    svg.attr("width", Math.max(svg.attr("width"), startX, endX));
+    svg.attr("height", Math.max(svg.attr("height"), startY+startHeight, endY+endHeight));
+
+    var dist = Math.sqrt(Math.pow(startX-endX,2)+Math.pow(startY-endY,2));
+    var theta = 0.2;
+    var dx = 20*(endX - startX)/dist;
+    var dy = 20*(endY - startY)/dist;
+    path.attr("d",  path.attr("d")
+              + " M"  + startX + " " + startY
+              + " L" + endX + " " + endY
+              + " M" + (endX - dx*Math.cos(theta) - dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) + dx*Math.sin(theta))
+              + " L" + endX + " " + endY
+              + " M" + (endX - dx*Math.cos(theta) + dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) - dx*Math.sin(theta))
+              + " L" + endX + " " + endY );
+}
+
+function connectAll() {
+    // reset svg each time
+    $("#arrows-svg").attr("height", "0");
+    $("#arrows-svg").attr("width", "0");
+    var svg = $("#arrows-svg");
+    var arrows = $("#right-arrows");
+    arrows.attr("d", "M0 0");
+
+    $(".activity").each(function(i,from) {
+        if (from.id != '') {
+            $(".concept.from-"+from.id).each(function(i,to) {
+                // console.log('arrow connecting', from, to);
+                connectElements(svg, arrows, from, to);
+            });
+        }
+    });
+    var arrows = $("#left-arrows");
+    arrows.attr("d", "M0 0");
+    $(".concept").each(function(i,from) {
+        if (from.id != '') {
+            $(".activity.from-"+from.id).each(function(i,to) {
+                // console.log('arrow connecting', from, to);
+                connectElements(svg, arrows, from, to);
+            });
+        }
+    });
+}
+"##
+};
+let readyjs = { r##"
+    $(window).resize(connectAll);
+    connectAll();
+    setTimeout(connectAll, 200); // reconnect to correct for errors introduced by mathjax
+    setTimeout(connectAll, 400); // mathjax changes size of things gradually :(
+    setTimeout(connectAll, 1000);
+    setTimeout(connectAll, 2000);
+    setTimeout(connectAll, 3000);
+    setTimeout(connectAll, 4000);
+    setTimeout(connectAll, 5000);
+    setTimeout(connectAll, 10000);"##
+};
+let title = { r##"Learning Progression for Partial Derivatives"## };
+let nav = { r##"<li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
+  <li><a href="concept-key.html">Concept page key</a></li>"## };
+let content = {
+  r##"
+    <svg id="arrows-svg" width="0" height="0">
+    <path id="right-arrows" d="M0 0"
+          fill="none" stroke-width="2" stroke-linecap="round" />
+    <path id="left-arrows" d="M0 0"
+          fill="none" stroke-width="2" stroke-linecap="round" />
+    </svg>
+    <article>
+      {% for course in prereq_courses %}
+      <div class="course-prereq has{{course.concepts|length}}">
+        <a href="{{course.number}}.html" class="course">
+          {{ course.name }}
+        </a>
+        {% for concept in course.concepts %}
+        <a href="concept-{{concept.urlname}}.html" class="concept">
+          <span class="rownum hint">{{ concept.rownum }}</span>
+          {{ concept.name }}
+        </a>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+      <div class="progression">
+        "## for course in self.courses.iter() { r##"
+        <a href=""## course.course.number r##"" class="course">
+          "## course.course.number r##"
+        </a>
+        {% for activity in course.activities %}
+        <div class="activity-grouping">
+          <a href="activity-{{activity.urlname}}.html" class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{activity.urlname}}">
+            <div class="activity">
+              <span class="rownum hint">{{ activity.rownum }}</span>
+              {{ activity.name }}
+            </div>
+            {% for r in activity.representations %}
+            <div onclick="document.location.href ='representation-{{r.urlname}}.html'; return false"
+                 style="cursor: pointer;"
+                 class="representation">
+              {{ r.icon }}
+            </div>
+            {% endfor %}
+          </a>
+          <div class="concepts">
+            {% for concept in activity.concepts %}
+            <a href="concept-{{concept.urlname}}.html" class="concept{% for a in concept.activities%} from-{{a.urlname}}{%endfor%}" id="{{ concept.urlname }}">
+              <span class="rownum hint">{{ concept.rownum }}</span>
+              {% for r in concept.representations %}
+              <div onclick="document.location.href ='representation-{{r.urlname}}.html'; return false"
+                   style="cursor: pointer;"
+                   class="representation">
+                {{ r.icon }}
+              </div>
+              {% endfor %}
+              {{ concept.name }}
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+        <div class="activity-grouping">
+          <div class="concepts">
+            {% for concept in course.orphan_concepts %}
+            <a href="concept-{{concept.urlname}}.html" class="concept{% for a in concept.activities%} from-{{a.urlname}}{%endfor%}" id="{{ concept.urlname }}">
+              <span class="rownum hint">{{ concept.rownum }}</span>
+              {% for r in concept.representations %}
+              <div onclick="document.location.href ='representation-{{r.urlname}}.html'; return false"
+                   style="cursor: pointer;"
+                   class="representation">
+                {{ r.icon }}
+              </div>
+              {% endfor %}
+              {{ concept.name }}
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        "## } r##"
+      </div>
+    </article>
+    "##
+    };
+    include!("base.html");
+r##"

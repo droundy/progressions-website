@@ -10,9 +10,14 @@ fn main() {
             data.concept_view(data.concept_by_name(&name))
                 .display_as(HTML).into_reply()
         });
+    let index = (warp::path::end().or(path!("index.html")))
+        .map(|_| {
+            Data::new().progression_view().display_as(HTML).into_reply()
+        });
     let style_css = path!("style.css").and(warp::fs::file("style.css"));
 
     warp::serve(concept
-                .or(style_css))
+                .or(style_css)
+                .or(index))
         .run(([0, 0, 0, 0], 3030));
 }

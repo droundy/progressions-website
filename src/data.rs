@@ -253,6 +253,22 @@ impl Data {
         }
         view
     }
+
+    pub fn progression_view(&self) -> ProgressionView {
+        ProgressionView {
+            courses: self.courses.borrow().iter().map(|c| self.course_sequence(c.id)).collect(),
+        }
+    }
+
+    pub fn course_sequence(&self, id: CourseID) -> CourseSequence {
+        let course = self.courses.borrow()[id.0].clone();
+        let course_concepts: Vec<_> = self.concepts.borrow().iter()
+            .filter(|c| c.courses.contains(&id))
+            .map(|c| self.concept_view(c.id))
+            .collect();
+        let groups: Vec<ActivityGroup> = group_concepts(course_concepts);
+        CourseSequence { course, groups }
+    }
 }
 
 /// This is a course and concepts it teaches.
@@ -331,3 +347,16 @@ fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
     }
     out
 }
+
+pub struct CourseSequence {
+    course: Course,
+    groups: Vec<ActivityGroup>,
+}
+#[with_template("course-sequence.html")]
+impl DisplayAs<HTML> for CourseSequence {}
+
+pub struct ProgressionView {
+    courses: Vec<CourseSequence>,
+}
+#[with_template("progression.html")]
+impl DisplayAs<HTML> for ProgressionView {}
