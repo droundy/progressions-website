@@ -201,6 +201,8 @@ impl Data {
             prereq_groups: RefCell::new(Vec::new()),
             needed_for_concepts: RefCell::new(Vec::new()),
 
+            output_groups: RefCell::new(Vec::new()),
+
             representations: c.representations.clone(),
             courses: c.courses.clone(),
             figure: c.figure.clone(),
@@ -233,6 +235,21 @@ impl Data {
                 .collect();
             *view.prereq_groups.borrow_mut() =
                 group_concepts(view.prereq_concepts.borrow().clone());
+            let output_concepts: Vec<_> = self.concepts.borrow().iter()
+                .filter(|x| x.prereq_concepts.contains(&id))
+                .map(|x| self.concept_view(x.id))
+                .collect();
+            let mut output_groups = group_concepts(output_concepts);
+            let activities: Vec<_> = output_groups.iter()
+                .map(|g| self.activities.borrow()[g.activity.id.0].clone())
+                .collect();
+            output_groups.extend(self.activities.borrow().iter()
+                                 .filter(|a| !activities.contains(a) && a.prereq_concepts.contains(&id))
+                                 .map(|a| ActivityGroup {
+                                     activity: a.clone(),
+                                     concepts: Vec::new(),
+                                 }));
+            *view.output_groups.borrow_mut() = output_groups;
         }
         view
     }
@@ -259,6 +276,8 @@ pub struct ConceptView {
     pub prereq_concepts: RefCell<Vec<Intern<ConceptView>>>,
     pub prereq_groups: RefCell<Vec<ActivityGroup>>,
     pub needed_for_concepts: RefCell<Vec<Intern<ConceptView>>>,
+
+    pub output_groups: RefCell<Vec<ActivityGroup>>,
 
     pub representations: Vec<RepresentationID>,
     pub courses: Vec<CourseID>,
@@ -306,7 +325,7 @@ fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
             if act.len() >= 1 {
                 out.push(ActivityGroup { activity: c.activities[0].clone(), concepts: vec![c] });
             } else {
-                println!("There is an orphan concept! What should I do?");
+                println!("\nOrphan concept: {}!\n   What should I do?", &c.name);
             }
         }
     }

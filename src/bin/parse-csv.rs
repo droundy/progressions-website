@@ -41,7 +41,7 @@ fn parse_list(s: &str) -> Vec<String> {
     }
     x.split(',')
         .filter(|y| y.len() > 0)
-        .map(|y| y.to_string())
+        .map(|y| y.trim().to_string())
         .collect()
 }
 

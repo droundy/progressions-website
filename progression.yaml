@@ -997,7 +997,7 @@ concepts:
     name: You can flip a partial derivative if the same variable(s) are constant
     prereq_concepts:
       - 14
-      - 41
+      - 16
     representations:
       - 4
       - 7
@@ -1143,13 +1143,23 @@ concepts:
     external_url: ~
     status: ~
     notes: ~
+  - id: 100
+    name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
 activities:
   - id: 0
     name: The Heater II
     prereq_concepts:
       - 2
-      - 30
-      - 31
+      - 11
+      - 15
     new_concepts:
       - 16
     representations:
@@ -1165,18 +1175,18 @@ activities:
     name: The Hot Plate
     prereq_concepts:
       - 4
-      - 32
-      - 33
-      - 31
+      - 6
+      - 10
+      - 15
     new_concepts:
       - 17
-      - 34
-      - 35
-      - 36
+      - 18
+      - 19
+      - 20
     representations:
       - 7
-      - 9
-      - 10
+      - 6
+      - 26
     courses:
       - 1
     figure: mvhotplate.jpg
@@ -1188,11 +1198,11 @@ activities:
     name: Chain Rule
     prereq_concepts:
       - 6
-      - 37
-      - 30
-      - 38
-      - 31
-      - 39
+      - 8
+      - 11
+      - 12
+      - 15
+      - 13
     new_concepts:
       - 21
     representations:
@@ -1208,11 +1218,11 @@ activities:
     name: Chain Rule Measurements
     prereq_concepts:
       - 4
-      - 40
+      - 21
     new_concepts: []
     representations:
       - 7
-      - 10
+      - 26
     courses:
       - 1
     figure: ~
@@ -1224,15 +1234,15 @@ activities:
     name: The Hillside
     prereq_concepts:
       - 4
-      - 41
-      - 42
-      - 34
+      - 16
+      - 17
+      - 18
     new_concepts:
       - 23
-      - 43
+      - 24
     representations:
       - 7
-      - 10
+      - 26
     courses:
       - 1
     figure: vchill.jpg
@@ -1244,14 +1254,14 @@ activities:
     name: Directional Derivatives
     prereq_concepts:
       - 8
-      - 42
-      - 40
+      - 17
+      - 21
     new_concepts:
       - 25
-      - 44
+      - 29
     representations:
       - 7
-      - 10
+      - 26
       - 8
     courses:
       - 1
@@ -1264,15 +1274,15 @@ activities:
     name: The Hill
     prereq_concepts:
       - 16
-      - 42
-      - 35
-      - 36
+      - 17
+      - 19
+      - 20
     new_concepts:
       - 23
-      - 43
+      - 24
     representations:
       - 6
-      - 14
+      - 8
     courses:
       - 2
     figure: vchill.jpg
@@ -1299,14 +1309,14 @@ activities:
     name: Vector Differentials
     prereq_concepts:
       - 0
-      - 67
+      - 100
     new_concepts:
       - 52
-      - 68
-      - 69
+      - 46
+      - 47
     representations:
       - 11
-      - 15
+      - 27
     courses:
       - 3
     figure: vfdrvectorcurvi.jpg
@@ -1320,7 +1330,7 @@ activities:
       - 23
     new_concepts:
       - 53
-      - 70
+      - 54
     representations:
       - 16
     courses:
@@ -1334,14 +1344,14 @@ activities:
     name: Visualizing Gradient
     prereq_concepts:
       - 23
-      - 43
+      - 24
     new_concepts:
       - 53
-      - 70
+      - 54
     representations:
       - 16
-      - 17
-      - 9
+      - 18
+      - 6
     courses:
       - 3
     figure: vfgradient.jpg
@@ -1353,13 +1363,13 @@ activities:
     name: Visualizing Divergence
     prereq_concepts:
       - 2
-      - 71
-      - 32
-      - 72
+      - 5
+      - 6
+      - 49
     new_concepts:
       - 56
-      - 73
-      - 74
+      - 57
+      - 58
     representations:
       - 18
     courses:
@@ -1373,12 +1383,12 @@ activities:
     name: Visualizing Curl
     prereq_concepts:
       - 2
-      - 71
-      - 32
+      - 5
+      - 6
     new_concepts:
       - 61
-      - 75
-      - 76
+      - 62
+      - 63
     representations:
       - 18
     courses:
@@ -1392,16 +1402,16 @@ activities:
     name: Zapping with d
     prereq_concepts:
       - 0
-      - 89
-      - 90
-      - 71
-      - 32
-      - 30
+      - 2
+      - 3
+      - 5
+      - 6
+      - 11
     new_concepts:
       - 77
-      - 91
-      - 92
-      - 93
+      - 78
+      - 79
+      - 80
     representations:
       - 19
     courses:
@@ -1415,12 +1425,12 @@ activities:
     name: Energy and Integrals
     prereq_concepts:
       - 77
-      - 92
+      - 79
     new_concepts:
       - 81
     representations:
       - 22
-      - 23
+      - 19
     courses:
       - 4
     figure: inpotentiallab.jpg
@@ -1432,18 +1442,18 @@ activities:
     name: Partial Derivative Machine Derivatives
     prereq_concepts:
       - 2
-      - 30
-      - 41
-      - 36
-      - 94
+      - 11
+      - 16
+      - 20
+      - 77
     new_concepts:
       - 82
-      - 95
-      - 96
-      - 97
+      - 83
+      - 84
+      - 85
     representations:
       - 22
-      - 24
+      - 7
       - 4
       - 25
     courses:
@@ -1457,19 +1467,19 @@ activities:
     name: Chain Rules
     prereq_concepts:
       - 2
-      - 32
-      - 30
-      - 41
-      - 40
-      - 94
-      - 91
-      - 92
-      - 96
-      - 97
+      - 6
+      - 11
+      - 16
+      - 21
+      - 77
+      - 78
+      - 79
+      - 84
+      - 85
     new_concepts:
       - 86
-      - 98
-      - 99
+      - 87
+      - 88
     representations:
       - 19
     courses:
@@ -1532,6 +1542,10 @@ representations:
     name: " $\\frac{\\partial f}{\\partial x}$"
   - id: 25
     name: Table
+  - id: 26
+    name: Inclinometer
+  - id: 27
+    name: 3D plots
 courses:
   - id: 0
     number: MTH 251
