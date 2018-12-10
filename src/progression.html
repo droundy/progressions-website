@@ -123,38 +123,41 @@ let content = {
         <a href=""## course.course.number r##"" class="course">
           "## course.course.number r##"
         </a>
-        {% for activity in course.activities %}
+        "## for group in course.groups.iter() {
+        r##"
         <div class="activity-grouping">
-          <a href="activity-{{activity.urlname}}.html" class="activity{% for pre in activity.prereqs%} from-{{pre.urlname}}{%endfor%}" id="{{activity.urlname}}">
+          <a href="/activity/"## slug::slugify(&group.activity.name) r##"" class="activity"## for c in group.activity.prereq_concepts.iter() {
+                       r##" from-"## slug::slugify("&c.name") } r##"" id=""## slug::slugify(&group.activity.name) r##"">
             <div class="activity">
-              <span class="rownum hint">{{ activity.rownum }}</span>
-              {{ activity.name }}
+              "## group.activity.name r##"
             </div>
-            {% for r in activity.representations %}
-            <div onclick="document.location.href ='representation-{{r.urlname}}.html'; return false"
+            "## for r in group.activity.representations.iter() { r##"
+            <div onclick="document.location.href ='representation/"## slug::slugify("r.name") r##"'; return false"
                  style="cursor: pointer;"
                  class="representation">
-              {{ r.icon }}
+              representation.icon
             </div>
-            {% endfor %}
+            "## } r##"
           </a>
           <div class="concepts">
-            {% for concept in activity.concepts %}
-            <a href="concept-{{concept.urlname}}.html" class="concept{% for a in concept.activities%} from-{{a.urlname}}{%endfor%}" id="{{ concept.urlname }}">
-              <span class="rownum hint">{{ concept.rownum }}</span>
-              {% for r in concept.representations %}
-              <div onclick="document.location.href ='representation-{{r.urlname}}.html'; return false"
+            "## for concept in group.concepts.iter() { r##"
+            <a href="concept-{{concept.urlname}}.html" class="concept"## for a in concept.activities.iter() {
+                       r##" from-"## slug::slugify(&a.name) } r##"" id=""## slug::slugify(&concept.name) r##"">
+              "## for r in concept.representations.iter() { r##"
+              <div onclick="document.location.href ='representation/"## slug::slugify("r.name") r##"'; return false"
                    style="cursor: pointer;"
                    class="representation">
-                {{ r.icon }}
+                r.icon
               </div>
-              {% endfor %}
-              {{ concept.name }}
+              "## }
+              concept.name r##"
             </a>
-            {% endfor %}
+            "## } r##"
           </div>
         </div>
-        {% endfor %}
+        "##
+        }
+        r##"
         <div class="activity-grouping">
           <div class="concepts">
             {% for concept in course.orphan_concepts %}
