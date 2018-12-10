@@ -9,24 +9,14 @@ let content = {
       <details class="allprereqs">
         <summary>Prerequisite concepts</summary>
         <div class="allprereqs">
-          "# for prereq in self.prereq_courses.iter() { r#"
-          <div class="course-prereq has{{concepts|length}}{% if not concepts %} hint{% endif %}">
-            <a href=""# prereq.course.number r#"" class="course">
-              "# prereq.course.number r#"
-            </a>
-            "# for c in prereq.concepts.iter() { r#"
-            <a href="/concept/"# slug::slugify(&c.name) r#"" class="concept">
-              "# c.name r#"
-            </a>
-            "# } r#"
-          </div>
-          "# } r#"
-
-          "# for group in self.prereq_groups.borrow().iter() { r#"
-          <div class="prereq">
-            "# group r#"
-          </div>
-          "# } r#"
+          "#
+          for prereq in self.prereq_courses.iter() {
+            prereq
+          }
+          for group in self.prereq_groups.borrow().iter() {
+            r#"<div class="prereq">"# group r#"</div>"#
+          }
+          r#"
         </div>
       </details>
       <div {% if concept.url != ""
