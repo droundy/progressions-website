@@ -84,7 +84,7 @@ impl Data {
             .concepts
             .borrow()
             .iter()
-            .filter(|c| &c.name == name)
+            .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
             .next()
         {
             return c.id;
@@ -109,7 +109,7 @@ impl Data {
             .activities
             .borrow()
             .iter()
-            .filter(|c| &c.name == name)
+            .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
             .next()
         {
             return c.id;
@@ -135,7 +135,7 @@ impl Data {
             .representations
             .borrow()
             .iter()
-            .filter(|c| &c.name == name)
+            .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
             .next()
         {
             return c.id;
@@ -152,7 +152,7 @@ impl Data {
             .courses
             .borrow()
             .iter()
-            .filter(|c| &c.number == name)
+            .filter(|c| &c.number == name || &slug::slugify(&c.number) == name)
             .next()
         {
             return c.id;

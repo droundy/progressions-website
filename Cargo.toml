@@ -17,3 +17,4 @@ tempfile = "3.0.3"
 internment = "0.3.6"
 warp = "0.1.9"
 display-as = { version = "0.3.2", features = ["warp"] }
+slug = "0.1.4"
