@@ -10,6 +10,12 @@ fn main() {
             data.concept_view(data.concept_by_name(&name))
                 .display_as(HTML).into_reply()
         });
+    let activity = path!("activity" / String)
+        .map(|name: String| {
+            let data = Data::new();
+            data.activity_view(data.activity_by_name(&name))
+                .display_as(HTML).into_reply()
+        });
     let index = (warp::path::end().or(path!("index.html")))
         .map(|_| {
             Data::new().progression_view().display_as(HTML).into_reply()
@@ -18,6 +24,7 @@ fn main() {
     let libraries = path!("libraries").and(warp::fs::dir("libraries"));
 
     warp::serve(concept
+                .or(activity)
                 .or(style_css)
                 .or(libraries)
                 .or(index))
