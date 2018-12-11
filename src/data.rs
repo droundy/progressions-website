@@ -6,10 +6,10 @@ use std::cell::RefCell;
 use std::hash::Hash;
 use display_as::{with_template, HTML, DisplayAs};
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ConceptID(usize);
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ActivityID(usize);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
@@ -254,6 +254,79 @@ impl Data {
         view
     }
 
+    pub fn activity_view(&self, id: ActivityID) -> Intern<ActivityView> {
+        let a = &self.activities.borrow()[id.0];
+        let my_prereq_concepts: Vec<_> = self.concepts.borrow().iter()
+            .filter(|x| a.prereq_concepts.contains(&x.id)).cloned().collect();
+        let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
+            .map(|course| PrereqCourse {
+                course: course.clone(),
+                concepts: my_prereq_concepts.iter().filter(|c| c.courses.contains(&course.id)).cloned().collect(),
+            })
+            .filter(|xx| xx.concepts.len() > 0 && !a.courses.contains(&xx.course.id))
+            .collect();
+        let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
+        let view = Intern::new(ActivityView {
+            id,
+            name: a.name.clone(),
+
+            prereq_courses,
+
+            prereq_concepts: RefCell::new(Vec::new()),
+            prereq_groups: RefCell::new(Vec::new()),
+            new_concepts: RefCell::new(Vec::new()),
+
+            output_groups: RefCell::new(Vec::new()),
+
+            representations: a.representations.clone(),
+            courses: a.courses.clone(),
+            figure: a.figure.clone(),
+            long_description: a.long_description.clone(),
+            external_url: a.external_url.clone(),
+            status: a.status.clone(),
+            notes: a.notes.clone(),
+
+            am_initialized: RefCell::new(false),
+        });
+        if !*view.am_initialized.borrow() {
+            // We haven't generated this view yet, so we need to add
+            // the related concepts.  am_initialized allows me to
+            // avoid any infinite loops where we keep generating the
+            // same views.
+            *view.am_initialized.borrow_mut() = true;
+            for p in a.prereq_concepts.iter() {
+                let pre = self.concept_view(*p);
+                view.prereq_concepts.borrow_mut().push(pre);
+            }
+            *view.prereq_concepts.borrow_mut() =
+                a.prereq_concepts.iter()
+                .map(|x| self.concept_view(*x))
+                .filter(|x| !the_prereq_courses.iter().any(|z| x.courses.contains(&z.id)))
+                .collect();
+            *view.new_concepts.borrow_mut() =
+                self.concepts.borrow().iter()
+                .filter(|x| a.new_concepts.contains(&x.id))
+                .map(|x| self.concept_view(x.id))
+                .collect();
+            *view.prereq_groups.borrow_mut() =
+                group_concepts(view.prereq_concepts.borrow().clone());
+            let output_concepts: Vec<_> = self.concepts.borrow().iter()
+                .filter(|x| a.new_concepts.contains(&x.id))
+                .map(|x| self.concept_view(x.id))
+                .collect();
+            let mut output_groups = group_concepts(output_concepts);
+            output_groups.extend(self.activities.borrow().iter()
+                                 .filter(|aa| a.new_concepts.iter()
+                                         .any(|cc| aa.prereq_concepts.contains(&cc)))
+                                 .map(|a| ActivityGroup {
+                                     activity: Some(a.clone()),
+                                     concepts: Vec::new(),
+                                 }));
+            *view.output_groups.borrow_mut() = output_groups;
+        }
+        view
+    }
+
     pub fn progression_view(&self) -> ProgressionView {
         let courses: Vec<_> = self.courses.borrow().iter().map(|c| self.course_sequence(c.id))
             .filter(|x| x.groups.len() > 1) // FIXME should handle prereqs better?
@@ -285,7 +358,7 @@ impl Data {
 }
 
 /// This is a course and concepts it teaches.
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone)]
 pub struct PrereqCourse {
     pub course: Course,
     pub concepts: Vec<Concept>,
@@ -294,7 +367,7 @@ pub struct PrereqCourse {
 impl DisplayAs<HTML> for PrereqCourse {}
 
 /// This is a concept, but with all the relationships filled in.
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone)]
 pub struct ConceptView {
     pub id: ConceptID,
     pub name: String,
@@ -320,7 +393,7 @@ pub struct ConceptView {
 }
 impl Hash for ConceptView {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        self.id.0.hash(state);
+        self.id.hash(state);
     }
 }
 #[with_template("concept.html")]
@@ -333,8 +406,10 @@ impl PartialEq for ConceptView {
 }
 impl Eq for ConceptView {}
 
+pub use crate::activity::ActivityView;
+
 /// This is an activity and concepts it teaches.
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone)]
 pub struct ActivityGroup {
     pub activity: Option<Activity>,
     pub concepts: Vec<Intern<ConceptView>>,
@@ -343,7 +418,7 @@ pub struct ActivityGroup {
 impl DisplayAs<HTML> for ActivityGroup {}
 
 /// This is an activity and concepts it teaches, but displayed in a progression..
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone)]
 pub struct ProgressionGroup(ActivityGroup);
 #[with_template("progression-group.html")]
 impl DisplayAs<HTML> for ProgressionGroup {}

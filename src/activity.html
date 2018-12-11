@@ -1,0 +1,98 @@
+"#
+let extrajs = {};
+let readyjs = {};
+let title = { self.name };
+let nav = {
+  r#"<li><a href="{{self.course.number}}.html">{{self.course.name}}</a></li>"#
+};
+let content = {
+  r#"<article>
+      <details class="allprereqs">
+        <summary>Prerequisite concepts</summary>
+        <div class="allprereqs">
+          {% for course, concepts in activity.prereq_courses %}
+          <div class="course-prereq has{{concepts|length}}">
+            <a href="{{course.number}}.html" class="course">
+              {{ course.name }}
+            </a>
+            {% for c in concepts %}
+            <a href="concept-{{c.urlname}}.html" class="concept">
+              <span class="rownum hint">{{ c.rownum }}</span>
+              {{ c.name }}
+              <div class="description hint">
+                <br/>
+                {{c.description}}
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+          {% endfor %}
+
+          <div class="prereq">
+            {% for activity, concepts in activity.prereq_groups %}
+            <div class="activity-grouping has{{concepts|length}}">
+              <div class="taughtby">
+                <div class="taughtby">
+                  <a href="activity-{{activity.urlname}}.html" class="activity">
+                    <span class="rownum hint">{{ activity.rownum }}</span>
+                    {{activity.name}}
+                  </a>
+                </div>
+              </div>
+              {% for c in concepts %}
+              <a href="concept-{{c.urlname}}.html" class="concept">
+                <span class="rownum hint">{{ c.rownum }}</span>
+                {{ c.name }}
+                <div class="description hint">
+                  <br/>
+                  {{c.description}}
+                </div>
+              </a>
+              {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </details>
+
+      <div {% if activity.url != ""
+           %}onclick="location.href='{{activity.url}}';" style="cursor: pointer;"{%
+           endif %} class="activity">
+        <span class="rownum hint">{{ activity.rownum }}</span>
+        <h1>{{activity.name}}</h1>
+        {% if  activity.figure != "" %}
+        <img src="{{activity.figure}}" class="figure"/>
+        {% endif %}
+        <div class="description">
+          {{activity.description}}
+        </div>
+        {% if activity.representations %}
+        <h3>Representations used</h3>
+        <div class="row">
+          {% for r in activity.representations %}
+          <a href="representation-{{r.urlname}}.html" class="representation">
+            {{ r.icon }}
+          </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <h3>Concepts taught</h3>
+        <div class="row">
+          {% for c in activity.concepts %}
+          <a href="concept-{{c.urlname}}.html" class="concept">
+            <span class="rownum hint">{{ c.rownum }}</span>
+            {{ c.name }}
+            <div class="description hint">
+              <br/>
+              {{c.description}}
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </article>"#
+};
+include!("base.html");
+r#"
+
+{% endblock %}
