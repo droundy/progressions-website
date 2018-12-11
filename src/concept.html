@@ -25,7 +25,7 @@ let content = {
         <div class="taughtby">
           <div class="taughtby"> "#
             for a in self.activities.borrow().iter() {
-            r#"<a href="/activity/"# a.slugme() r#"" class="activity">
+            r#"<a href=""# a as URL r#"" class="activity">
               "# a.name r#"
             </a>"#
             } r#"

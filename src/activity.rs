@@ -1,4 +1,4 @@
-use display_as::{with_template, HTML, DisplayAs};
+use display_as::{with_template, HTML, URL, DisplayAs};
 use internment::Intern;
 use std::cell::RefCell;
 use std::hash::Hash;
@@ -36,6 +36,8 @@ impl Hash for ActivityView {
 }
 #[with_template("activity.html")]
 impl DisplayAs<HTML> for ActivityView {}
+#[with_template("/activity/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for ActivityView {}
 
 impl PartialEq for ActivityView {
     fn eq(&self, other: &ActivityView) -> bool {

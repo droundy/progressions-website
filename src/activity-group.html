@@ -2,7 +2,7 @@
   <div class="taughtby">
     <div class="taughtby">
       "# if let Some(ref activity) = self.activity { r#"
-      <a href="activity/"# activity.slugme() r#"" class="activity">
+      <a href=""# activity as URL r#"" class="activity">
         "# activity.name r#"
       </a>
       "#
@@ -17,7 +17,7 @@
   </div> "#
   for c in self.concepts.iter() {
     r#"
-  <a href="concept/"# slug::slugify(&c.name) r#"" class="concept">
+  <a href=""# c as URL r#"" class="concept">
     "# c.name r#"
   </a>
   "# } r#"
