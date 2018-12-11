@@ -1,12 +1,21 @@
 <div class="activity-grouping has"# self.concepts.len() r#"">
   <div class="taughtby">
     <div class="taughtby">
-      <a href="activity/"# slug::slugify(&self.activity.name) r#"" class="activity">
-        "# self.activity.name r#"
+      "# if let Some(ref activity) = self.activity { r#"
+      <a href="activity/"# activity.slugme() r#"" class="activity">
+        "# activity.name r#"
       </a>
+      "#
+      } else { r#"
+      <a href="activity/orphans" class="activity orphans">
+        ORPHANS!
+      </a>
+      "#
+      }
+      r#"
     </div>
-  </div>
-  "# for c in self.concepts.iter() {
+  </div> "#
+  for c in self.concepts.iter() {
     r#"
   <a href="concept/"# slug::slugify(&c.name) r#"" class="concept">
     "# c.name r#"

@@ -9,6 +9,8 @@ html {
     --representation-color: hsl(var(--representation-hue), 100%, 90%);
     --course-color: hsl(var(--course-hue), 100%, 90%);
 
+    --orphan-color: hsl(var(--course-hue), 100%, 50%);
+
     --hover-concept-color: hsl(var(--concept-hue), 100%, 80%);
     --hover-activity-color: hsl(var(--activity-hue), 100%, 80%);
     --hover-representation-color: hsl(var(--representation-hue), 100%, 80%);
@@ -571,6 +573,9 @@ article > .concept {
     border-style: dotted;
     border-width: 0.25em;
     /* display: none !important; */
+}
+.orphans {
+    background-color: var(--orphan-color);
 }
 
 .has0 .has1 .has3, .has2, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {

@@ -241,12 +241,12 @@ impl Data {
                 .collect();
             let mut output_groups = group_concepts(output_concepts);
             let activities: Vec<_> = output_groups.iter()
-                .map(|g| self.activities.borrow()[g.activity.id.0].clone())
+                .flat_map(|g| g.activity.iter().cloned())
                 .collect();
             output_groups.extend(self.activities.borrow().iter()
                                  .filter(|a| !activities.contains(a) && a.prereq_concepts.contains(&id))
                                  .map(|a| ActivityGroup {
-                                     activity: a.clone(),
+                                     activity: Some(a.clone()),
                                      concepts: Vec::new(),
                                  }));
             *view.output_groups.borrow_mut() = output_groups;
@@ -335,7 +335,7 @@ impl Eq for ConceptView {}
 /// This is an activity and concepts it teaches.
 #[derive(Debug, Clone, Serialize)]
 pub struct ActivityGroup {
-    pub activity: Activity,
+    pub activity: Option<Activity>,
     pub concepts: Vec<Intern<ConceptView>>,
 }
 #[with_template("activity-group.html")]
@@ -343,17 +343,20 @@ impl DisplayAs<HTML> for ActivityGroup {}
 fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
     let mut out: Vec<ActivityGroup> = Vec::new();
     for c in x.into_iter() {
-        let act: Vec<_> = c.activities.iter().map(|x| x.id).collect();
+        let mut act: Vec<_> = c.activities.iter().map(|x| Some(x.clone())).collect();
+        if act.len() == 0 {
+            act.push(None);
+        }
         if let Some(ref mut group) = out.iter_mut()
-            .filter(|x: &&mut ActivityGroup| act.contains(&x.activity.id))
+            .filter(|x| act.contains(&x.activity))
             .next()
         {
             group.concepts.push(c);
         } else {
             if act.len() >= 1 {
-                out.push(ActivityGroup { activity: c.activities[0].clone(), concepts: vec![c] });
+                out.push(ActivityGroup { activity: act[0].clone(), concepts: vec![c] });
             } else {
-                println!("\nOrphan concept: {}!\n   What should I do?", &c.name);
+                out.push(ActivityGroup { activity: None, concepts: vec![c] });
             }
         }
     }
@@ -373,3 +376,31 @@ pub struct ProgressionView {
 }
 #[with_template("progression.html")]
 impl DisplayAs<HTML> for ProgressionView {}
+
+trait Slugme {
+    fn slugme(&self) -> String;
+}
+impl Slugme for Concept {
+    fn slugme(&self) -> String {
+        slug::slugify(&self.name)
+    }
+}
+impl Slugme for ConceptView {
+    fn slugme(&self) -> String {
+        slug::slugify(&self.name)
+    }
+}
+impl Slugme for Activity {
+    fn slugme(&self) -> String {
+        slug::slugify(&self.name)
+    }
+}
+impl Slugme for ActivityGroup {
+    fn slugme(&self) -> String {
+        if let Some(ref a) = self.activity {
+            a.slugme()
+        } else {
+            "orphan".to_string()
+        }
+    }
+}

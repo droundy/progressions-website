@@ -93,8 +93,7 @@ let readyjs = { r##"
     setTimeout(connectAll, 10000);"##
 };
 let title = { r##"Learning Progression for Partial Derivatives"## };
-let nav = { r##"<li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
-  <li><a href="concept-key.html">Concept page key</a></li>"## };
+let nav = {};
 let content = {
   r##"
     <svg id="arrows-svg" width="0" height="0">
@@ -118,19 +117,23 @@ let content = {
         "## for group in course.groups.iter() {
         r##"
         <div class="activity-grouping">
-          <a href="/activity/"## slug::slugify(&group.activity.name) r##"" class="activity"## for c in group.activity.prereq_concepts.iter() {
-                       r##" from-"## slug::slugify("&c.name") } r##"" id=""## slug::slugify(&group.activity.name) r##"">
-            <div class="activity">
-              "## group.activity.name r##"
-            </div>
-            "## for r in group.activity.representations.iter() { r##"
+          "## if let Some(ref activity) = group.activity { r##"
+          <a href="/activity/"## activity.slugme() r##"" class="activity"## for c in activity.prereq_concepts.iter() {
+                       r##" from-"## slug::slugify("&c.name") } r##"" id=""## activity.slugme() r##"">
+            <div class="activity">"## activity.name r##"</div>"##
+            for r in activity.representations.iter() { r##"
             <div onclick="document.location.href ='representation/"## slug::slugify("r.name") r##"'; return false"
                  style="cursor: pointer;"
                  class="representation">
               representation.icon
             </div>
             "## } r##"
-          </a>
+          </a>"##
+          } else { r##"
+          <a href="/activity/orphans" class="activity orphans" id="orphans">
+            <div class="activity orphans">ORPHANS!</div>
+          </a> "##
+          } r##"
           <div class="concepts">
             "## for concept in group.concepts.iter() { r##"
             <a href="/concept/"## slug::slugify(&concept.name) r##"" class="concept"## for a in concept.activities.iter() {
