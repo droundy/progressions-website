@@ -4,7 +4,7 @@ use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
 use std::cell::RefCell;
 use std::hash::Hash;
-use display_as::{with_template, HTML, DisplayAs};
+use display_as::{with_template, HTML, URL, DisplayAs};
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ConceptID(usize);
@@ -31,6 +31,9 @@ pub struct Concept {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
+#[with_template("/concept/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for Concept {}
+
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Activity {
     pub id: ActivityID,
@@ -45,11 +48,17 @@ pub struct Activity {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
+#[with_template("/activity/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for Activity {}
+
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Representation {
     pub id: RepresentationID,
     pub name: String,
 }
+#[with_template("/representation/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for Representation {}
+
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Course {
     pub id: CourseID,
@@ -178,8 +187,6 @@ impl Data {
 
     pub fn concept_view(&self, id: ConceptID) -> Intern<ConceptView> {
         let c = &self.concepts.borrow()[id.0];
-        let activities: Vec<_> = self.activities.borrow().iter()
-            .filter(|a| a.new_concepts.contains(&id)).cloned().collect();
         let my_prereq_concepts: Vec<_> =
             self.concepts.borrow().iter().filter(|x| c.prereq_concepts.contains(&x.id)).cloned().collect();
         let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
@@ -194,7 +201,7 @@ impl Data {
             id,
             name: c.name.clone(),
 
-            activities,
+            activities: RefCell::new(Vec::new()),
             prereq_courses,
 
             prereq_concepts: RefCell::new(Vec::new()),
@@ -218,6 +225,12 @@ impl Data {
             // the related concepts.  am_initialized allows me to
             // avoid any infinite loops where we keep generating the
             // same views.
+            *view.activities.borrow_mut() =
+                self.activities.borrow().iter()
+                .filter(|a| a.new_concepts.contains(&id))
+                .map(|a| self.activity_view(a.id))
+                .collect();
+
             *view.am_initialized.borrow_mut() = true;
             for p in c.prereq_concepts.iter() {
                 let pre = self.concept_view(*p);
@@ -244,9 +257,11 @@ impl Data {
                 .flat_map(|g| g.activity.iter().cloned())
                 .collect();
             output_groups.extend(self.activities.borrow().iter()
-                                 .filter(|a| !activities.contains(a) && a.prereq_concepts.contains(&id))
+                                 .filter(|a| a.prereq_concepts.contains(&id))
+                                 .map(|a| self.activity_view(a.id))
+                                 .filter(|a| !activities.contains(a))
                                  .map(|a| ActivityGroup {
-                                     activity: Some(a.clone()),
+                                     activity: Some(a),
                                      concepts: Vec::new(),
                                  }));
             *view.output_groups.borrow_mut() = output_groups;
@@ -319,7 +334,7 @@ impl Data {
                                  .filter(|aa| a.new_concepts.iter()
                                          .any(|cc| aa.prereq_concepts.contains(&cc)))
                                  .map(|a| ActivityGroup {
-                                     activity: Some(a.clone()),
+                                     activity: Some(self.activity_view(a.id)),
                                      concepts: Vec::new(),
                                  }));
             *view.output_groups.borrow_mut() = output_groups;
@@ -372,7 +387,7 @@ pub struct ConceptView {
     pub id: ConceptID,
     pub name: String,
 
-    pub activities: Vec<Activity>,
+    pub activities: RefCell<Vec<Intern<ActivityView>>>,
 
     pub prereq_courses: Vec<PrereqCourse>,
     pub prereq_concepts: RefCell<Vec<Intern<ConceptView>>>,
@@ -398,6 +413,8 @@ impl Hash for ConceptView {
 }
 #[with_template("concept.html")]
 impl DisplayAs<HTML> for ConceptView {}
+#[with_template("/concept/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for ConceptView {}
 
 impl PartialEq for ConceptView {
     fn eq(&self, other: &ConceptView) -> bool {
@@ -411,7 +428,7 @@ pub use crate::activity::ActivityView;
 /// This is an activity and concepts it teaches.
 #[derive(Debug, Clone)]
 pub struct ActivityGroup {
-    pub activity: Option<Activity>,
+    pub activity: Option<Intern<ActivityView>>,
     pub concepts: Vec<Intern<ConceptView>>,
 }
 #[with_template("activity-group.html")]
@@ -426,7 +443,7 @@ impl DisplayAs<HTML> for ProgressionGroup {}
 fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
     let mut out: Vec<ActivityGroup> = Vec::new();
     for c in x.into_iter() {
-        let mut act: Vec<_> = c.activities.iter().map(|x| Some(x.clone())).collect();
+        let mut act: Vec<_> = c.activities.borrow().iter().map(|x| Some(x.clone())).collect();
         if act.len() == 0 {
             act.push(None);
         }

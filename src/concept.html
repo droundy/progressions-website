@@ -24,8 +24,8 @@ let content = {
            endif %} class="concept">
         <div class="taughtby">
           <div class="taughtby"> "#
-            for a in self.activities.iter() {
-            r#"<a href="activity/"# slug::slugify(&a.name) r#".html" class="activity">
+            for a in self.activities.borrow().iter() {
+            r#"<a href="/activity/"# a.slugme() r#"" class="activity">
               "# a.name r#"
             </a>"#
             } r#"

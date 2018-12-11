@@ -43,3 +43,9 @@ impl PartialEq for ActivityView {
     }
 }
 impl Eq for ActivityView {}
+
+impl ActivityView {
+    pub fn slugme(&self) -> String {
+        slug::slugify(&self.name)
+    }
+}
