@@ -278,7 +278,8 @@ impl Data {
             .filter(|c| c.courses.contains(&id))
             .map(|c| self.concept_view(c.id))
             .collect();
-        let groups: Vec<ActivityGroup> = group_concepts(course_concepts);
+        let groups: Vec<ProgressionGroup> = group_concepts(course_concepts)
+            .into_iter().map(|g| ProgressionGroup(g)).collect();
         CourseSequence { course, groups }
     }
 }
@@ -340,6 +341,13 @@ pub struct ActivityGroup {
 }
 #[with_template("activity-group.html")]
 impl DisplayAs<HTML> for ActivityGroup {}
+
+/// This is an activity and concepts it teaches, but displayed in a progression..
+#[derive(Debug, Clone, Serialize)]
+pub struct ProgressionGroup(ActivityGroup);
+#[with_template("progression-group.html")]
+impl DisplayAs<HTML> for ProgressionGroup {}
+
 fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
     let mut out: Vec<ActivityGroup> = Vec::new();
     for c in x.into_iter() {
@@ -365,7 +373,7 @@ fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
 
 pub struct CourseSequence {
     course: Course,
-    groups: Vec<ActivityGroup>,
+    groups: Vec<ProgressionGroup>,
 }
 #[with_template("course-sequence.html")]
 impl DisplayAs<HTML> for CourseSequence {}

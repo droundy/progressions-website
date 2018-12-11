@@ -1,0 +1,34 @@
+<div class="activity-grouping">
+  "## if let Some(ref activity) = self.0.activity { r##"
+  <a href="/activity/"## activity.slugme() r##"" class="activity"## for c in activity.prereq_concepts.iter() {
+     r##" from-"## slug::slugify("&c.name") } r##"" id=""## activity.slugme() r##"">
+    <div class="activity">"## activity.name r##"</div>"##
+    for r in activity.representations.iter() { r##"
+    <div onclick="document.location.href ='representation/"## slug::slugify("r.name") r##"'; return false"
+         style="cursor: pointer;"
+         class="representation">
+      representation.icon
+    </div>
+    "## } r##"
+  </a>"##
+  } else { r##"
+  <a href="/activity/orphans" class="activity orphans" id="orphans">
+    <div class="activity orphans">ORPHANS!</div>
+  </a> "##
+  } r##"
+  <div class="concepts">
+    "## for concept in self.0.concepts.iter() { r##"
+    <a href="/concept/"## slug::slugify(&concept.name) r##"" class="concept"## for a in concept.activities.iter() {
+       r##" from-"## slug::slugify(&a.name) } r##"" id=""## slug::slugify(&concept.name) r##"">
+      "## for r in concept.representations.iter() { r##"
+      <div onclick="document.location.href ='representation/"## slug::slugify("r.name") r##"'; return false"
+           style="cursor: pointer;"
+           class="representation">
+        r.icon
+      </div>
+      "## }
+      concept.name r##"
+    </a>
+    "## } r##"
+  </div>
+</div>
