@@ -13,10 +13,14 @@ let content = {
           for prereq in self.prereq_courses.iter() {
             prereq
           }
-          for group in self.prereq_groups.borrow().iter() {
-            r#"<div class="prereq">"# group r#"</div>"#
-          }
           r#"
+          <div class="prereq">
+            "#
+            for group in self.prereq_groups.borrow().iter() {
+              group
+            }
+            r#"
+          </div>
         </div>
       </details>
       <div {% if concept.url != ""

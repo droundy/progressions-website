@@ -10,47 +10,17 @@ let content = {
       <details class="allprereqs">
         <summary>Prerequisite concepts</summary>
         <div class="allprereqs">
-          {% for course, concepts in activity.prereq_courses %}
-          <div class="course-prereq has{{concepts|length}}">
-            <a href="{{course.number}}.html" class="course">
-              {{ course.name }}
-            </a>
-            {% for c in concepts %}
-            <a href="concept-{{c.urlname}}.html" class="concept">
-              <span class="rownum hint">{{ c.rownum }}</span>
-              {{ c.name }}
-              <div class="description hint">
-                <br/>
-                {{c.description}}
-              </div>
-            </a>
-            {% endfor %}
-          </div>
-          {% endfor %}
-
+          "#
+          for prereq in self.prereq_courses.iter() {
+            prereq
+          }
+          r#"
           <div class="prereq">
-            {% for activity, concepts in activity.prereq_groups %}
-            <div class="activity-grouping has{{concepts|length}}">
-              <div class="taughtby">
-                <div class="taughtby">
-                  <a href="activity-{{activity.urlname}}.html" class="activity">
-                    <span class="rownum hint">{{ activity.rownum }}</span>
-                    {{activity.name}}
-                  </a>
-                </div>
-              </div>
-              {% for c in concepts %}
-              <a href="concept-{{c.urlname}}.html" class="concept">
-                <span class="rownum hint">{{ c.rownum }}</span>
-                {{ c.name }}
-                <div class="description hint">
-                  <br/>
-                  {{c.description}}
-                </div>
-              </a>
-              {% endfor %}
-            </div>
-            {% endfor %}
+            "#
+            for group in self.prereq_groups.borrow().iter() {
+              group
+            }
+            r#"
           </div>
         </div>
       </details>
