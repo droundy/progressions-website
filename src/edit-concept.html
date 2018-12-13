@@ -1,0 +1,66 @@
+"#
+let extrajs = {};
+let readyjs = {};
+let title = { self.name };
+let nav = { r#"<li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
+  <li><a href="concept-key.html">Concept page key</a></li>"# };
+let content = {
+  r#"<article>
+      <details class="allprereqs">
+        <summary>Prerequisite concepts</summary>
+        <div class="allprereqs">
+          "#
+          for prereq in self.prereq_courses.borrow().iter() {
+            prereq
+          }
+          r#"
+          <div class="prereq">
+            "#
+            for group in self.prereq_groups.borrow().iter() {
+              group
+            }
+            r#"
+          </div>
+        </div>
+      </details>
+      <div {% if concept.url != ""
+           %}onclick="location.href='{{concept.url}}';" style="cursor: pointer;"{%
+           endif %} class="concept">
+        <div class="taughtby">
+          <div class="taughtby"> "#
+            for a in self.activities.borrow().iter() {
+            r#"<a href=""# a as URL r#"" class="activity">
+              "# a.name r#"
+            </a>"#
+            } r#"
+          </div>
+        </div>
+        <span class="rownum hint">"# self.id.0 r#"</span>
+        <h1>"# self.name r#"</h1>
+        "# if let Some(ref figure) = self.figure { r#"
+        <img src=""# figure r#"" class="figure"/>
+        "# } r#"
+        <div class="description">
+          "# self.long_description r#"
+        </div>
+"# if self.representations.len() > 0 { r#"
+        <h3>Representations used</h3>
+        <div class="row"> "#
+          for r in self.representations.iter() { r#"
+          <a href="representation-"# r.0 r#".html" class="representation">
+            Representation "# r.0 r#" (really icon)
+          </a>
+          "#
+          }
+          r#"
+        </div>
+"# } r#"
+      </div>
+      "# for group in self.output_groups.borrow().iter() {
+        group
+      } r#"
+    </article>
+    "#
+    };
+    include!("base.html");
+r#"

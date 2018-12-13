@@ -11,6 +11,8 @@ pub struct ConceptID(usize);
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ActivityID(usize);
+#[with_template("a" self.0)]
+impl DisplayAs<HTML> for ActivityID {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct RepresentationID(usize);
@@ -19,6 +21,8 @@ impl DisplayAs<URL> for RepresentationID {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct CourseID(usize);
+#[with_template("c" self.0)]
+impl DisplayAs<HTML> for ConceptID {}
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Concept {
@@ -499,31 +503,3 @@ pub struct ProgressionView {
 }
 #[with_template("progression.html")]
 impl DisplayAs<HTML> for ProgressionView {}
-
-trait Slugme {
-    fn slugme(&self) -> String;
-}
-impl Slugme for Concept {
-    fn slugme(&self) -> String {
-        slug::slugify(&self.name)
-    }
-}
-impl Slugme for ConceptView {
-    fn slugme(&self) -> String {
-        slug::slugify(&self.name)
-    }
-}
-impl Slugme for Activity {
-    fn slugme(&self) -> String {
-        slug::slugify(&self.name)
-    }
-}
-impl Slugme for ActivityGroup {
-    fn slugme(&self) -> String {
-        if let Some(ref a) = self.activity {
-            a.slugme()
-        } else {
-            "orphan".to_string()
-        }
-    }
-}
