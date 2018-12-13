@@ -26,22 +26,6 @@ pub struct CourseID(usize);
 impl DisplayAs<HTML> for ConceptID {}
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-pub struct Concept {
-    pub id: ConceptID,
-    pub name: String,
-    pub prereq_concepts: Vec<ConceptID>,
-    pub representations: Vec<RepresentationID>,
-    pub courses: Vec<CourseID>,
-    pub figure: Option<String>,
-    pub long_description: String,
-    pub external_url: Option<String>,
-    pub status: Option<String>,
-    pub notes: Option<String>,
-}
-#[with_template("/concept/" slug::slugify(&self.name))]
-impl DisplayAs<URL> for Concept {}
-
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Activity {
     pub id: ActivityID,
     pub name: String,
@@ -71,6 +55,9 @@ pub struct Course {
     pub id: CourseID,
     pub number: String,
 }
+
+pub use crate::concept::{Concept, ConceptView, ConceptEdit};
+pub use crate::activity::ActivityView;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Data {
@@ -398,9 +385,6 @@ pub struct PrereqCourse {
 }
 #[with_template("prereq-course.html")]
 impl DisplayAs<HTML> for PrereqCourse {}
-
-pub use crate::concept::ConceptView;
-pub use crate::activity::ActivityView;
 
 /// This is an activity and concepts it teaches.
 #[derive(Debug, Clone)]

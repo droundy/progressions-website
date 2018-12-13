@@ -1,9 +1,15 @@
 use warp::{Filter, path};
-use progression_website::data::Data;
+use progression_website::data::{ Data, ConceptEdit };
 use display_as::{DisplayAs, HTML};
 
 fn main() {
     // GET /hello/warp => 200 OK with body "Hello, warp!"
+    let edit_concept = path!("concept" / "edit" / String)
+        .map(|name: String| {
+            let data = Data::new();
+            ConceptEdit::new((*data.concept_view(data.concept_by_name(&name))).clone())
+                .display_as(HTML).into_reply()
+        });
     let concept = path!("concept" / String)
         .map(|name: String| {
             let data = Data::new();
@@ -24,11 +30,12 @@ fn main() {
     let libraries = path!("libraries").and(warp::fs::dir("libraries"));
     let figs = path!("figs").and(warp::fs::dir("figs"));
 
-    warp::serve(concept
+    warp::serve(index
+                .or(edit_concept)
+                .or(concept)
                 .or(activity)
                 .or(style_css)
                 .or(libraries)
-                .or(figs)
-                .or(index))
+                .or(figs))
         .run(([0, 0, 0, 0], 3030));
 }
