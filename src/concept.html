@@ -46,8 +46,8 @@ let content = {
         <h3>Representations used</h3>
         <div class="row"> "#
           for r in self.representations.iter() { r#"
-          <a href="representation-"# r.0 r#".html" class="representation">
-            Representation "# r.0 r#" (really icon)
+          <a href=""# r as URL r#"" class="representation">
+            Representation "# r r#" (really icon)
           </a>
           "#
           }
