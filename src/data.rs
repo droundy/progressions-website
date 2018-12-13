@@ -473,6 +473,16 @@ fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
             }
         }
     }
+    out.sort_unstable_by_key(|g| {
+        if let Some(a) = g.activity {
+            a.id
+        } else {
+            ActivityID(100000)
+        }
+    });
+    for g in out.iter_mut() {
+        g.concepts.sort_unstable_by_key(|c| c.id);
+    }
     out
 }
 
