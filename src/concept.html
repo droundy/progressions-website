@@ -10,7 +10,7 @@ let content = {
         <summary>Prerequisite concepts</summary>
         <div class="allprereqs">
           "#
-          for prereq in self.prereq_courses.iter() {
+          for prereq in self.prereq_courses.borrow().iter() {
             prereq
           }
           r#"

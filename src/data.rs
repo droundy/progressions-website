@@ -191,20 +191,12 @@ impl Data {
         let c = &self.concepts.borrow()[id.0];
         let my_prereq_concepts: Vec<_> =
             self.concepts.borrow().iter().filter(|x| c.prereq_concepts.contains(&x.id)).cloned().collect();
-        let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
-            .map(|course| PrereqCourse {
-                course: course.clone(),
-                concepts: my_prereq_concepts.iter().filter(|c| c.courses.contains(&course.id)).cloned().collect(),
-            })
-            .filter(|xx| xx.concepts.len() > 0 && !c.courses.contains(&xx.course.id))
-            .collect();
-        let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
         let view = Intern::new(ConceptView {
             id,
             name: c.name.clone(),
 
             activities: RefCell::new(Vec::new()),
-            prereq_courses,
+            prereq_courses: RefCell::new(Vec::new()),
 
             prereq_concepts: RefCell::new(Vec::new()),
             prereq_groups: RefCell::new(Vec::new()),
@@ -227,6 +219,19 @@ impl Data {
             // the related concepts.  am_initialized allows me to
             // avoid any infinite loops where we keep generating the
             // same views.
+            let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
+                .map(|course| PrereqCourse {
+                    course: course.clone(),
+                    concepts: my_prereq_concepts.iter()
+                        .filter(|c| c.courses.contains(&course.id))
+                        .map(|c| self.concept_view(c.id))
+                        .collect(),
+                })
+                .filter(|xx| xx.concepts.len() > 0 && !c.courses.contains(&xx.course.id))
+                .collect();
+            let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
+            *view.prereq_courses.borrow_mut() = prereq_courses;
+
             *view.activities.borrow_mut() =
                 self.activities.borrow().iter()
                 .filter(|a| a.new_concepts.contains(&id))
@@ -275,19 +280,11 @@ impl Data {
         let a = &self.activities.borrow()[id.0];
         let my_prereq_concepts: Vec<_> = self.concepts.borrow().iter()
             .filter(|x| a.prereq_concepts.contains(&x.id)).cloned().collect();
-        let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
-            .map(|course| PrereqCourse {
-                course: course.clone(),
-                concepts: my_prereq_concepts.iter().filter(|c| c.courses.contains(&course.id)).cloned().collect(),
-            })
-            .filter(|xx| xx.concepts.len() > 0 && !a.courses.contains(&xx.course.id))
-            .collect();
-        let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
         let view = Intern::new(ActivityView {
             id,
             name: a.name.clone(),
 
-            prereq_courses,
+            prereq_courses: RefCell::new(Vec::new()),
 
             prereq_concepts: RefCell::new(Vec::new()),
             prereq_groups: RefCell::new(Vec::new()),
@@ -310,6 +307,19 @@ impl Data {
             // the related concepts.  am_initialized allows me to
             // avoid any infinite loops where we keep generating the
             // same views.
+            let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
+                .map(|course| PrereqCourse {
+                    course: course.clone(),
+                    concepts: my_prereq_concepts.iter()
+                        .filter(|c| c.courses.contains(&course.id))
+                        .map(|c| self.concept_view(c.id))
+                        .collect(),
+                })
+                .filter(|xx| xx.concepts.len() > 0 && !a.courses.contains(&xx.course.id))
+                .collect();
+            let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
+            *view.prereq_courses.borrow_mut() = prereq_courses;
+
             *view.am_initialized.borrow_mut() = true;
             for p in a.prereq_concepts.iter() {
                 let pre = self.concept_view(*p);
@@ -353,7 +363,8 @@ impl Data {
                 course: course.clone(),
                 concepts: self.concepts.borrow().iter()
                     .filter(|c| c.courses.contains(&course.id))
-                    .cloned().collect(),
+                    .map(|c| self.concept_view(c.id))
+                    .collect(),
             })
             .collect();
         ProgressionView {
@@ -378,7 +389,7 @@ impl Data {
 #[derive(Debug, Clone)]
 pub struct PrereqCourse {
     pub course: Course,
-    pub concepts: Vec<Concept>,
+    pub concepts: Vec<Intern<ConceptView>>,
 }
 #[with_template("prereq-course.html")]
 impl DisplayAs<HTML> for PrereqCourse {}
@@ -391,7 +402,7 @@ pub struct ConceptView {
 
     pub activities: RefCell<Vec<Intern<ActivityView>>>,
 
-    pub prereq_courses: Vec<PrereqCourse>,
+    pub prereq_courses: RefCell<Vec<PrereqCourse>>,
     pub prereq_concepts: RefCell<Vec<Intern<ConceptView>>>,
     pub prereq_groups: RefCell<Vec<ActivityGroup>>,
     pub needed_for_concepts: RefCell<Vec<Intern<ConceptView>>>,

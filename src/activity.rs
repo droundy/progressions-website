@@ -11,7 +11,7 @@ pub struct ActivityView {
     pub id: ActivityID,
     pub name: String,
 
-    pub prereq_courses: Vec<PrereqCourse>,
+    pub prereq_courses: RefCell<Vec<PrereqCourse>>,
     pub prereq_concepts: RefCell<Vec<Intern<ConceptView>>>,
     pub prereq_groups: RefCell<Vec<ActivityGroup>>,
 
