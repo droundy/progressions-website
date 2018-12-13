@@ -22,11 +22,13 @@ fn main() {
         });
     let style_css = path!("style.css").and(warp::fs::file("style.css"));
     let libraries = path!("libraries").and(warp::fs::dir("libraries"));
+    let figs = path!("figs").and(warp::fs::dir("figs"));
 
     warp::serve(concept
                 .or(activity)
                 .or(style_css)
                 .or(libraries)
+                .or(figs)
                 .or(index))
         .run(([0, 0, 0, 0], 3030));
 }

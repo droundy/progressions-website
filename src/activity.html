@@ -32,39 +32,36 @@ let content = {
          class="activity">
         <h1>"# self.name r#"</h1>"#
         if let Some(ref fig) = self.figure {
-          r#"<img src=""# fig r#"" class="figure"/>"#
+          r#"<img src="/figs/"# fig r#"" class="figure"/>"#
         }
         r#"
         <div class="description">
-          {{activity.description}}
-        </div>
-        {% if activity.representations %}
-        <h3>Representations used</h3>
-        <div class="row">
-          {% for r in activity.representations %}
-          <a href="representation-{{r.urlname}}.html" class="representation">
-            {{ r.icon }}
-          </a>
-          {% endfor %}
-        </div>
-        {% endif %}
+          "# self.long_description r#"
+        </div>"#
+        if self.representations.len() > 0 {
+        r#"<h3>Representations used</h3>
+        <div class="row">"#
+          for r in self.representations.iter() {
+          r#"<a href=""# r as URL r#"" class="representation">
+            FIXME r.icon
+          </a>"#
+          } r#"
+        </div>"#
+        } r#"
         <h3>Concepts taught</h3>
-        <div class="row">
-          {% for c in activity.concepts %}
-          <a href="concept-{{c.urlname}}.html" class="concept">
-            <span class="rownum hint">{{ c.rownum }}</span>
-            {{ c.name }}
+        <div class="row">"#
+          for c in self.new_concepts.borrow().iter() { r#"
+          <a href=""# c as URL r#"" class="concept">
+            "# c.name r#"
             <div class="description hint">
               <br/>
-              {{c.description}}
+              "# c.long_description r#"
             </div>
-          </a>
-          {% endfor %}
+          </a>"#
+          } r#"
         </div>
       </div>
     </article>"#
 };
 include!("base.html");
 r#"
-
-{% endblock %}

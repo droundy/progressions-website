@@ -14,6 +14,8 @@ pub struct ActivityID(usize);
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct RepresentationID(usize);
+#[with_template("FIXME-RepresentationID:" self.0)]
+impl DisplayAs<URL> for RepresentationID {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct CourseID(usize);
