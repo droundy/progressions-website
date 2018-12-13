@@ -2,7 +2,11 @@
   "## if let Some(ref activity) = self.0.activity { r##"
   <a href=""## activity as URL r##"" class="activity"## for c in activity.prereq_concepts.borrow().iter() {
      r##" from-"## c.id } r##"" id=""## activity.id r##"">
-    <div class="activity">"## activity.name r##"</div>"##
+    <div class="activity">"## activity.name r##"</div>
+    <div class="description hint">
+      <br/>
+      "## activity.long_description r##"
+    </div>"##
     for r in activity.representations.iter() { r##"
     <div onclick="document.location.href ='"## r.0 as URL r##"'; return false"
          style="cursor: pointer;"
@@ -30,7 +34,7 @@
       concept.name r##"
       <div class="description hint">
         <br/>
-        "# concept.long_description r#"
+        "## concept.long_description r##"
       </div>
     </a>
     "## } r##"
