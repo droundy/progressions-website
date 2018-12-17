@@ -39,8 +39,10 @@ $(document).ready(function() {
         var value = $('[thisid]').attr('contenteditable');
         if (value != 'true') {
           $('[thisid]').attr('contenteditable','true');
+          $('[thisid]').bind('click', false);
         } else {
           $('[thisid]').attr('contenteditable','false');
+          $('[thisid]').unbind('click', false);
         }
     });
     "# readyjs r#"

@@ -2,7 +2,7 @@
   <div class="taughtby">
     <div class="taughtby">
       "# if let Some(ref activity) = self.activity.iter().map(|a| a.borrow()).next() { r#"
-      <a href=""# activity as URL r#"" class="activity">
+      <a href=""# activity as URL r#"" class="activity" kind="activity" thisid=""# activity.id r#"" name="name">
         "# activity.name r#"
       </a>
       "#
@@ -18,9 +18,9 @@
   for c in self.concepts.iter().map(|c| c.borrow()) {
     r#"
   <a href=""# c as URL r#"" class="concept">
-    "# c.name r#"
-    <div class="description hint">
-      <br/>
+    <span kind="concept" thisid=""# c.id r#"" name="name">"# c.name r#"</span>
+    <div class="hint"><br/></div>
+    <div class="description hint" kind="concept" thisid=""# c.id r#"" name="long_description">
       "# c.long_description r#"
     </div>
   </a>
