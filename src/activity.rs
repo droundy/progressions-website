@@ -1,9 +1,9 @@
 use display_as::{with_template, HTML, URL, DisplayAs};
-use internment::Intern;
 use std::cell::RefCell;
 use std::hash::Hash;
 use crate::data::{CourseID, RepresentationID, ActivityGroup, ConceptView, ActivityID,
                   PrereqCourse};
+use internment::Intern;
 
 /// This is a activity, but with all the relationships filled in.
 #[derive(Debug, Clone)]

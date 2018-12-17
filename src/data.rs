@@ -1,9 +1,18 @@
 use crate::atomicfile::AtomicFile;
-use internment::Intern;
 use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
+use internment::Intern;
 use std::cell::RefCell;
 use display_as::{with_template, HTML, URL, DisplayAs};
+use simple_error::bail;
+
+#[derive(Debug, Hash, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+pub struct Change {
+    pub kind: String,
+    pub id: String,
+    pub field: String,
+    pub content: String,
+}
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ConceptID(usize);
@@ -66,16 +75,21 @@ pub struct Data {
     representations: RefCell<Vec<Representation>>,
     courses: RefCell<Vec<Course>>,
     // activities: Vec<Activity>,
+    #[serde(skip)]
+    concept_views: RefCell<Vec<Option<Intern<ConceptView>>>>,
 }
 
 impl Data {
     pub fn save(&self) {
         let f = AtomicFile::create("progression.yaml").expect("error creating save file");
-        serde_yaml::to_writer(&f, self).expect("error writing yaml")
+        serde_yaml::to_writer(&f, self).expect("error writing yaml");
+        println!("saved file!");
     }
     pub fn new() -> Self {
-        if let Ok(f) = ::std::fs::File::open("progression.yaml") {
+        if let Ok(f) = std::fs::File::open("progression.yaml") {
             if let Ok(s) = serde_yaml::from_reader::<_,Self>(&f) {
+                println!("I read progression.yaml...");
+                println!("see: {}", s.concepts.borrow()[18].long_description);
                 return s;
             }
         }
@@ -85,9 +99,28 @@ impl Data {
             representations: RefCell::new(Vec::new()),
             courses: RefCell::new(Vec::new()),
             // activities: Vec::new(),
+            concept_views: RefCell::new(Vec::new()),
         }
     }
+    pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
+        match &c.kind as &str {
+            "concept" => {
+                let id: usize = c.id[1..].parse()?;
+                match &c.field as &str {
+                    "long_description" => {
+                        self.concepts.borrow_mut()[id].long_description = c.content.trim().to_string();
+                        //self.concept_view(id).long_description
+                    }
+                    _ => bail!("Unknown field of concept: {}", c.field),
+                }
+            }
+            _ => bail!("Crazy kind: {}", c.kind),
+        }
+        self.save();
+        Ok(())
+    }
     pub fn concept_by_name(&self, name: &str) -> ConceptID {
+        let name = name.trim();
         if let Some(c) = self
             .concepts
             .borrow()

@@ -1,6 +1,25 @@
 "#
-let extrajs = {};
-let readyjs = {};
+let extrajs = {
+};
+let readyjs = {
+r#"
+$('body').on('input', '[contenteditable]', function() {
+  console.log('got one', $(this).attr('thisid'), $(this).attr('name'));
+  var data = {
+      kind: $(this).attr('kind'),
+      id: $(this).attr('thisid'),
+      field: $(this).attr('name'),
+      content: $(this).text(),
+    };
+  console.log('data', data);
+  $.ajax({
+    type: 'POST',
+    url: '/change',
+    data: data,
+  });
+});
+"#
+};
 let title = { r#"Edit: "# self.name };
 let nav = { r#"<li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
   <li><a href="concept-key.html">Concept page key</a></li>"# };
@@ -39,9 +58,25 @@ let content = {
         "# if let Some(ref figure) = self.figure { r#"
         <img src=""# figure r#"" class="figure"/>
         "# } r#"
-        <div class="description">
+        <form method="post">
+          <input type="hidden" name="id" value=""# self.id r#""/>
+          <input type="hidden" name="name" value=""# self.name r#""/>
+          <input type="hidden" name="long_description" value=""# self.long_description r#"">
+          <textarea class="description">
+            "# self.long_description r#"
+          </textarea>
+
+          <input type="hidden" name="external_url" value=""#
+                 if let Some(ref url) = self.external_url { url } r#""/>
+          <input type="hidden" name="status" value=""#
+                 if let Some(ref url) = self.status { url } r#""/>
+          <input type="hidden" name="notes" value=""#
+                 if let Some(ref url) = self.notes { url } r#""/>
+        </form>
+        <div class="description" kind="concept" thisid=""# self.id r#"" name="long_description" contenteditable="true">
           "# self.long_description r#"
         </div>
+
 "# if self.representations.len() > 0 { r#"
         <h3>Representations used</h3>
         <div class="row"> "#

@@ -60,7 +60,8 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
         // The iterator yields Result<StringRecord, Error>, so we check the
         // error here..
         let record = result?;
-        let datum: Row = record.deserialize(None)?;
+        let mut datum: Row = record.deserialize(None)?;
+        datum.name = datum.name.trim();
         let prereqs: Vec<_> = parse_list(datum.prereq_concepts)
             .iter()
             .map(|c| data.concept_by_name(c))

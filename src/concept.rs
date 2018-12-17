@@ -1,8 +1,8 @@
 use display_as::{with_template, HTML, URL, DisplayAs};
-use internment::Intern;
 use std::cell::RefCell;
 use std::hash::Hash;
 use serde_derive::{Deserialize, Serialize};
+use internment::Intern;
 
 use crate::data::{CourseID, RepresentationID, ActivityGroup, ActivityView, ConceptID,
                   PrereqCourse};

@@ -167,6 +167,8 @@ a, a:link, a:active, a:hover {
 .description {
     text-align: justify;
     grid-column: main;
+    width: 100%;
+    min-height: 10vh;
 }
 
 /* .representation:nth-child(odd) { */

@@ -363,161 +363,11 @@ concepts:
     status: Active
     notes: ~
   - id: 30
-    name: " Variables can be held constant"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 31
-    name: " \"With respect to what\" matters"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 32
-    name: " The derivative can be a function"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 33
-    name: " The derivative at a cusp is undefined"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 34
-    name: " There is a tangent line in every direction at every point"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 35
-    name: " The derivative is related to the density of contour lines"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 36
-    name: " The value of a partial derivative depends on the value(s) of what is held constant"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 37
-    name: " The derivative is a linear function"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 38
-    name: " Product rule"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 39
-    name: " Single variable chain rule"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 40
-    name: " A partial derivative can be expressed in terms of other partial derivatives"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 41
-    name: " Derivatives can be found while holding one or more variables constant"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 42
-    name: " There is a partial derivative in every direction at any point"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 43
-    name: " The gradient is perpendicular to contour lines"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 44
-    name: " The components of the gradient are partial derivatives"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 45
-    name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors. "
+    name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
     prereq_concepts:
       - 0
     representations:
-      - 11
+      - 10
     courses:
       - 2
     figure: ~
@@ -525,12 +375,12 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 46
+  - id: 31
     name: "The magnitude of $d\\vec r$ is the length of a small step along a path"
     prereq_concepts:
       - 0
     representations:
-      - 11
+      - 10
     courses:
       - 3
     figure: ~
@@ -538,11 +388,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 47
+  - id: 32
     name: "The direction of $d\\vec r$ is tangent to a path"
     prereq_concepts: []
     representations:
-      - 11
+      - 10
     courses:
       - 3
     figure: ~
@@ -550,13 +400,13 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 48
+  - id: 33
     name: The gradient can tell you a small change in a function in any direction (differentials edition)
     prereq_concepts:
       - 0
     representations:
       - 8
-      - 11
+      - 10
     courses:
       - 2
     figure: ~
@@ -564,18 +414,18 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 49
+  - id: 34
     name: The divergence is a scalar field
     prereq_concepts: []
     representations:
-      - 12
+      - 11
     courses: []
     figure: ~
     long_description: "The divergence at a point is a scalar. Taking the divergence of a function yields a scalar at every value in the domain of that function: a scalar field"
     external_url: ~
     status: Active
     notes: ~
-  - id: 50
+  - id: 35
     name: ""
     prereq_concepts: []
     representations: []
@@ -586,7 +436,7 @@ concepts:
     external_url: ~
     status: Active
     notes: Put into words
-  - id: 51
+  - id: 36
     name: Vector Differentials
     prereq_concepts: []
     representations: []
@@ -596,12 +446,12 @@ concepts:
     external_url: ~
     status: ~
     notes: ~
-  - id: 52
+  - id: 37
     name: "Differential form of $\\vec r$ in spherical and cylindrical coordinates"
     prereq_concepts:
-      - 51
+      - 36
     representations:
-      - 11
+      - 10
     courses:
       - 3
     figure: ~
@@ -609,7 +459,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 53
+  - id: 38
     name: "The gradient's dimension is the same as real space. The gradient lives in the domain"
     prereq_concepts: []
     representations:
@@ -621,7 +471,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 54
+  - id: 39
     name: The gradient is a local quantity
     prereq_concepts: []
     representations:
@@ -633,7 +483,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 55
+  - id: 40
     name: The electric field is the negative gradient of the electric potential
     prereq_concepts: []
     representations:
@@ -645,11 +495,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 56
+  - id: 41
     name: The divergence is related to the total flux through a closed surface
     prereq_concepts: []
     representations:
-      - 12
+      - 11
     courses:
       - 3
     figure: ~
@@ -657,11 +507,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 57
+  - id: 42
     name: The divergence is a function
     prereq_concepts: []
     representations:
-      - 12
+      - 11
     courses:
       - 3
     figure: ~
@@ -669,11 +519,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 58
+  - id: 43
     name: The divergence is a local quantity
     prereq_concepts: []
     representations:
-      - 12
+      - 11
     courses:
       - 3
     figure: ~
@@ -681,11 +531,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 59
+  - id: 44
     name: The divergence of the electric field is equal to
     prereq_concepts: []
     representations:
-      - 12
+      - 11
     courses:
       - 3
     figure: ~
@@ -693,11 +543,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 60
+  - id: 45
     name: The divergence of the magnetic field is zero
     prereq_concepts: []
     representations:
-      - 12
+      - 11
     courses:
       - 3
     figure: ~
@@ -705,11 +555,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 61
+  - id: 46
     name: "The curl is related to the line integral around a closed loop. (\"circulation\")"
     prereq_concepts: []
     representations:
-      - 13
+      - 12
     courses:
       - 3
     figure: ~
@@ -717,11 +567,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 62
+  - id: 47
     name: the curl is a (vector) function
     prereq_concepts: []
     representations:
-      - 13
+      - 12
     courses:
       - 3
     figure: ~
@@ -729,11 +579,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 63
+  - id: 48
     name: The curl is a local quantity
     prereq_concepts: []
     representations:
-      - 13
+      - 12
     courses:
       - 3
     figure: ~
@@ -741,11 +591,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 64
+  - id: 49
     name: The magnetic field is equal to the curl of the magnetic vector potential
     prereq_concepts: []
     representations:
-      - 13
+      - 12
     courses:
       - 3
     figure: ~
@@ -753,11 +603,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 65
+  - id: 50
     name: The curl of the electric field is zero in electrostatics
     prereq_concepts: []
     representations:
-      - 13
+      - 12
     courses:
       - 3
     figure: ~
@@ -765,12 +615,12 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 66
+  - id: 51
     name: The divergence of the curl is equal to mu times the current in magneto-statics
     prereq_concepts: []
     representations:
+      - 11
       - 12
-      - 13
     courses:
       - 3
     figure: ~
@@ -778,112 +628,12 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 67
-    name: " Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors. "
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 68
-    name: " The magnitude of $d\\vec r$ is the length of a small step along a path"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 69
-    name: " The direction of $d\\vec r$ is tangent to a path"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 70
-    name: " The gradient is a local quantity"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 71
-    name: " The derivative is a limit"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 72
-    name: " The divergence is a scalar field"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 73
-    name: " The divergence is a function"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 74
-    name: " The divergence is a local quantity"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 75
-    name: " the curl is a (vector) function"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 76
-    name: " The curl is a local quantity"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 77
+  - id: 52
     name: Differentials are small changes or differences
     prereq_concepts:
       - 0
     representations:
-      - 19
+      - 16
     courses:
       - 4
     figure: differentials.jpg
@@ -891,11 +641,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 78
+  - id: 53
     name: "Equations can be 'zapped with d' to relate differentials"
     prereq_concepts: []
     representations:
-      - 19
+      - 16
     courses:
       - 4
     figure: ~
@@ -903,7 +653,7 @@ concepts:
     external_url: ~
     status: Active
     notes: 70 How is zapping with d different than taking the total derivative?
-  - id: 79
+  - id: 54
     name: Individual differentials can be manipulated algebraically
     prereq_concepts: []
     representations: []
@@ -914,11 +664,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 80
+  - id: 55
     name: Total differentials are linear
     prereq_concepts: []
     representations:
-      - 19
+      - 16
     courses:
       - 4
     figure: ~
@@ -926,11 +676,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 81
+  - id: 56
     name: Differentials are small chunks
     prereq_concepts: []
     representations:
-      - 19
+      - 16
     courses:
       - 4
     figure: ~
@@ -938,14 +688,14 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 82
+  - id: 57
     name: There are experimental limits to how $small$ of a change can be measured
     prereq_concepts:
       - 2
     representations:
       - 0
-      - 20
-      - 21
+      - 17
+      - 18
     courses:
       - 4
     figure: ~
@@ -953,7 +703,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 83
+  - id: 58
     name: The derivative can be interpreted physically
     prereq_concepts: []
     representations: []
@@ -964,7 +714,7 @@ concepts:
     external_url: ~
     status: Active
     notes: Better example needed
-  - id: 84
+  - id: 59
     name: Partial derivatives that do not have the same variable(s) held constant are not the same derivative
     prereq_concepts:
       - 16
@@ -978,11 +728,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 85
+  - id: 60
     name: Partial derivatives are coefficients in a differentials equation
     prereq_concepts:
       - 2
-      - 77
+      - 52
     representations:
       - 7
       - 4
@@ -993,7 +743,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 86
+  - id: 61
     name: You can flip a partial derivative if the same variable(s) are constant
     prereq_concepts:
       - 14
@@ -1008,11 +758,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 87
+  - id: 62
     name: There might be experimental limits on which quantities you can measure
     prereq_concepts: []
     representations:
-      - 21
+      - 18
     courses:
       - 4
     figure: ~
@@ -1020,138 +770,18 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 88
+  - id: 63
     name: Differentials allow the finding of partial derivatives when a variable cannot be solved for
     prereq_concepts:
-      - 80
+      - 55
     representations:
-      - 19
+      - 16
     courses:
       - 4
     figure: ~
     long_description: "Because total differentials are linear, one can find the total differential and then solve algebraically to obtain partial derivatives that might not be obtainable though differentiation. "
     external_url: ~
     status: Active
-    notes: ~
-  - id: 89
-    name: " The derivative is a ratio of small changes"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 90
-    name: " The derivative can be approximated by the slope of a secant line"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 91
-    name: " Equations can be 'zapped with d' to relate differentials"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 92
-    name: " Individual differentials can be manipulated algebraically"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 93
-    name: " Total differentials are linear"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 94
-    name: " Differentials are small changes or differences"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 95
-    name: " The derivative can be interpreted physically"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 96
-    name: " Partial derivatives that do not have the same variable(s) held constant are not the same derivative"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 97
-    name: " Partial derivatives are coefficients in a differentials equation"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 98
-    name: " There might be experimental limits on which quantities you can measure"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 99
-    name: " Differentials allow the finding of partial derivatives when a variable cannot be solved for"
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
-  - id: 100
-    name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
     notes: ~
 activities:
   - id: 0
@@ -1186,7 +816,7 @@ activities:
     representations:
       - 7
       - 6
-      - 26
+      - 9
     courses:
       - 1
     figure: mvhotplate.jpg
@@ -1222,7 +852,7 @@ activities:
     new_concepts: []
     representations:
       - 7
-      - 26
+      - 9
     courses:
       - 1
     figure: ~
@@ -1242,7 +872,7 @@ activities:
       - 24
     representations:
       - 7
-      - 26
+      - 9
     courses:
       - 1
     figure: vchill.jpg
@@ -1261,7 +891,7 @@ activities:
       - 29
     representations:
       - 7
-      - 26
+      - 9
       - 8
     courses:
       - 1
@@ -1295,7 +925,7 @@ activities:
     prereq_concepts:
       - 29
     new_concepts:
-      - 48
+      - 33
     representations:
       - 6
     courses:
@@ -1309,14 +939,14 @@ activities:
     name: Vector Differentials
     prereq_concepts:
       - 0
-      - 100
+      - 30
     new_concepts:
-      - 52
-      - 46
-      - 47
+      - 37
+      - 31
+      - 32
     representations:
-      - 11
-      - 27
+      - 10
+      - 13
     courses:
       - 3
     figure: vfdrvectorcurvi.jpg
@@ -1329,10 +959,10 @@ activities:
     prereq_concepts:
       - 23
     new_concepts:
-      - 53
-      - 54
+      - 38
+      - 39
     representations:
-      - 16
+      - 14
     courses:
       - 3
     figure: vfactinggrad.jpg
@@ -1346,11 +976,11 @@ activities:
       - 23
       - 24
     new_concepts:
-      - 53
-      - 54
+      - 38
+      - 39
     representations:
-      - 16
-      - 18
+      - 14
+      - 15
       - 6
     courses:
       - 3
@@ -1365,13 +995,13 @@ activities:
       - 2
       - 5
       - 6
-      - 49
+      - 34
     new_concepts:
-      - 56
-      - 57
-      - 58
+      - 41
+      - 42
+      - 43
     representations:
-      - 18
+      - 15
     courses:
       - 3
     figure: vfdivergence.jpg
@@ -1386,11 +1016,11 @@ activities:
       - 5
       - 6
     new_concepts:
-      - 61
-      - 62
-      - 63
+      - 46
+      - 47
+      - 48
     representations:
-      - 18
+      - 15
     courses:
       - 3
     figure: vfcurlvis.jpg
@@ -1408,12 +1038,12 @@ activities:
       - 6
       - 11
     new_concepts:
-      - 77
-      - 78
-      - 79
-      - 80
+      - 52
+      - 53
+      - 54
+      - 55
     representations:
-      - 19
+      - 16
     courses:
       - 4
     figure: LPsmall.jpg
@@ -1424,13 +1054,13 @@ activities:
   - id: 14
     name: Energy and Integrals
     prereq_concepts:
-      - 77
-      - 79
+      - 52
+      - 54
     new_concepts:
-      - 81
+      - 56
     representations:
-      - 22
       - 19
+      - 16
     courses:
       - 4
     figure: inpotentiallab.jpg
@@ -1445,17 +1075,17 @@ activities:
       - 11
       - 16
       - 20
-      - 77
+      - 52
     new_concepts:
-      - 82
-      - 83
-      - 84
-      - 85
+      - 57
+      - 58
+      - 59
+      - 60
     representations:
-      - 22
+      - 19
       - 7
       - 4
-      - 25
+      - 20
     courses:
       - 4
     figure: PDMD.jpg
@@ -1471,17 +1101,17 @@ activities:
       - 11
       - 16
       - 21
-      - 77
-      - 78
-      - 79
-      - 84
-      - 85
+      - 52
+      - 53
+      - 54
+      - 59
+      - 60
     new_concepts:
-      - 86
-      - 87
-      - 88
+      - 61
+      - 62
+      - 63
     representations:
-      - 19
+      - 16
     courses:
       - 4
     figure: pdm.jpg
@@ -1509,43 +1139,29 @@ representations:
   - id: 8
     name: "$\\vec \\nabla f$"
   - id: 9
-    name: " Contour Maps"
-  - id: 10
-    name: " Inclinometer"
-  - id: 11
-    name: "$d \\vec r$"
-  - id: 12
-    name: "$\\vec \\nabla \\cdot \\vec v$"
-  - id: 13
-    name: "$\\vec \\nabla \\times \\vec v$"
-  - id: 14
-    name: " $\\vec \\nabla f$"
-  - id: 15
-    name: " 3D plots"
-  - id: 16
-    name: Kinesthetic
-  - id: 17
-    name: " Vector Field Map"
-  - id: 18
-    name: Vector Field Map
-  - id: 19
-    name: $df$
-  - id: 20
-    name: $dx$
-  - id: 21
-    name: Experiment
-  - id: 22
-    name: PDM
-  - id: 23
-    name: " $df$"
-  - id: 24
-    name: " $\\frac{\\partial f}{\\partial x}$"
-  - id: 25
-    name: Table
-  - id: 26
     name: Inclinometer
-  - id: 27
+  - id: 10
+    name: "$d \\vec r$"
+  - id: 11
+    name: "$\\vec \\nabla \\cdot \\vec v$"
+  - id: 12
+    name: "$\\vec \\nabla \\times \\vec v$"
+  - id: 13
     name: 3D plots
+  - id: 14
+    name: Kinesthetic
+  - id: 15
+    name: Vector Field Map
+  - id: 16
+    name: $df$
+  - id: 17
+    name: $dx$
+  - id: 18
+    name: Experiment
+  - id: 19
+    name: PDM
+  - id: 20
+    name: Table
 courses:
   - id: 0
     number: MTH 251
