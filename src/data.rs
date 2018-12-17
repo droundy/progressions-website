@@ -85,7 +85,6 @@ impl Data {
     pub fn save(&self) {
         let f = AtomicFile::create("progression.yaml").expect("error creating save file");
         serde_yaml::to_writer(&f, self).expect("error writing yaml");
-        println!("saved file!");
     }
     pub fn new() -> Self {
         if let Ok(f) = std::fs::File::open("progression.yaml") {

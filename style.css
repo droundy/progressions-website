@@ -357,12 +357,12 @@ article > .concept .concept {
 article > .concept > .taughtby, .activity-grouping > .taughtby {
     top: 0;
     left: 0;
-    height: 5em;
+    height: 0.01em;
     width: 100%;
     background-color: transparent;
 }
 article > .concept .taughtby > .taughtby, .taughtby > .taughtby  {
-    bottom: 5em;
+    bottom: 0.01em;
     top: auto;
     left: 0;
     height: auto;

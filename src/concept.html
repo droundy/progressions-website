@@ -1,9 +1,25 @@
 "#
 let extrajs = {};
-let readyjs = {};
-let title = { self.name
-  r#" <a href=""# ConceptEdit::new(self.clone()) as URL r#"" class="hint">EDIT</a>"#
+let readyjs = {
+r#"
+$('body').on('input', '[contenteditable]', function() {
+  console.log('got one', $(this).attr('thisid'), $(this).attr('name'));
+  var data = {
+      kind: $(this).attr('kind'),
+      id: $(this).attr('thisid'),
+      field: $(this).attr('name'),
+      content: $(this).text(),
+    };
+  console.log('data', data);
+  $.ajax({
+    type: 'POST',
+    url: '/change',
+    data: data,
+  });
+});
+"#
 };
+let title = { self.name };
 let nav = { r#"<li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
   <li><a href="concept-key.html">Concept page key</a></li>"# };
 let content = {
@@ -25,9 +41,9 @@ let content = {
           </div>
         </div>
       </details>
-      <div {% if concept.url != ""
-           %}onclick="location.href='{{concept.url}}';" style="cursor: pointer;"{%
-           endif %} class="concept">
+      <div "# if let Some(ref url) = self.external_url { r#"
+           onclick="location.href='"# url as URL r#"';" style="cursor: pointer;""#
+           } r#" class="concept">
         <div class="taughtby">
           <div class="taughtby"> "#
             for a in self.activities.iter().map(|a| a.borrow()) {
@@ -37,11 +53,11 @@ let content = {
             } r#"
           </div>
         </div>
-        <h1>"# self.name r#"</h1>
+        <h2 kind="concept" thisid=""# self.id r#"" name="name">"# self.name r#"</h2>
         "# if let Some(ref figure) = self.figure { r#"
         <img src=""# figure r#"" class="figure"/>
         "# } r#"
-        <div class="description">
+        <div class="description" kind="concept" thisid=""# self.id r#"" name="long_description">
           "# self.long_description r#"
         </div>
 "# if self.representations.len() > 0 { r#"

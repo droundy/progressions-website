@@ -1,20 +1,11 @@
 use warp::{Filter, path};
-use progression_website::data::{ Data, ConceptEdit, Change };
+use progression_website::data::{ Data, Change };
 use display_as::{DisplayAs, HTML};
 
 fn main() {
-    // GET /hello/warp => 200 OK with body "Hello, warp!"
-    let edit_concept = path!("concept" / "edit" / String)
-        .map(|name: String| {
-            let data = Data::new();
-            let view = data.concept_view(data.concept_by_name(&name));
-            let edit = ConceptEdit::new(view.borrow().clone());
-            edit.display_as(HTML).into_reply()
-        });
     let change = path!("change")
         .and(warp::filters::body::form())
         .map(|change: Change| {
-            println!("change: {:?}", change);
             if let Err(e) = Data::new().change(change.clone()) {
                 println!("Error {} while changing {:?}", e, change);
             }
@@ -44,7 +35,6 @@ fn main() {
 
     warp::serve(index
                 .or(change)
-                .or(edit_concept)
                 .or(concept)
                 .or(activity)
                 .or(style_css)

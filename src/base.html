@@ -24,7 +24,7 @@
   </nav>
   <main>
     <header>
-      <h1>"# title r#"</h1>
+      <h1>"# title r#"<span class="hint"> (editing)</span></h1>
     </header>
     "# content r#"
   </main>
@@ -36,6 +36,12 @@ $(document).ready(function() {
     $('.hint').hide();
     $('h1').click(function(){
         $('.hint').toggle();
+        var value = $('[thisid]').attr('contenteditable');
+        if (value != 'true') {
+          $('[thisid]').attr('contenteditable','true');
+        } else {
+          $('[thisid]').attr('contenteditable','false');
+        }
     });
     "# readyjs r#"
 });
