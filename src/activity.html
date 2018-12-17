@@ -27,7 +27,7 @@ let content = {
 
       <div
          "# if let Some(ref url) = self.external_url {
-            r#"onclick="location.href='"# url as URL r#"';" style="cursor: pointer;" "#
+            r#"onclick="location.href='http://physics.oregonstate.edu/portfolioswiki/acts:"# url as URL r#"';" style="cursor: pointer;" "#
          } r#"
          class="activity">
         <h1>"# self.name r#"</h1>"#
