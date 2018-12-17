@@ -4,8 +4,10 @@
   </a>
   "# for c in self.concepts.iter().map(|c| c.borrow()) {
     r#"
-  <a href="/concept/"# slug::slugify(&c.name) r#"" class="concept">
+  <a href=""# c as URL r#"" class="concept" thisid=""# c.id r#"" name="name">
     "# c.name r#"
+    <div class="hint"><br/></div>
+    <div class="description hint" thisid=""# c.id r#"" name="long_description">"# c.long_description r#"</div>
   </a>
   "# } r#"
 </div>

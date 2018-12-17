@@ -1,24 +1,6 @@
 "#
 let extrajs = {};
-let readyjs = {
-r#"
-$('body').on('input', '[contenteditable]', function() {
-  console.log('got one', $(this).attr('thisid'), $(this).attr('name'));
-  var data = {
-      kind: $(this).attr('kind'),
-      id: $(this).attr('thisid'),
-      field: $(this).attr('name'),
-      content: $(this).text(),
-    };
-  console.log('data', data);
-  $.ajax({
-    type: 'POST',
-    url: '/change',
-    data: data,
-  });
-});
-"#
-};
+let readyjs = {};
 let title = { self.name };
 let nav = { r#"<li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
   <li><a href="concept-key.html">Concept page key</a></li>"# };
@@ -53,11 +35,11 @@ let content = {
             } r#"
           </div>
         </div>
-        <h2 kind="concept" thisid=""# self.id r#"" name="name">"# self.name r#"</h2>
+        <h2 thisid=""# self.id r#"" name="name">"# self.name r#"</h2>
         "# if let Some(ref figure) = self.figure { r#"
         <img src=""# figure r#"" class="figure"/>
         "# } r#"
-        <div class="description" kind="concept" thisid=""# self.id r#"" name="long_description">
+        <div class="description" thisid=""# self.id r#"" name="long_description">
           "# self.long_description r#"
         </div>
 "# if self.representations.len() > 0 { r#"

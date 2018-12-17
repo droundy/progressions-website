@@ -8,7 +8,6 @@ use simple_error::bail;
 
 #[derive(Debug, Hash, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Change {
-    pub kind: String,
     pub id: String,
     pub field: String,
     pub content: String,
@@ -103,18 +102,32 @@ impl Data {
         }
     }
     pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
-        match &c.kind as &str {
-            "concept" => {
+        match c.id.chars().next() {
+            Some('c') => {
                 let id: usize = c.id[1..].parse()?;
                 match &c.field as &str {
                     "long_description" => {
                         self.concepts.borrow_mut()[id].long_description = c.content.trim().to_string();
-                        //self.concept_view(id).long_description
+                    }
+                    "name" => {
+                        self.concepts.borrow_mut()[id].name = c.content.trim().to_string();
                     }
                     _ => bail!("Unknown field of concept: {}", c.field),
                 }
             }
-            _ => bail!("Crazy kind: {}", c.kind),
+            Some('a') => {
+                let id: usize = c.id[1..].parse()?;
+                match &c.field as &str {
+                    "long_description" => {
+                        self.activities.borrow_mut()[id].long_description = c.content.trim().to_string();
+                    }
+                    "name" => {
+                        self.activities.borrow_mut()[id].name = c.content.trim().to_string();
+                    }
+                    _ => bail!("Unknown field of concept: {}", c.field),
+                }
+            }
+            _ => bail!("Crazy kind: {}", c.id),
         }
         self.save();
         Ok(())

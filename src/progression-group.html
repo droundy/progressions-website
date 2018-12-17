@@ -3,9 +3,9 @@
   <a href=""## activity as URL r##"" class="activity"##
      for c in activity.prereq_concepts.iter().map(|c| c.borrow()) {
      r##" from-"## c.id } r##"" id=""## activity.id r##"">
-    <div class="activity">"## activity.name r##"</div>
-    <div class="description hint">
-      <br/>
+    <div class="activity" thisid=""# activity.id r#"" name="name">"## activity.name r##"</div>
+    <div class="hint"><br/></div>
+    <div class="description hint" thisid=""# activity.id r#"" name="long_description">
       "## activity.long_description r##"
     </div>"##
     for r in activity.representations.iter() { r##"
@@ -33,8 +33,8 @@
         r.icon
       </div>
       "## }
-      concept.name r##"
-      <div class="description hint">
+      r##"<span thisid=""# concept.id r#"" name="name">"## concept.name r##"</span>
+      <div class="description hint" thisid=""# concept.id r#"" name="long_description">
         <br/>
         "## concept.long_description r##"
       </div>

@@ -45,6 +45,18 @@ $(document).ready(function() {
           $('[thisid]').unbind('click', false);
         }
     });
+    $('body').on('input', '[contenteditable]', function() {
+      var data = {
+          id: $(this).attr('thisid'),
+          field: $(this).attr('name'),
+          content: $(this).text(),
+        };
+      $.ajax({
+        type: 'POST',
+        url: '/change',
+        data: data,
+      });
+});
     "# readyjs r#"
 });
   </script>
