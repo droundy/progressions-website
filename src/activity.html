@@ -11,13 +11,13 @@ let content = {
         <summary>Prerequisite concepts</summary>
         <div class="allprereqs">
           "#
-          for prereq in self.prereq_courses.borrow().iter() {
+          for prereq in self.prereq_courses.iter() {
             prereq
           }
           r#"
           <div class="prereq">
             "#
-            for group in self.prereq_groups.borrow().iter() {
+            for group in self.prereq_groups.iter() {
               group
             }
             r#"
@@ -50,7 +50,7 @@ let content = {
         } r#"
         <h3>Concepts taught</h3>
         <div class="row">"#
-          for c in self.new_concepts.borrow().iter() { r#"
+          for c in self.new_concepts.iter().map(|c| c.borrow()) { r#"
           <a href=""# c as URL r#"" class="concept">
             "# c.name r#"
             <div class="description hint">

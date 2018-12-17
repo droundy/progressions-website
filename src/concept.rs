@@ -1,8 +1,8 @@
 use display_as::{with_template, HTML, URL, DisplayAs};
-use std::cell::RefCell;
 use std::hash::Hash;
 use serde_derive::{Deserialize, Serialize};
-use internment::Intern;
+use std::rc::Rc;
+use std::cell::RefCell;
 
 use crate::data::{CourseID, RepresentationID, ActivityGroup, ActivityView, ConceptID,
                   PrereqCourse};
@@ -29,14 +29,14 @@ pub struct ConceptView {
     pub id: ConceptID,
     pub name: String,
 
-    pub activities: RefCell<Vec<Intern<ActivityView>>>,
+    pub activities: Vec<Rc<RefCell<ActivityView>>>,
 
-    pub prereq_courses: RefCell<Vec<PrereqCourse>>,
-    pub prereq_concepts: RefCell<Vec<Intern<ConceptView>>>,
-    pub prereq_groups: RefCell<Vec<ActivityGroup>>,
-    pub needed_for_concepts: RefCell<Vec<Intern<ConceptView>>>,
+    pub prereq_courses: Vec<PrereqCourse>,
+    pub prereq_concepts: Vec<Rc<RefCell<ConceptView>>>,
+    pub prereq_groups: Vec<ActivityGroup>,
+    pub needed_for_concepts: Vec<Rc<RefCell<ConceptView>>>,
 
-    pub output_groups: RefCell<Vec<ActivityGroup>>,
+    pub output_groups: Vec<ActivityGroup>,
 
     pub representations: Vec<RepresentationID>,
     pub courses: Vec<CourseID>,
@@ -45,8 +45,6 @@ pub struct ConceptView {
     pub external_url: Option<String>,
     pub status: Option<String>,
     pub notes: Option<String>,
-
-    pub am_initialized: RefCell<bool>,
 }
 impl Hash for ConceptView {
     fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
@@ -72,14 +70,14 @@ pub struct ConceptEdit {
     pub id: ConceptID,
     pub name: String,
 
-    pub activities: RefCell<Vec<Intern<ActivityView>>>,
+    pub activities: Vec<Rc<RefCell<ActivityView>>>,
 
-    pub prereq_courses: RefCell<Vec<PrereqCourse>>,
-    pub prereq_concepts: RefCell<Vec<Intern<ConceptView>>>,
-    pub prereq_groups: RefCell<Vec<ActivityGroup>>,
-    pub needed_for_concepts: RefCell<Vec<Intern<ConceptView>>>,
+    pub prereq_courses: Vec<PrereqCourse>,
+    pub prereq_concepts: Vec<Rc<RefCell<ConceptView>>>,
+    pub prereq_groups: Vec<ActivityGroup>,
+    pub needed_for_concepts: Vec<Rc<RefCell<ConceptView>>>,
 
-    pub output_groups: RefCell<Vec<ActivityGroup>>,
+    pub output_groups: Vec<ActivityGroup>,
 
     pub representations: Vec<RepresentationID>,
     pub courses: Vec<CourseID>,

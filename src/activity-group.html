@@ -1,7 +1,7 @@
 <div class="activity-grouping has"# self.concepts.len() r#"">
   <div class="taughtby">
     <div class="taughtby">
-      "# if let Some(ref activity) = self.activity { r#"
+      "# if let Some(ref activity) = self.activity.iter().map(|a| a.borrow()).next() { r#"
       <a href=""# activity as URL r#"" class="activity">
         "# activity.name r#"
       </a>
@@ -15,7 +15,7 @@
       r#"
     </div>
   </div> "#
-  for c in self.concepts.iter() {
+  for c in self.concepts.iter().map(|c| c.borrow()) {
     r#"
   <a href=""# c as URL r#"" class="concept">
     "# c.name r#"

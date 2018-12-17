@@ -7,8 +7,9 @@ fn main() {
     let edit_concept = path!("concept" / "edit" / String)
         .map(|name: String| {
             let data = Data::new();
-            ConceptEdit::new((*data.concept_view(data.concept_by_name(&name))).clone())
-                .display_as(HTML).into_reply()
+            let view = data.concept_view(data.concept_by_name(&name));
+            let edit = ConceptEdit::new(view.borrow().clone());
+            edit.display_as(HTML).into_reply()
         });
     let change = path!("change")
         .and(warp::filters::body::form())
@@ -22,16 +23,15 @@ fn main() {
     let concept = path!("concept" / String)
         .map(|name: String| {
             let data = Data::new();
-            println!("My concept is {:?}", data.concept_by_name(&name));
-            println!("My concept view is {:?}",
-                     data.concept_view(data.concept_by_name(&name)).long_description);
             data.concept_view(data.concept_by_name(&name))
+                .borrow()
                 .display_as(HTML).into_reply()
         });
     let activity = path!("activity" / String)
         .map(|name: String| {
             let data = Data::new();
             data.activity_view(data.activity_by_name(&name))
+                .borrow()
                 .display_as(HTML).into_reply()
         });
     let index = (warp::path::end().or(path!("index.html")))

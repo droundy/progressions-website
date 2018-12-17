@@ -1,7 +1,7 @@
 use crate::atomicfile::AtomicFile;
 use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
-use internment::Intern;
+use std::rc::Rc;
 use std::cell::RefCell;
 use display_as::{with_template, HTML, URL, DisplayAs};
 use simple_error::bail;
@@ -76,7 +76,9 @@ pub struct Data {
     courses: RefCell<Vec<Course>>,
     // activities: Vec<Activity>,
     #[serde(skip)]
-    concept_views: RefCell<Vec<Option<Intern<ConceptView>>>>,
+    concept_views: RefCell<Vec<Option<Rc<RefCell<ConceptView>>>>>,
+    #[serde(skip)]
+    activity_views: RefCell<Vec<Option<Rc<RefCell<ActivityView>>>>>,
 }
 
 impl Data {
@@ -88,8 +90,6 @@ impl Data {
     pub fn new() -> Self {
         if let Ok(f) = std::fs::File::open("progression.yaml") {
             if let Ok(s) = serde_yaml::from_reader::<_,Self>(&f) {
-                println!("I read progression.yaml...");
-                println!("see: {}", s.concepts.borrow()[18].long_description);
                 return s;
             }
         }
@@ -100,6 +100,7 @@ impl Data {
             courses: RefCell::new(Vec::new()),
             // activities: Vec::new(),
             concept_views: RefCell::new(Vec::new()),
+            activity_views: RefCell::new(Vec::new()),
         }
     }
     pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
@@ -212,22 +213,28 @@ impl Data {
         self.activities.borrow_mut()[id.0] = c;
     }
 
-    pub fn concept_view(&self, id: ConceptID) -> Intern<ConceptView> {
+    pub fn concept_view(&self, id: ConceptID) -> Rc<RefCell<ConceptView>> {
+        while id.0 >= self.concept_views.borrow().len() {
+            self.concept_views.borrow_mut().push(None);
+        }
+        if let Some(ref c) = self.concept_views.borrow()[id.0] {
+            return c.clone();
+        }
         let c = &self.concepts.borrow()[id.0];
         let my_prereq_concepts: Vec<_> =
             self.concepts.borrow().iter().filter(|x| c.prereq_concepts.contains(&x.id)).cloned().collect();
-        let view = Intern::new(ConceptView {
+        let view = Rc::new(RefCell::new(ConceptView {
             id,
             name: c.name.clone(),
 
-            activities: RefCell::new(Vec::new()),
-            prereq_courses: RefCell::new(Vec::new()),
+            activities: Vec::new(),
+            prereq_courses: Vec::new(),
 
-            prereq_concepts: RefCell::new(Vec::new()),
-            prereq_groups: RefCell::new(Vec::new()),
-            needed_for_concepts: RefCell::new(Vec::new()),
+            prereq_concepts: Vec::new(),
+            prereq_groups: Vec::new(),
+            needed_for_concepts: Vec::new(),
 
-            output_groups: RefCell::new(Vec::new()),
+            output_groups: Vec::new(),
 
             representations: c.representations.clone(),
             courses: c.courses.clone(),
@@ -236,86 +243,92 @@ impl Data {
             external_url: c.external_url.clone(),
             status: c.status.clone(),
             notes: c.notes.clone(),
+        }));
+        self.concept_views.borrow_mut()[id.0] = Some(view.clone());
+        // We haven't generated this view yet, so we need to add the
+        // related concepts.
+        let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
+            .map(|course| PrereqCourse {
+                course: course.clone(),
+                concepts: my_prereq_concepts.iter()
+                    .filter(|c| c.courses.contains(&course.id))
+                    .map(|c| self.concept_view(c.id))
+                    .collect(),
+            })
+            .filter(|xx| xx.concepts.len() > 0 && !c.courses.contains(&xx.course.id))
+            .collect();
+        let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
 
-            am_initialized: RefCell::new(false),
-        });
-        if !*view.am_initialized.borrow() {
-            // We haven't generated this view yet, so we need to add
-            // the related concepts.  am_initialized allows me to
-            // avoid any infinite loops where we keep generating the
-            // same views.
-            let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
-                .map(|course| PrereqCourse {
-                    course: course.clone(),
-                    concepts: my_prereq_concepts.iter()
-                        .filter(|c| c.courses.contains(&course.id))
-                        .map(|c| self.concept_view(c.id))
-                        .collect(),
-                })
-                .filter(|xx| xx.concepts.len() > 0 && !c.courses.contains(&xx.course.id))
-                .collect();
-            let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
-            *view.prereq_courses.borrow_mut() = prereq_courses;
+        let output_concepts: Vec<_> = self.concepts.borrow().iter()
+            .filter(|x| x.prereq_concepts.contains(&id))
+            .map(|x| self.concept_view(x.id))
+            .collect();
+        let mut output_groups = group_concepts(output_concepts);
+        let activities: Vec<_> = output_groups.iter()
+            .flat_map(|g| g.activity.iter().cloned())
+            .collect();
+        output_groups.extend(self.activities.borrow().iter()
+                             .filter(|a| a.prereq_concepts.contains(&id))
+                             .map(|a| self.activity_view(a.id))
+                             .filter(|a| !activities.contains(a))
+                             .map(|a| ActivityGroup {
+                                 activity: Some(a),
+                                 concepts: Vec::new(),
+                             }));
+        let activities: Vec<_> =
+            self.activities.borrow().iter()
+            .filter(|a| a.new_concepts.contains(&id))
+            .map(|a| self.activity_view(a.id))
+            .collect();
+        let prereq_concepts: Vec<_> =
+            c.prereq_concepts.iter()
+            .map(|x| self.concept_view(*x))
+            .filter(|x| !the_prereq_courses.iter().any(|z| x.borrow().courses.contains(&z.id)))
+            .collect();
+        let prereq_groups = group_concepts(prereq_concepts.clone());
+        let needed_for_concepts: Vec<_> =
+            self.concepts.borrow().iter()
+            .filter(|x| x.prereq_concepts.contains(&id))
+            .map(|x| self.concept_view(x.id))
+            .collect();
 
-            *view.activities.borrow_mut() =
-                self.activities.borrow().iter()
-                .filter(|a| a.new_concepts.contains(&id))
-                .map(|a| self.activity_view(a.id))
-                .collect();
-
-            *view.am_initialized.borrow_mut() = true;
+        {
+            let mut v = view.borrow_mut();
+            v.prereq_courses = prereq_courses;
+            v.activities = activities;
             for p in c.prereq_concepts.iter() {
                 let pre = self.concept_view(*p);
-                view.prereq_concepts.borrow_mut().push(pre);
+                v.prereq_concepts.push(pre);
             }
-            *view.prereq_concepts.borrow_mut() =
-                c.prereq_concepts.iter()
-                .map(|x| self.concept_view(*x))
-                .filter(|x| !the_prereq_courses.iter().any(|z| x.courses.contains(&z.id)))
-                .collect();
-            *view.needed_for_concepts.borrow_mut() =
-                self.concepts.borrow().iter()
-                .filter(|x| x.prereq_concepts.contains(&id))
-                .map(|x| self.concept_view(x.id))
-                .collect();
-            *view.prereq_groups.borrow_mut() =
-                group_concepts(view.prereq_concepts.borrow().clone());
-            let output_concepts: Vec<_> = self.concepts.borrow().iter()
-                .filter(|x| x.prereq_concepts.contains(&id))
-                .map(|x| self.concept_view(x.id))
-                .collect();
-            let mut output_groups = group_concepts(output_concepts);
-            let activities: Vec<_> = output_groups.iter()
-                .flat_map(|g| g.activity.iter().cloned())
-                .collect();
-            output_groups.extend(self.activities.borrow().iter()
-                                 .filter(|a| a.prereq_concepts.contains(&id))
-                                 .map(|a| self.activity_view(a.id))
-                                 .filter(|a| !activities.contains(a))
-                                 .map(|a| ActivityGroup {
-                                     activity: Some(a),
-                                     concepts: Vec::new(),
-                                 }));
-            *view.output_groups.borrow_mut() = output_groups;
+            v.prereq_concepts = prereq_concepts;
+            v.needed_for_concepts = needed_for_concepts;
+            v.prereq_groups = prereq_groups;
+            v.output_groups = output_groups;
         }
         view
     }
 
-    pub fn activity_view(&self, id: ActivityID) -> Intern<ActivityView> {
+    pub fn activity_view(&self, id: ActivityID) -> Rc<RefCell<ActivityView>> {
+        while id.0 >= self.activity_views.borrow().len() {
+            self.activity_views.borrow_mut().push(None);
+        }
+        if let Some(ref a) = self.activity_views.borrow()[id.0] {
+            return a.clone();
+        }
         let a = &self.activities.borrow()[id.0];
         let my_prereq_concepts: Vec<_> = self.concepts.borrow().iter()
             .filter(|x| a.prereq_concepts.contains(&x.id)).cloned().collect();
-        let view = Intern::new(ActivityView {
+        let view = Rc::new(RefCell::new(ActivityView {
             id,
             name: a.name.clone(),
 
-            prereq_courses: RefCell::new(Vec::new()),
+            prereq_courses: Vec::new(),
 
-            prereq_concepts: RefCell::new(Vec::new()),
-            prereq_groups: RefCell::new(Vec::new()),
-            new_concepts: RefCell::new(Vec::new()),
+            prereq_concepts: Vec::new(),
+            prereq_groups: Vec::new(),
+            new_concepts: Vec::new(),
 
-            output_groups: RefCell::new(Vec::new()),
+            output_groups: Vec::new(),
 
             representations: a.representations.clone(),
             courses: a.courses.clone(),
@@ -324,57 +337,56 @@ impl Data {
             external_url: a.external_url.clone(),
             status: a.status.clone(),
             notes: a.notes.clone(),
+        }));
+        // We haven't generated this view yet, so we need to add the
+        // related concepts.
+        let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
+            .map(|course| PrereqCourse {
+                course: course.clone(),
+                concepts: my_prereq_concepts.iter()
+                    .filter(|c| c.courses.contains(&course.id))
+                    .map(|c| self.concept_view(c.id))
+                    .collect(),
+            })
+            .filter(|xx| xx.concepts.len() > 0 && !a.courses.contains(&xx.course.id))
+            .collect();
+        let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
 
-            am_initialized: RefCell::new(false),
-        });
-        if !*view.am_initialized.borrow() {
-            // We haven't generated this view yet, so we need to add
-            // the related concepts.  am_initialized allows me to
-            // avoid any infinite loops where we keep generating the
-            // same views.
-            let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
-                .map(|course| PrereqCourse {
-                    course: course.clone(),
-                    concepts: my_prereq_concepts.iter()
-                        .filter(|c| c.courses.contains(&course.id))
-                        .map(|c| self.concept_view(c.id))
-                        .collect(),
-                })
-                .filter(|xx| xx.concepts.len() > 0 && !a.courses.contains(&xx.course.id))
-                .collect();
-            let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
-            *view.prereq_courses.borrow_mut() = prereq_courses;
+        let output_concepts: Vec<_> = self.concepts.borrow().iter()
+            .filter(|x| a.new_concepts.contains(&x.id))
+            .map(|x| self.concept_view(x.id))
+            .collect();
+        let mut output_groups = group_concepts(output_concepts);
+        output_groups.extend(self.activities.borrow().iter()
+                             .filter(|aa| a.new_concepts.iter()
+                                     .any(|cc| aa.prereq_concepts.contains(&cc)))
+                             .map(|a| ActivityGroup {
+                                 activity: Some(self.activity_view(a.id)),
+                                 concepts: Vec::new(),
+                             }));
 
-            *view.am_initialized.borrow_mut() = true;
+        let new_concepts: Vec<_> = self.concepts.borrow().iter()
+            .filter(|x| a.new_concepts.contains(&x.id))
+            .map(|x| self.concept_view(x.id))
+            .collect();
+        let prereq_concepts: Vec<_> = a.prereq_concepts.iter()
+            .filter(|x| !the_prereq_courses.iter().any(|z| self.concepts.borrow()[x.0].courses.contains(&z.id)))
+            .map(|x| self.concept_view(*x))
+            .collect();
+        let prereq_groups: Vec<_> = group_concepts(prereq_concepts.clone());
+        {
+            let mut v = view.borrow_mut();
+
+            v.prereq_courses = prereq_courses;
             for p in a.prereq_concepts.iter() {
                 let pre = self.concept_view(*p);
-                view.prereq_concepts.borrow_mut().push(pre);
+                v.prereq_concepts.push(pre);
             }
-            *view.prereq_concepts.borrow_mut() =
-                a.prereq_concepts.iter()
-                .map(|x| self.concept_view(*x))
-                .filter(|x| !the_prereq_courses.iter().any(|z| x.courses.contains(&z.id)))
-                .collect();
-            *view.new_concepts.borrow_mut() =
-                self.concepts.borrow().iter()
-                .filter(|x| a.new_concepts.contains(&x.id))
-                .map(|x| self.concept_view(x.id))
-                .collect();
-            *view.prereq_groups.borrow_mut() =
-                group_concepts(view.prereq_concepts.borrow().clone());
-            let output_concepts: Vec<_> = self.concepts.borrow().iter()
-                .filter(|x| a.new_concepts.contains(&x.id))
-                .map(|x| self.concept_view(x.id))
-                .collect();
-            let mut output_groups = group_concepts(output_concepts);
-            output_groups.extend(self.activities.borrow().iter()
-                                 .filter(|aa| a.new_concepts.iter()
-                                         .any(|cc| aa.prereq_concepts.contains(&cc)))
-                                 .map(|a| ActivityGroup {
-                                     activity: Some(self.activity_view(a.id)),
-                                     concepts: Vec::new(),
-                                 }));
-            *view.output_groups.borrow_mut() = output_groups;
+            v.prereq_concepts = prereq_concepts;
+            v.new_concepts = new_concepts;
+            v.prereq_groups = prereq_groups;
+
+            v.output_groups = output_groups;
         }
         view
     }
@@ -414,7 +426,7 @@ impl Data {
 #[derive(Debug, Clone)]
 pub struct PrereqCourse {
     pub course: Course,
-    pub concepts: Vec<Intern<ConceptView>>,
+    pub concepts: Vec<Rc<RefCell<ConceptView>>>,
 }
 #[with_template("prereq-course.html")]
 impl DisplayAs<HTML> for PrereqCourse {}
@@ -422,8 +434,8 @@ impl DisplayAs<HTML> for PrereqCourse {}
 /// This is an activity and concepts it teaches.
 #[derive(Debug, Clone)]
 pub struct ActivityGroup {
-    pub activity: Option<Intern<ActivityView>>,
-    pub concepts: Vec<Intern<ConceptView>>,
+    pub activity: Option<Rc<RefCell<ActivityView>>>,
+    pub concepts: Vec<Rc<RefCell<ConceptView>>>,
 }
 #[with_template("activity-group.html")]
 impl DisplayAs<HTML> for ActivityGroup {}
@@ -434,10 +446,10 @@ pub struct ProgressionGroup(ActivityGroup);
 #[with_template("progression-group.html")]
 impl DisplayAs<HTML> for ProgressionGroup {}
 
-fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
+fn group_concepts(x: Vec<Rc<RefCell<ConceptView>>>) -> Vec<ActivityGroup> {
     let mut out: Vec<ActivityGroup> = Vec::new();
     for c in x.into_iter() {
-        let mut act: Vec<_> = c.activities.borrow().iter().map(|x| Some(x.clone())).collect();
+        let mut act: Vec<_> = c.borrow().activities.iter().map(|x| Some(x.clone())).collect();
         if act.len() == 0 {
             act.push(None);
         }
@@ -455,14 +467,14 @@ fn group_concepts(x: Vec<Intern<ConceptView>>) -> Vec<ActivityGroup> {
         }
     }
     out.sort_unstable_by_key(|g| {
-        if let Some(a) = g.activity {
-            a.id
+        if let Some(ref a) = g.activity {
+            a.borrow().id
         } else {
             ActivityID(100000)
         }
     });
     for g in out.iter_mut() {
-        g.concepts.sort_unstable_by_key(|c| c.id);
+        g.concepts.sort_unstable_by_key(|c| c.borrow().id);
     }
     out
 }

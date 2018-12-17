@@ -1,6 +1,7 @@
 <div class="activity-grouping">
-  "## if let Some(ref activity) = self.0.activity { r##"
-  <a href=""## activity as URL r##"" class="activity"## for c in activity.prereq_concepts.borrow().iter() {
+  "## if let Some(ref activity) = self.0.activity.iter().map(|a| a.borrow()).next() { r##"
+  <a href=""## activity as URL r##"" class="activity"##
+     for c in activity.prereq_concepts.iter().map(|c| c.borrow()) {
      r##" from-"## c.id } r##"" id=""## activity.id r##"">
     <div class="activity">"## activity.name r##"</div>
     <div class="description hint">
@@ -21,8 +22,9 @@
   </a> "##
   } r##"
   <div class="concepts">
-    "## for concept in self.0.concepts.iter() { r##"
-    <a href=""## concept as URL r##"" class="concept"## for a in concept.activities.borrow().iter() {
+    "## for concept in self.0.concepts.iter().map(|c| c.borrow()) { r##"
+    <a href=""## concept as URL r##"" class="concept"##
+       for a in concept.activities.iter().map(|a| a.borrow()) {
        r##" from-"## a.id } r##"" id=""## concept.id r##"">
       "## for r in concept.representations.iter() { r##"
       <div onclick="document.location.href ='"## r.0 as URL r##"'; return false"
