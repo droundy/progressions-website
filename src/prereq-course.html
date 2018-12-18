@@ -4,8 +4,8 @@
   </a>
   "# for c in self.concepts.iter().map(|c| c.borrow()) {
     r#"
-  <a href=""# c as URL r#"" class="concept" thisid=""# c.id r#"" name="name">
-    "# c.name r#"
+  <a href=""# c as URL r#"" class="concept">
+    <span thisid=""# c.id r#"" name="name">"# c.name r#"</span>
     <div class="hint"><br/></div>
     <div class="description hint" thisid=""# c.id r#"" name="long_description">"# c.long_description r#"</div>
   </a>
