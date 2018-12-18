@@ -495,12 +495,12 @@ pub struct CourseSequence {
     course: Course,
     groups: Vec<ProgressionGroup>,
 }
-#[with_template("course-sequence.html")]
+#[with_template("}}" "{{" "course-sequence.html")]
 impl DisplayAs<HTML> for CourseSequence {}
 
 pub struct ProgressionView {
     prereq_courses: Vec<PrereqCourse>,
     courses: Vec<CourseSequence>,
 }
-#[with_template("progression.html")]
+#[with_template("}}" "{{" "progression.html")]
 impl DisplayAs<HTML> for ProgressionView {}

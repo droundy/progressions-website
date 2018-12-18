@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>}} title {{</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+    TeX: { equationNumbers: { autoNumber: "AMS" } },
+    "HTML-CSS": { availableFonts: ["TeX"] }
+    });
+  </script>
+  <script type="text/javascript" src="/libraries/MathJax-2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+  <script type="text/javascript" src="/libraries/jquery-3.3.1.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="/">Home</a></li>
+      }} nav {{
+    </ul>
+  </nav>
+  <main>
+    <header>
+      <h1>}} title {{<span class="hint"> (editing)</span></h1>
+    </header>
+    }} content {{
+  </main>
+</body>
+<script>
+  }} extrajs {{
+
+$(document).ready(function() {
+    $('.hint').hide();
+    $('h1').click(function(){
+        $('.hint').toggle();
+        var value = $('[thisid]').attr('contenteditable');
+        if (value != 'true') {
+          $('[thisid]').attr('contenteditable','true');
+          $('[thisid]').bind('click', false);
+        } else {
+          $('[thisid]').attr('contenteditable','false');
+          $('[thisid]').unbind('click', false);
+        }
+    });
+    $('body').on('input', '[contenteditable]', function() {
+      var data = {
+          id: $(this).attr('thisid'),
+          field: $(this).attr('name'),
+          content: $(this).text(),
+        };
+      $.ajax({
+        type: 'POST',
+        url: '/change',
+        data: data,
+      });
+});
+    }} readyjs {{
+});
+  </script>
+</html>
+
