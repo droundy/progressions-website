@@ -42,9 +42,7 @@ let content = {
         %]<h3>Representations used</h3>
         <div class="row">[%
           for r in self.representations.iter() {
-          %]<a href="[% r as URL %]" class="representation">
-            FIXME r.icon
-          </a>[%
+            r
           } %]
         </div>[%
         } %]

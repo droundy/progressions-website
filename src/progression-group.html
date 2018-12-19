@@ -8,13 +8,9 @@
     <div class="description hint" thisid="[% activity.id %]" name="long_description">
       [% activity.long_description %]
     </div>[%
-    for r in activity.representations.iter() { %]
-    <div onclick="document.location.href ='[% r.0 as URL %]'; return false"
-         style="cursor: pointer;"
-         class="representation">
-      representation.icon
-    </div>
-    [% } %]
+    for r in activity.representations.iter() {
+      r
+    } %]
   </a>[%
   } else { %]
   <a href="/activity/orphans" class="activity orphans" id="orphans">
@@ -26,14 +22,10 @@
     <a href="[% concept as URL %]" class="concept[%
        if self.0.activity.is_none() { %] orphans[% }
        for a in concept.activities.iter().map(|a| a.borrow()) {
-       %] from-[% a.id } %]" id="[% concept.id %]">
-      [% for r in concept.representations.iter() { %]
-      <div onclick="document.location.href ='[% r.0 as URL %]'; return false"
-           style="cursor: pointer;"
-           class="representation">
-        r.icon
-      </div>
-      [% }
+       %] from-[% a.id } %]" id="[% concept.id %]"> [%
+      for r in concept.representations.iter() {
+        r
+      }
       %]<span thisid="[% concept.id %]" name="name">[% concept.name %]</span>
       <div class="description hint" thisid="[% concept.id %]" name="long_description">
         <br/>

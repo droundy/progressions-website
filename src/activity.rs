@@ -1,6 +1,8 @@
 use display_as::{with_template, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
-use crate::data::{Course, CourseID, RepresentationID, ActivityGroup,
+use crate::data::{Course, CourseID,
+                  Representation, RepresentationID,
+                  ActivityGroup,
                   ConceptID, ConceptView, ActivityID,
                   PrereqCourse};
 use std::rc::Rc;
@@ -37,7 +39,7 @@ pub struct ActivityView {
 
     pub output_groups: Vec<ActivityGroup>,
 
-    pub representations: Vec<RepresentationID>,
+    pub representations: Vec<Representation>,
     pub courses: Vec<Course>,
     pub figure: Option<String>,
     pub long_description: String,

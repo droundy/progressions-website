@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
 use std::rc::Rc;
 use std::cell::RefCell;
-use display_as::{with_template, HTML, URL, DisplayAs};
+use display_as::{with_template, HTML, URL, UTF8, DisplayAs};
 use simple_error::bail;
 
 #[derive(Debug, Hash, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
@@ -37,9 +37,12 @@ pub struct CourseID(usize);
 pub struct Representation {
     pub id: RepresentationID,
     pub name: String,
+    pub icon: String,
 }
 #[with_template("/representation/" slug::slugify(&self.name))]
 impl DisplayAs<URL> for Representation {}
+#[with_template("[%" "%]" "representation.html")]
+impl DisplayAs<HTML> for Representation {}
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Course {
@@ -111,7 +114,19 @@ impl Data {
                     "name" => {
                         self.activities.borrow_mut()[id].name = c.content.trim().to_string();
                     }
-                    _ => bail!("Unknown field of concept: {}", c.field),
+                    _ => bail!("Unknown field of activity: {}", c.field),
+                }
+            }
+            Some('r') => {
+                let id: usize = c.id[1..].parse()?;
+                match &c.field as &str {
+                    "icon" => {
+                        self.representations.borrow_mut()[id].icon = c.content.trim().to_string();
+                    }
+                    "name" => {
+                        self.representations.borrow_mut()[id].name = c.content.trim().to_string();
+                    }
+                    _ => bail!("Unknown field of representation: {}", c.field),
                 }
             }
             _ => bail!("Crazy kind: {}", c.id),
@@ -185,6 +200,7 @@ impl Data {
         self.representations.borrow_mut().push(Representation {
             id: newid,
             name: name.to_string(),
+            icon: name.to_string(),
         });
         newid
     }
@@ -236,7 +252,7 @@ impl Data {
 
             output_groups: Vec::new(),
 
-            representations: c.representations.clone(),
+            representations: c.representations.iter().map(|rid| self.representations.borrow()[rid.0].clone()).collect(),
             courses: c.courses.iter().map(|cid| self.courses.borrow()[cid.0].clone()).collect(),
             figure: c.figure.clone(),
             long_description: c.long_description.clone(),
@@ -330,7 +346,7 @@ impl Data {
 
             output_groups: Vec::new(),
 
-            representations: a.representations.clone(),
+            representations: a.representations.iter().map(|rid| self.representations.borrow()[rid.0].clone()).collect(),
             courses: a.courses.iter().map(|cid| self.courses.borrow()[cid.0].clone()).collect(),
             figure: a.figure.clone(),
             long_description: a.long_description.clone(),

@@ -2,8 +2,9 @@ use serde_derive::Deserialize;
 use std::error::Error;
 use std::io;
 use std::process;
+use display_as::{HTML, format_as};
 
-use progression_website::data::{Activity, Concept, Data};
+use progression_website::data::{Activity, Concept, Data, Change};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
 enum ThingType {
@@ -52,6 +53,19 @@ fn nonempty_string(s: &str) -> Option<String> {
     Some(s.to_string())
 }
 
+fn fix_representation_name(oldname: &str) -> &str {
+    match oldname {
+        r"partial f/partial x" => r"$\frac{\partial f}{\partial x}$",
+        r"partial f/partial x fixing y" => r"$\left(\frac{\partial f}{\partial x}\right)_y$",
+        r"Del f" => r"$\vec\nabla f$",
+        r"Del dot f" => r"$\vec\nabla\cdot\vec f$",
+        r"df" => r"$df$",
+        r"picture of PDM" => r"PDM",
+        r"extable.jpg" => r"Table",
+        _ => oldname,
+    }
+}
+
 fn read_progression_csv() -> Result<(), Box<Error>> {
     let mut data = Data::new();
     // Build the CSV reader and iterate over each record.
@@ -72,7 +86,8 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
             .collect();
         let representations: Vec<_> = parse_list(datum.representations)
             .iter()
-            .map(|c| data.representation_by_name(c))
+            .map(|x| fix_representation_name(&x))
+            .map(|c| data.representation_by_name(&c))
             .collect();
         let courses: Vec<_> = if datum.course_number.len() == 0 {
             Vec::new()
@@ -115,6 +130,30 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
         }
         data.save();
     }
+
+    let icons = [
+        (r"partial f/partial x", r"$\frac{\partial f}{\partial x}$"),
+        (r"partial f/partial x fixing y", r"$\left(\frac{\partial f}{\partial x}\right)_y$"),
+        (r"Del f", r"$\vec\nabla f$"),
+        (r"Del dot f", r"$\vec\nabla\cdot\vec f$"),
+        (r"df", r"$df$"),
+        (r"Contour Maps", r#"<img src="/figs/contour-map.svg"/>"#),
+        (r"PDM", r#"<img src="/figs/pdm.jpg"/>"#),
+        (r"picture of PDM", r#"<img src="/figs/pdm.jpg"/>"#),
+        (r"Inclinometer", r#"<img src="/figs/inclinometer.jpg"/>"#),
+        (r"Kinesthetic", r#"<img src="/figs/kin.jpg"/>"#),
+        (r"Vector Field Map", r#"<img src="/figs/vector-field-map.jpg"/>"#),
+        (r"3D plots", r#"<img src="/figs/3dplot.jpg"/>"#),
+        (r"Table", r"$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$"),
+    ];
+    for (r,i) in icons.into_iter() {
+        data.change(Change {
+            id: format_as!(HTML, data.representation_by_name(r)),
+            field: "icon".to_string(),
+            content: i.to_string(),
+        })?;
+    }
+
     Ok(())
 }
 

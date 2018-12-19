@@ -427,7 +427,7 @@ concepts:
     status: Active
     notes: ~
   - id: 35
-    name: "\"$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$\""
+    name: "$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$"
     prereq_concepts: []
     representations:
       - 11
@@ -439,7 +439,7 @@ concepts:
     status: Active
     notes: Put into words
   - id: 36
-    name: "\"$\\vec\\nabla\\cross\\vec v = \\cdots$\""
+    name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
     prereq_concepts: []
     representations:
       - 12
@@ -451,7 +451,7 @@ concepts:
     status: Active
     notes: Put into words
   - id: 37
-    name: "\"$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$\""
+    name: "$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$"
     prereq_concepts: []
     representations: []
     courses:
@@ -462,7 +462,7 @@ concepts:
     status: Active
     notes: Put into words
   - id: 38
-    name: "\"$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$\""
+    name: "$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$"
     prereq_concepts: []
     representations: []
     courses:
@@ -819,64 +819,6 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 67
-    name: "\"$\\vec\\nabla\\times\\vec v = \\cdots$\""
-    prereq_concepts: []
-    representations:
-      - 12
-    courses:
-      - 2
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: Active
-    notes: Put into words
-  - id: 68
-    name: "$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$"
-    prereq_concepts: []
-    representations:
-      - 11
-    courses:
-      - 2
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: Active
-    notes: Put into words
-  - id: 69
-    name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
-    prereq_concepts: []
-    representations:
-      - 12
-    courses:
-      - 2
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: Active
-    notes: Put into words
-  - id: 70
-    name: "$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$"
-    prereq_concepts: []
-    representations: []
-    courses:
-      - 2
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: Active
-    notes: Put into words
-  - id: 71
-    name: "$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$"
-    prereq_concepts: []
-    representations: []
-    courses:
-      - 2
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: Active
-    notes: Put into words
 activities:
   - id: 0
     name: The Heater II
@@ -1216,46 +1158,85 @@ activities:
 representations:
   - id: 0
     name: "$\\Delta x$"
+    icon: "$\\Delta x$"
   - id: 1
     name: "$\\frac{\\Delta f}{\\Delta x}$"
+    icon: "$\\frac{\\Delta f}{\\Delta x}$"
   - id: 2
     name: 1D Graph
+    icon: 1D Graph
   - id: 3
     name: "$\\frac{d f}{d x}$"
+    icon: "$\\frac{d f}{d x}$"
   - id: 4
     name: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+    icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
   - id: 5
     name: 2D Graph
+    icon: 2D Graph
   - id: 6
     name: Contour Maps
+    icon: "<img src=\"/figs/contour-map.svg\"/>"
   - id: 7
     name: "$\\frac{\\partial f}{\\partial x}$"
+    icon: "$\\frac{\\partial f}{\\partial x}$"
   - id: 8
     name: "$\\vec \\nabla f$"
+    icon: "$\\vec \\nabla f$"
   - id: 9
     name: Inclinometer
+    icon: "<img src=\"/figs/inclinometer.jpg\"/>"
   - id: 10
     name: "$d \\vec r$"
+    icon: "$d \\vec r$"
   - id: 11
     name: "$\\vec \\nabla \\cdot \\vec v$"
+    icon: "$\\vec \\nabla \\cdot \\vec v$"
   - id: 12
     name: "$\\vec \\nabla \\times \\vec v$"
+    icon: "$\\vec \\nabla \\times \\vec v$"
   - id: 13
     name: 3D plots
+    icon: "<img src=\"/figs/3dplot.jpg\"/>"
   - id: 14
     name: Kinesthetic
+    icon: "<img src=\"/figs/kin.jpg\"/>"
   - id: 15
     name: Vector Field Map
+    icon: "<img src=\"/figs/vector-field-map.jpg\"/>"
   - id: 16
     name: $df$
+    icon: $df$
   - id: 17
     name: $dx$
+    icon: $dx$
   - id: 18
     name: Experiment
+    icon: Experiment
   - id: 19
     name: PDM
+    icon: "<img src=\"/figs/pdm.jpg\"/>"
   - id: 20
     name: Table
+    icon: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
+  - id: 21
+    name: partial f/partial x
+    icon: "$\\frac{\\partial f}{\\partial x}$"
+  - id: 22
+    name: partial f/partial x fixing y
+    icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+  - id: 23
+    name: Del f
+    icon: "$\\vec\\nabla f$"
+  - id: 24
+    name: Del dot f
+    icon: "$\\vec\\nabla\\cdot\\vec f$"
+  - id: 25
+    name: picture of PDM
+    icon: "<img src=\"/figs/pdm.jpg\"/>"
+  - id: 26
+    name: Inclinomete(r
+    icon: "<img src=\"inclinometer.jpg\"/>"
 courses:
   - id: 0
     number: MTH 251

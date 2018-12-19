@@ -3,7 +3,9 @@ use serde_derive::{Deserialize, Serialize};
 use std::rc::Rc;
 use std::cell::RefCell;
 
-use crate::data::{CourseID, Course, RepresentationID, ActivityGroup, ActivityView, ConceptID,
+use crate::data::{CourseID, Course,
+                  RepresentationID, Representation,
+                  ActivityGroup, ActivityView, ConceptID,
                   PrereqCourse};
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
@@ -37,7 +39,7 @@ pub struct ConceptView {
 
     pub output_groups: Vec<ActivityGroup>,
 
-    pub representations: Vec<RepresentationID>,
+    pub representations: Vec<Representation>,
     pub courses: Vec<Course>,
     pub figure: Option<String>,
     pub long_description: String,
