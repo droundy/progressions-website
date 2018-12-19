@@ -35,7 +35,7 @@ function removeTypeset() {
   var HTML = MathJax.HTML, jax = MathJax.Hub.getAllJax();
   for (var i = 0, m = jax.length; i < m; i++) {
     var script = jax[i].SourceElement(), tex = jax[i].originalText;
-    if (script.type.match(/display/)) {tex = "\\\\["+tex+"\\\\]"} else {tex = "$"+tex+"$"}
+    if (script.type.match(/display/)) {tex = "\\["+tex+"\\]"} else {tex = "$"+tex+"$"}
     jax[i].Remove();
     var preview = script.previousSibling;
     if (preview && preview.className === "MathJax_Preview") {
@@ -46,7 +46,19 @@ function removeTypeset() {
     script.parentNode.removeChild(script);
   }
 }
-
+function reTypeset() {
+    $('.MathJax_Preview').each(function () {
+        var raw = $(this).text();
+        if (raw[0] == '$') {
+            raw = raw.slice(1,-1);
+        } else {
+            raw = raw.slice(2,-2);
+        }
+        var newelement = $("<script type=\"math/tex\"><\/script>").text(raw);;
+        newelement.insertAfter($(this));
+    });
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+}
 $(document).ready(function() {
     $('.hint').hide();
     $('h1').click(function(){
@@ -57,6 +69,7 @@ $(document).ready(function() {
           removeTypeset();
           $('[thisid]').bind('click', false);
         } else {
+          reTypeset();
           $('[thisid]').attr('contenteditable','false');
           $('[thisid]').unbind('click', false);
         }
