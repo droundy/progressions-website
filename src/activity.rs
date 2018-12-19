@@ -32,7 +32,7 @@ impl Hash for ActivityView {
         self.id.hash(state);
     }
 }
-#[with_template("activity.html")]
+#[with_template("[%" "%]" "activity.html")]
 impl DisplayAs<HTML> for ActivityView {}
 #[with_template("/activity/" slug::slugify(&self.name))]
 impl DisplayAs<URL> for ActivityView {}

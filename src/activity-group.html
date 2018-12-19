@@ -1,28 +1,28 @@
-<div class="activity-grouping has"# self.concepts.len() r#"">
+<div class="activity-grouping has[% self.concepts.len() %]">
   <div class="taughtby">
     <div class="taughtby">
-      "# if let Some(ref activity) = self.activity.iter().map(|a| a.borrow()).next() { r#"
-      <a href=""# activity as URL r#"" class="activity" thisid=""# activity.id r#"" name="name">
-        "# activity.name r#"
+      [% if let Some(ref activity) = self.activity.iter().map(|a| a.borrow()).next() { %]
+      <a href="[% activity as URL %]" class="activity" thisid="[% activity.id %]" name="name">
+        [% activity.name %]
       </a>
-      "#
-      } else { r#"
+      [%
+      } else { %]
       <a href="activity/orphans" class="activity orphans">
         ORPHANS!
       </a>
-      "#
+      [%
       }
-      r#"
+      %]
     </div>
-  </div> "#
+  </div> [%
   for c in self.concepts.iter().map(|c| c.borrow()) {
-    r#"
-  <a href=""# c as URL r#"" class="concept">
-    <span kind="concept" thisid=""# c.id r#"" name="name">"# c.name r#"</span>
+    %]
+  <a href="[% c as URL %]" class="concept">
+    <span kind="concept" thisid="[% c.id %]" name="name">[% c.name %]</span>
     <div class="hint"><br/></div>
-    <div class="description hint" thisid=""# c.id r#"" name="long_description">
-      "# c.long_description r#"
+    <div class="description hint" thisid="[% c.id %]" name="long_description">
+      [% c.long_description %]
     </div>
   </a>
-  "# } r#"
+  [% } %]
 </div>

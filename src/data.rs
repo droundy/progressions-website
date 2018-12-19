@@ -25,7 +25,7 @@ impl DisplayAs<HTML> for ActivityID {}
 pub struct RepresentationID(usize);
 #[with_template("FIXME-RepresentationID:" self.0)]
 impl DisplayAs<URL> for RepresentationID {}
-#[with_template("FIXME-RepresentationID:" self.0)]
+#[with_template("r" self.0)]
 impl DisplayAs<HTML> for RepresentationID {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
@@ -440,7 +440,7 @@ pub struct PrereqCourse {
     pub course: Course,
     pub concepts: Vec<Rc<RefCell<ConceptView>>>,
 }
-#[with_template("prereq-course.html")]
+#[with_template("[%" "%]" "prereq-course.html")]
 impl DisplayAs<HTML> for PrereqCourse {}
 
 /// This is an activity and concepts it teaches.
@@ -449,13 +449,13 @@ pub struct ActivityGroup {
     pub activity: Option<Rc<RefCell<ActivityView>>>,
     pub concepts: Vec<Rc<RefCell<ConceptView>>>,
 }
-#[with_template("activity-group.html")]
+#[with_template("[%" "%]" "activity-group.html")]
 impl DisplayAs<HTML> for ActivityGroup {}
 
 /// This is an activity and concepts it teaches, but displayed in a progression..
 #[derive(Debug, Clone)]
 pub struct ProgressionGroup(ActivityGroup);
-#[with_template("progression-group.html")]
+#[with_template("[%" "%]" "progression-group.html")]
 impl DisplayAs<HTML> for ProgressionGroup {}
 
 fn group_concepts(x: Vec<Rc<RefCell<ConceptView>>>) -> Vec<ActivityGroup> {
@@ -495,12 +495,12 @@ pub struct CourseSequence {
     course: Course,
     groups: Vec<ProgressionGroup>,
 }
-#[with_template("}}" "{{" "course-sequence.html")]
+#[with_template("[%" "%]" "course-sequence.html")]
 impl DisplayAs<HTML> for CourseSequence {}
 
 pub struct ProgressionView {
     prereq_courses: Vec<PrereqCourse>,
     courses: Vec<CourseSequence>,
 }
-#[with_template("}}" "{{" "progression.html")]
+#[with_template("[%" "%]" "progression.html")]
 impl DisplayAs<HTML> for ProgressionView {}

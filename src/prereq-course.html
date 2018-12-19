@@ -1,13 +1,13 @@
-<div class="course-prereq has"# self.concepts.len() r#"">
-  <a href=""# self.course.number r#".html" class="course">
-    "# self.course.number r#"
+<div class="course-prereq has[% self.concepts.len() %]">
+  <a href="[% self.course.number %].html" class="course">
+    [% self.course.number %]
   </a>
-  "# for c in self.concepts.iter().map(|c| c.borrow()) {
-    r#"
-  <a href=""# c as URL r#"" class="concept">
-    <span thisid=""# c.id r#"" name="name">"# c.name r#"</span>
+  [% for c in self.concepts.iter().map(|c| c.borrow()) {
+    %]
+  <a href="[% c as URL %]" class="concept">
+    <span thisid="[% c.id %]" name="name">[% c.name %]</span>
     <div class="hint"><br/></div>
-    <div class="description hint" thisid=""# c.id r#"" name="long_description">"# c.long_description r#"</div>
+    <div class="description hint" thisid="[% c.id %]" name="long_description">[% c.long_description %]</div>
   </a>
-  "# } r#"
+  [% } %]
 </div>

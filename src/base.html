@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>"# title r#"</title>
+  <title>[% title %]</title>
   <link rel="stylesheet" href="/style.css">
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -19,18 +19,18 @@
   <nav>
     <ul>
       <li><a href="/">Home</a></li>
-      "# nav r#"
+      [% nav %]
     </ul>
   </nav>
   <main>
     <header>
-      <h1>"# title r#"<span class="hint"> (editing)</span></h1>
+      <h1>[% title %]<span class="hint"> (editing)</span></h1>
     </header>
-    "# content r#"
+    [% content %]
   </main>
 </body>
 <script>
-  "# extrajs r#"
+  [% extrajs %]
 function removeTypeset() {
   var HTML = MathJax.HTML, jax = MathJax.Hub.getAllJax();
   for (var i = 0, m = jax.length; i < m; i++) {
@@ -73,7 +73,7 @@ $(document).ready(function() {
         data: data,
       });
 });
-    "# readyjs r#"
+    [% readyjs %]
 });
   </script>
 </html>

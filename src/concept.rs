@@ -51,7 +51,7 @@ impl Hash for ConceptView {
         self.id.hash(state);
     }
 }
-#[with_template("concept.html")]
+#[with_template("[%" "%]" "concept.html")]
 impl DisplayAs<HTML> for ConceptView {}
 #[with_template("/concept/" slug::slugify(&self.name))]
 impl DisplayAs<URL> for ConceptView {}

@@ -1,5 +1,5 @@
-}}
-let extrajs = { {{
+[%
+let extrajs = { %]
 function connectElements(svg, path, start, end) {
     var stroke = 0;// path.attr("stroke-width");
 
@@ -78,9 +78,9 @@ function connectAll() {
         }
     });
 }
-}}
+[%
 };
-let readyjs = { {{
+let readyjs = { %]
     $(window).resize(connectAll);
     connectAll();
     setTimeout(connectAll, 200); // reconnect to correct for errors introduced by mathjax
@@ -90,12 +90,12 @@ let readyjs = { {{
     setTimeout(connectAll, 3000);
     setTimeout(connectAll, 4000);
     setTimeout(connectAll, 5000);
-    setTimeout(connectAll, 10000);}}
+    setTimeout(connectAll, 10000);[%
 };
-let title = { {{Learning Progression for Partial Derivatives}} };
+let title = { %]Learning Progression for Partial Derivatives[% };
 let nav = {};
 let content = {
-  {{
+  %]
     <svg id="arrows-svg" width="0" height="0">
     <path id="right-arrows" d="M0 0"
           fill="none" stroke-width="2" stroke-linecap="round" />
@@ -103,24 +103,24 @@ let content = {
           fill="none" stroke-width="2" stroke-linecap="round" />
     </svg>
     <article>
-      }}
+      [%
       for course in self.prereq_courses.iter() {
         course
       }
-      {{
+      %]
 
       <div class="progression">
-        }} for course in self.courses.iter() { {{
-          <a href="}} course.course.number {{" class="course">
-            }} course.course.number {{
+        [% for course in self.courses.iter() { %]
+          <a href="[% course.course.number %]" class="course">
+            [% course.course.number %]
           </a>
-          }} for group in course.groups.iter() {
+          [% for group in course.groups.iter() {
             group
           }
-        } {{
+        } %]
       </div>
     </article>
-    }}
+    [%
     };
-    include!("new-base.html");
-{{
+    include!("base.html");
+%]

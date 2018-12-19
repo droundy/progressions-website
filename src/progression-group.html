@@ -1,44 +1,44 @@
 <div class="activity-grouping">
-  "## if let Some(ref activity) = self.0.activity.iter().map(|a| a.borrow()).next() { r##"
-  <a href=""## activity as URL r##"" class="activity"##
+  [% if let Some(ref activity) = self.0.activity.iter().map(|a| a.borrow()).next() { %]
+  <a href="[% activity as URL %]" class="activity[%
      for c in activity.prereq_concepts.iter().map(|c| c.borrow()) {
-     r##" from-"## c.id } r##"" id=""## activity.id r##"">
-    <div class="activity" thisid=""## activity.id r##"" name="name">"## activity.name r##"</div>
+     %] from-[% c.id } %]" id="[% activity.id %]">
+    <div class="activity" thisid="[% activity.id %]" name="name">[% activity.name %]</div>
     <div class="hint"><br/></div>
-    <div class="description hint" thisid=""## activity.id r##"" name="long_description">
-      "## activity.long_description r##"
-    </div>"##
-    for r in activity.representations.iter() { r##"
-    <div onclick="document.location.href ='"## r.0 as URL r##"'; return false"
+    <div class="description hint" thisid="[% activity.id %]" name="long_description">
+      [% activity.long_description %]
+    </div>[%
+    for r in activity.representations.iter() { %]
+    <div onclick="document.location.href ='[% r.0 as URL %]'; return false"
          style="cursor: pointer;"
          class="representation">
       representation.icon
     </div>
-    "## } r##"
-  </a>"##
-  } else { r##"
+    [% } %]
+  </a>[%
+  } else { %]
   <a href="/activity/orphans" class="activity orphans" id="orphans">
     <div class="activity orphans">ORPHANS!</div>
-  </a> "##
-  } r##"
+  </a> [%
+  } %]
   <div class="concepts">
-    "## for concept in self.0.concepts.iter().map(|c| c.borrow()) { r##"
-    <a href=""## concept as URL r##"" class="concept"##
+    [% for concept in self.0.concepts.iter().map(|c| c.borrow()) { %]
+    <a href="[% concept as URL %]" class="concept[%
        for a in concept.activities.iter().map(|a| a.borrow()) {
-       r##" from-"## a.id } r##"" id=""## concept.id r##"">
-      "## for r in concept.representations.iter() { r##"
-      <div onclick="document.location.href ='"## r.0 as URL r##"'; return false"
+       %] from-[% a.id } %]" id="[% concept.id %]">
+      [% for r in concept.representations.iter() { %]
+      <div onclick="document.location.href ='[% r.0 as URL %]'; return false"
            style="cursor: pointer;"
            class="representation">
         r.icon
       </div>
-      "## }
-      r##"<span thisid=""## concept.id r##"" name="name">"## concept.name r##"</span>
-      <div class="description hint" thisid=""## concept.id r##"" name="long_description">
+      [% }
+      %]<span thisid="[% concept.id %]" name="name">[% concept.name %]</span>
+      <div class="description hint" thisid="[% concept.id %]" name="long_description">
         <br/>
-        "## concept.long_description r##"
+        [% concept.long_description %]
       </div>
     </a>
-    "## } r##"
+    [% } %]
   </div>
 </div>

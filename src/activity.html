@@ -1,67 +1,67 @@
-"#
+[%
 let extrajs = {};
 let readyjs = {};
 let title = { self.name };
 let nav = {
-  r#"<li><a href="{{self.course.number}}.html">{{self.course.name}}</a></li>"#
+  %]<li><a href="{{self.course.number}}.html">{{self.course.name}}</a></li>[%
 };
 let content = {
-  r#"<article>
+  %]<article>
       <details class="allprereqs">
         <summary>Prerequisite concepts</summary>
         <div class="allprereqs">
-          "#
+          [%
           for prereq in self.prereq_courses.iter() {
             prereq
           }
-          r#"
+          %]
           <div class="prereq">
-            "#
+            [%
             for group in self.prereq_groups.iter() {
               group
             }
-            r#"
+            %]
           </div>
         </div>
       </details>
 
       <div
-         "# if let Some(ref url) = self.external_url {
-            r#"onclick="location.href='http://physics.oregonstate.edu/portfolioswiki/acts:"# url as URL r#"';" style="cursor: pointer;" "#
-         } r#"
+         [% if let Some(ref url) = self.external_url {
+            %]onclick="location.href='http://physics.oregonstate.edu/portfolioswiki/acts:[% url as URL %]';" style="cursor: pointer;" [%
+         } %]
          class="activity">
-        <h1>"# self.name r#"</h1>"#
+        <h1>[% self.name %]</h1>[%
         if let Some(ref fig) = self.figure {
-          r#"<img src="/figs/"# fig r#"" class="figure"/>"#
+          %]<img src="/figs/[% fig %]" class="figure"/>[%
         }
-        r#"
+        %]
         <div class="description">
-          "# self.long_description r#"
-        </div>"#
+          [% self.long_description %]
+        </div>[%
         if self.representations.len() > 0 {
-        r#"<h3>Representations used</h3>
-        <div class="row">"#
+        %]<h3>Representations used</h3>
+        <div class="row">[%
           for r in self.representations.iter() {
-          r#"<a href=""# r as URL r#"" class="representation">
+          %]<a href="[% r as URL %]" class="representation">
             FIXME r.icon
-          </a>"#
-          } r#"
-        </div>"#
-        } r#"
+          </a>[%
+          } %]
+        </div>[%
+        } %]
         <h3>Concepts taught</h3>
-        <div class="row">"#
-          for c in self.new_concepts.iter().map(|c| c.borrow()) { r#"
-          <a href=""# c as URL r#"" class="concept">
-            "# c.name r#"
+        <div class="row">[%
+          for c in self.new_concepts.iter().map(|c| c.borrow()) { %]
+          <a href="[% c as URL %]" class="concept">
+            [% c.name %]
             <div class="description hint">
               <br/>
-              "# c.long_description r#"
+              [% c.long_description %]
             </div>
-          </a>"#
-          } r#"
+          </a>[%
+          } %]
         </div>
       </div>
-    </article>"#
+    </article>[%
 };
 include!("base.html");
-r#"
+%]
