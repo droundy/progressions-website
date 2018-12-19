@@ -15,6 +15,8 @@ pub struct Change {
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ConceptID(usize);
+#[with_template("c" self.0)]
+impl DisplayAs<HTML> for ConceptID {}
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ActivityID(usize);
@@ -30,8 +32,6 @@ impl DisplayAs<HTML> for RepresentationID {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct CourseID(usize);
-#[with_template("c" self.0)]
-impl DisplayAs<HTML> for ConceptID {}
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Activity {
@@ -63,6 +63,10 @@ pub struct Course {
     pub id: CourseID,
     pub number: String,
 }
+#[with_template("/course/" slug::slugify(&self.number))]
+impl DisplayAs<URL> for Course {}
+#[with_template(r#"<a href=""# self as URL r#"" class="course">"# self.number r#"</a>"#)]
+impl DisplayAs<HTML> for Course {}
 
 pub use crate::concept::{Concept, ConceptView, ConceptEdit};
 pub use crate::activity::ActivityView;
@@ -202,6 +206,7 @@ impl Data {
         newid
     }
     pub fn course_by_name(&self, name: &str) -> CourseID {
+        let name = name.trim();
         if let Some(c) = self
             .courses
             .borrow()
@@ -343,7 +348,7 @@ impl Data {
             output_groups: Vec::new(),
 
             representations: a.representations.clone(),
-            courses: a.courses.clone(),
+            courses: a.courses.iter().map(|cid| self.courses.borrow()[cid.0].clone()).collect(),
             figure: a.figure.clone(),
             long_description: a.long_description.clone(),
             external_url: a.external_url.clone(),
@@ -430,7 +435,43 @@ impl Data {
             .collect();
         let groups: Vec<ProgressionGroup> = group_concepts(course_concepts)
             .into_iter().map(|g| ProgressionGroup(g)).collect();
-        CourseSequence { course, groups }
+        CourseSequence { course, prereq_courses: Vec::new(), groups }
+    }
+
+    pub fn course_view(&self, name: &str) -> CourseSequence {
+        let id = self.course_by_name(name);
+        let mut cs = self.course_sequence(id);
+
+        let my_concepts: Vec<_> = self.concepts.borrow().iter()
+            .filter(|c| c.courses.contains(&id))
+            .cloned()
+            .collect();
+        let my_activities: Vec<_> = self.activities.borrow().iter()
+            .filter(|a| a.courses.contains(&id))
+            .cloned()
+            .collect();
+
+        let mut my_prereq_concepts: Vec<ConceptID> = my_concepts.iter()
+            .flat_map(|c| c.prereq_concepts.clone())
+            .collect();
+        my_prereq_concepts.extend(my_activities.iter().flat_map(|a| a.prereq_concepts.clone()));
+        let my_prereq_concepts: Vec<Concept> = self.concepts.borrow().iter()
+            .filter(|c| my_prereq_concepts.contains(&c.id))
+            .cloned()
+            .collect();
+
+        cs.prereq_courses = self.courses.borrow().iter()
+            .filter(|course| course.id != id)
+            .map(|course| PrereqCourse {
+                course: course.clone(),
+                concepts: my_prereq_concepts.iter()
+                    .filter(|c| c.courses.contains(&course.id))
+                    .map(|c| self.concept_view(c.id))
+                    .collect(),
+            })
+            .filter(|xx| xx.concepts.len() > 0)
+            .collect();
+        cs
     }
 }
 
@@ -493,6 +534,7 @@ fn group_concepts(x: Vec<Rc<RefCell<ConceptView>>>) -> Vec<ActivityGroup> {
 
 pub struct CourseSequence {
     course: Course,
+    prereq_courses: Vec<PrereqCourse>,
     groups: Vec<ProgressionGroup>,
 }
 #[with_template("[%" "%]" "course-sequence.html")]

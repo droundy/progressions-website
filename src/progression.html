@@ -110,11 +110,9 @@ let content = {
       %]
 
       <div class="progression">
-        [% for course in self.courses.iter() { %]
-          <a href="[% course.course.number %]" class="course">
-            [% course.course.number %]
-          </a>
-          [% for group in course.groups.iter() {
+        [% for course in self.courses.iter() {
+          course.course %][%
+          for group in course.groups.iter() {
             group
           }
         } %]

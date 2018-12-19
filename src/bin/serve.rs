@@ -18,6 +18,12 @@ fn main() {
                 .borrow()
                 .display_as(HTML).into_reply()
         });
+    let course = path!("course" / String)
+        .map(|name: String| {
+            let data = Data::new();
+            data.course_view(&name)
+                .display_as(HTML).into_reply()
+        });
     let activity = path!("activity" / String)
         .map(|name: String| {
             let data = Data::new();
@@ -37,6 +43,7 @@ fn main() {
                 .or(change)
                 .or(concept)
                 .or(activity)
+                .or(course)
                 .or(style_css)
                 .or(libraries)
                 .or(figs)

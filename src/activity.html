@@ -3,7 +3,7 @@ let extrajs = {};
 let readyjs = {};
 let title = { self.name };
 let nav = {
-  %]<li><a href="{{self.course.number}}.html">{{self.course.name}}</a></li>[%
+  %]<li>[% self.courses[0] %]</li>[%
 };
 let content = {
   %]<article>

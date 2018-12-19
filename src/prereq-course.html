@@ -1,7 +1,5 @@
 <div class="course-prereq has[% self.concepts.len() %]">
-  <a href="[% self.course.number %].html" class="course">
-    [% self.course.number %]
-  </a>
+  [% self.course %]
   [% for c in self.concepts.iter().map(|c| c.borrow()) {
     %]
   <a href="[% c as URL %]" class="concept">

@@ -1,6 +1,6 @@
 use display_as::{with_template, HTML, URL, DisplayAs};
 use std::hash::Hash;
-use crate::data::{CourseID, RepresentationID, ActivityGroup, ConceptView, ActivityID,
+use crate::data::{Course, RepresentationID, ActivityGroup, ConceptView, ActivityID,
                   PrereqCourse};
 use std::rc::Rc;
 use std::cell::RefCell;
@@ -20,7 +20,7 @@ pub struct ActivityView {
     pub output_groups: Vec<ActivityGroup>,
 
     pub representations: Vec<RepresentationID>,
-    pub courses: Vec<CourseID>,
+    pub courses: Vec<Course>,
     pub figure: Option<String>,
     pub long_description: String,
     pub external_url: Option<String>,
