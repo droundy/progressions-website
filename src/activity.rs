@@ -1,9 +1,27 @@
 use display_as::{with_template, HTML, URL, DisplayAs};
-use std::hash::Hash;
-use crate::data::{Course, RepresentationID, ActivityGroup, ConceptView, ActivityID,
+use serde_derive::{Deserialize, Serialize};
+use crate::data::{Course, CourseID, RepresentationID, ActivityGroup,
+                  ConceptID, ConceptView, ActivityID,
                   PrereqCourse};
 use std::rc::Rc;
 use std::cell::RefCell;
+
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+pub struct Activity {
+    pub id: ActivityID,
+    pub name: String,
+    pub prereq_concepts: Vec<ConceptID>,
+    pub new_concepts: Vec<ConceptID>,
+    pub representations: Vec<RepresentationID>,
+    pub courses: Vec<CourseID>,
+    pub figure: Option<String>,
+    pub long_description: String,
+    pub external_url: Option<String>,
+    pub status: Option<String>,
+    pub notes: Option<String>,
+}
+#[with_template("/activity/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for Activity {}
 
 /// This is a activity, but with all the relationships filled in.
 #[derive(Debug, Clone)]
@@ -27,11 +45,7 @@ pub struct ActivityView {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
-impl Hash for ActivityView {
-    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
-        self.id.hash(state);
-    }
-}
+
 #[with_template("[%" "%]" "activity.html")]
 impl DisplayAs<HTML> for ActivityView {}
 #[with_template("/activity/" slug::slugify(&self.name))]
@@ -43,9 +57,3 @@ impl PartialEq for ActivityView {
     }
 }
 impl Eq for ActivityView {}
-
-impl ActivityView {
-    pub fn slugme(&self) -> String {
-        slug::slugify(&self.name)
-    }
-}

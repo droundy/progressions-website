@@ -2,8 +2,12 @@
 let extrajs = {};
 let readyjs = {};
 let title = { self.name };
-let nav = { %]<li><a href="{{concept.course.number}}.html">{{concept.course.name}}</a></li>
-  <li><a href="concept-key.html">Concept page key</a></li>[% };
+let nav = { if self.courses.len() > 0 {
+     %]<li>[% self.courses[0] %]</li>[%
+  } else {
+     %]<li><span class="course">Orphan!</span></li>[%
+  }
+  %]<li><a href="concept-key.html">Concept page key</a></li>[% };
 let content = {
   %]<article>
       <details class="allprereqs">

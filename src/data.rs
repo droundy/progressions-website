@@ -34,23 +34,6 @@ impl DisplayAs<HTML> for RepresentationID {}
 pub struct CourseID(usize);
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-pub struct Activity {
-    pub id: ActivityID,
-    pub name: String,
-    pub prereq_concepts: Vec<ConceptID>,
-    pub new_concepts: Vec<ConceptID>,
-    pub representations: Vec<RepresentationID>,
-    pub courses: Vec<CourseID>,
-    pub figure: Option<String>,
-    pub long_description: String,
-    pub external_url: Option<String>,
-    pub status: Option<String>,
-    pub notes: Option<String>,
-}
-#[with_template("/activity/" slug::slugify(&self.name))]
-impl DisplayAs<URL> for Activity {}
-
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Representation {
     pub id: RepresentationID,
     pub name: String,
@@ -68,8 +51,8 @@ impl DisplayAs<URL> for Course {}
 #[with_template(r#"<a href=""# self as URL r#"" class="course">"# self.number r#"</a>"#)]
 impl DisplayAs<HTML> for Course {}
 
-pub use crate::concept::{Concept, ConceptView, ConceptEdit};
-pub use crate::activity::ActivityView;
+pub use crate::concept::{Concept, ConceptView};
+pub use crate::activity::{Activity, ActivityView};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Data {
@@ -254,7 +237,7 @@ impl Data {
             output_groups: Vec::new(),
 
             representations: c.representations.clone(),
-            courses: c.courses.clone(),
+            courses: c.courses.iter().map(|cid| self.courses.borrow()[cid.0].clone()).collect(),
             figure: c.figure.clone(),
             long_description: c.long_description.clone(),
             external_url: c.external_url.clone(),
@@ -300,7 +283,7 @@ impl Data {
         let prereq_concepts: Vec<_> =
             c.prereq_concepts.iter()
             .map(|x| self.concept_view(*x))
-            .filter(|x| !the_prereq_courses.iter().any(|z| x.borrow().courses.contains(&z.id)))
+            .filter(|x| !the_prereq_courses.iter().any(|z| x.borrow().courses.contains(&z)))
             .collect();
         let prereq_groups = group_concepts(prereq_concepts.clone());
         let needed_for_concepts: Vec<_> =
@@ -357,6 +340,10 @@ impl Data {
         }));
         // We haven't generated this view yet, so we need to add the
         // related concepts.
+        let other_courses: Vec<_> = self.courses.borrow().iter()
+            .filter(|xx| !a.courses.contains(&xx.id))
+            .cloned()
+            .collect();
         let prereq_courses: Vec<_> = self.courses.borrow().iter().cloned()
             .map(|course| PrereqCourse {
                 course: course.clone(),
@@ -365,9 +352,8 @@ impl Data {
                     .map(|c| self.concept_view(c.id))
                     .collect(),
             })
-            .filter(|xx| xx.concepts.len() > 0 && !a.courses.contains(&xx.course.id))
+            .filter(|xx| xx.concepts.len() > 0 && other_courses.contains(&xx.course))
             .collect();
-        let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.clone()).collect();
 
         let output_concepts: Vec<_> = self.concepts.borrow().iter()
             .filter(|x| a.new_concepts.contains(&x.id))
@@ -387,10 +373,14 @@ impl Data {
             .map(|x| self.concept_view(x.id))
             .collect();
         let prereq_concepts: Vec<_> = a.prereq_concepts.iter()
-            .filter(|x| !the_prereq_courses.iter().any(|z| self.concepts.borrow()[x.0].courses.contains(&z.id)))
             .map(|x| self.concept_view(*x))
             .collect();
-        let prereq_groups: Vec<_> = group_concepts(prereq_concepts.clone());
+        let prereq_concepts_in_this_course: Vec<_> =
+            prereq_concepts.iter()
+            .filter(|c| !c.borrow().courses.iter().any(|cc| other_courses.contains(cc)))
+            .cloned()
+            .collect();
+        let prereq_groups: Vec<_> = group_concepts(prereq_concepts_in_this_course);
         {
             let mut v = view.borrow_mut();
 
