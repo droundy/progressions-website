@@ -31,6 +31,21 @@
 </body>
 <script>
   "# extrajs r#"
+function removeTypeset() {
+  var HTML = MathJax.HTML, jax = MathJax.Hub.getAllJax();
+  for (var i = 0, m = jax.length; i < m; i++) {
+    var script = jax[i].SourceElement(), tex = jax[i].originalText;
+    if (script.type.match(/display/)) {tex = "\\\\["+tex+"\\\\]"} else {tex = "$"+tex+"$"}
+    jax[i].Remove();
+    var preview = script.previousSibling;
+    if (preview && preview.className === "MathJax_Preview") {
+      preview.parentNode.removeChild(preview);
+    }
+    preview = HTML.Element("span",{className:"MathJax_Preview"},[tex]);
+    script.parentNode.insertBefore(preview,script);
+    script.parentNode.removeChild(script);
+  }
+}
 
 $(document).ready(function() {
     $('.hint').hide();
@@ -39,6 +54,7 @@ $(document).ready(function() {
         var value = $('[thisid]').attr('contenteditable');
         if (value != 'true') {
           $('[thisid]').attr('contenteditable','true');
+          removeTypeset();
           $('[thisid]').bind('click', false);
         } else {
           $('[thisid]').attr('contenteditable','false');
