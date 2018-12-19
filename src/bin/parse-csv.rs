@@ -80,19 +80,21 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
             vec![data.course_by_name(datum.course_number)]
         };
         if datum.thingtype == "Concept" || datum.thingtype == "concept" {
-            let c = Concept {
-                id: data.concept_by_name(datum.name),
-                name: datum.name.to_string(),
-                prereq_concepts: prereqs,
-                representations,
-                courses,
-                figure: nonempty_string(datum.figure),
-                long_description: datum.long_description.to_string(),
-                external_url: nonempty_string(datum.external_url),
-                status: nonempty_string(datum.status),
-                notes: nonempty_string(datum.notes),
-            };
-            data.set_concept(c.id, c);
+            if datum.name.trim().len() > 0 {
+                let c = Concept {
+                    id: data.concept_by_name(datum.name),
+                    name: datum.name.to_string(),
+                    prereq_concepts: prereqs,
+                    representations,
+                    courses,
+                    figure: nonempty_string(datum.figure),
+                    long_description: datum.long_description.to_string(),
+                    external_url: nonempty_string(datum.external_url),
+                    status: nonempty_string(datum.status),
+                    notes: nonempty_string(datum.notes),
+                };
+                data.set_concept(c.id, c);
+            }
         } else if datum.thingtype == "Activity" || datum.thingtype == "activity" {
             let c = Activity {
                 id: data.activity_by_name(datum.name),

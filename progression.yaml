@@ -8,7 +8,7 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: Understanding difference (how far apart two values are at one time) and change (how far apart the value of a single parameter is at two different times) is necessary for understanding derivatives.
+    long_description: Understanding both difference (how far apart two values are at one time) and change (how far apart the value of a single parameter is at two different times) is necessary for understanding derivatives.
     external_url: ~
     status: Active
     notes: ~
@@ -44,10 +44,10 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: A long description for The derivative can be approximated by the slope of a secant line is not yet available--feel free to give us your suggestions on the poster!
+    long_description: The value of the derivative at a point on a curve can be approximated by the slope of a line secant with the curve near that point.
     external_url: ~
     status: Active
-    notes: Do we need to define a secant line? That seems like too much.
+    notes: ~
   - id: 4
     name: The derivative at a point is the slope of a tangent line at that point
     prereq_concepts: []
@@ -56,10 +56,10 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: A long description for The derivative at a point is the slope of a tangent line at that point is not yet available--feel free to give us your suggestions on the poster!
+    long_description: The value of the derivative at a point on a curve is equivalent to the slope of a line tangent to the curve at that point.
     external_url: ~
     status: Active
-    notes: Do we need to define a tangent line? That seems like too much.
+    notes: ~
   - id: 5
     name: The derivative is a limit
     prereq_concepts: []
@@ -67,10 +67,10 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: A long description for The derivative is a limit is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "$\\lim_{h \\rightarrow 0} \\frac{f(x+h)-f(x)}{h}$"
     external_url: ~
     status: Active
-    notes: ~
+    notes: What do we really want to say here?
   - id: 6
     name: The derivative can be a function
     prereq_concepts: []
@@ -78,18 +78,19 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: A long description for The derivative can be a function is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "For every value in the domain of a function, the function has exactly one value. "
     external_url: ~
     status: Active
-    notes: ~
+    notes: What do we really want to say here?
   - id: 7
     name: The derivative of a constant is zero
-    prereq_concepts: []
+    prereq_concepts:
+      - 0
     representations: []
     courses:
       - 0
     figure: ~
-    long_description: A long description for The derivative of a constant is zero is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "The derivative of a constant is always zero. This can be understood by thinking of 'The derivative is a ratio of small changes,' as the amount by which a constant changes is zero."
     external_url: ~
     status: Active
     notes: ~
@@ -123,7 +124,7 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: A long description for The derivative at a cusp is undefined is not yet available--feel free to give us your suggestions on the poster!
+    long_description: " At a cusp (or kink) in a curve, the derivative (and it's value) are not defined."
     external_url: ~
     status: Active
     notes: ~
@@ -207,7 +208,7 @@ concepts:
     courses:
       - 1
     figure: ~
-    long_description: A long description for There is a partial derivative in every direction at any point is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "For a smooth, two dimensional function, a partial derivative can be found at any point and in any direction."
     external_url: ~
     status: Active
     notes: ~
@@ -219,7 +220,7 @@ concepts:
     courses:
       - 1
     figure: ~
-    long_description: A long description for There is a tangent line in every direction at every point is not yet available--feel free to give us your suggestions on the poster! This is pretty cool!
+    long_description: "For a smooth, two dimensional function, a tangent line exists at any point and in any direction."
     external_url: ~
     status: Active
     notes: ~
@@ -231,7 +232,7 @@ concepts:
     courses:
       - 1
     figure: ~
-    long_description: A long description for The derivative is related to the density of contour lines is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "The magnitude of the derivative of a function is directly related to how closely together lie contour lines of the function: the closer together the contour lines, the greater the magnitude of the derivative."
     external_url: ~
     status: Active
     notes: ~
@@ -246,7 +247,7 @@ concepts:
     long_description: A long description for The value of a partial derivative depends on the value(s) of what is held constant is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
+    notes: "Is this really a statement about paths? I don't think we have path-related concepts."
   - id: 21
     name: A partial derivative can be expressed in terms of other partial derivatives
     prereq_concepts:
@@ -269,7 +270,7 @@ concepts:
     courses:
       - 1
     figure: ~
-    long_description: "For an $n-dimensional$ function $f$, the gradient of $f$ at a point is an $n$ dimensional vector "
+    long_description: "For an $n-$dimensional function $f$, the gradient of $f$ at a point is an $n-$dimensional vector "
     external_url: ~
     status: ~
     notes: ~
@@ -285,7 +286,7 @@ concepts:
     long_description: A long description for The magnitude of the gradient is the value of the slope in the steepest direction is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
+    notes: What more needs to be said?
   - id: 24
     name: The gradient is perpendicular to contour lines
     prereq_concepts: []
@@ -294,7 +295,7 @@ concepts:
     courses:
       - 1
     figure: ~
-    long_description: A long description for The gradient is perpendicular to contour lines is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "As the gradient lies along the direction of greatest change for a function, and contour lines lie along the direction of no change, these two objects (the gradient and contour lines) are perpendicular."
     external_url: ~
     status: Active
     notes: ~
@@ -311,7 +312,7 @@ concepts:
     long_description: A long description for All partial derivatives can be found as a slope of a tangent plane is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
+    notes: What more needs to be said?
   - id: 26
     name: The derivative is local quantity
     prereq_concepts: []
@@ -323,7 +324,7 @@ concepts:
     long_description: This is the long description for The derivative is local quantity. It is quite a long description!
     external_url: ~
     status: Active
-    notes: ~
+    notes: What do we really want to say here?
   - id: 27
     name: Partial derivatives are functions
     prereq_concepts: []
@@ -361,7 +362,7 @@ concepts:
     long_description: This is the long description for The components of the gradient are partial derivatives. It is quite a long description!
     external_url: ~
     status: Active
-    notes: ~
+    notes: What do we really want to say here?
   - id: 30
     name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
     prereq_concepts:
@@ -374,7 +375,7 @@ concepts:
     long_description: "A long description for Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors.  is not yet available--feel free to give us your suggestions on the poster!"
     external_url: ~
     status: Active
-    notes: ~
+    notes: "This concept doesn't make any sense."
   - id: 31
     name: "The magnitude of $d\\vec r$ is the length of a small step along a path"
     prereq_concepts:
@@ -387,7 +388,7 @@ concepts:
     long_description: "A long description for The magnitude of $d\\vec r$ is the length of a small step along a path is not yet available--feel free to give us your suggestions on the poster!"
     external_url: ~
     status: Active
-    notes: ~
+    notes: What more needs to be said?
   - id: 32
     name: "The direction of $d\\vec r$ is tangent to a path"
     prereq_concepts: []
@@ -399,7 +400,7 @@ concepts:
     long_description: "A long description for The direction of $d\\vec r$ is tangent to a path is not yet available--feel free to give us your suggestions on the poster!"
     external_url: ~
     status: Active
-    notes: ~
+    notes: Tangent to what path? How is this useful?
   - id: 33
     name: The gradient can tell you a small change in a function in any direction (differentials edition)
     prereq_concepts:
@@ -426,7 +427,31 @@ concepts:
     status: Active
     notes: ~
   - id: 35
-    name: ""
+    name: "\"$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$\""
+    prereq_concepts: []
+    representations:
+      - 11
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: Put into words
+  - id: 36
+    name: "\"$\\vec\\nabla\\cross\\vec v = \\cdots$\""
+    prereq_concepts: []
+    representations:
+      - 12
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: Put into words
+  - id: 37
+    name: "\"$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$\""
     prereq_concepts: []
     representations: []
     courses:
@@ -436,7 +461,18 @@ concepts:
     external_url: ~
     status: Active
     notes: Put into words
-  - id: 36
+  - id: 38
+    name: "\"$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$\""
+    prereq_concepts: []
+    representations: []
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: Put into words
+  - id: 39
     name: Vector Differentials
     prereq_concepts: []
     representations: []
@@ -446,10 +482,10 @@ concepts:
     external_url: ~
     status: ~
     notes: ~
-  - id: 37
+  - id: 40
     name: "Differential form of $\\vec r$ in spherical and cylindrical coordinates"
     prereq_concepts:
-      - 36
+      - 39
     representations:
       - 10
     courses:
@@ -459,7 +495,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 38
+  - id: 41
     name: "The gradient's dimension is the same as real space. The gradient lives in the domain"
     prereq_concepts: []
     representations:
@@ -471,7 +507,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 39
+  - id: 42
     name: The gradient is a local quantity
     prereq_concepts: []
     representations:
@@ -483,7 +519,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 40
+  - id: 43
     name: The electric field is the negative gradient of the electric potential
     prereq_concepts: []
     representations:
@@ -495,7 +531,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 41
+  - id: 44
     name: The divergence is related to the total flux through a closed surface
     prereq_concepts: []
     representations:
@@ -507,7 +543,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 42
+  - id: 45
     name: The divergence is a function
     prereq_concepts: []
     representations:
@@ -519,7 +555,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 43
+  - id: 46
     name: The divergence is a local quantity
     prereq_concepts: []
     representations:
@@ -531,7 +567,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 44
+  - id: 47
     name: The divergence of the electric field is equal to
     prereq_concepts: []
     representations:
@@ -543,7 +579,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 45
+  - id: 48
     name: The divergence of the magnetic field is zero
     prereq_concepts: []
     representations:
@@ -555,7 +591,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 46
+  - id: 49
     name: "The curl is related to the line integral around a closed loop. (\"circulation\")"
     prereq_concepts: []
     representations:
@@ -567,7 +603,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 47
+  - id: 50
     name: the curl is a (vector) function
     prereq_concepts: []
     representations:
@@ -578,8 +614,8 @@ concepts:
     long_description: A long description for the curl is a (vector) function is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
-  - id: 48
+    notes: What do we really want to say here?
+  - id: 51
     name: The curl is a local quantity
     prereq_concepts: []
     representations:
@@ -590,8 +626,8 @@ concepts:
     long_description: A long description for The curl is a local quantity is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
-  - id: 49
+    notes: What do we really want to say here?
+  - id: 52
     name: The magnetic field is equal to the curl of the magnetic vector potential
     prereq_concepts: []
     representations:
@@ -602,8 +638,8 @@ concepts:
     long_description: A long description for The magnetic field is equal to the curl of the magnetic vector potential is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
-  - id: 50
+    notes: What more needs to be said?
+  - id: 53
     name: The curl of the electric field is zero in electrostatics
     prereq_concepts: []
     representations:
@@ -614,8 +650,8 @@ concepts:
     long_description: A long description for The curl of the electric field is zero in electrostatics is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
-  - id: 51
+    notes: What more needs to be said?
+  - id: 54
     name: The divergence of the curl is equal to mu times the current in magneto-statics
     prereq_concepts: []
     representations:
@@ -627,8 +663,8 @@ concepts:
     long_description: A long description for The divergence of the curl is equal to mu times the current in magneto-statics is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
-  - id: 52
+    notes: What more needs to be said?
+  - id: 55
     name: Differentials are small changes or differences
     prereq_concepts:
       - 0
@@ -641,7 +677,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 53
+  - id: 56
     name: "Equations can be 'zapped with d' to relate differentials"
     prereq_concepts: []
     representations:
@@ -653,7 +689,7 @@ concepts:
     external_url: ~
     status: Active
     notes: 70 How is zapping with d different than taking the total derivative?
-  - id: 54
+  - id: 57
     name: Individual differentials can be manipulated algebraically
     prereq_concepts: []
     representations: []
@@ -664,7 +700,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 55
+  - id: 58
     name: Total differentials are linear
     prereq_concepts: []
     representations:
@@ -676,7 +712,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 56
+  - id: 59
     name: Differentials are small chunks
     prereq_concepts: []
     representations:
@@ -688,7 +724,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 57
+  - id: 60
     name: There are experimental limits to how $small$ of a change can be measured
     prereq_concepts:
       - 2
@@ -703,7 +739,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 58
+  - id: 61
     name: The derivative can be interpreted physically
     prereq_concepts: []
     representations: []
@@ -714,7 +750,7 @@ concepts:
     external_url: ~
     status: Active
     notes: Better example needed
-  - id: 59
+  - id: 62
     name: Partial derivatives that do not have the same variable(s) held constant are not the same derivative
     prereq_concepts:
       - 16
@@ -728,11 +764,11 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 60
+  - id: 63
     name: Partial derivatives are coefficients in a differentials equation
     prereq_concepts:
       - 2
-      - 52
+      - 55
     representations:
       - 7
       - 4
@@ -743,7 +779,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 61
+  - id: 64
     name: You can flip a partial derivative if the same variable(s) are constant
     prereq_concepts:
       - 14
@@ -758,7 +794,7 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 62
+  - id: 65
     name: There might be experimental limits on which quantities you can measure
     prereq_concepts: []
     representations:
@@ -770,10 +806,10 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 63
+  - id: 66
     name: Differentials allow the finding of partial derivatives when a variable cannot be solved for
     prereq_concepts:
-      - 55
+      - 58
     representations:
       - 16
     courses:
@@ -783,6 +819,64 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
+  - id: 67
+    name: "\"$\\vec\\nabla\\times\\vec v = \\cdots$\""
+    prereq_concepts: []
+    representations:
+      - 12
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: Put into words
+  - id: 68
+    name: "$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$"
+    prereq_concepts: []
+    representations:
+      - 11
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: Put into words
+  - id: 69
+    name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
+    prereq_concepts: []
+    representations:
+      - 12
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: Put into words
+  - id: 70
+    name: "$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$"
+    prereq_concepts: []
+    representations: []
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: Put into words
+  - id: 71
+    name: "$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$"
+    prereq_concepts: []
+    representations: []
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: Put into words
 activities:
   - id: 0
     name: The Heater II
@@ -941,7 +1035,7 @@ activities:
       - 0
       - 30
     new_concepts:
-      - 37
+      - 40
       - 31
       - 32
     representations:
@@ -959,8 +1053,8 @@ activities:
     prereq_concepts:
       - 23
     new_concepts:
-      - 38
-      - 39
+      - 41
+      - 42
     representations:
       - 14
     courses:
@@ -976,8 +1070,8 @@ activities:
       - 23
       - 24
     new_concepts:
-      - 38
-      - 39
+      - 41
+      - 42
     representations:
       - 14
       - 15
@@ -997,9 +1091,9 @@ activities:
       - 6
       - 34
     new_concepts:
-      - 41
-      - 42
-      - 43
+      - 44
+      - 45
+      - 46
     representations:
       - 15
     courses:
@@ -1016,9 +1110,9 @@ activities:
       - 5
       - 6
     new_concepts:
-      - 46
-      - 47
-      - 48
+      - 49
+      - 50
+      - 51
     representations:
       - 15
     courses:
@@ -1038,10 +1132,10 @@ activities:
       - 6
       - 11
     new_concepts:
-      - 52
-      - 53
-      - 54
       - 55
+      - 56
+      - 57
+      - 58
     representations:
       - 16
     courses:
@@ -1054,10 +1148,10 @@ activities:
   - id: 14
     name: Energy and Integrals
     prereq_concepts:
-      - 52
-      - 54
+      - 55
+      - 57
     new_concepts:
-      - 56
+      - 59
     representations:
       - 19
       - 16
@@ -1075,12 +1169,12 @@ activities:
       - 11
       - 16
       - 20
-      - 52
+      - 55
     new_concepts:
-      - 57
-      - 58
-      - 59
       - 60
+      - 61
+      - 62
+      - 63
     representations:
       - 19
       - 7
@@ -1101,15 +1195,15 @@ activities:
       - 11
       - 16
       - 21
-      - 52
-      - 53
-      - 54
-      - 59
-      - 60
-    new_concepts:
-      - 61
+      - 55
+      - 56
+      - 57
       - 62
       - 63
+    new_concepts:
+      - 64
+      - 65
+      - 66
     representations:
       - 16
     courses:

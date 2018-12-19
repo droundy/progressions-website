@@ -18,12 +18,13 @@
   </a>[%
   } else { %]
   <a href="/activity/orphans" class="activity orphans" id="orphans">
-    <div class="activity orphans">ORPHANS!</div>
+    <div class="activity orphans">No activity!</div>
   </a> [%
   } %]
   <div class="concepts">
     [% for concept in self.0.concepts.iter().map(|c| c.borrow()) { %]
     <a href="[% concept as URL %]" class="concept[%
+       if self.0.activity.is_none() { %] orphans[% }
        for a in concept.activities.iter().map(|a| a.borrow()) {
        %] from-[% a.id } %]" id="[% concept.id %]">
       [% for r in concept.representations.iter() { %]
