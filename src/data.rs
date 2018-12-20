@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
 use std::rc::Rc;
 use std::cell::RefCell;
-use display_as::{with_template, HTML, URL, UTF8, DisplayAs};
+use display_as::{with_template, HTML, URL, DisplayAs};
 use simple_error::bail;
 
 #[derive(Debug, Hash, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
@@ -34,17 +34,6 @@ impl DisplayAs<HTML> for RepresentationID {}
 pub struct CourseID(usize);
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-pub struct Representation {
-    pub id: RepresentationID,
-    pub name: String,
-    pub icon: String,
-}
-#[with_template("/representation/" slug::slugify(&self.name))]
-impl DisplayAs<URL> for Representation {}
-#[with_template("[%" "%]" "representation.html")]
-impl DisplayAs<HTML> for Representation {}
-
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Course {
     pub id: CourseID,
     pub number: String,
@@ -56,6 +45,7 @@ impl DisplayAs<HTML> for Course {}
 
 pub use crate::concept::{Concept, ConceptView};
 pub use crate::activity::{Activity, ActivityView};
+pub use crate::representation::{Representation, RepresentationView};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Data {
@@ -412,6 +402,32 @@ impl Data {
             v.output_groups = output_groups;
         }
         view
+    }
+
+    pub fn representation_view(&self, id: RepresentationID) -> RepresentationView {
+        let r = self.representations.borrow()[id.0].clone();
+        let all_concepts_using_r: Vec<_> = self.concepts.borrow().iter()
+            .filter(|c| c.representations.contains(&id))
+            .cloned()
+            .collect();
+        let all_activities_using_r: Vec<_> = self.activities.borrow().iter()
+            .filter(|c| c.representations.contains(&id))
+            .cloned()
+            .collect();
+        let activity_concepts: Vec<_> = all_concepts_using_r.iter()
+            .filter(|c| all_activities_using_r.iter().any(|a| a.new_concepts.contains(&c.id)))
+            .cloned()
+            .collect();
+        let other_concepts: Vec<_> = all_concepts_using_r.into_iter()
+            .filter(|c| !activity_concepts.contains(&c))
+            .collect();
+        RepresentationView {
+            id,
+            name: r.name,
+            icon: r.icon,
+            other_concepts,
+            groups: group_concepts(activity_concepts.iter().map(|c| self.concept_view(c.id)).collect()),
+        }
     }
 
     pub fn progression_view(&self) -> ProgressionView {

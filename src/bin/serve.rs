@@ -24,6 +24,12 @@ fn main() {
             data.course_view(&name)
                 .display_as(HTML).into_reply()
         });
+    let representation = path!("representation" / String)
+        .map(|name: String| {
+            let data = Data::new();
+            data.representation_view(data.representation_by_name(&name))
+                .display_as(HTML).into_reply()
+        });
     let activity = path!("activity" / String)
         .map(|name: String| {
             let data = Data::new();
@@ -44,6 +50,7 @@ fn main() {
                 .or(concept)
                 .or(activity)
                 .or(course)
+                .or(representation)
                 .or(style_css)
                 .or(libraries)
                 .or(figs)

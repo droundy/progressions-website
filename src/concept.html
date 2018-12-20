@@ -1,69 +1,7 @@
-[%
-let extrajs = {};
-let readyjs = {};
-let title = { self.name };
-let nav = { if self.courses.len() > 0 {
-     %]<li>[% self.courses[0] %]</li>[%
-  } else {
-     %]<li><span class="course">Orphan!</span></li>[%
-  }
-  %]<li><a href="concept-key.html">Concept page key</a></li>[% };
-let content = {
-  %]<article>
-      <details class="allprereqs">
-        <summary>Prerequisite concepts</summary>
-        <div class="allprereqs">
-          [%
-          for prereq in self.prereq_courses.iter() {
-            prereq
-          }
-          %]
-          <div class="prereq">
-            [%
-            for group in self.prereq_groups.iter() {
-              group
-            }
-            %]
-          </div>
-        </div>
-      </details>
-      <div [% if let Some(ref url) = self.external_url { %]
-           onclick="location.href='[% url as URL %]';" style="cursor: pointer;"[%
-           } %] class="concept">
-        <div class="taughtby">
-          <div class="taughtby"> [%
-            for a in self.activities.iter().map(|a| a.borrow()) {
-            %]<a href="[% a as URL %]" class="activity">
-              [% a.name %]
-            </a>[%
-            } %]
-          </div>
-        </div>
-        <h2 thisid="[% self.id %]" name="name">[% self.name %]</h2>
-        [% if let Some(ref figure) = self.figure { %]
-        <img src="[% figure %]" class="figure"/>
-        [% } %]
-        <div class="description" thisid="[% self.id %]" name="long_description">
-          [% self.long_description %]
-        </div>
-[% if self.representations.len() > 0 { %]
-        <h3>Representations used</h3>
-        <div class="row"> [%
-          for r in self.representations.iter() { %]
-          <a href="[% r as URL %]" class="representation">
-            Representation [% r %] (really icon)
-          </a>
-          [%
-          }
-          %]
-        </div>
-[% } %]
-      </div>
-      [% for group in self.output_groups.iter() {
-        group
-      } %]
-    </article>
-    [%
-    };
-    include!("base.html");
-%]
+<a href="[% self as URL %]" class="concept">
+  <span thisid="[% self.id %]" name="name">[% self.name %]</span>
+  <div class="hint"><br/></div>
+  <div class="description hint" thisid="[% self.id %]" name="long_description">
+    [% self.long_description %]
+  </div>
+</a>

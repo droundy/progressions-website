@@ -1,0 +1,23 @@
+[%
+let extrajs = {};
+let readyjs = {};
+let title = { %] Representation: [% self.name };
+let nav = {};
+let content = {
+  %]<article>
+      <div class="representation">
+        <h1>[% self.icon as UTF8 %]</h1>
+        <br/>
+        {{self.description}}
+        <div class="row">
+          [% for c in self.other_concepts.iter() { %] HELLO [% c %] GOODBYE [%  } %]
+        </div>
+        <div class="row">
+          [% for g in self.groups.iter() { g } %]
+        </div>
+      </div>
+    </article>
+    [%
+    };
+    include!("base.html");
+%]

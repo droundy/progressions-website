@@ -23,6 +23,8 @@ pub struct Concept {
 }
 #[with_template("/concept/" slug::slugify(&self.name))]
 impl DisplayAs<URL> for Concept {}
+#[with_template("[%" "%]" "concept.html")]
+impl DisplayAs<HTML> for Concept {}
 
 /// This is a concept, but with all the relationships filled in.
 #[derive(Debug, Clone)]
@@ -47,7 +49,7 @@ pub struct ConceptView {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
-#[with_template("[%" "%]" "concept.html")]
+#[with_template("[%" "%]" "concept-view.html")]
 impl DisplayAs<HTML> for ConceptView {}
 #[with_template("/concept/" slug::slugify(&self.name))]
 impl DisplayAs<URL> for ConceptView {}
