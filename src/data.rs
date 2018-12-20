@@ -421,12 +421,21 @@ impl Data {
         let other_concepts: Vec<_> = all_concepts_using_r.into_iter()
             .filter(|c| !activity_concepts.contains(&c))
             .collect();
+        let mut groups: Vec<_> = group_concepts(activity_concepts.iter().map(|c| self.concept_view(c.id)).collect());
+        groups.extend(self.activities.borrow().iter()
+                      .filter(|a| a.representations.contains(&id))
+                      .map(|a| self.activity_view(a.id))
+                      .filter(|a| !all_activities_using_r.contains(a))
+                      .map(|a| ActivityGroup {
+                          activity: Some(a),
+                          concepts: Vec::new(),
+                      }));
         RepresentationView {
             id,
             name: r.name,
             icon: r.icon,
             other_concepts,
-            groups: group_concepts(activity_concepts.iter().map(|c| self.concept_view(c.id)).collect()),
+            groups,
         }
     }
 
