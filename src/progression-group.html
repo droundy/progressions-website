@@ -1,7 +1,7 @@
 <div class="activity-grouping">
-  [% if let Some(ref activity) = self.0.activity.iter().map(|a| a.borrow()).next() { %]
+  [% if let Some(ref activity) = self.0.activity.iter().next() { %]
   <a href="[% activity as URL %]" class="activity[%
-     for c in activity.prereq_concepts.iter().map(|c| c.borrow()) {
+     for c in activity.prereq_concepts.iter() {
      %] from-[% c.id } %]" id="[% activity.id %]">
     <div class="activity" thisid="[% activity.id %]" name="name">[% activity.name %]</div>
     <div class="hint"><br/></div>
@@ -18,10 +18,10 @@
   </a> [%
   } %]
   <div class="concepts">
-    [% for concept in self.0.concepts.iter().map(|c| c.borrow()) { %]
+    [% for concept in self.0.concepts.iter() { %]
     <a href="[% concept as URL %]" class="concept[%
        if self.0.activity.is_none() { %] orphans[% }
-       for a in concept.activities.iter().map(|a| a.borrow()) {
+       for a in concept.activities.iter() {
        %] from-[% a.id } %]" id="[% concept.id %]"> [%
       for r in concept.representations.iter() {
         r

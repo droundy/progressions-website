@@ -48,7 +48,7 @@ let content = {
         } %]
         <h3>Concepts taught</h3>
         <div class="row">[%
-          for c in self.new_concepts.iter().map(|c| c.borrow()) { %]
+          for c in self.new_concepts.iter() { %]
           <a href="[% c as URL %]" class="concept">
             [% c.name %]
             <div class="description hint">

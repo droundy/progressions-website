@@ -5,8 +5,7 @@ use crate::data::{Course, CourseID,
                   ActivityGroup,
                   ConceptID, ConceptView, ActivityID,
                   PrereqCourse};
-use std::rc::Rc;
-use std::cell::RefCell;
+use rcu_clean::RcRcu;
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Activity {
@@ -32,10 +31,10 @@ pub struct ActivityView {
     pub name: String,
 
     pub prereq_courses: Vec<PrereqCourse>,
-    pub prereq_concepts: Vec<Rc<RefCell<ConceptView>>>,
+    pub prereq_concepts: Vec<RcRcu<ConceptView>>,
     pub prereq_groups: Vec<ActivityGroup>,
 
-    pub new_concepts: Vec<Rc<RefCell<ConceptView>>>,
+    pub new_concepts: Vec<RcRcu<ConceptView>>,
 
     pub output_groups: Vec<ActivityGroup>,
 

@@ -15,7 +15,6 @@ fn main() {
         .map(|name: String| {
             let data = Data::new();
             data.concept_view(data.concept_by_name(&name))
-                .borrow()
                 .display_as(HTML).into_reply()
         });
     let course = path!("course" / String)
@@ -34,7 +33,6 @@ fn main() {
         .map(|name: String| {
             let data = Data::new();
             data.activity_view(data.activity_by_name(&name))
-                .borrow()
                 .display_as(HTML).into_reply()
         });
     let index = (warp::path::end().or(path!("index.html")))

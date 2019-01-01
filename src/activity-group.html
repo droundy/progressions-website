@@ -1,7 +1,7 @@
 <div class="activity-grouping has[% self.concepts.len() %]">
   <div class="taughtby">
     <div class="taughtby">
-      [% if let Some(ref activity) = self.activity.iter().map(|a| a.borrow()).next() { %]
+      [% if let Some(ref activity) = self.activity.iter().next() { %]
       <a href="[% activity as URL %]" class="activity" thisid="[% activity.id %]" name="name">
         [% activity.name %]
       </a>
@@ -15,7 +15,7 @@
       %]
     </div>
   </div> [%
-  for c in self.concepts.iter().map(|c| c.borrow()) {
+  for c in self.concepts.iter() {
     %]
   <a href="[% c as URL %]" class="concept">
     <span kind="concept" thisid="[% c.id %]" name="name">[% c.name %]</span>

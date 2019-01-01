@@ -32,7 +32,7 @@ let content = {
            } %] class="concept">
         <div class="taughtby">
           <div class="taughtby"> [%
-            for a in self.activities.iter().map(|a| a.borrow()) {
+            for a in self.activities.iter() {
             %]<a href="[% a as URL %]" class="activity">
               [% a.name %]
             </a>[%

@@ -1,7 +1,6 @@
 use display_as::{with_template, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
-use std::rc::Rc;
-use std::cell::RefCell;
+use rcu_clean::RcRcu;
 
 use crate::data::{CourseID, Course,
                   RepresentationID, Representation,
@@ -32,12 +31,12 @@ pub struct ConceptView {
     pub id: ConceptID,
     pub name: String,
 
-    pub activities: Vec<Rc<RefCell<ActivityView>>>,
+    pub activities: Vec<RcRcu<ActivityView>>,
 
     pub prereq_courses: Vec<PrereqCourse>,
-    pub prereq_concepts: Vec<Rc<RefCell<ConceptView>>>,
+    pub prereq_concepts: Vec<RcRcu<ConceptView>>,
     pub prereq_groups: Vec<ActivityGroup>,
-    pub needed_for_concepts: Vec<Rc<RefCell<ConceptView>>>,
+    pub needed_for_concepts: Vec<RcRcu<ConceptView>>,
 
     pub output_groups: Vec<ActivityGroup>,
 
