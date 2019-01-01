@@ -275,10 +275,9 @@ impl Data {
             .collect();
         output_groups.extend(self.activities.borrow().iter()
                              .filter(|a| a.prereq_concepts.contains(&id))
-                             .map(|a| self.activity_view(a.id))
                              .filter(|a| !activities.contains(a))
                              .map(|a| ActivityGroup {
-                                 activity: Some(a),
+                                 activity: Some(a.clone()),
                                  concepts: Vec::new(),
                              }));
         let activities: Vec<_> =
@@ -370,7 +369,7 @@ impl Data {
                              .filter(|aa| a.new_concepts.iter()
                                      .any(|cc| aa.prereq_concepts.contains(&cc)))
                              .map(|a| ActivityGroup {
-                                 activity: Some(self.activity_view(a.id)),
+                                 activity: Some(a.clone()),
                                  concepts: Vec::new(),
                              }));
 
@@ -425,9 +424,8 @@ impl Data {
         groups.extend(self.activities.borrow().iter()
                       .filter(|a| a.representations.contains(&id))
                       .filter(|a| !all_activities_using_r.contains(a))
-                      .map(|a| self.activity_view(a.id))
                       .map(|a| ActivityGroup {
-                          activity: Some(a),
+                          activity: Some(a.clone()),
                           concepts: Vec::new(),
                       }));
         RepresentationView {
@@ -464,8 +462,8 @@ impl Data {
             .filter(|c| c.courses.contains(&id))
             .map(|c| self.concept_view(c.id))
             .collect();
-        let groups: Vec<ProgressionGroup> = self.group_concepts(course_concepts)
-            .into_iter().map(|g| ProgressionGroup(g)).collect();
+        let groups: Vec<ProgressionGroup> =
+            self.progression_group_concepts(course_concepts);
         CourseSequence { course, prereq_courses: Vec::new(), groups }
     }
 
@@ -506,7 +504,23 @@ impl Data {
     }
 
     fn group_concepts(&self, x: Vec<RcRcu<ConceptView>>) -> Vec<ActivityGroup> {
-        let mut out: Vec<ActivityGroup> = Vec::new();
+        self.progression_group_concepts(x).into_iter()
+            .map(|g| ActivityGroup {
+                activity: {
+                    if let Some(a) = g.activity {
+                        Some(self.activities.borrow()[a.id.0].clone())
+                    } else {
+                        None
+                    }
+                },
+                concepts: g.concepts.iter().map(|c| self.concepts.borrow()[c.id.0].clone())
+                    .collect(),
+            })
+            .collect()
+    }
+
+    fn progression_group_concepts(&self, x: Vec<RcRcu<ConceptView>>) -> Vec<ProgressionGroup> {
+        let mut out: Vec<ProgressionGroup> = Vec::new();
         for c in x.into_iter() {
             let mut act: Vec<_> = c.activities.iter().map(|x| Some(x.clone())).collect();
             if act.len() == 0 {
@@ -519,9 +533,9 @@ impl Data {
                 group.concepts.push(c);
             } else {
                 if act.len() >= 1 {
-                    out.push(ActivityGroup { activity: act[0].clone(), concepts: vec![c] });
+                    out.push(ProgressionGroup { activity: act[0].clone(), concepts: vec![c] });
                 } else {
-                    out.push(ActivityGroup { activity: None, concepts: vec![c] });
+                    out.push(ProgressionGroup { activity: None, concepts: vec![c] });
                 }
             }
         }
@@ -551,15 +565,18 @@ impl DisplayAs<HTML> for PrereqCourse {}
 /// This is an activity and concepts it teaches.
 #[derive(Debug, Clone)]
 pub struct ActivityGroup {
-    pub activity: Option<RcRcu<ActivityView>>,
-    pub concepts: Vec<RcRcu<ConceptView>>,
+    pub activity: Option<Activity>,
+    pub concepts: Vec<Concept>,
 }
 #[with_template("[%" "%]" "activity-group.html")]
 impl DisplayAs<HTML> for ActivityGroup {}
 
-/// This is an activity and concepts it teaches, but displayed in a progression..
+/// This is an activity and concepts it teaches, but displayed in a progression.
 #[derive(Debug, Clone)]
-pub struct ProgressionGroup(ActivityGroup);
+pub struct ProgressionGroup {
+    pub activity: Option<RcRcu<ActivityView>>,
+    pub concepts: Vec<RcRcu<ConceptView>>,
+}
 #[with_template("[%" "%]" "progression-group.html")]
 impl DisplayAs<HTML> for ProgressionGroup {}
 

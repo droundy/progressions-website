@@ -1,5 +1,5 @@
 <div class="activity-grouping">
-  [% if let Some(ref activity) = self.0.activity.iter().next() { %]
+  [% if let Some(ref activity) = self.activity.iter().next() { %]
   <a href="[% activity as URL %]" class="activity[%
      for c in activity.prereq_concepts.iter() {
      %] from-[% c.id } %]" id="[% activity.id %]">
@@ -18,9 +18,9 @@
   </a> [%
   } %]
   <div class="concepts">
-    [% for concept in self.0.concepts.iter() { %]
+    [% for concept in self.concepts.iter() { %]
     <a href="[% concept as URL %]" class="concept[%
-       if self.0.activity.is_none() { %] orphans[% }
+       if self.activity.is_none() { %] orphans[% }
        for a in concept.activities.iter() {
        %] from-[% a.id } %]" id="[% concept.id %]"> [%
       for r in concept.representations.iter() {
