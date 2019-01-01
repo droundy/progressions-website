@@ -269,7 +269,7 @@ impl Data {
             .filter(|x| x.prereq_concepts.contains(&id))
             .map(|x| self.concept_view(x.id))
             .collect();
-        let mut output_groups = group_concepts(output_concepts);
+        let mut output_groups = self.group_concepts(output_concepts);
         let activities: Vec<_> = output_groups.iter()
             .flat_map(|g| g.activity.iter().cloned())
             .collect();
@@ -291,7 +291,7 @@ impl Data {
             .map(|x| self.concept_view(*x))
             .filter(|x| !the_prereq_courses.iter().any(|z| x.courses.contains(&z)))
             .collect();
-        let prereq_groups = group_concepts(prereq_concepts.clone());
+        let prereq_groups = self.group_concepts(prereq_concepts.clone());
         let needed_for_concepts: Vec<_> =
             self.concepts.borrow().iter()
             .filter(|x| x.prereq_concepts.contains(&id))
@@ -365,7 +365,7 @@ impl Data {
             .filter(|x| a.new_concepts.contains(&x.id))
             .map(|x| self.concept_view(x.id))
             .collect();
-        let mut output_groups = group_concepts(output_concepts);
+        let mut output_groups = self.group_concepts(output_concepts);
         output_groups.extend(self.activities.borrow().iter()
                              .filter(|aa| a.new_concepts.iter()
                                      .any(|cc| aa.prereq_concepts.contains(&cc)))
@@ -386,7 +386,7 @@ impl Data {
             .filter(|c| !c.courses.iter().any(|cc| other_courses.contains(cc)))
             .cloned()
             .collect();
-        let prereq_groups: Vec<_> = group_concepts(prereq_concepts_in_this_course);
+        let prereq_groups: Vec<_> = self.group_concepts(prereq_concepts_in_this_course);
         {
             let mut v = view.update();
 
@@ -421,7 +421,7 @@ impl Data {
         let other_concepts: Vec<_> = all_concepts_using_r.into_iter()
             .filter(|c| !activity_concepts.contains(&c))
             .collect();
-        let mut groups: Vec<_> = group_concepts(activity_concepts.iter().map(|c| self.concept_view(c.id)).collect());
+        let mut groups: Vec<_> = self.group_concepts(activity_concepts.iter().map(|c| self.concept_view(c.id)).collect());
         groups.extend(self.activities.borrow().iter()
                       .filter(|a| a.representations.contains(&id))
                       .filter(|a| !all_activities_using_r.contains(a))
@@ -464,7 +464,7 @@ impl Data {
             .filter(|c| c.courses.contains(&id))
             .map(|c| self.concept_view(c.id))
             .collect();
-        let groups: Vec<ProgressionGroup> = group_concepts(course_concepts)
+        let groups: Vec<ProgressionGroup> = self.group_concepts(course_concepts)
             .into_iter().map(|g| ProgressionGroup(g)).collect();
         CourseSequence { course, prereq_courses: Vec::new(), groups }
     }
@@ -504,6 +504,39 @@ impl Data {
             .collect();
         cs
     }
+
+    fn group_concepts(&self, x: Vec<RcRcu<ConceptView>>) -> Vec<ActivityGroup> {
+        let mut out: Vec<ActivityGroup> = Vec::new();
+        for c in x.into_iter() {
+            let mut act: Vec<_> = c.activities.iter().map(|x| Some(x.clone())).collect();
+            if act.len() == 0 {
+                act.push(None);
+            }
+            if let Some(ref mut group) = out.iter_mut()
+                .filter(|x| act.contains(&x.activity))
+                .next()
+            {
+                group.concepts.push(c);
+            } else {
+                if act.len() >= 1 {
+                    out.push(ActivityGroup { activity: act[0].clone(), concepts: vec![c] });
+                } else {
+                    out.push(ActivityGroup { activity: None, concepts: vec![c] });
+                }
+            }
+        }
+        out.sort_unstable_by_key(|g| {
+            if let Some(ref a) = g.activity {
+                a.id
+            } else {
+                ActivityID(100000)
+            }
+        });
+        for g in out.iter_mut() {
+            g.concepts.sort_unstable_by_key(|c| c.id);
+        }
+        out
+    }
 }
 
 /// This is a course and concepts it teaches.
@@ -529,39 +562,6 @@ impl DisplayAs<HTML> for ActivityGroup {}
 pub struct ProgressionGroup(ActivityGroup);
 #[with_template("[%" "%]" "progression-group.html")]
 impl DisplayAs<HTML> for ProgressionGroup {}
-
-fn group_concepts(x: Vec<RcRcu<ConceptView>>) -> Vec<ActivityGroup> {
-    let mut out: Vec<ActivityGroup> = Vec::new();
-    for c in x.into_iter() {
-        let mut act: Vec<_> = c.activities.iter().map(|x| Some(x.clone())).collect();
-        if act.len() == 0 {
-            act.push(None);
-        }
-        if let Some(ref mut group) = out.iter_mut()
-            .filter(|x| act.contains(&x.activity))
-            .next()
-        {
-            group.concepts.push(c);
-        } else {
-            if act.len() >= 1 {
-                out.push(ActivityGroup { activity: act[0].clone(), concepts: vec![c] });
-            } else {
-                out.push(ActivityGroup { activity: None, concepts: vec![c] });
-            }
-        }
-    }
-    out.sort_unstable_by_key(|g| {
-        if let Some(ref a) = g.activity {
-            a.id
-        } else {
-            ActivityID(100000)
-        }
-    });
-    for g in out.iter_mut() {
-        g.concepts.sort_unstable_by_key(|c| c.id);
-    }
-    out
-}
 
 pub struct CourseSequence {
     course: Course,
