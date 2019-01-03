@@ -1158,84 +1158,111 @@ activities:
 representations:
   - id: 0
     name: "$\\Delta x$"
+    description: ""
     icon: "$\\Delta x$"
   - id: 1
     name: "$\\frac{\\Delta f}{\\Delta x}$"
+    description: ""
     icon: "$\\frac{\\Delta f}{\\Delta x}$"
   - id: 2
     name: 1D Graph
+    description: ""
     icon: 1D Graph
   - id: 3
     name: "$\\frac{d f}{d x}$"
+    description: ""
     icon: "$\\frac{d f}{d x}$"
   - id: 4
     name: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+    description: ""
     icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
   - id: 5
     name: 2D Graph
+    description: ""
     icon: 2D Graph
   - id: 6
     name: Contour Maps
+    description: "**How contour maps display information**\n\n[![](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-1.svg)](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-1.svg)Figure 1[![](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-2.png)](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-2.png)Figure 2 (maybe cut entropy curves)A contour graph shows the relationship between three variables using only two dimensions, as shown in Fig. 1. Two variables lie along the horizontal and vertical axes (*x* and *y* in the figure), while the other variable ($V$) is represented using curves along which that variable is constant. It is then possible to read information quickly: *e.g.,* where the value of *V* is high or low or where it is changing quickly or slowly. The canonical interpretation of a contour graph (as might be taught in multivariable calculus) is that the variable *V* is a function of *x* and *y*. In experimental contexts, however, one might construct a graph like Fig. 2, which shows pressure (*p*) *vs.* volume ($V$) collected at several different values of constant temperature (*T*). Although this can still be interpreted as a contour graph, it can be thought of as one of the axis variables expressed as a function both of the other axis variable and of the variable which is held constant. This usage of a contour graph is not commonly taught in mathematics courses, but may be used heavily by professional scientists.\n\n**Derivatives**\n\nDerivatives can be found from a contour graph in many different ways, which may depend on how the graph is to be interpreted. For example, in graphs like Fig. 1, a derivative of $V$ can be found with respect to any variable and in any direction, including *x* and *y*, by choosing two points on adjacent contour lines and dividing the change in $V$ by the corresponding change in, for example, *x* or *y*, where the perpendicular direction is typically held constant. The value of such a derivative can also be compared at different points by examining the density of the contour lines. A vector quantity like the gradient can also be found.\n\nDerivatives like the one described above can also be found for the graph in Fig. 2. However, it is also common to find the derivative of *p* with respect to *V*, holding *T* (or another variable) constant. Such a derivative can be found either by choosing points and computing a ratio of small changes or by sketching a line tangent to the constant temperature curve and computing its slope.\n\n**Affordances and limitations**\n\nContour graphs are flexible. The number of contour lines drawn can be changed to alter the resolution. The different curves or the regions between the curves can be given different colors. In cases where there are more than three variables, but only two independent variables, contour graphs for different variables can be overlaid using different colors or line styles, as in Fig. 2.\n\nHowever, contour graphs do not generalize well to functions of three or more variables. They necessarily cannot convey the exact value of $V$ at every value of *x* and *y*, information that is carried by a representation like a plastic surface."
     icon: "<img src=\"/figs/contour-map.svg\"/>"
   - id: 7
     name: "$\\frac{\\partial f}{\\partial x}$"
+    description: "This representation for partial derivatives is taught in math classes, and widely used in physics, for instance in E&M and quantum mechanics. However, in thermal physics this representation is incomplete because it does not unambiguously describe a derivative, since it fails to indicate what is held constant."
     icon: "$\\frac{\\partial f}{\\partial x}$"
   - id: 8
     name: "$\\vec \\nabla f$"
+    description: ""
     icon: "$\\vec \\nabla f$"
   - id: 9
     name: Inclinometer
+    description: ""
     icon: "<img src=\"/figs/inclinometer.jpg\"/>"
   - id: 10
     name: "$d \\vec r$"
+    description: ""
     icon: "$d \\vec r$"
   - id: 11
     name: "$\\vec \\nabla \\cdot \\vec v$"
+    description: ""
     icon: "$\\vec \\nabla \\cdot \\vec v$"
   - id: 12
     name: "$\\vec \\nabla \\times \\vec v$"
+    description: ""
     icon: "$\\vec \\nabla \\times \\vec v$"
   - id: 13
     name: 3D plots
+    description: ""
     icon: "<img src=\"/figs/3dplot.jpg\"/>"
   - id: 14
     name: Kinesthetic
+    description: ""
     icon: "<img src=\"/figs/kin.jpg\"/>"
   - id: 15
     name: Vector Field Map
+    description: ""
     icon: "<img src=\"/figs/vector-field-map.jpg\"/>"
   - id: 16
     name: $df$
+    description: ""
     icon: $df$
   - id: 17
     name: $dx$
+    description: ""
     icon: $dx$
   - id: 18
     name: Experiment
+    description: ""
     icon: Experiment
   - id: 19
     name: PDM
+    description: ""
     icon: "<img src=\"/figs/pdm.jpg\"/>"
   - id: 20
     name: Table
+    description: ""
     icon: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
   - id: 21
     name: partial f/partial x
+    description: ""
     icon: "$\\frac{\\partial f}{\\partial x}$"
   - id: 22
     name: partial f/partial x fixing y
+    description: ""
     icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
   - id: 23
     name: Del f
+    description: ""
     icon: "$\\vec\\nabla f$"
   - id: 24
     name: Del dot f
+    description: ""
     icon: "$\\vec\\nabla\\cdot\\vec f$"
   - id: 25
     name: picture of PDM
+    description: ""
     icon: "<img src=\"/figs/pdm.jpg\"/>"
   - id: 26
     name: Inclinomete(r
+    description: ""
     icon: "<img src=\"inclinometer.jpg\"/>"
 courses:
   - id: 0

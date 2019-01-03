@@ -5,12 +5,14 @@ use rcu_clean::RcRcu;
 use std::cell::RefCell;
 use display_as::{with_template, HTML, URL, DisplayAs};
 use simple_error::bail;
+use crate::markdown::Markdown;
 
 #[derive(Debug, Hash, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Change {
     pub id: String,
     pub field: String,
     pub content: String,
+    pub html: String,
 }
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
@@ -116,6 +118,10 @@ impl Data {
                     "name" => {
                         self.representations.borrow_mut()[id].name = c.content.trim().to_string();
                     }
+                    "description" => {
+                        self.representations.borrow_mut()[id].description =
+                            Markdown::from_html(&c.html);
+                    }
                     _ => bail!("Unknown field of representation: {}", c.field),
                 }
             }
@@ -190,6 +196,7 @@ impl Data {
         self.representations.borrow_mut().push(Representation {
             id: newid,
             name: name.to_string(),
+            description: Default::default(),
             icon: name.to_string(),
         });
         newid
@@ -431,6 +438,7 @@ impl Data {
         RepresentationView {
             id,
             name: r.name,
+            description: r.description,
             icon: r.icon,
             other_concepts,
             groups,

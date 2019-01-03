@@ -79,6 +79,7 @@ $(document).ready(function() {
           id: $(this).attr('thisid'),
           field: $(this).attr('name'),
           content: $(this).text(),
+          html: $(this).html(),
         };
       $.ajax({
         type: 'POST',

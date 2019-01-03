@@ -1,11 +1,14 @@
 use display_as::{with_template, HTML, URL, UTF8, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
 use crate::data::{RepresentationID, ActivityGroup, Concept};
+use crate::markdown::Markdown;
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Representation {
     pub id: RepresentationID,
     pub name: String,
+    #[serde(default)]
+    pub description: Markdown,
     pub icon: String,
 }
 #[with_template("/representation/" slug::slugify(&self.name))]
@@ -18,6 +21,7 @@ impl DisplayAs<HTML> for Representation {}
 pub struct RepresentationView {
     pub id: RepresentationID,
     pub name: String,
+    pub description: Markdown,
     pub icon: String,
     pub groups: Vec<ActivityGroup>,
     pub other_concepts: Vec<Concept>,

@@ -151,6 +151,7 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
             id: format_as!(HTML, data.representation_by_name(r)),
             field: "icon".to_string(),
             content: i.to_string(),
+            html: i.to_string(),
         })?;
     }
 

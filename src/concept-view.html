@@ -49,11 +49,8 @@ let content = {
 [% if self.representations.len() > 0 { %]
         <h3>Representations used</h3>
         <div class="row"> [%
-          for r in self.representations.iter() { %]
-          <a href="[% r as URL %]" class="representation">
-            Representation [% r %] (really icon)
-          </a>
-          [%
+          for r in self.representations.iter() {
+             r
           }
           %]
         </div>
