@@ -259,6 +259,7 @@ class Representation:
           'df': r'$df$',
           'Contour Maps': r'<img src="contour-map.svg"/>',
           'PDM': r'<img src="pdm.jpg"/>',
+          'surface': r'<img src="surface.jpg"/>',
           'picture of PDM': r'<img src="pdm.jpg"/>',
           'Inclinometer': r'<img src="inclinometer.jpg"/>',
           'Kinesthetic': r'<img src="kin.jpg"/>',

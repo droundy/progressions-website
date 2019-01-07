@@ -139,6 +139,7 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
         (r"df", r"$df$"),
         (r"Contour Maps", r#"<img src="/figs/contour-map.svg"/>"#),
         (r"PDM", r#"<img src="/figs/pdm.jpg"/>"#),
+        (r"surface", r#"<img src="/figs/surface.jpg"/>"#),
         (r"picture of PDM", r#"<img src="/figs/pdm.jpg"/>"#),
         (r"Inclinometer", r#"<img src="/figs/inclinometer.jpg"/>"#),
         (r"Kinesthetic", r#"<img src="/figs/kin.jpg"/>"#),

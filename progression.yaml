@@ -32,7 +32,7 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: "One can view $\\frac{df}{dx}$ as a fraction where $df$ is a small change in $f$ and $dx$ is a small change in $x$."
+    long_description: "One can view $\\frac{df}{dx}$ as approximately given by a fraction where $df$ is a small change in $f$ and $dx$ is a small change in $x$."
     external_url: ~
     status: Active
     notes: ~
@@ -50,27 +50,29 @@ concepts:
     notes: ~
   - id: 4
     name: The derivative at a point is the slope of a tangent line at that point
-    prereq_concepts: []
+    prereq_concepts:
+      - 4
     representations:
       - 2
     courses:
       - 0
     figure: ~
-    long_description: The value of the derivative at a point on a curve is equivalent to the slope of a line tangent to the curve at that point.
+    long_description: The value of the derivative at a point on a curve is equivalent to the slope of a line tangent to the curve at that point. The tangent line can be thought of as the limit of a secant line between two points infinitesimally close together
     external_url: ~
     status: Active
     notes: ~
   - id: 5
     name: The derivative is a limit
-    prereq_concepts: []
+    prereq_concepts:
+      - 2
     representations: []
     courses:
       - 0
     figure: ~
-    long_description: "$\\lim_{h \\rightarrow 0} \\frac{f(x+h)-f(x)}{h}$"
+    long_description: "Technically, the derivative is a ratio of small changes in the limit that the change in the denominator goes to zero: $\\frac{df}{dx}=\\lim_{h \\rightarrow 0} \\frac{f(x+h)-f(x)}{h}$"
     external_url: ~
     status: Active
-    notes: What do we really want to say here?
+    notes: ~
   - id: 6
     name: The derivative can be a function
     prereq_concepts: []
@@ -104,7 +106,7 @@ concepts:
     long_description: A long description for The derivative is a linear function is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
+    notes: "Do we mean that it is a linear operator? "
   - id: 9
     name: Power law
     prereq_concepts: []
@@ -112,7 +114,7 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: A long description for Power law is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "The derivative with respect to $x$ of $x^A$ is $A \\cdot x^{A-1}$."
     external_url: ~
     status: Active
     notes: ~
@@ -135,10 +137,10 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: A long description for Variables can be held constant is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "When taking a derivative of a multivariable function, it is possible to consider a simplier situation in which some of the variables are considered to be constant. "
     external_url: ~
     status: Active
-    notes: Always or just when taking a derivative?
+    notes: ~
   - id: 12
     name: Product rule
     prereq_concepts: []
@@ -147,7 +149,7 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: "$\\frac{d}{dt}(xy)=x\\frac{dy}{dt}+y\\frac{dx}{dt}$"
+    long_description: "When taking the derivative of a product with $n$ factors, the product rule gives that this derivative is equal a sum of $n$ terms, the $i$th of which is the origional function but with  the $i$th factor replaced by the derivative of the $i$th factor:  $\\frac{d}{dt}(xy)=\\frac{dx}{dt} y+x \\frac{dy}{dt}$"
     external_url: ~
     status: Active
     notes: ~
@@ -159,10 +161,10 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: "$\\frac{df}{dy}=\\frac{df}{dx}\\frac{dx}{dy}$"
+    long_description: "If $f=f(y)$ and $y=y(x), then \\frac{df}{dy}=\\frac{df}{dx}\\frac{dx}{dy}.$"
     external_url: ~
     status: Active
-    notes: Add more
+    notes: ~
   - id: 14
     name: You can flip a derivative
     prereq_concepts: []
@@ -261,7 +263,7 @@ concepts:
     long_description: A long description for A partial derivative can be expressed in terms of other partial derivatives is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
+    notes: What do we really want to say in this long description?
   - id: 22
     name: The gradient is a vector
     prereq_concepts: []
@@ -278,6 +280,7 @@ concepts:
     name: The magnitude of the gradient is the value of the slope in the steepest direction
     prereq_concepts:
       - 4
+      - 22
     representations:
       - 8
     courses:
@@ -286,7 +289,7 @@ concepts:
     long_description: A long description for The magnitude of the gradient is the value of the slope in the steepest direction is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: What more needs to be said?
+    notes: What more needs to be said in the long description?
   - id: 24
     name: The gradient is perpendicular to contour lines
     prereq_concepts: []
@@ -309,10 +312,10 @@ concepts:
     courses:
       - 1
     figure: ~
-    long_description: A long description for All partial derivatives can be found as a slope of a tangent plane is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "Just as the derivative of a one-dimensional funtion at a point is equal to the slope of a tangent line at that point, and partial derivative of a multivariable function can be found as a slope of a tangent plane. "
     external_url: ~
     status: Active
-    notes: What more needs to be said?
+    notes: ~
   - id: 26
     name: The derivative is local quantity
     prereq_concepts: []
@@ -327,20 +330,22 @@ concepts:
     notes: What do we really want to say here?
   - id: 27
     name: Partial derivatives are functions
-    prereq_concepts: []
+    prereq_concepts:
+      - 67
     representations:
       - 7
       - 4
     courses:
       - 1
     figure: ~
-    long_description: "The partial derivative of a function (unless taken at a single point) is itself a function. "
+    long_description: "The partial derivative of a function is itself a function (although taking a partial derivative at a point will just give a number). "
     external_url: ~
     status: Active
     notes: ~
   - id: 28
     name: The gradient is a function
-    prereq_concepts: []
+    prereq_concepts:
+      - 67
     representations:
       - 8
     courses:
@@ -362,7 +367,7 @@ concepts:
     long_description: This is the long description for The components of the gradient are partial derivatives. It is quite a long description!
     external_url: ~
     status: Active
-    notes: What do we really want to say here?
+    notes: What do we really want to say in the long description?
   - id: 30
     name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
     prereq_concepts:
@@ -388,7 +393,7 @@ concepts:
     long_description: "A long description for The magnitude of $d\\vec r$ is the length of a small step along a path is not yet available--feel free to give us your suggestions on the poster!"
     external_url: ~
     status: Active
-    notes: What more needs to be said?
+    notes: What more needs to be in the long description? What is the point?
   - id: 32
     name: "The direction of $d\\vec r$ is tangent to a path"
     prereq_concepts: []
@@ -437,7 +442,7 @@ concepts:
     long_description: ""
     external_url: ~
     status: Active
-    notes: Put into words
+    notes: What are we really trying to say?
   - id: 36
     name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
     prereq_concepts: []
@@ -449,7 +454,7 @@ concepts:
     long_description: ""
     external_url: ~
     status: Active
-    notes: Put into words
+    notes: What are we really trying to say?
   - id: 37
     name: "$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$"
     prereq_concepts: []
@@ -460,7 +465,7 @@ concepts:
     long_description: ""
     external_url: ~
     status: Active
-    notes: Put into words
+    notes: What are we really trying to say?
   - id: 38
     name: "$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$"
     prereq_concepts: []
@@ -471,7 +476,7 @@ concepts:
     long_description: ""
     external_url: ~
     status: Active
-    notes: Put into words
+    notes: What are we really trying to say?
   - id: 39
     name: Vector Differentials
     prereq_concepts: []
@@ -485,7 +490,7 @@ concepts:
   - id: 40
     name: "Differential form of $\\vec r$ in spherical and cylindrical coordinates"
     prereq_concepts:
-      - 39
+      - 68
     representations:
       - 10
     courses:
@@ -494,7 +499,7 @@ concepts:
     long_description: "A long description for Differential form of $\\vec r$ in spherical and cylindrical coordinates is not yet available--feel free to give us your suggestions on the poster!"
     external_url: ~
     status: Active
-    notes: ~
+    notes: "Isn't this just d vec r = d vec r? "
   - id: 41
     name: "The gradient's dimension is the same as real space. The gradient lives in the domain"
     prereq_concepts: []
@@ -509,13 +514,14 @@ concepts:
     notes: ~
   - id: 42
     name: The gradient is a local quantity
-    prereq_concepts: []
+    prereq_concepts:
+      - 68
     representations:
       - 8
     courses:
       - 3
     figure: ~
-    long_description: A long description for The gradient is a local quantity is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "The magnitude and direction of the gradient depends on the behavior of the function infinitesimally near the point of interest.  For example, the gradient does not point in the direction of maxima a finite distance away (except accidentally), but rather in the direction of steepest slope at the point of interest."
     external_url: ~
     status: Active
     notes: ~
@@ -527,7 +533,7 @@ concepts:
     courses:
       - 3
     figure: ~
-    long_description: A long description for The electric field is the negative gradient of the electric potential is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "While the magnitude of the electric field is equal to the gradient of the electric potential, the electric field points in the opposite direction of the gradient of the electric potential, and thus $\\vec E = - \\vec \\nabla V$."
     external_url: ~
     status: Active
     notes: ~
@@ -539,13 +545,14 @@ concepts:
     courses:
       - 3
     figure: ~
-    long_description: A long description for The divergence is related to the total flux through a closed surface is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "If the total flux through a closed surface is not zero, then the divergence of the function at that point is non-zero. "
     external_url: ~
     status: Active
-    notes: ~
+    notes: fixme
   - id: 45
     name: The divergence is a function
-    prereq_concepts: []
+    prereq_concepts:
+      - 67
     representations:
       - 11
     courses:
@@ -554,10 +561,11 @@ concepts:
     long_description: The divergence of a function (unless taken at a single point) is itself a function
     external_url: ~
     status: Active
-    notes: ~
+    notes: Is this all that we want to say?
   - id: 46
     name: The divergence is a local quantity
-    prereq_concepts: []
+    prereq_concepts:
+      - 68
     representations:
       - 11
     courses:
@@ -566,7 +574,7 @@ concepts:
     long_description: A long description for The divergence is a local quantity is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
+    notes: fixme
   - id: 47
     name: The divergence of the electric field is equal to
     prereq_concepts: []
@@ -578,7 +586,7 @@ concepts:
     long_description: A long description for The divergence of the electric field is equal to is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
+    notes: fixme (incomplete concept)
   - id: 48
     name: The divergence of the magnetic field is zero
     prereq_concepts: []
@@ -590,7 +598,7 @@ concepts:
     long_description: A long description for The divergence of the magnetic field is zero is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: ~
+    notes: Do we want to discuss the reasons or implications?
   - id: 49
     name: "The curl is related to the line integral around a closed loop. (\"circulation\")"
     prereq_concepts: []
@@ -602,10 +610,11 @@ concepts:
     long_description: "A long description for The curl is related to the line integral around a closed loop. (\"circulation\") is not yet available--feel free to give us your suggestions on the poster!"
     external_url: ~
     status: Active
-    notes: ~
+    notes: Do we want to include how it is related?
   - id: 50
     name: the curl is a (vector) function
-    prereq_concepts: []
+    prereq_concepts:
+      - 67
     representations:
       - 12
     courses:
@@ -614,10 +623,11 @@ concepts:
     long_description: A long description for the curl is a (vector) function is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: What do we really want to say here?
+    notes: What do we really want to say in the long description?
   - id: 51
     name: The curl is a local quantity
-    prereq_concepts: []
+    prereq_concepts:
+      - 68
     representations:
       - 12
     courses:
@@ -626,7 +636,7 @@ concepts:
     long_description: A long description for The curl is a local quantity is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: What do we really want to say here?
+    notes: What do we really want to say in the long description?
   - id: 52
     name: The magnetic field is equal to the curl of the magnetic vector potential
     prereq_concepts: []
@@ -638,7 +648,7 @@ concepts:
     long_description: A long description for The magnetic field is equal to the curl of the magnetic vector potential is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: What more needs to be said?
+    notes: What do we really want to say in the long description?
   - id: 53
     name: The curl of the electric field is zero in electrostatics
     prereq_concepts: []
@@ -650,7 +660,7 @@ concepts:
     long_description: A long description for The curl of the electric field is zero in electrostatics is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: What more needs to be said?
+    notes: What more needs to be said in the long description?
   - id: 54
     name: The divergence of the curl is equal to mu times the current in magneto-statics
     prereq_concepts: []
@@ -663,7 +673,7 @@ concepts:
     long_description: A long description for The divergence of the curl is equal to mu times the current in magneto-statics is not yet available--feel free to give us your suggestions on the poster!
     external_url: ~
     status: Active
-    notes: What more needs to be said?
+    notes: What more needs to be in the long description?
   - id: 55
     name: Differentials are small changes or differences
     prereq_concepts:
@@ -746,7 +756,7 @@ concepts:
     courses:
       - 4
     figure: ~
-    long_description: "While the consituents of a derivative (the $f$ and $x$ in $\\frac{df}{dx}$) can have physical interpretations, the derivative itself can have a different physical interepretation. For example, $\\frac{dx}{dt}$ is a velocity."
+    long_description: "While the constituents of a derivative (the $f$ and $x$ in $\\frac{df}{dx}$) can have physical interpretations, the derivative itself can have a different physical interpretation. For example, $\\frac{dx}{dt}$ is a velocity."
     external_url: ~
     status: Active
     notes: Better example needed
@@ -802,7 +812,7 @@ concepts:
     courses:
       - 4
     figure: ~
-    long_description: "While it may be possible to conceptualize a particular derivative, such as $\\left(\\frac{\\partial U}{\\partial S}\\right)_{V},$ Where $U$ is internal energy, $S$ is entropy, and $V$ is volume, that does not mean that the particular derivative can be directly measured. In the above example, the entropty $S$ is not measurable. "
+    long_description: "While it may be possible to conceptualize a particular derivative, such as $\\left(\\frac{\\partial U}{\\partial S}\\right)_{V},$ Where $U$ is internal energy, $S$ is entropy, and $V$ is volume, that does not mean that the particular derivative can be directly measured. In the above example, the entropy $S$ is not measurable. "
     external_url: ~
     status: Active
     notes: ~
@@ -816,6 +826,41 @@ concepts:
       - 4
     figure: ~
     long_description: "Because total differentials are linear, one can find the total differential and then solve algebraically to obtain partial derivatives that might not be obtainable though differentiation. "
+    external_url: ~
+    status: Active
+    notes: ~
+  - id: 67
+    name: The derivative is a function
+    prereq_concepts: []
+    representations: []
+    courses:
+      - 0
+    figure: ~
+    long_description: "The derivative of a function is itself a function, with the same domain as the origional function. Both the (derivative) funciton and the value of the derivative at a point are commonly referrd to as \"the derivative.\""
+    external_url: ~
+    status: Active
+    notes: ~
+  - id: 68
+    name: The derivative is a local quantity
+    prereq_concepts: []
+    representations:
+      - 3
+    courses:
+      - 1
+    figure: ~
+    long_description: "The value of the derivative is a function of the same variables as the original function. Thus, it's value depends on where the derivative is being evaluated. Geometrically, the derivative (slope) of a curve at a point is not a statement about the general shape of the curve but rather about the behavior of the curve immediately around that point. "
+    external_url: ~
+    status: Active
+    notes: ~
+  - id: 69
+    name: The gradient lives in the domain and has the same number of spacial dimensions as the origional function
+    prereq_concepts: []
+    representations:
+      - 8
+    courses:
+      - 3
+    figure: ~
+    long_description: "The gradient of an $n$ dimensional function is $n$ dimensional. This is not to be confused with the gradient having the same physical dimensions (e.g., Newtons) as the origional function."
     external_url: ~
     status: Active
     notes: ~
@@ -841,7 +886,7 @@ activities:
     name: The Hot Plate
     prereq_concepts:
       - 4
-      - 6
+      - 67
       - 10
       - 15
     new_concepts:
@@ -863,7 +908,7 @@ activities:
   - id: 2
     name: Chain Rule
     prereq_concepts:
-      - 6
+      - 67
       - 8
       - 11
       - 12
@@ -908,6 +953,7 @@ activities:
       - 24
     representations:
       - 7
+      - 27
       - 9
     courses:
       - 1
@@ -995,10 +1041,12 @@ activities:
     prereq_concepts:
       - 23
     new_concepts:
-      - 41
+      - 69
       - 42
     representations:
+      - 8
       - 14
+      - 6
     courses:
       - 3
     figure: vfactinggrad.jpg
@@ -1012,7 +1060,7 @@ activities:
       - 23
       - 24
     new_concepts:
-      - 41
+      - 69
       - 42
     representations:
       - 14
@@ -1030,7 +1078,7 @@ activities:
     prereq_concepts:
       - 2
       - 5
-      - 6
+      - 67
       - 34
     new_concepts:
       - 44
@@ -1050,7 +1098,7 @@ activities:
     prereq_concepts:
       - 2
       - 5
-      - 6
+      - 67
     new_concepts:
       - 49
       - 50
@@ -1071,7 +1119,7 @@ activities:
       - 2
       - 3
       - 5
-      - 6
+      - 67
       - 11
     new_concepts:
       - 55
@@ -1133,7 +1181,7 @@ activities:
     name: Chain Rules
     prereq_concepts:
       - 2
-      - 6
+      - 67
       - 11
       - 16
       - 21
@@ -1264,6 +1312,10 @@ representations:
     name: Inclinomete(r
     description: ""
     icon: "<img src=\"inclinometer.jpg\"/>"
+  - id: 27
+    name: surface
+    description: ""
+    icon: "<img src=\"/figs/surface.jpg\"/>"
 courses:
   - id: 0
     number: MTH 251
