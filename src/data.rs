@@ -39,10 +39,11 @@ pub struct CourseID(usize);
 pub struct Course {
     pub id: CourseID,
     pub number: String,
+    pub name: String,
 }
 #[with_template("/course/" slug::slugify(&self.number))]
 impl DisplayAs<URL> for Course {}
-#[with_template(r#"<a href=""# self as URL r#"" class="course">"# self.number r#"</a>"#)]
+#[with_template(r#"<a href=""# self as URL r#"" class="course">"# self.name r#"</a>"#)]
 impl DisplayAs<HTML> for Course {}
 
 pub use crate::concept::{Concept, ConceptView};
@@ -207,15 +208,24 @@ impl Data {
             .courses
             .borrow()
             .iter()
-            .filter(|c| &c.number == name || &slug::slugify(&c.number) == name)
+            .filter(|c| &c.number == name || &c.name == name || &slug::slugify(&c.number) == name)
             .next()
         {
             return c.id;
         }
         let newid = CourseID(self.courses.borrow().len());
+        let (number, name) = match name {
+            "MTH 251" => (name, "Differential Calculus"),
+            "MTH 254" => (name, "Multivariable Calculus"),
+            "MTH 255" => (name, "Vector Calculus"),
+            "PH 423" => (name, "Energy and Entropy"),
+            "PH 422" => (name, "Static Fields"),
+            _ => (name, name),
+        };
         self.courses.borrow_mut().push(Course {
             id: newid,
-            number: name.to_string(),
+            number: number.to_string(),
+            name: name.to_string(),
         });
         newid
     }

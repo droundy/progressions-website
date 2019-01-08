@@ -92,7 +92,7 @@ let readyjs = { %]
     setTimeout(connectAll, 5000);
     setTimeout(connectAll, 10000);[%
 };
-let title = { %]Course [% self.course.number };
+let title = { %]Course: [% self.course.name %] ([% self.course.number %])[% };
 let nav = {};
 let content = {
   %]

@@ -74,16 +74,16 @@ concepts:
     status: Active
     notes: ~
   - id: 6
-    name: The derivative can be a function
+    name: The derivative is a function
     prereq_concepts: []
     representations: []
     courses:
       - 0
     figure: ~
-    long_description: "For every value in the domain of a function, the function has exactly one value. "
+    long_description: "The derivative of a function is itself a function, with the same domain as the origional function. Both the (derivative) funciton and the value of the derivative at a point are commonly referrd to as \"the derivative.\""
     external_url: ~
     status: Active
-    notes: What do we really want to say here?
+    notes: ~
   - id: 7
     name: The derivative of a constant is zero
     prereq_concepts:
@@ -317,21 +317,21 @@ concepts:
     status: Active
     notes: ~
   - id: 26
-    name: The derivative is local quantity
+    name: The derivative is a local quantity
     prereq_concepts: []
     representations:
       - 3
     courses:
       - 1
     figure: ~
-    long_description: This is the long description for The derivative is local quantity. It is quite a long description!
+    long_description: "The value of the derivative is a function of the same variables as the original function. Thus, it's value depends on where the derivative is being evaluated. Geometrically, the derivative (slope) of a curve at a point is not a statement about the general shape of the curve but rather about the behavior of the curve immediately around that point. "
     external_url: ~
     status: Active
-    notes: What do we really want to say here?
+    notes: ~
   - id: 27
     name: Partial derivatives are functions
     prereq_concepts:
-      - 67
+      - 6
     representations:
       - 7
       - 4
@@ -345,7 +345,7 @@ concepts:
   - id: 28
     name: The gradient is a function
     prereq_concepts:
-      - 67
+      - 6
     representations:
       - 8
     courses:
@@ -369,11 +369,27 @@ concepts:
     status: Active
     notes: What do we really want to say in the long description?
   - id: 30
+    name: The gradient points in the direction of greatest increase of the function
+    prereq_concepts:
+      - 4
+      - 22
+    representations:
+      - 8
+      - 10
+      - 6
+    courses:
+      - 2
+    figure: ~
+    long_description: At a point on a multivariable function there is a derivative in every direction. The derivative with the largest value is known as the gradient and it points in the direction in which the derivative of the function is the largest.
+    external_url: ~
+    status: Active
+    notes: NEW
+  - id: 31
     name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
     prereq_concepts:
       - 0
     representations:
-      - 10
+      - 11
     courses:
       - 2
     figure: ~
@@ -381,12 +397,12 @@ concepts:
     external_url: ~
     status: Active
     notes: "This concept doesn't make any sense."
-  - id: 31
+  - id: 32
     name: "The magnitude of $d\\vec r$ is the length of a small step along a path"
     prereq_concepts:
       - 0
     representations:
-      - 10
+      - 11
     courses:
       - 3
     figure: ~
@@ -394,11 +410,11 @@ concepts:
     external_url: ~
     status: Active
     notes: What more needs to be in the long description? What is the point?
-  - id: 32
+  - id: 33
     name: "The direction of $d\\vec r$ is tangent to a path"
     prereq_concepts: []
     representations:
-      - 10
+      - 11
     courses:
       - 3
     figure: ~
@@ -406,13 +422,13 @@ concepts:
     external_url: ~
     status: Active
     notes: Tangent to what path? How is this useful?
-  - id: 33
+  - id: 34
     name: The gradient can tell you a small change in a function in any direction (differentials edition)
     prereq_concepts:
       - 0
     representations:
       - 8
-      - 10
+      - 11
     courses:
       - 2
     figure: ~
@@ -420,31 +436,19 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 34
+  - id: 35
     name: The divergence is a scalar field
     prereq_concepts: []
     representations:
-      - 11
+      - 12
     courses: []
     figure: ~
     long_description: "The divergence at a point is a scalar. Taking the divergence of a function yields a scalar at every value in the domain of that function: a scalar field"
     external_url: ~
     status: Active
     notes: ~
-  - id: 35
-    name: "$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$"
-    prereq_concepts: []
-    representations:
-      - 11
-    courses:
-      - 2
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: Active
-    notes: What are we really trying to say?
   - id: 36
-    name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
+    name: "$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$"
     prereq_concepts: []
     representations:
       - 12
@@ -456,6 +460,18 @@ concepts:
     status: Active
     notes: What are we really trying to say?
   - id: 37
+    name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
+    prereq_concepts: []
+    representations:
+      - 13
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: What are we really trying to say?
+  - id: 38
     name: "$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$"
     prereq_concepts: []
     representations: []
@@ -466,7 +482,7 @@ concepts:
     external_url: ~
     status: Active
     notes: What are we really trying to say?
-  - id: 38
+  - id: 39
     name: "$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$"
     prereq_concepts: []
     representations: []
@@ -477,22 +493,12 @@ concepts:
     external_url: ~
     status: Active
     notes: What are we really trying to say?
-  - id: 39
-    name: Vector Differentials
-    prereq_concepts: []
-    representations: []
-    courses: []
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: ~
-    notes: ~
   - id: 40
     name: "Differential form of $\\vec r$ in spherical and cylindrical coordinates"
     prereq_concepts:
-      - 68
+      - 26
     representations:
-      - 10
+      - 11
     courses:
       - 3
     figure: ~
@@ -501,21 +507,21 @@ concepts:
     status: Active
     notes: "Isn't this just d vec r = d vec r? "
   - id: 41
-    name: "The gradient's dimension is the same as real space. The gradient lives in the domain"
+    name: The gradient lives in the domain and has the same number of spacial dimensions as the origional function
     prereq_concepts: []
     representations:
       - 8
     courses:
       - 3
     figure: ~
-    long_description: "A long description for The gradient's dimension is the same as real space. The gradient lives in the domain is not yet available--feel free to give us your suggestions on the poster!"
+    long_description: "The gradient of an $n$ dimensional function is $n$ dimensional. This is not to be confused with the gradient having the same physical dimensions (e.g., Newtons) as the origional function."
     external_url: ~
     status: Active
     notes: ~
   - id: 42
     name: The gradient is a local quantity
     prereq_concepts:
-      - 68
+      - 26
     representations:
       - 8
     courses:
@@ -541,7 +547,7 @@ concepts:
     name: The divergence is related to the total flux through a closed surface
     prereq_concepts: []
     representations:
-      - 11
+      - 12
     courses:
       - 3
     figure: ~
@@ -552,9 +558,9 @@ concepts:
   - id: 45
     name: The divergence is a function
     prereq_concepts:
-      - 67
+      - 6
     representations:
-      - 11
+      - 12
     courses:
       - 3
     figure: ~
@@ -565,9 +571,9 @@ concepts:
   - id: 46
     name: The divergence is a local quantity
     prereq_concepts:
-      - 68
+      - 26
     representations:
-      - 11
+      - 12
     courses:
       - 3
     figure: ~
@@ -579,7 +585,7 @@ concepts:
     name: The divergence of the electric field is equal to
     prereq_concepts: []
     representations:
-      - 11
+      - 12
     courses:
       - 3
     figure: ~
@@ -591,7 +597,7 @@ concepts:
     name: The divergence of the magnetic field is zero
     prereq_concepts: []
     representations:
-      - 11
+      - 12
     courses:
       - 3
     figure: ~
@@ -603,7 +609,7 @@ concepts:
     name: "The curl is related to the line integral around a closed loop. (\"circulation\")"
     prereq_concepts: []
     representations:
-      - 12
+      - 13
     courses:
       - 3
     figure: ~
@@ -614,9 +620,9 @@ concepts:
   - id: 50
     name: the curl is a (vector) function
     prereq_concepts:
-      - 67
+      - 6
     representations:
-      - 12
+      - 13
     courses:
       - 3
     figure: ~
@@ -627,9 +633,9 @@ concepts:
   - id: 51
     name: The curl is a local quantity
     prereq_concepts:
-      - 68
+      - 26
     representations:
-      - 12
+      - 13
     courses:
       - 3
     figure: ~
@@ -641,7 +647,7 @@ concepts:
     name: The magnetic field is equal to the curl of the magnetic vector potential
     prereq_concepts: []
     representations:
-      - 12
+      - 13
     courses:
       - 3
     figure: ~
@@ -653,7 +659,7 @@ concepts:
     name: The curl of the electric field is zero in electrostatics
     prereq_concepts: []
     representations:
-      - 12
+      - 13
     courses:
       - 3
     figure: ~
@@ -665,8 +671,8 @@ concepts:
     name: The divergence of the curl is equal to mu times the current in magneto-statics
     prereq_concepts: []
     representations:
-      - 11
       - 12
+      - 13
     courses:
       - 3
     figure: ~
@@ -679,7 +685,7 @@ concepts:
     prereq_concepts:
       - 0
     representations:
-      - 16
+      - 14
     courses:
       - 4
     figure: differentials.jpg
@@ -691,7 +697,7 @@ concepts:
     name: "Equations can be 'zapped with d' to relate differentials"
     prereq_concepts: []
     representations:
-      - 16
+      - 14
     courses:
       - 4
     figure: ~
@@ -714,7 +720,7 @@ concepts:
     name: Total differentials are linear
     prereq_concepts: []
     representations:
-      - 16
+      - 14
     courses:
       - 4
     figure: ~
@@ -726,7 +732,7 @@ concepts:
     name: Differentials are small chunks
     prereq_concepts: []
     representations:
-      - 16
+      - 14
     courses:
       - 4
     figure: ~
@@ -740,8 +746,8 @@ concepts:
       - 2
     representations:
       - 0
-      - 17
       - 18
+      - 19
     courses:
       - 4
     figure: ~
@@ -808,7 +814,7 @@ concepts:
     name: There might be experimental limits on which quantities you can measure
     prereq_concepts: []
     representations:
-      - 18
+      - 19
     courses:
       - 4
     figure: ~
@@ -821,7 +827,7 @@ concepts:
     prereq_concepts:
       - 58
     representations:
-      - 16
+      - 14
     courses:
       - 4
     figure: ~
@@ -829,57 +835,6 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
-  - id: 67
-    name: The derivative is a function
-    prereq_concepts: []
-    representations: []
-    courses:
-      - 0
-    figure: ~
-    long_description: "The derivative of a function is itself a function, with the same domain as the origional function. Both the (derivative) funciton and the value of the derivative at a point are commonly referrd to as \"the derivative.\""
-    external_url: ~
-    status: Active
-    notes: ~
-  - id: 68
-    name: The derivative is a local quantity
-    prereq_concepts: []
-    representations:
-      - 3
-    courses:
-      - 1
-    figure: ~
-    long_description: "The value of the derivative is a function of the same variables as the original function. Thus, it's value depends on where the derivative is being evaluated. Geometrically, the derivative (slope) of a curve at a point is not a statement about the general shape of the curve but rather about the behavior of the curve immediately around that point. "
-    external_url: ~
-    status: Active
-    notes: ~
-  - id: 69
-    name: The gradient lives in the domain and has the same number of spacial dimensions as the origional function
-    prereq_concepts: []
-    representations:
-      - 8
-    courses:
-      - 3
-    figure: ~
-    long_description: "The gradient of an $n$ dimensional function is $n$ dimensional. This is not to be confused with the gradient having the same physical dimensions (e.g., Newtons) as the origional function."
-    external_url: ~
-    status: Active
-    notes: ~
-  - id: 70
-    name: The gradient points in the direction of greatest increase of the function
-    prereq_concepts:
-      - 4
-      - 22
-    representations:
-      - 8
-      - 27
-      - 6
-    courses:
-      - 2
-    figure: ~
-    long_description: At a point on a multivariable function there is a derivative in every direction. The derivative with the largest value is known as the gradient and it points in the direction in which the derivative of the function is the largest.
-    external_url: ~
-    status: Active
-    notes: NEW
 activities:
   - id: 0
     name: The Heater II
@@ -887,7 +842,8 @@ activities:
       - 2
       - 11
       - 15
-    new_concepts: []
+    new_concepts:
+      - 16
     representations:
       - 6
     courses:
@@ -901,7 +857,7 @@ activities:
     name: The Hot Plate
     prereq_concepts:
       - 4
-      - 67
+      - 6
       - 10
       - 15
     new_concepts:
@@ -923,7 +879,7 @@ activities:
   - id: 2
     name: Chain Rule
     prereq_concepts:
-      - 67
+      - 6
       - 8
       - 11
       - 12
@@ -964,12 +920,12 @@ activities:
       - 17
       - 18
     new_concepts:
-      - 70
+      - 30
       - 23
       - 24
     representations:
       - 7
-      - 27
+      - 10
       - 9
     courses:
       - 1
@@ -999,6 +955,25 @@ activities:
     status: Active
     notes: ~
   - id: 6
+    name: The Master Formula
+    prereq_concepts: []
+    new_concepts:
+      - 22
+      - 30
+      - 23
+      - 24
+    representations:
+      - 14
+      - 8
+      - 11
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: NEW
+  - id: 7
     name: The Hill
     prereq_concepts:
       - 16
@@ -1006,7 +981,7 @@ activities:
       - 19
       - 20
     new_concepts:
-      - 70
+      - 30
       - 23
       - 24
     representations:
@@ -1019,12 +994,12 @@ activities:
     external_url: vchill
     status: Active
     notes: ~
-  - id: 7
+  - id: 8
     name: The Valley
     prereq_concepts:
       - 29
     new_concepts:
-      - 33
+      - 34
     representations:
       - 6
     courses:
@@ -1034,18 +1009,18 @@ activities:
     external_url: vcvalley
     status: Active
     notes: Correct prereq concept?
-  - id: 8
+  - id: 9
     name: Vector Differentials
     prereq_concepts:
       - 0
-      - 30
+      - 31
     new_concepts:
       - 40
-      - 31
       - 32
+      - 33
     representations:
-      - 10
-      - 13
+      - 11
+      - 15
     courses:
       - 3
     figure: vfdrvectorcurvi.jpg
@@ -1053,16 +1028,16 @@ activities:
     external_url: vfdrvectorcurvi
     status: Active
     notes: ~
-  - id: 9
+  - id: 10
     name: Acting out the Gradient
     prereq_concepts:
       - 23
     new_concepts:
-      - 69
+      - 41
       - 42
     representations:
       - 8
-      - 14
+      - 16
       - 6
     courses:
       - 3
@@ -1071,17 +1046,17 @@ activities:
     external_url: vfactinggrad
     status: Active
     notes: ~
-  - id: 10
+  - id: 11
     name: Visualizing Gradient
     prereq_concepts:
       - 23
       - 24
     new_concepts:
-      - 69
+      - 41
       - 42
     representations:
-      - 14
-      - 15
+      - 16
+      - 17
       - 6
     courses:
       - 3
@@ -1090,19 +1065,19 @@ activities:
     external_url: vfgradient
     status: Active
     notes: ~
-  - id: 11
+  - id: 12
     name: Visualizing Divergence
     prereq_concepts:
       - 2
       - 5
-      - 67
-      - 34
+      - 6
+      - 35
     new_concepts:
       - 44
       - 45
       - 46
     representations:
-      - 15
+      - 17
     courses:
       - 3
     figure: vfdivergence.jpg
@@ -1110,18 +1085,18 @@ activities:
     external_url: vfdivergence
     status: Active
     notes: ~
-  - id: 12
+  - id: 13
     name: Visualizing Curl
     prereq_concepts:
       - 2
       - 5
-      - 67
+      - 6
     new_concepts:
       - 49
       - 50
       - 51
     representations:
-      - 15
+      - 17
     courses:
       - 3
     figure: vfcurlvis.jpg
@@ -1129,14 +1104,14 @@ activities:
     external_url: vfcurlvis
     status: Active
     notes: ~
-  - id: 13
+  - id: 14
     name: Zapping with d
     prereq_concepts:
       - 0
       - 2
       - 3
       - 5
-      - 67
+      - 6
       - 11
     new_concepts:
       - 55
@@ -1144,7 +1119,7 @@ activities:
       - 57
       - 58
     representations:
-      - 16
+      - 14
     courses:
       - 4
     figure: LPsmall.jpg
@@ -1152,7 +1127,7 @@ activities:
     external_url: inzapd
     status: Active
     notes: ~
-  - id: 14
+  - id: 15
     name: Energy and Integrals
     prereq_concepts:
       - 55
@@ -1160,8 +1135,8 @@ activities:
     new_concepts:
       - 59
     representations:
-      - 19
-      - 16
+      - 20
+      - 14
     courses:
       - 4
     figure: inpotentiallab.jpg
@@ -1169,7 +1144,7 @@ activities:
     external_url: inpotentiallab
     status: Active
     notes: ~
-  - id: 15
+  - id: 16
     name: Partial Derivative Machine Derivatives
     prereq_concepts:
       - 2
@@ -1183,10 +1158,10 @@ activities:
       - 62
       - 63
     representations:
-      - 19
+      - 20
       - 7
       - 4
-      - 20
+      - 21
     courses:
       - 4
     figure: PDMD.jpg
@@ -1194,11 +1169,11 @@ activities:
     external_url: inisowidth
     status: Active
     notes: ~
-  - id: 16
+  - id: 17
     name: Chain Rules
     prereq_concepts:
       - 2
-      - 67
+      - 6
       - 11
       - 16
       - 21
@@ -1212,7 +1187,7 @@ activities:
       - 65
       - 66
     representations:
-      - 16
+      - 14
     courses:
       - 4
     figure: pdm.jpg
@@ -1220,25 +1195,6 @@ activities:
     external_url: incycchainrule
     status: Active
     notes: Not the correct description!
-  - id: 17
-    name: The Master Formula
-    prereq_concepts: []
-    new_concepts:
-      - 22
-      - 70
-      - 23
-      - 24
-    representations:
-      - 16
-      - 8
-      - 10
-    courses:
-      - 2
-    figure: ~
-    long_description: ""
-    external_url: ~
-    status: Active
-    notes: NEW
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1266,11 +1222,11 @@ representations:
     icon: 2D Graph
   - id: 6
     name: Contour Maps
-    description: "**How contour maps display information**\n\n[![](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-1.svg)](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-1.svg)Figure 1[![](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-2.png)](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-2.png)Figure 2 (maybe cut entropy curves)A contour graph shows the relationship between three variables using only two dimensions, as shown in Fig. 1. Two variables lie along the horizontal and vertical axes (*x* and *y* in the figure), while the other variable ($V$) is represented using curves along which that variable is constant. It is then possible to read information quickly: *e.g.,* where the value of *V* is high or low or where it is changing quickly or slowly. The canonical interpretation of a contour graph (as might be taught in multivariable calculus) is that the variable *V* is a function of *x* and *y*. In experimental contexts, however, one might construct a graph like Fig. 2, which shows pressure (*p*) *vs.* volume ($V$) collected at several different values of constant temperature (*T*). Although this can still be interpreted as a contour graph, it can be thought of as one of the axis variables expressed as a function both of the other axis variable and of the variable which is held constant. This usage of a contour graph is not commonly taught in mathematics courses, but may be used heavily by professional scientists.\n\n**Derivatives**\n\nDerivatives can be found from a contour graph in many different ways, which may depend on how the graph is to be interpreted. For example, in graphs like Fig. 1, a derivative of $V$ can be found with respect to any variable and in any direction, including *x* and *y*, by choosing two points on adjacent contour lines and dividing the change in $V$ by the corresponding change in, for example, *x* or *y*, where the perpendicular direction is typically held constant. The value of such a derivative can also be compared at different points by examining the density of the contour lines. A vector quantity like the gradient can also be found.\n\nDerivatives like the one described above can also be found for the graph in Fig. 2. However, it is also common to find the derivative of *p* with respect to *V*, holding *T* (or another variable) constant. Such a derivative can be found either by choosing points and computing a ratio of small changes or by sketching a line tangent to the constant temperature curve and computing its slope.\n\n**Affordances and limitations**\n\nContour graphs are flexible. The number of contour lines drawn can be changed to alter the resolution. The different curves or the regions between the curves can be given different colors. In cases where there are more than three variables, but only two independent variables, contour graphs for different variables can be overlaid using different colors or line styles, as in Fig. 2.\n\nHowever, contour graphs do not generalize well to functions of three or more variables. They necessarily cannot convey the exact value of $V$ at every value of *x* and *y*, information that is carried by a representation like a plastic surface."
+    description: ""
     icon: "<img src=\"/figs/contour-map.svg\"/>"
   - id: 7
     name: "$\\frac{\\partial f}{\\partial x}$"
-    description: "This representation for partial derivatives is taught in math classes, and widely used in physics, for instance in E&M and quantum mechanics. However, in thermal physics this representation is incomplete because it does not unambiguously describe a derivative, since it fails to indicate what is held constant."
+    description: ""
     icon: "$\\frac{\\partial f}{\\partial x}$"
   - id: 8
     name: "$\\vec \\nabla f$"
@@ -1281,85 +1237,86 @@ representations:
     description: ""
     icon: "<img src=\"/figs/inclinometer.jpg\"/>"
   - id: 10
-    name: "$d \\vec r$"
-    description: ""
-    icon: "$d \\vec r$"
-  - id: 11
-    name: "$\\vec \\nabla \\cdot \\vec v$"
-    description: ""
-    icon: "$\\vec \\nabla \\cdot \\vec v$"
-  - id: 12
-    name: "$\\vec \\nabla \\times \\vec v$"
-    description: ""
-    icon: "$\\vec \\nabla \\times \\vec v$"
-  - id: 13
-    name: 3D plots
-    description: ""
-    icon: "<img src=\"/figs/3dplot.jpg\"/>"
-  - id: 14
-    name: Kinesthetic
-    description: ""
-    icon: "<img src=\"/figs/kin.jpg\"/>"
-  - id: 15
-    name: Vector Field Map
-    description: ""
-    icon: "<img src=\"/figs/vector-field-map.jpg\"/>"
-  - id: 16
-    name: $df$
-    description: ""
-    icon: $df$
-  - id: 17
-    name: $dx$
-    description: ""
-    icon: $dx$
-  - id: 18
-    name: Experiment
-    description: ""
-    icon: Experiment
-  - id: 19
-    name: PDM
-    description: ""
-    icon: "<img src=\"/figs/pdm.jpg\"/>"
-  - id: 20
-    name: Table
-    description: ""
-    icon: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
-  - id: 21
-    name: partial f/partial x
-    description: ""
-    icon: "$\\frac{\\partial f}{\\partial x}$"
-  - id: 22
-    name: partial f/partial x fixing y
-    description: ""
-    icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
-  - id: 23
-    name: Del f
-    description: ""
-    icon: "$\\vec\\nabla f$"
-  - id: 24
-    name: Del dot f
-    description: ""
-    icon: "$\\vec\\nabla\\cdot\\vec f$"
-  - id: 25
-    name: picture of PDM
-    description: ""
-    icon: "<img src=\"/figs/pdm.jpg\"/>"
-  - id: 26
-    name: Inclinomete(r
-    description: ""
-    icon: "<img src=\"inclinometer.jpg\"/>"
-  - id: 27
     name: surface
     description: ""
     icon: "<img src=\"/figs/surface.jpg\"/>"
+  - id: 11
+    name: "$d \\vec r$"
+    description: ""
+    icon: "$d \\vec r$"
+  - id: 12
+    name: "$\\vec \\nabla \\cdot \\vec v$"
+    description: ""
+    icon: "$\\vec \\nabla \\cdot \\vec v$"
+  - id: 13
+    name: "$\\vec \\nabla \\times \\vec v$"
+    description: ""
+    icon: "$\\vec \\nabla \\times \\vec v$"
+  - id: 14
+    name: $df$
+    description: ""
+    icon: $df$
+  - id: 15
+    name: 3D plots
+    description: ""
+    icon: "<img src=\"/figs/3dplot.jpg\"/>"
+  - id: 16
+    name: Kinesthetic
+    description: ""
+    icon: "<img src=\"/figs/kin.jpg\"/>"
+  - id: 17
+    name: Vector Field Map
+    description: ""
+    icon: "<img src=\"/figs/vector-field-map.jpg\"/>"
+  - id: 18
+    name: $dx$
+    description: ""
+    icon: $dx$
+  - id: 19
+    name: Experiment
+    description: ""
+    icon: Experiment
+  - id: 20
+    name: PDM
+    description: ""
+    icon: "<img src=\"/figs/pdm.jpg\"/>"
+  - id: 21
+    name: Table
+    description: ""
+    icon: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
+  - id: 22
+    name: partial f/partial x
+    description: ""
+    icon: "$\\frac{\\partial f}{\\partial x}$"
+  - id: 23
+    name: partial f/partial x fixing y
+    description: ""
+    icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+  - id: 24
+    name: Del f
+    description: ""
+    icon: "$\\vec\\nabla f$"
+  - id: 25
+    name: Del dot f
+    description: ""
+    icon: "$\\vec\\nabla\\cdot\\vec f$"
+  - id: 26
+    name: picture of PDM
+    description: ""
+    icon: "<img src=\"/figs/pdm.jpg\"/>"
 courses:
   - id: 0
     number: MTH 251
+    name: Differential Calculus
   - id: 1
     number: MTH 254
+    name: Multivariable Calculus
   - id: 2
     number: MTH 255
+    name: Vector Calculus
   - id: 3
     number: PH 422
+    name: Static Fields
   - id: 4
     number: PH 423
+    name: Energy and Entropy
