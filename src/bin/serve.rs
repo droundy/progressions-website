@@ -1,6 +1,6 @@
 use warp::{Filter, path};
 use progression_website::data::{ Data, Change };
-use display_as::{DisplayAs, HTML};
+use display_as::{HTML, display};
 
 fn main() {
     let change = path!("change")
@@ -14,30 +14,26 @@ fn main() {
     let concept = path!("concept" / String)
         .map(|name: String| {
             let data = Data::new();
-            data.concept_view(data.concept_by_name(&name))
-                .display_as(HTML).into_reply()
+            display(HTML, &*data.concept_view(data.concept_by_name(&name))).http_response()
         });
     let course = path!("course" / String)
         .map(|name: String| {
             let data = Data::new();
-            data.course_view(&name)
-                .display_as(HTML).into_reply()
+            display(HTML, &data.course_view(&name)).http_response()
         });
     let representation = path!("representation" / String)
         .map(|name: String| {
             let data = Data::new();
-            data.representation_view(data.representation_by_name(&name))
-                .display_as(HTML).into_reply()
+            display(HTML, &data.representation_view(data.representation_by_name(&name))).http_response()
         });
     let activity = path!("activity" / String)
         .map(|name: String| {
             let data = Data::new();
-            data.activity_view(data.activity_by_name(&name))
-                .display_as(HTML).into_reply()
+            display(HTML, &*data.activity_view(data.activity_by_name(&name))).http_response()
         });
     let index = (warp::path::end().or(path!("index.html")))
         .map(|_| {
-            Data::new().progression_view().display_as(HTML).into_reply()
+            display(HTML, &Data::new().progression_view()).http_response()
         });
     let style_css = path!("style.css").and(warp::fs::file("style.css"));
     let libraries = path!("libraries").and(warp::fs::dir("libraries"));
