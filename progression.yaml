@@ -864,6 +864,22 @@ concepts:
     external_url: ~
     status: Active
     notes: ~
+  - id: 70
+    name: The gradient points in the direction of greatest increase of the function
+    prereq_concepts:
+      - 4
+      - 22
+    representations:
+      - 8
+      - 27
+      - 6
+    courses:
+      - 2
+    figure: ~
+    long_description: At a point on a multivariable function there is a derivative in every direction. The derivative with the largest value is known as the gradient and it points in the direction in which the derivative of the function is the largest.
+    external_url: ~
+    status: Active
+    notes: NEW
 activities:
   - id: 0
     name: The Heater II
@@ -871,8 +887,7 @@ activities:
       - 2
       - 11
       - 15
-    new_concepts:
-      - 16
+    new_concepts: []
     representations:
       - 6
     courses:
@@ -949,6 +964,7 @@ activities:
       - 17
       - 18
     new_concepts:
+      - 70
       - 23
       - 24
     representations:
@@ -990,6 +1006,7 @@ activities:
       - 19
       - 20
     new_concepts:
+      - 70
       - 23
       - 24
     representations:
@@ -1203,6 +1220,25 @@ activities:
     external_url: incycchainrule
     status: Active
     notes: Not the correct description!
+  - id: 17
+    name: The Master Formula
+    prereq_concepts: []
+    new_concepts:
+      - 22
+      - 70
+      - 23
+      - 24
+    representations:
+      - 16
+      - 8
+      - 10
+    courses:
+      - 2
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: Active
+    notes: NEW
 representations:
   - id: 0
     name: "$\\Delta x$"

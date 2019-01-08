@@ -496,7 +496,8 @@ for r in all_representations:
     for a in r.activities:
         ps = list(filter(lambda c: r in c.representations, a.concepts))
         for x in ps:
-          other_concepts.remove(x)
+          if x in other_concepts:
+            other_concepts.remove(x)
         hints = []
         if len(ps) > 0 or r in a.representations:
             groups.append((a, ps, hints))
