@@ -27,7 +27,7 @@ let content = {
 
       <div
          [% if let Some(ref url) = self.external_url {
-            %]onclick="location.href='http://physics.oregonstate.edu/portfolioswiki/acts:[% url as URL %]';" style="cursor: pointer;" [%
+            %]hasonclick="[% self.id %]" name="none" onclick="location.href='http://physics.oregonstate.edu/portfolioswiki/acts:[% url as URL %]';" style="cursor: pointer;" [%
          } %]
          class="activity">
         <h1>[% self.name %]</h1>[%

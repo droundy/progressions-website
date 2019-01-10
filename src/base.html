@@ -67,7 +67,8 @@ $(document).ready(function() {
         if (value != 'true') {
           $('[thisid]').attr('contenteditable','true');
           removeTypeset();
-          $('[thisid]').bind('click', false);
+          $('[thisid]').unbind('click', false);
+          $('[thisid]').prop("onclick", null).off('click');
         } else {
           reTypeset();
           $('[thisid]').attr('contenteditable','false');
