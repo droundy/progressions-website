@@ -114,7 +114,7 @@ impl Data {
                 let id: usize = c.id[1..].parse()?;
                 match &c.field as &str {
                     "icon" => {
-                        self.representations.borrow_mut()[id].icon = c.content.trim().to_string();
+                        self.representations.borrow_mut()[id].icon = c.html.trim().to_string();
                     }
                     "name" => {
                         self.representations.borrow_mut()[id].name = c.content.trim().to_string();
