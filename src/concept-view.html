@@ -1,7 +1,7 @@
 [%
 let extrajs = {};
 let readyjs = {};
-let title = { %] Concept: [% self.name };
+let title = { %] Foo Concept: [% self.name };
 let nav = { if self.courses.len() > 0 {
      %]<li>[% self.courses[0] %]</li>[%
   } else {
@@ -26,6 +26,7 @@ let content = {
             %]
           </div>
         </div>
+        [% self.possibly_prereq_concepts() %]
       </details>
       <div [% if let Some(ref url) = self.external_url { %]
            thisid="[% self.id %]" name="none" onclick="location.href='[% url as URL %]';" style="cursor: pointer;"[%
@@ -59,6 +60,7 @@ let content = {
       [% for group in self.output_groups.iter() {
         group
       } %]
+      [% self.possibly_needed_for_concepts() %]
     </article>
     [%
     };

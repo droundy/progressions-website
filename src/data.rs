@@ -250,6 +250,8 @@ impl Data {
             id,
             name: c.name.clone(),
 
+            all_concepts: self.concepts.borrow().clone(),
+
             activities: Vec::new(),
             prereq_courses: Vec::new(),
 
@@ -612,3 +614,12 @@ pub struct ProgressionView {
 }
 #[with_template("[%" "%]" "progression.html")]
 impl DisplayAs<HTML> for ProgressionView {}
+
+/// Represents a choice between concepts!
+pub struct ConceptChoice {
+    pub id: String,
+    pub field: String,
+    pub choices: Vec<Concept>,
+}
+#[with_template("[%" "%]" "concept-choice.html")]
+impl DisplayAs<HTML> for ConceptChoice {}
