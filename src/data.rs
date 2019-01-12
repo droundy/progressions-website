@@ -515,16 +515,23 @@ impl Data {
 
     fn group_concepts(&self, x: Vec<RcRcu<ConceptView>>) -> Vec<ActivityGroup> {
         self.progression_group_concepts(x).into_iter()
-            .map(|g| ActivityGroup {
-                activity: {
-                    if let Some(a) = g.activity {
-                        Some(self.activities.borrow()[a.id.0].clone())
-                    } else {
-                        None
+            .map(|g| {
+                let concepts: Vec<_> = g.concepts.iter()
+                    .map(|c| self.concepts.borrow()[c.id.0].clone()).collect();
+                if let Some(a) = g.activity {
+                    let hint_concepts: Vec<_> = a.new_concepts.iter()
+                        .map(|c| self.concepts.borrow()[c.id.0].clone())
+                        .filter(|c| !concepts.contains(c))
+                        .collect();
+                    let activity = Some(self.activities.borrow()[a.id.0].clone());
+                    ActivityGroup { activity, concepts, hint_concepts, }
+                } else {
+                    ActivityGroup {
+                        activity: None,
+                        concepts,
+                        hint_concepts: Vec::new(),
                     }
-                },
-                concepts: g.concepts.iter().map(|c| self.concepts.borrow()[c.id.0].clone())
-                    .collect(),
+                }
             })
             .collect()
     }
@@ -533,6 +540,9 @@ impl Data {
             return; // it is already here
         }
         gs.push(ActivityGroup {
+            hint_concepts: self.activities.borrow()[a.id.0].new_concepts.iter()
+                .map(|c| self.concepts.borrow()[c.0].clone())
+                .collect(),
             activity: Some(a),
             concepts: Vec::new(),
         });
@@ -586,6 +596,7 @@ impl DisplayAs<HTML> for PrereqCourse {}
 pub struct ActivityGroup {
     pub activity: Option<Activity>,
     pub concepts: Vec<Concept>,
+    pub hint_concepts: Vec<Concept>
 }
 #[with_template("[%" "%]" "activity-group.html")]
 impl DisplayAs<HTML> for ActivityGroup {}
