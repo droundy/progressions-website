@@ -1,4 +1,5 @@
-<form action="/change" method="post" target="hidden-form" class="concept hint has1">
+<div class="concept hint has1">
+<form action="/change" method="post" target="hidden-form">
   <label>New [% self.field %] concept</label>
   <input list="choices" name="content">
   <datalist id="choices">
@@ -13,3 +14,4 @@
   <input type="hidden" name="html" value="">
 </form>
 <iframe style="display:none" name="hidden-form"></iframe>
+</div>
