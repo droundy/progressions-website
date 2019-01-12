@@ -95,6 +95,14 @@ impl Data {
                     "name" => {
                         self.concepts.borrow_mut()[id].name = c.content.trim().to_string();
                     }
+                    "needed for" => {
+                        let needed_for_id = self.concept_by_name(&c.content);
+                        self.concepts.borrow_mut()[needed_for_id.0].prereq_concepts.push(ConceptID(id));
+                    }
+                    "prereq" => {
+                        let prereq_id = self.concept_by_name(&c.content);
+                        self.concepts.borrow_mut()[id].prereq_concepts.push(prereq_id);
+                    }
                     _ => bail!("Unknown field of concept: {}", c.field),
                 }
             }
