@@ -289,16 +289,10 @@ impl Data {
             .map(|x| self.concept_view(x.id))
             .collect();
         let mut output_groups = self.group_concepts(output_concepts);
-        let activities: Vec<_> = output_groups.iter()
-            .flat_map(|g| g.activity.iter().cloned())
-            .collect();
-        output_groups.extend(self.activities.borrow().iter()
-                             .filter(|a| a.prereq_concepts.contains(&id))
-                             .filter(|a| !activities.contains(a))
-                             .map(|a| ActivityGroup {
-                                 activity: Some(a.clone()),
-                                 concepts: Vec::new(),
-                             }));
+        for a in self.activities.borrow().iter().filter(|a| a.prereq_concepts.contains(&id))
+        {
+            self.extend_groups_with_activity(&mut output_groups, a.clone());
+        }
         let activities: Vec<_> =
             self.activities.borrow().iter()
             .filter(|a| a.new_concepts.contains(&id))
@@ -384,13 +378,11 @@ impl Data {
             .map(|x| self.concept_view(x.id))
             .collect();
         let mut output_groups = self.group_concepts(output_concepts);
-        output_groups.extend(self.activities.borrow().iter()
-                             .filter(|aa| a.new_concepts.iter()
-                                     .any(|cc| aa.prereq_concepts.contains(&cc)))
-                             .map(|a| ActivityGroup {
-                                 activity: Some(a.clone()),
-                                 concepts: Vec::new(),
-                             }));
+        for a in self.activities.borrow().iter()
+            .filter(|aa| a.new_concepts.iter().any(|cc| aa.prereq_concepts.contains(&cc)))
+        {
+            self.extend_groups_with_activity(&mut output_groups, a.clone());
+        }
 
         let new_concepts: Vec<_> = self.concepts.borrow().iter()
             .filter(|x| a.new_concepts.contains(&x.id))
@@ -440,13 +432,11 @@ impl Data {
             .filter(|c| !activity_concepts.contains(&c))
             .collect();
         let mut groups: Vec<_> = self.group_concepts(activity_concepts.iter().map(|c| self.concept_view(c.id)).collect());
-        groups.extend(self.activities.borrow().iter()
-                      .filter(|a| a.representations.contains(&id))
-                      .filter(|a| !all_activities_using_r.contains(a))
-                      .map(|a| ActivityGroup {
-                          activity: Some(a.clone()),
-                          concepts: Vec::new(),
-                      }));
+        for a in self.activities.borrow().iter()
+            .filter(|a| a.representations.contains(&id))
+        {
+            self.extend_groups_with_activity(&mut groups, a.clone());
+        }
         RepresentationView {
             id,
             name: r.name,
@@ -537,6 +527,15 @@ impl Data {
                     .collect(),
             })
             .collect()
+    }
+    fn extend_groups_with_activity(&self, gs: &mut Vec<ActivityGroup>, a: Activity) {
+        if gs.iter().any(|g| g.activity == Some(a.clone())) {
+            return; // it is already here
+        }
+        gs.push(ActivityGroup {
+            activity: Some(a),
+            concepts: Vec::new(),
+        });
     }
 
     fn progression_group_concepts(&self, x: Vec<RcRcu<ConceptView>>) -> Vec<ProgressionGroup> {
