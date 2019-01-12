@@ -46,7 +46,7 @@ impl DisplayAs<URL> for Course {}
 #[with_template(r#"<a href=""# self as URL r#"" class="course">"# self.name r#"</a>"#)]
 impl DisplayAs<HTML> for Course {}
 
-pub use crate::concept::{Concept, ConceptView};
+pub use crate::concept::{Concept, ConceptView, ConceptRemove};
 pub use crate::activity::{Activity, ActivityView};
 pub use crate::representation::{Representation, RepresentationView};
 
@@ -296,7 +296,7 @@ impl Data {
             .filter(|x| x.prereq_concepts.contains(&id))
             .map(|x| self.concept_view(x.id))
             .collect();
-        let mut output_groups = self.group_concepts(output_concepts);
+        let mut output_groups = self.group_concepts(output_concepts, id, "output");
         for a in self.activities.borrow().iter().filter(|a| a.prereq_concepts.contains(&id))
         {
             self.extend_groups_with_activity(&mut output_groups, a.clone());
@@ -311,7 +311,7 @@ impl Data {
             .map(|x| self.concept_view(*x))
             .filter(|x| !the_prereq_courses.iter().any(|z| x.courses.contains(&z)))
             .collect();
-        let prereq_groups = self.group_concepts(prereq_concepts.clone());
+        let prereq_groups = self.group_concepts(prereq_concepts.clone(), id, "prereq");
         let needed_for_concepts: Vec<_> =
             self.concepts.borrow().iter()
             .filter(|x| x.prereq_concepts.contains(&id))
@@ -322,10 +322,6 @@ impl Data {
             let mut v = view.update();
             v.prereq_courses = prereq_courses;
             v.activities = activities;
-            for p in c.prereq_concepts.iter() {
-                let pre = self.concept_view(*p);
-                v.prereq_concepts.push(pre);
-            }
             v.prereq_concepts = prereq_concepts;
             v.needed_for_concepts = needed_for_concepts;
             v.prereq_groups = prereq_groups;
@@ -385,7 +381,7 @@ impl Data {
             .filter(|x| a.new_concepts.contains(&x.id))
             .map(|x| self.concept_view(x.id))
             .collect();
-        let mut output_groups = self.group_concepts(output_concepts);
+        let mut output_groups = self.group_concepts(output_concepts, id, "output");
         for a in self.activities.borrow().iter()
             .filter(|aa| a.new_concepts.iter().any(|cc| aa.prereq_concepts.contains(&cc)))
         {
@@ -404,7 +400,8 @@ impl Data {
             .filter(|c| !c.courses.iter().any(|cc| other_courses.contains(cc)))
             .cloned()
             .collect();
-        let prereq_groups: Vec<_> = self.group_concepts(prereq_concepts_in_this_course);
+        let prereq_groups: Vec<_> = self.group_concepts(prereq_concepts_in_this_course,
+                                                        id, "prereq");
         {
             let mut v = view.update();
 
@@ -439,7 +436,8 @@ impl Data {
         let other_concepts: Vec<_> = all_concepts_using_r.into_iter()
             .filter(|c| !activity_concepts.contains(&c))
             .collect();
-        let mut groups: Vec<_> = self.group_concepts(activity_concepts.iter().map(|c| self.concept_view(c.id)).collect());
+        let mut groups: Vec<_> = self.group_concepts(activity_concepts.iter().map(|c| self.concept_view(c.id)).collect(),
+                                                     id, "used by");
         for a in self.activities.borrow().iter()
             .filter(|a| a.representations.contains(&id))
         {
@@ -521,15 +519,16 @@ impl Data {
         cs
     }
 
-    fn group_concepts(&self, x: Vec<RcRcu<ConceptView>>) -> Vec<ActivityGroup> {
+    fn group_concepts(&self, x: Vec<RcRcu<ConceptView>>, removefrom: impl Copy+DisplayAs<HTML>, field: &str)
+                      -> Vec<ActivityGroup> {
         self.progression_group_concepts(x).into_iter()
             .map(|g| {
                 let concepts: Vec<_> = g.concepts.iter()
-                    .map(|c| self.concepts.borrow()[c.id.0].clone()).collect();
+                    .map(|c| self.concepts.borrow()[c.id.0].remove(removefrom, field)).collect();
                 if let Some(a) = g.activity {
                     let hint_concepts: Vec<_> = a.new_concepts.iter()
                         .map(|c| self.concepts.borrow()[c.id.0].clone())
-                        .filter(|c| !concepts.contains(c))
+                        .filter(|c| !concepts.iter().any(|x| x.id == c.id))
                         .collect();
                     let activity = Some(self.activities.borrow()[a.id.0].clone());
                     ActivityGroup { activity, concepts, hint_concepts, }
@@ -603,7 +602,7 @@ impl DisplayAs<HTML> for PrereqCourse {}
 #[derive(Debug, Clone)]
 pub struct ActivityGroup {
     pub activity: Option<Activity>,
-    pub concepts: Vec<Concept>,
+    pub concepts: Vec<ConceptRemove>,
     pub hint_concepts: Vec<Concept>
 }
 #[with_template("[%" "%]" "activity-group.html")]
@@ -641,3 +640,13 @@ pub struct ConceptChoice {
 }
 #[with_template("[%" "%]" "concept-choice.html")]
 impl DisplayAs<HTML> for ConceptChoice {}
+
+/// Represents removing a thingy.
+#[derive(Debug, Clone)]
+pub struct Remove {
+    pub id: String,
+    pub field: String,
+    pub removeid: String,
+}
+#[with_template("[%" "%]" "remove.html")]
+impl DisplayAs<HTML> for Remove {}

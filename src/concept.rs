@@ -5,7 +5,7 @@ use rcu_clean::RcRcu;
 use crate::data::{CourseID, Course,
                   RepresentationID, Representation,
                   ActivityGroup, ActivityView, ConceptID, ConceptChoice,
-                  PrereqCourse};
+                  PrereqCourse, Remove};
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Concept {
@@ -24,6 +24,64 @@ pub struct Concept {
 impl DisplayAs<URL> for Concept {}
 #[with_template("[%" "%]" "concept.html")]
 impl DisplayAs<HTML> for Concept {}
+
+/// This is a concept that can be removed from something else.
+#[derive(Debug, Clone)]
+pub struct ConceptRemove {
+    pub id: ConceptID,
+    pub name: String,
+    pub prereq_concepts: Vec<ConceptID>,
+    pub representations: Vec<RepresentationID>,
+    pub courses: Vec<CourseID>,
+    pub figure: Option<String>,
+    pub long_description: String,
+    pub external_url: Option<String>,
+    pub status: Option<String>,
+    pub notes: Option<String>,
+    pub remove: Remove,
+}
+#[with_template("/concept/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for ConceptRemove {}
+#[with_template("[%" "%]" "concept-remove.html")]
+impl DisplayAs<HTML> for ConceptRemove {}
+
+impl Concept {
+    pub fn remove(&self, from: impl DisplayAs<HTML>, field: &str) -> ConceptRemove {
+        ConceptRemove {
+            id: self.id,
+            name: self.name.clone(),
+            prereq_concepts: self.prereq_concepts.clone(),
+            representations: self.representations.clone(),
+            courses: self.courses.clone(),
+            figure: self.figure.clone(),
+            long_description: self.long_description.clone(),
+            external_url: self.external_url.clone(),
+            status: self.status.clone(),
+            notes: self.notes.clone(),
+            remove: Remove {
+                id: format_as!(HTML, from),
+                field: field.to_string(),
+                removeid: format_as!(HTML, self.id),
+            },
+        }
+    }
+}
+impl ConceptRemove {
+    pub fn concept(&self) -> Concept {
+        Concept {
+            id: self.id,
+            name: self.name.clone(),
+            prereq_concepts: self.prereq_concepts.clone(),
+            representations: self.representations.clone(),
+            courses: self.courses.clone(),
+            figure: self.figure.clone(),
+            long_description: self.long_description.clone(),
+            external_url: self.external_url.clone(),
+            status: self.status.clone(),
+            notes: self.notes.clone(),
+        }
+    }
+}
 
 /// This is a concept, but with all the relationships filled in.
 #[derive(Debug, Clone)]
