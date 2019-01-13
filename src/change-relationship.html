@@ -1,0 +1,12 @@
+[% if self.parentid.len() > 0 && self.childid.len() > 0 {
+%]<form class="hint" action="/change" method="post"
+      target="hidden-form"
+      onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
+  <input type="hidden" name="content" value="[% self.childid %]">
+  <input type="hidden" name="id" value="[% self.parentid %]">
+  <input type="hidden" name="field" value="[% self.verb %]">
+  <input type="hidden" name="html" value="[% self.relationship %]">
+  <input type="submit" value="Remove">
+</form>
+<iframe style="display:none" name="hidden-form"></iframe>
+[% } %]

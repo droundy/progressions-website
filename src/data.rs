@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
 use rcu_clean::RcRcu;
 use std::cell::RefCell;
-use display_as::{with_template, HTML, URL, DisplayAs};
+use display_as::{with_template, format_as, HTML, URL, DisplayAs};
 use simple_error::bail;
 use crate::markdown::Markdown;
 
@@ -46,7 +46,7 @@ impl DisplayAs<URL> for Course {}
 #[with_template(r#"<a href=""# self as URL r#"" class="course">"# self.name r#"</a>"#)]
 impl DisplayAs<HTML> for Course {}
 
-pub use crate::concept::{Concept, ConceptView, ConceptRemove};
+pub use crate::concept::{Concept, ConceptView};
 pub use crate::activity::{Activity, ActivityView};
 pub use crate::representation::{Representation, RepresentationView};
 
@@ -162,6 +162,7 @@ impl Data {
             external_url: None,
             status: None,
             notes: None,
+            addremove: ChangeRelationship::none(),
         });
         newid
     }
@@ -519,12 +520,13 @@ impl Data {
         cs
     }
 
-    fn group_concepts(&self, x: Vec<RcRcu<ConceptView>>, removefrom: impl Copy+DisplayAs<HTML>, field: &str)
-                      -> Vec<ActivityGroup> {
+    fn group_concepts(&self, x: Vec<RcRcu<ConceptView>>,
+                      parentid: impl Copy+DisplayAs<HTML>,
+                      relationship: &'static str) -> Vec<ActivityGroup> {
         self.progression_group_concepts(x).into_iter()
             .map(|g| {
                 let concepts: Vec<_> = g.concepts.iter()
-                    .map(|c| self.concepts.borrow()[c.id.0].remove(removefrom, field)).collect();
+                    .map(|c| self.concepts.borrow()[c.id.0].remove(parentid, relationship)).collect();
                 if let Some(a) = g.activity {
                     let hint_concepts: Vec<_> = a.new_concepts.iter()
                         .map(|c| self.concepts.borrow()[c.id.0].clone())
@@ -602,7 +604,7 @@ impl DisplayAs<HTML> for PrereqCourse {}
 #[derive(Debug, Clone)]
 pub struct ActivityGroup {
     pub activity: Option<Activity>,
-    pub concepts: Vec<ConceptRemove>,
+    pub concepts: Vec<Concept>,
     pub hint_concepts: Vec<Concept>
 }
 #[with_template("[%" "%]" "activity-group.html")]
@@ -641,12 +643,39 @@ pub struct ConceptChoice {
 #[with_template("[%" "%]" "concept-choice.html")]
 impl DisplayAs<HTML> for ConceptChoice {}
 
-/// Represents removing a thingy.
-#[derive(Debug, Clone)]
-pub struct Remove {
-    pub id: String,
-    pub field: String,
-    pub removeid: String,
+/// Represents adding or removing a thingy.
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize, Default)]
+pub struct ChangeRelationship {
+    /// This is the containing object
+    pub parentid: String,
+    /// verb is most likely add or remove
+    pub verb: String,
+    pub childid: String,
+    /// relationship is "prereq" or similar.
+    pub relationship: String,
 }
-#[with_template("[%" "%]" "remove.html")]
-impl DisplayAs<HTML> for Remove {}
+#[with_template("[%" "%]" "change-relationship.html")]
+impl DisplayAs<HTML> for ChangeRelationship {}
+
+impl ChangeRelationship {
+    pub fn none() -> Self {
+        ChangeRelationship {
+            parentid: "".to_string(),
+            childid: "".to_string(),
+            verb: "".to_string(),
+            relationship: "".to_string(),
+        }
+    }
+    pub fn parent(parentid: impl DisplayAs<HTML>,
+                  verb: &'static str, relationship: &'static str) -> Self {
+        ChangeRelationship {
+            parentid: format_as!(HTML, parentid),
+            childid: "".to_string(),
+            verb: verb.to_string(),
+            relationship: relationship.to_string(),
+        }
+    }
+    pub fn child(&self, childid: impl DisplayAs<HTML>) -> ChangeRelationship {
+        ChangeRelationship { childid: format_as!(HTML, childid), .. self.clone() }
+    }
+}
