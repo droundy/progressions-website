@@ -80,7 +80,7 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: "The derivative of a function is itself a function, with the same domain as the origional function. Both the (derivative) funciton and the value of the derivative at a point are commonly referrd to as \"the derivative.\""
+    long_description: "The derivative of a function is itself a function, with the same domain as the original function. Both the (derivative) function and the value of the derivative at a point are commonly referred to as \"the derivative.\""
     external_url: ~
     status: Active
     notes: ~
@@ -137,7 +137,7 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: "When taking a derivative of a multivariable function, it is possible to consider a simplier situation in which some of the variables are considered to be constant. "
+    long_description: "When taking a derivative of a multivariable function, it is possible to consider a simpler situation in which some of the variables are considered to be constant. "
     external_url: ~
     status: Active
     notes: ~
@@ -149,7 +149,7 @@ concepts:
     courses:
       - 0
     figure: ~
-    long_description: "When taking the derivative of a product with $n$ factors, the product rule gives that this derivative is equal a sum of $n$ terms, the $i$th of which is the origional function but with  the $i$th factor replaced by the derivative of the $i$th factor:  $\\frac{d}{dt}(xy)=\\frac{dx}{dt} y+x \\frac{dy}{dt}$"
+    long_description: "When taking the derivative of a product with $n$ factors, the product rule gives that this derivative is equal a sum of $n$ terms, the $i$th of which is the original function but with  the $i$th factor replaced by the derivative of the $i$th factor:  $\\frac{d}{dt}(xy)=\\frac{dx}{dt} y+x \\frac{dy}{dt}$"
     external_url: ~
     status: Active
     notes: ~
@@ -193,10 +193,6 @@ concepts:
     name: Derivatives can be found while holding one or more variables constant
     prereq_concepts:
       - 11
-      - 67
-      - 68
-      - 68
-      - 67
     representations:
       - 4
     courses:
@@ -316,7 +312,7 @@ concepts:
     courses:
       - 1
     figure: ~
-    long_description: "Just as the derivative of a one-dimensional funtion at a point is equal to the slope of a tangent line at that point, and partial derivative of a multivariable function can be found as a slope of a tangent plane. "
+    long_description: "Just as the derivative of a one-dimensional function at a point is equal to the slope of a tangent line at that point, and partial derivative of a multivariable function can be found as a slope of a tangent plane. "
     external_url: ~
     status: Active
     notes: ~
@@ -384,7 +380,7 @@ concepts:
     courses:
       - 2
     figure: ~
-    long_description: At a point on a multivariable function there is a derivative in every direction. The derivative with the largest value is known as the gradient and it points in the direction in which the derivative of the function is the largest.
+    long_description: "The Master Formula states that a small change in a function $df$ is the dot product of the gradient of the function with a small step $d \\vec r$ through the domain of the function:\n\\[df = \\vec \\nabla f \\cdot d \\vec r.\\]\nIn order to maximize the change in $f$ one must maximize this dot product, which happens when the small step $d \\vec r$ is parallel to the gradient. Or, turning this statement around, the gradient points in the direction in which the function is increasing the most."
     external_url: ~
     status: Active
     notes: NEW
@@ -859,6 +855,18 @@ concepts:
     external_url: ~
     status: ~
     notes: ~
+  - id: 69
+    name: The gradient lives in the domain and has the same number of spatial dimensions as the original function
+    prereq_concepts: []
+    representations:
+      - 8
+    courses:
+      - 3
+    figure: ~
+    long_description: "The gradient of an $n$ dimensional function is $n$ dimensional. This is not to be confused with the gradient having the same physical dimensions (e.g., Newtons) as the original function."
+    external_url: ~
+    status: Active
+    notes: ~
 activities:
   - id: 0
     name: The Heater II
@@ -1055,9 +1063,10 @@ activities:
   - id: 10
     name: Acting out the Gradient
     prereq_concepts:
-      - 23
+      - 22
+      - 30
     new_concepts:
-      - 41
+      - 69
       - 42
     representations:
       - 8
@@ -1066,7 +1075,7 @@ activities:
     courses:
       - 3
     figure: vfactinggrad.jpg
-    long_description: "Oftentimes, students are not correctly interpreting situations geometrically when it seems they are. This activity is designed to test the ability of a class to represent the gradient physically for a function $f(x,y)$ that represents an elliptical hill. In the activity, the students themselves as points distributed throughout the classroom represent a vector field, using their right arm as a vector pointing in the direction of the gradient. The instructor will also have the opportunity to clarify the proper gradient direction (in the $xy$-plan) for students that are pointing incorrectly (``up'' the hill)."
+    long_description: "Oftentimes, students are not correctly interpreting situations geometrically when it seems they are. This activity is designed to test the ability of a class to represent the gradient physically for a function $f(x,y)$ that represents an elliptical hill. In the activity, the students, distributed throughout the classroom, represent a vector field at various points. Students are asked to point, using their right arm, in the direction of the gradient. The instructor will also have the opportunity to clarify the proper gradient direction (in the $xy$-plane) for students that are pointing incorrectly (\"up\" the hill)."
     external_url: vfactinggrad
     status: Active
     notes: ~
@@ -1075,8 +1084,9 @@ activities:
     prereq_concepts:
       - 23
       - 24
+      - 30
     new_concepts:
-      - 41
+      - 69
       - 42
     representations:
       - 16
