@@ -33,9 +33,11 @@ let content = {
            } %] class="concept">
         <div class="taughtby">
           <div class="taughtby"> [%
+            let myremove = ChangeRelationship::parent(self.id, "Remove",
+                                                      "taught by");
             for a in self.activities.iter() {
             %]<a href="[% a as URL %]" class="activity">
-              [% a.name %]
+              [% myremove.child(a.id) %][% a.name %]
             </a>[%
             } %]
           </div>

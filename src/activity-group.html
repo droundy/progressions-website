@@ -3,7 +3,7 @@
     <div class="taughtby">
       [% if let Some(ref activity) = self.activity.iter().next() { %]
       <a href="[% activity as URL %]" class="activity" thisid="[% activity.id %]" name="name">
-        [% activity.name %]
+        [% activity.addremove %][% activity.name %]
       </a>
       [%
       } else { %]

@@ -144,8 +144,6 @@ impl Data {
                         }
                     }
                     "Remove" => {
-                        let prereq_id = self.concept_by_name(&c.content);
-                        self.concepts.borrow_mut()[id.0].prereq_concepts.push(prereq_id);
                         match c.html.as_ref() {
                             "needed for" => {
                                 match AnyID::parse(&c.content)? {
@@ -165,6 +163,15 @@ impl Data {
                                     _ => bail!("prereq must be a concept in remove"),
                                 }
                             }
+                            "taught by" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Activity(a_id) => {
+                                        self.activities.borrow_mut()[a_id.0]
+                                            .new_concepts.retain(|&x| x != id);
+                                    }
+                                    _ => bail!("taughtby must be an activity in remove"),
+                                }
+                            }
                             _ => bail!("Unknown relationship on remove: {}", c.html),
                         }
                     }
@@ -178,6 +185,29 @@ impl Data {
                     }
                     "name" => {
                         self.activities.borrow_mut()[id.0].name = c.content.trim().to_string();
+                    }
+                    "Remove" => {
+                        match c.html.as_ref() {
+                            "new_concept" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(c_id) => {
+                                        self.activities.borrow_mut()[id.0]
+                                            .new_concepts.retain(|&x| x != c_id);
+                                    }
+                                    _ => bail!("No new_concept as other type"),
+                                }
+                            }
+                            "prereq" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(c_id) => {
+                                        self.activities.borrow_mut()[id.0]
+                                            .prereq_concepts.retain(|&x| x != c_id);
+                                    }
+                                    _ => bail!("No new_concept as other type"),
+                                }
+                            }
+                            _ => bail!("Unknown relationship on remove from activity: {}", c.html),
+                        }
                     }
                     _ => bail!("Unknown field of activity: {}", c.field),
                 }
@@ -251,6 +281,7 @@ impl Data {
             external_url: None,
             status: None,
             notes: None,
+            addremove: ChangeRelationship::none(),
         });
         newid
     }
@@ -367,7 +398,7 @@ impl Data {
         let activities: Vec<_> =
             self.activities.borrow().iter()
             .filter(|a| a.new_concepts.contains(&id))
-            .map(|a| self.activity_view(a.id))
+            .map(|a| self.activity_view(a.id)) // RcRcu::new( .remove(id, "taught by"))
             .collect();
         let prereq_concepts: Vec<_> =
             c.prereq_concepts.iter()
@@ -422,6 +453,7 @@ impl Data {
             external_url: a.external_url.clone(),
             status: a.status.clone(),
             notes: a.notes.clone(),
+            addremove: ChangeRelationship::none(),
         });
         // We haven't generated this view yet, so we need to add the
         // related concepts.
@@ -616,7 +648,7 @@ impl Data {
             hint_concepts: self.activities.borrow()[a.id.0].new_concepts.iter()
                 .map(|c| self.concepts.borrow()[c.0].add(parentid, relationship))
                 .collect(),
-            activity: Some(a),
+            activity: Some(a), // .remove(parentid, relationship)),
             concepts: Vec::new(),
         });
     }
