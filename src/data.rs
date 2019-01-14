@@ -63,6 +63,22 @@ pub struct Data {
     activity_views: RefCell<Vec<Option<RcRcu<ActivityView>>>>,
 }
 
+enum AnyID {
+    Concept(ConceptID),
+    Activity(ActivityID),
+    Representation(RepresentationID),
+}
+impl AnyID {
+    fn parse(s: &str) -> Result<Self, Box<std::error::Error>> {
+        match s.chars().next() {
+            Some('c') => Ok(AnyID::Concept(ConceptID(s[1..].parse()?))),
+            Some('a') => Ok(AnyID::Activity(ActivityID(s[1..].parse()?))),
+            Some('r') => Ok(AnyID::Representation(RepresentationID(s[1..].parse()?))),
+            _ => bail!("Crazy kind: {}", s),
+        }
+    }
+}
+
 impl Data {
     pub fn save(&self) {
         let f = AtomicFile::create("progression.yaml").expect("error creating save file");
@@ -85,56 +101,102 @@ impl Data {
         }
     }
     pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
-        match c.id.chars().next() {
-            Some('c') => {
-                let id: usize = c.id[1..].parse()?;
+        match AnyID::parse(&c.id)? {
+            AnyID::Concept(id) => {
                 match &c.field as &str {
                     "long_description" => {
-                        self.concepts.borrow_mut()[id].long_description = c.content.trim().to_string();
+                        self.concepts.borrow_mut()[id.0].long_description = c.content.trim().to_string();
                     }
                     "name" => {
-                        self.concepts.borrow_mut()[id].name = c.content.trim().to_string();
+                        self.concepts.borrow_mut()[id.0].name = c.content.trim().to_string();
                     }
                     "needed for" => {
                         let needed_for_id = self.concept_by_name(&c.content);
-                        self.concepts.borrow_mut()[needed_for_id.0].prereq_concepts.push(ConceptID(id));
+                        self.concepts.borrow_mut()[needed_for_id.0].prereq_concepts.push(id);
                     }
                     "prereq" => {
                         let prereq_id = self.concept_by_name(&c.content);
-                        self.concepts.borrow_mut()[id].prereq_concepts.push(prereq_id);
+                        self.concepts.borrow_mut()[id.0].prereq_concepts.push(prereq_id);
+                    }
+                    "Add" => {
+                        let prereq_id = self.concept_by_name(&c.content);
+                        self.concepts.borrow_mut()[id.0].prereq_concepts.push(prereq_id);
+                        match c.html.as_ref() {
+                            "needed for" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(needed_for_id) => {
+                                        self.concepts.borrow_mut()[needed_for_id.0]
+                                            .prereq_concepts.push(id)
+                                    }
+                                    _ => bail!("Cannot yet handle needed for with other types"),
+                                }
+                            }
+                            "prereq" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(prereq_id) => {
+                                        self.concepts.borrow_mut()[id.0]
+                                            .prereq_concepts.push(prereq_id)
+                                    }
+                                    _ => bail!("prereq must be a concept"),
+                                }
+                            }
+                            _ => bail!("Unknown relationship: {}", c.html),
+                        }
+                    }
+                    "Remove" => {
+                        let prereq_id = self.concept_by_name(&c.content);
+                        self.concepts.borrow_mut()[id.0].prereq_concepts.push(prereq_id);
+                        match c.html.as_ref() {
+                            "needed for" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(needed_for_id) => {
+                                        self.concepts.borrow_mut()[needed_for_id.0]
+                                            .prereq_concepts.retain(|&x| x != id);
+                                    }
+                                    _ => bail!("Cannot yet remove needed for with other types"),
+                                }
+                            }
+                            "prereq" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(prereq_id) => {
+                                        self.concepts.borrow_mut()[id.0]
+                                            .prereq_concepts.retain(|&x| x != prereq_id);
+                                    }
+                                    _ => bail!("prereq must be a concept in remove"),
+                                }
+                            }
+                            _ => bail!("Unknown relationship on remove: {}", c.html),
+                        }
                     }
                     _ => bail!("Unknown field of concept: {}", c.field),
                 }
             }
-            Some('a') => {
-                let id: usize = c.id[1..].parse()?;
+            AnyID::Activity(id) => {
                 match &c.field as &str {
                     "long_description" => {
-                        self.activities.borrow_mut()[id].long_description = c.content.trim().to_string();
+                        self.activities.borrow_mut()[id.0].long_description = c.content.trim().to_string();
                     }
                     "name" => {
-                        self.activities.borrow_mut()[id].name = c.content.trim().to_string();
+                        self.activities.borrow_mut()[id.0].name = c.content.trim().to_string();
                     }
                     _ => bail!("Unknown field of activity: {}", c.field),
                 }
             }
-            Some('r') => {
-                let id: usize = c.id[1..].parse()?;
+            AnyID::Representation(id) => {
                 match &c.field as &str {
                     "icon" => {
-                        self.representations.borrow_mut()[id].icon = c.html.trim().to_string();
+                        self.representations.borrow_mut()[id.0].icon = c.html.trim().to_string();
                     }
                     "name" => {
-                        self.representations.borrow_mut()[id].name = c.content.trim().to_string();
+                        self.representations.borrow_mut()[id.0].name = c.content.trim().to_string();
                     }
                     "description" => {
-                        self.representations.borrow_mut()[id].description =
+                        self.representations.borrow_mut()[id.0].description =
                             Markdown::from_html(&c.html);
                     }
                     _ => bail!("Unknown field of representation: {}", c.field),
                 }
             }
-            _ => bail!("Crazy kind: {}", c.id),
         }
         self.save();
         Ok(())
@@ -297,10 +359,10 @@ impl Data {
             .filter(|x| x.prereq_concepts.contains(&id))
             .map(|x| self.concept_view(x.id))
             .collect();
-        let mut output_groups = self.group_concepts(output_concepts, id, "output");
+        let mut output_groups = self.group_concepts(output_concepts, id, "needed for");
         for a in self.activities.borrow().iter().filter(|a| a.prereq_concepts.contains(&id))
         {
-            self.extend_groups_with_activity(&mut output_groups, a.clone());
+            self.extend_groups_with_activity(&mut output_groups, a.clone(), id, "needed for");
         }
         let activities: Vec<_> =
             self.activities.borrow().iter()
@@ -382,11 +444,11 @@ impl Data {
             .filter(|x| a.new_concepts.contains(&x.id))
             .map(|x| self.concept_view(x.id))
             .collect();
-        let mut output_groups = self.group_concepts(output_concepts, id, "output");
+        let mut output_groups = self.group_concepts(output_concepts, id, "new concept");
         for a in self.activities.borrow().iter()
             .filter(|aa| a.new_concepts.iter().any(|cc| aa.prereq_concepts.contains(&cc)))
         {
-            self.extend_groups_with_activity(&mut output_groups, a.clone());
+            self.extend_groups_with_activity(&mut output_groups, a.clone(), id, "new concept");
         }
 
         let new_concepts: Vec<_> = self.concepts.borrow().iter()
@@ -442,7 +504,7 @@ impl Data {
         for a in self.activities.borrow().iter()
             .filter(|a| a.representations.contains(&id))
         {
-            self.extend_groups_with_activity(&mut groups, a.clone());
+            self.extend_groups_with_activity(&mut groups, a.clone(), id, "used by");
         }
         RepresentationView {
             id,
@@ -529,7 +591,7 @@ impl Data {
                     .map(|c| self.concepts.borrow()[c.id.0].remove(parentid, relationship)).collect();
                 if let Some(a) = g.activity {
                     let hint_concepts: Vec<_> = a.new_concepts.iter()
-                        .map(|c| self.concepts.borrow()[c.id.0].clone())
+                        .map(|c| self.concepts.borrow()[c.id.0].add(parentid, relationship))
                         .filter(|c| !concepts.iter().any(|x| x.id == c.id))
                         .collect();
                     let activity = Some(self.activities.borrow()[a.id.0].clone());
@@ -544,13 +606,15 @@ impl Data {
             })
             .collect()
     }
-    fn extend_groups_with_activity(&self, gs: &mut Vec<ActivityGroup>, a: Activity) {
+    fn extend_groups_with_activity(&self, gs: &mut Vec<ActivityGroup>, a: Activity,
+                                   parentid: impl Copy+DisplayAs<HTML>,
+                                   relationship: &'static str) {
         if gs.iter().any(|g| g.activity == Some(a.clone())) {
             return; // it is already here
         }
         gs.push(ActivityGroup {
             hint_concepts: self.activities.borrow()[a.id.0].new_concepts.iter()
-                .map(|c| self.concepts.borrow()[c.0].clone())
+                .map(|c| self.concepts.borrow()[c.0].add(parentid, relationship))
                 .collect(),
             activity: Some(a),
             concepts: Vec::new(),

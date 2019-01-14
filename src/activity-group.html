@@ -19,7 +19,7 @@
     c
   } %] [%
   for c in self.hint_concepts.iter() {
-     %]<a href="[% c as URL %]" class="concept hint">
+     %]<a href="[% c as URL %]" class="concept hint">[% c.addremove %]
        <span thisid="[% c.id %]" name="name">[% c.name %]</span></a> [%
   } %]
 </div>

@@ -6,7 +6,7 @@
   <input type="hidden" name="id" value="[% self.parentid %]">
   <input type="hidden" name="field" value="[% self.verb %]">
   <input type="hidden" name="html" value="[% self.relationship %]">
-  <input type="submit" value="Remove">
+  <input type="submit" value="[% self.verb %] [% self.relationship %]">
 </form>
 <iframe style="display:none" name="hidden-form"></iframe>
 [% } %]

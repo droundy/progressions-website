@@ -38,6 +38,15 @@ impl Concept {
             .. self.clone()
         }
     }
+    pub fn add(&self, from: impl DisplayAs<HTML>, relationship: &'static str)
+                  -> Concept
+    {
+        Concept {
+            addremove: ChangeRelationship::parent(from, "Add", relationship)
+                .child(self.id),
+            .. self.clone()
+        }
+    }
 }
 
 

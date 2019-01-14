@@ -193,6 +193,10 @@ concepts:
     name: Derivatives can be found while holding one or more variables constant
     prereq_concepts:
       - 11
+      - 67
+      - 68
+      - 68
+      - 67
     representations:
       - 4
     courses:
@@ -834,6 +838,26 @@ concepts:
     long_description: "Because total differentials are linear, one can find the total differential and then solve algebraically to obtain partial derivatives that might not be obtainable though differentiation. "
     external_url: ~
     status: Active
+    notes: ~
+  - id: 67
+    name: c60
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
+    notes: ~
+  - id: 68
+    name: c61
+    prereq_concepts: []
+    representations: []
+    courses: []
+    figure: ~
+    long_description: ""
+    external_url: ~
+    status: ~
     notes: ~
 activities:
   - id: 0
