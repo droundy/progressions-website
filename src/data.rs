@@ -79,7 +79,21 @@ impl AnyID {
     }
 }
 
+trait ID: Copy+Clone {
+    type Target;
+    fn get(self, data: &Data) -> Self::Target;
+}
+impl ID for ConceptID {
+    type Target = Concept;
+    fn get(self, data: &Data) -> Self::Target {
+        data.concepts.borrow()[self.0].clone()
+    }
+}
+
 impl Data {
+    fn get<I: ID>(&self, id: I) -> I::Target {
+        id.get(self)
+    }
     pub fn save(&self) {
         let f = AtomicFile::create("progression.yaml").expect("error creating save file");
         serde_yaml::to_writer(&f, self).expect("error writing yaml");
@@ -233,10 +247,7 @@ impl Data {
     }
     pub fn concept_by_name(&self, name: &str) -> ConceptID {
         let name = name.trim();
-        if let Some(c) = self
-            .concepts
-            .borrow()
-            .iter()
+        if let Some(c) = self.concepts.borrow().iter()
             .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
             .next()
         {
@@ -345,7 +356,7 @@ impl Data {
         if let Some(ref c) = self.concept_views.borrow()[id.0] {
             return c.clone();
         }
-        let c = &self.concepts.borrow()[id.0];
+        let c = &self.get(id);
         let my_prereq_concepts: Vec<_> =
             self.concepts.borrow().iter().filter(|x| c.prereq_concepts.contains(&x.id)).cloned().collect();
         let view = RcRcu::new(ConceptView {
@@ -620,10 +631,10 @@ impl Data {
         self.progression_group_concepts(x).into_iter()
             .map(|g| {
                 let concepts: Vec<_> = g.concepts.iter()
-                    .map(|c| self.concepts.borrow()[c.id.0].remove(parentid, relationship)).collect();
+                    .map(|c| Child::remove(parentid, relationship, self.get(c.id).clone())).collect();
                 if let Some(a) = g.activity {
                     let hint_concepts: Vec<_> = a.new_concepts.iter()
-                        .map(|c| self.concepts.borrow()[c.id.0].add(parentid, relationship))
+                        .map(|c| Child::add(parentid, relationship, self.get(c.id).clone()))
                         .filter(|c| !concepts.iter().any(|x| x.id == c.id))
                         .collect();
                     let activity = Some(self.activities.borrow()[a.id.0].clone());
@@ -646,7 +657,7 @@ impl Data {
         }
         gs.push(ActivityGroup {
             hint_concepts: self.activities.borrow()[a.id.0].new_concepts.iter()
-                .map(|c| self.concepts.borrow()[c.0].add(parentid, relationship))
+                .map(|c| Child::add(parentid, relationship, self.get(*c).clone()))
                 .collect(),
             activity: Some(a), // .remove(parentid, relationship)),
             concepts: Vec::new(),
@@ -700,8 +711,8 @@ impl DisplayAs<HTML> for PrereqCourse {}
 #[derive(Debug, Clone)]
 pub struct ActivityGroup {
     pub activity: Option<Activity>,
-    pub concepts: Vec<Concept>,
-    pub hint_concepts: Vec<Concept>
+    pub concepts: Vec<Child<Concept>>,
+    pub hint_concepts: Vec<Child<Concept>>
 }
 #[with_template("[%" "%]" "activity-group.html")]
 impl DisplayAs<HTML> for ActivityGroup {}
@@ -775,3 +786,59 @@ impl ChangeRelationship {
         ChangeRelationship { childid: format_as!(HTML, childid), .. self.clone() }
     }
 }
+
+#[derive(Debug, Clone)]
+pub struct Child<T> {
+    child: T,
+    /// This is the containing object
+    pub parentid: String,
+    /// verb is most likely add or remove
+    pub verb: String,
+    /// relationship is "prereq" or similar.
+    pub relationship: String,
+}
+
+impl<T> Child<T> {
+    pub fn new(parentid: impl DisplayAs<HTML>, verb: &'static str,
+               relationship: &'static str, child: T) -> Self
+    {
+        Child {
+            child,
+            parentid: format_as!(HTML, parentid),
+            verb: verb.to_string(),
+            relationship: relationship.to_string(),
+        }
+    }
+    pub fn add(parentid: impl DisplayAs<HTML>,
+               relationship: &'static str, child: T) -> Self
+    {
+        Child {
+            child,
+            parentid: format_as!(HTML, parentid),
+            verb: "Add".to_string(),
+            relationship: relationship.to_string(),
+        }
+    }
+    pub fn remove(parentid: impl DisplayAs<HTML>,
+                  relationship: &'static str, child: T) -> Self
+    {
+        Child {
+            child,
+            parentid: format_as!(HTML, parentid),
+            verb: "Remove".to_string(),
+            relationship: relationship.to_string(),
+        }
+    }
+}
+
+impl<T> std::ops::Deref for Child<T> {
+    type Target = T;
+    fn deref(&self) -> &T {
+        &self.child
+    }
+}
+
+#[with_template("/concept/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for Child<Concept> {}
+#[with_template("[%" "%]" "concept.html")]
+impl DisplayAs<HTML> for Child<Concept> {}
