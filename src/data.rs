@@ -81,18 +81,52 @@ impl AnyID {
 
 trait ID: Copy+Clone {
     type Target;
-    fn get(self, data: &Data) -> Self::Target;
+    fn get(self, data: &Data) -> std::cell::Ref<Self::Target>;
+    fn get_mut(self, data: &mut Data) -> std::cell::RefMut<Self::Target>;
 }
 impl ID for ConceptID {
     type Target = Concept;
-    fn get(self, data: &Data) -> Self::Target {
-        data.concepts.borrow()[self.0].clone()
+    fn get(self, data: &Data) -> std::cell::Ref<Self::Target> {
+        std::cell::Ref::map(data.concepts.borrow(), |c| &c[self.0])
+    }
+    fn get_mut(self, data: &mut Data) -> std::cell::RefMut<Self::Target> {
+        std::cell::RefMut::map(data.concepts.borrow_mut(), |c| &mut c[self.0])
+    }
+}
+impl ID for ActivityID {
+    type Target = Activity;
+    fn get(self, data: &Data) -> std::cell::Ref<Self::Target> {
+        std::cell::Ref::map(data.activities.borrow(), |a| &a[self.0])
+    }
+    fn get_mut(self, data: &mut Data) -> std::cell::RefMut<Self::Target> {
+        std::cell::RefMut::map(data.activities.borrow_mut(), |c| &mut c[self.0])
+    }
+}
+impl ID for RepresentationID {
+    type Target = Representation;
+    fn get(self, data: &Data) -> std::cell::Ref<Self::Target> {
+        std::cell::Ref::map(data.representations.borrow(), |r| &r[self.0])
+    }
+    fn get_mut(self, data: &mut Data) -> std::cell::RefMut<Self::Target> {
+        std::cell::RefMut::map(data.representations.borrow_mut(), |c| &mut c[self.0])
+    }
+}
+impl ID for CourseID {
+    type Target = Course;
+    fn get(self, data: &Data) -> std::cell::Ref<Self::Target> {
+        std::cell::Ref::map(data.courses.borrow(), |c| &c[self.0])
+    }
+    fn get_mut(self, data: &mut Data) -> std::cell::RefMut<Self::Target> {
+        std::cell::RefMut::map(data.courses.borrow_mut(), |c| &mut c[self.0])
     }
 }
 
 impl Data {
-    fn get<I: ID>(&self, id: I) -> I::Target {
+    fn get<I: ID>(&self, id: I) -> std::cell::Ref<I::Target> {
         id.get(self)
+    }
+    fn get_mut<I: ID>(&mut self, id: I) -> std::cell::RefMut<I::Target> {
+        id.get_mut(self)
     }
     pub fn save(&self) {
         let f = AtomicFile::create("progression.yaml").expect("error creating save file");
@@ -119,28 +153,25 @@ impl Data {
             AnyID::Concept(id) => {
                 match &c.field as &str {
                     "long_description" => {
-                        self.concepts.borrow_mut()[id.0].long_description = c.content.trim().to_string();
+                        self.get_mut(id).long_description = c.content.trim().to_string();
                     }
                     "name" => {
-                        self.concepts.borrow_mut()[id.0].name = c.content.trim().to_string();
+                        self.get_mut(id).name = c.content.trim().to_string();
                     }
                     "needed for" => {
                         let needed_for_id = self.concept_by_name(&c.content);
-                        self.concepts.borrow_mut()[needed_for_id.0].prereq_concepts.push(id);
+                        self.get_mut(needed_for_id).prereq_concepts.push(id);
                     }
                     "prereq" => {
                         let prereq_id = self.concept_by_name(&c.content);
-                        self.concepts.borrow_mut()[id.0].prereq_concepts.push(prereq_id);
+                        self.get_mut(id).prereq_concepts.push(prereq_id);
                     }
                     "Add" => {
-                        let prereq_id = self.concept_by_name(&c.content);
-                        self.concepts.borrow_mut()[id.0].prereq_concepts.push(prereq_id);
                         match c.html.as_ref() {
                             "needed for" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(needed_for_id) => {
-                                        self.concepts.borrow_mut()[needed_for_id.0]
-                                            .prereq_concepts.push(id)
+                                        self.get_mut(needed_for_id).prereq_concepts.push(id)
                                     }
                                     _ => bail!("Cannot yet handle needed for with other types"),
                                 }
@@ -148,8 +179,7 @@ impl Data {
                             "prereq" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(prereq_id) => {
-                                        self.concepts.borrow_mut()[id.0]
-                                            .prereq_concepts.push(prereq_id)
+                                        self.get_mut(id).prereq_concepts.push(prereq_id)
                                     }
                                     _ => bail!("prereq must be a concept"),
                                 }
@@ -162,8 +192,7 @@ impl Data {
                             "needed for" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(needed_for_id) => {
-                                        self.concepts.borrow_mut()[needed_for_id.0]
-                                            .prereq_concepts.retain(|&x| x != id);
+                                        self.get_mut(needed_for_id).prereq_concepts.retain(|&x| x != id);
                                     }
                                     _ => bail!("Cannot yet remove needed for with other types"),
                                 }
@@ -171,8 +200,7 @@ impl Data {
                             "prereq" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(prereq_id) => {
-                                        self.concepts.borrow_mut()[id.0]
-                                            .prereq_concepts.retain(|&x| x != prereq_id);
+                                        self.get_mut(id).prereq_concepts.retain(|&x| x != prereq_id);
                                     }
                                     _ => bail!("prereq must be a concept in remove"),
                                 }
@@ -180,8 +208,7 @@ impl Data {
                             "taught by" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Activity(a_id) => {
-                                        self.activities.borrow_mut()[a_id.0]
-                                            .new_concepts.retain(|&x| x != id);
+                                        self.get_mut(a_id).new_concepts.retain(|&x| x != id);
                                     }
                                     _ => bail!("taughtby must be an activity in remove"),
                                 }
@@ -195,18 +222,17 @@ impl Data {
             AnyID::Activity(id) => {
                 match &c.field as &str {
                     "long_description" => {
-                        self.activities.borrow_mut()[id.0].long_description = c.content.trim().to_string();
+                        self.get_mut(id).long_description = c.content.trim().to_string();
                     }
                     "name" => {
-                        self.activities.borrow_mut()[id.0].name = c.content.trim().to_string();
+                        self.get_mut(id).name = c.content.trim().to_string();
                     }
                     "Remove" => {
                         match c.html.as_ref() {
                             "new_concept" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(c_id) => {
-                                        self.activities.borrow_mut()[id.0]
-                                            .new_concepts.retain(|&x| x != c_id);
+                                        self.get_mut(id).new_concepts.retain(|&x| x != c_id);
                                     }
                                     _ => bail!("No new_concept as other type"),
                                 }
@@ -214,8 +240,7 @@ impl Data {
                             "prereq" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(c_id) => {
-                                        self.activities.borrow_mut()[id.0]
-                                            .prereq_concepts.retain(|&x| x != c_id);
+                                        self.get_mut(id).prereq_concepts.retain(|&x| x != c_id);
                                     }
                                     _ => bail!("No new_concept as other type"),
                                 }
@@ -229,14 +254,13 @@ impl Data {
             AnyID::Representation(id) => {
                 match &c.field as &str {
                     "icon" => {
-                        self.representations.borrow_mut()[id.0].icon = c.html.trim().to_string();
+                        self.get_mut(id).icon = c.html.trim().to_string();
                     }
                     "name" => {
-                        self.representations.borrow_mut()[id.0].name = c.content.trim().to_string();
+                        self.get_mut(id).name = c.content.trim().to_string();
                     }
                     "description" => {
-                        self.representations.borrow_mut()[id.0].description =
-                            Markdown::from_html(&c.html);
+                        self.get_mut(id).description = Markdown::from_html(&c.html);
                     }
                     _ => bail!("Unknown field of representation: {}", c.field),
                 }
@@ -271,9 +295,7 @@ impl Data {
     }
     pub fn activity_by_name(&self, name: &str) -> ActivityID {
         if let Some(c) = self
-            .activities
-            .borrow()
-            .iter()
+            .activities.borrow().iter()
             .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
             .next()
         {
@@ -298,9 +320,7 @@ impl Data {
     }
     pub fn representation_by_name(&self, name: &str) -> RepresentationID {
         if let Some(c) = self
-            .representations
-            .borrow()
-            .iter()
+            .representations.borrow().iter()
             .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
             .next()
         {
@@ -318,9 +338,7 @@ impl Data {
     pub fn course_by_name(&self, name: &str) -> CourseID {
         let name = name.trim();
         if let Some(c) = self
-            .courses
-            .borrow()
-            .iter()
+            .courses.borrow().iter()
             .filter(|c| &c.number == name || &c.name == name || &slug::slugify(&c.number) == name)
             .next()
         {
@@ -343,10 +361,10 @@ impl Data {
         newid
     }
     pub fn set_concept(&mut self, id: ConceptID, c: Concept) {
-        self.concepts.borrow_mut()[id.0] = c;
+        *self.get_mut(id) = c;
     }
     pub fn set_activity(&mut self, id: ActivityID, c: Activity) {
-        self.activities.borrow_mut()[id.0] = c;
+        *self.get_mut(id) = c;
     }
 
     pub fn concept_view(&self, id: ConceptID) -> RcRcu<ConceptView> {
@@ -374,8 +392,8 @@ impl Data {
 
             output_groups: Vec::new(),
 
-            representations: c.representations.iter().map(|rid| self.representations.borrow()[rid.0].clone()).collect(),
-            courses: c.courses.iter().map(|cid| self.courses.borrow()[cid.0].clone()).collect(),
+            representations: c.representations.iter().map(|&rid| self.get(rid).clone()).collect(),
+            courses: c.courses.iter().map(|&cid| self.get(cid).clone()).collect(),
             figure: c.figure.clone(),
             long_description: c.long_description.clone(),
             external_url: c.external_url.clone(),
@@ -442,7 +460,7 @@ impl Data {
         if let Some(ref a) = self.activity_views.borrow()[id.0] {
             return a.clone();
         }
-        let a = &self.activities.borrow()[id.0];
+        let a = &self.get(id);
         let my_prereq_concepts: Vec<_> = self.concepts.borrow().iter()
             .filter(|x| a.prereq_concepts.contains(&x.id)).cloned().collect();
         let view = RcRcu::new(ActivityView {
@@ -457,8 +475,8 @@ impl Data {
 
             output_groups: Vec::new(),
 
-            representations: a.representations.iter().map(|rid| self.representations.borrow()[rid.0].clone()).collect(),
-            courses: a.courses.iter().map(|cid| self.courses.borrow()[cid.0].clone()).collect(),
+            representations: a.representations.iter().map(|&rid| self.get(rid).clone()).collect(),
+            courses: a.courses.iter().map(|&cid| self.get(cid).clone()).collect(),
             figure: a.figure.clone(),
             long_description: a.long_description.clone(),
             external_url: a.external_url.clone(),
@@ -526,7 +544,7 @@ impl Data {
     }
 
     pub fn representation_view(&self, id: RepresentationID) -> RepresentationView {
-        let r = self.representations.borrow()[id.0].clone();
+        let r = self.get(id).clone();
         let all_concepts_using_r: Vec<_> = self.concepts.borrow().iter()
             .filter(|c| c.representations.contains(&id))
             .cloned()
@@ -579,7 +597,7 @@ impl Data {
     }
 
     pub fn course_sequence(&self, id: CourseID) -> CourseSequence {
-        let course = self.courses.borrow()[id.0].clone();
+        let course = self.get(id).clone();
         let course_concepts: Vec<_> = self.concepts.borrow().iter()
             .filter(|c| c.courses.contains(&id))
             .map(|c| self.concept_view(c.id))
@@ -637,7 +655,7 @@ impl Data {
                         .map(|c| Child::add(parentid, relationship, self.get(c.id).clone()))
                         .filter(|c| !concepts.iter().any(|x| x.id == c.id))
                         .collect();
-                    let activity = Some(self.activities.borrow()[a.id.0].clone());
+                    let activity = Some(self.get(a.id).clone());
                     ActivityGroup { activity, concepts, hint_concepts, }
                 } else {
                     ActivityGroup {
@@ -656,7 +674,7 @@ impl Data {
             return; // it is already here
         }
         gs.push(ActivityGroup {
-            hint_concepts: self.activities.borrow()[a.id.0].new_concepts.iter()
+            hint_concepts: self.get(a.id).new_concepts.iter()
                 .map(|c| Child::add(parentid, relationship, self.get(*c).clone()))
                 .collect(),
             activity: Some(a), // .remove(parentid, relationship)),
