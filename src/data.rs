@@ -227,6 +227,14 @@ impl Data {
                     "name" => {
                         self.get_mut(id).name = c.content.trim().to_string();
                     }
+                    "prereq" => {
+                        let prereq_id = self.concept_by_name(&c.content);
+                        self.get_mut(id).prereq_concepts.push(prereq_id);
+                    }
+                    "taught" => {
+                        let prereq_id = self.concept_by_name(&c.content);
+                        self.get_mut(id).new_concepts.push(prereq_id);
+                    }
                     "Remove" => {
                         match c.html.as_ref() {
                             "new_concept" => {
@@ -466,6 +474,8 @@ impl Data {
         let view = RcRcu::new(ActivityView {
             id,
             name: a.name.clone(),
+
+            all_concepts: self.concepts.borrow().clone(),
 
             prereq_courses: Vec::new(),
 

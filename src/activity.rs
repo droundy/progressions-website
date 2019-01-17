@@ -1,9 +1,10 @@
-use display_as::{with_template, HTML, URL, DisplayAs};
+use display_as::{with_template, format_as, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
 use crate::data::{Course, CourseID,
                   Representation, RepresentationID,
                   ActivityGroup,
-                  ConceptID, ConceptView, ActivityID,
+                  ConceptID, Concept, ConceptView, ConceptChoice,
+                  ActivityID,
                   PrereqCourse, ChangeRelationship};
 use rcu_clean::RcRcu;
 
@@ -59,6 +60,8 @@ pub struct ActivityView {
 
     pub new_concepts: Vec<RcRcu<ConceptView>>,
 
+    pub all_concepts: Vec<Concept>, // used to generate ConceptChoices
+
     pub output_groups: Vec<ActivityGroup>,
 
     pub representations: Vec<Representation>,
@@ -101,5 +104,37 @@ impl ActivityView {
                 .child(self.id),
             .. self.clone()
         }
+    }
+    pub fn possibly_taught_concepts(&self) -> ConceptChoice {
+        let mut ch = ConceptChoice {
+            id: format_as!(HTML, self.id),
+            field: "taught".to_string(),
+            choices: Vec::new(),
+        };
+        for c in self.all_concepts.iter() {
+            // Try to list only the concepts that we might plausibly want.
+            if !self.prereq_concepts.iter().any(|pre| pre.id == c.id) &&
+                !self.new_concepts.iter().any(|pre| pre.id == c.id)
+            {
+                ch.choices.push(c.clone());
+            }
+        }
+        ch
+    }
+    pub fn possibly_prereq_concepts(&self) -> ConceptChoice {
+        let mut ch = ConceptChoice {
+            id: format_as!(HTML, self.id),
+            field: "prereq".to_string(),
+            choices: Vec::new(),
+        };
+        for c in self.all_concepts.iter() {
+            // Try to list only the concepts that we might plausibly want.
+            if !self.prereq_concepts.iter().any(|pre| pre.id == c.id) &&
+                !self.new_concepts.iter().any(|pre| pre.id == c.id)
+            {
+                ch.choices.push(c.clone());
+            }
+        }
+        ch
     }
 }

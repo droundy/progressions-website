@@ -20,6 +20,7 @@ let content = {
             for group in self.prereq_groups.iter() {
               group
             }
+            self.possibly_prereq_concepts()
             %]
           </div>
         </div>
@@ -59,6 +60,7 @@ let content = {
             </div>
           </a>[%
           } %]
+          [% self.possibly_taught_concepts() %]
         </div>
       </div>
     </article>[%
