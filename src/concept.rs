@@ -20,35 +20,9 @@ pub struct Concept {
     pub external_url: Option<String>,
     pub status: Option<String>,
     pub notes: Option<String>,
-    #[serde(skip)]
-    pub addremove: ChangeRelationship,
 }
 #[with_template("/concept/" slug::slugify(&self.name))]
 impl DisplayAs<URL> for Concept {}
-#[with_template("[%" "%]" "concept.html")]
-impl DisplayAs<HTML> for Concept {}
-
-impl Concept {
-    pub fn remove(&self, from: impl DisplayAs<HTML>, relationship: &'static str)
-                  -> Concept
-    {
-        Concept {
-            addremove: ChangeRelationship::parent(from, "Remove", relationship)
-                .child(self.id),
-            .. self.clone()
-        }
-    }
-    pub fn add(&self, from: impl DisplayAs<HTML>, relationship: &'static str)
-                  -> Concept
-    {
-        Concept {
-            addremove: ChangeRelationship::parent(from, "Add", relationship)
-                .child(self.id),
-            .. self.clone()
-        }
-    }
-}
-
 
 /// This is a concept, but with all the relationships filled in.
 #[derive(Debug, Clone)]

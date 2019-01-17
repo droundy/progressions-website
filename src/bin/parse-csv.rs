@@ -107,7 +107,6 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                     external_url: nonempty_string(datum.external_url),
                     status: nonempty_string(datum.status),
                     notes: nonempty_string(datum.notes),
-                    addremove: ChangeRelationship::none(),
                 };
                 data.set_concept(c.id, c);
             }

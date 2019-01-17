@@ -297,7 +297,6 @@ impl Data {
             external_url: None,
             status: None,
             notes: None,
-            addremove: ChangeRelationship::none(),
         });
         newid
     }
@@ -569,6 +568,7 @@ impl Data {
             .collect();
         let other_concepts: Vec<_> = all_concepts_using_r.into_iter()
             .filter(|c| !activity_concepts.contains(&c))
+            .map(|c| Child::remove(id, "used by", c))
             .collect();
         let mut groups: Vec<_> = self.group_concepts(activity_concepts.iter().map(|c| self.concept_view(c.id)).collect(),
                                                      id, "used by");
@@ -858,6 +858,24 @@ impl<T> Child<T> {
         }
     }
 }
+macro_rules! impl_child_addremove{
+    ($t:ty) => {
+        impl Child<$t> {
+            pub fn addremove(&self) -> ChangeRelationship {
+                ChangeRelationship {
+                    parentid: self.parentid.clone(),
+                    childid: format_as!(HTML, self.id),
+                    verb: self.verb.clone(),
+                    relationship: self.relationship.clone(),
+                }
+            }
+        }
+    }
+}
+impl_child_addremove!(Concept);
+impl_child_addremove!(Activity);
+impl_child_addremove!(Representation);
+impl_child_addremove!(Course);
 
 impl<T> std::ops::Deref for Child<T> {
     type Target = T;
