@@ -270,6 +270,19 @@ impl Data {
                     "description" => {
                         self.get_mut(id).description = Markdown::from_html(&c.html);
                     }
+                    "Add" => {
+                        match c.html.as_ref() {
+                            "used by" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(child_id) => {
+                                        self.get_mut(child_id).representations.push(id)
+                                    }
+                                    _ => bail!("Weird used by type: {:?}", c.content),
+                                }
+                            }
+                            _ => bail!("Unknown relationship: {}", c.html),
+                        }
+                    }
                     _ => bail!("Unknown field of representation: {}", c.field),
                 }
             }
