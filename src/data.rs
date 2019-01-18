@@ -875,7 +875,6 @@ macro_rules! impl_child_addremove{
 impl_child_addremove!(Concept);
 impl_child_addremove!(Activity);
 impl_child_addremove!(Representation);
-impl_child_addremove!(Course);
 
 impl<T> std::ops::Deref for Child<T> {
     type Target = T;
