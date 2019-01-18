@@ -283,6 +283,24 @@ impl Data {
                             _ => bail!("Unknown relationship: {}", c.html),
                         }
                     }
+                    "Remove" => {
+                        match c.html.as_ref() {
+                            "used by" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(child_id) => {
+                                        self.get_mut(child_id).representations
+                                            .retain(|&r| r != id);
+                                    }
+                                    AnyID::Activity(child_id) => {
+                                        self.get_mut(child_id).representations
+                                            .retain(|&r| r != id);
+                                    }
+                                    _ => bail!("Weird used by type to remove: {:?}", c.content),
+                                }
+                            }
+                            _ => bail!("Unknown relationship: {}", c.html),
+                        }
+                    }
                     _ => bail!("Unknown field of representation: {}", c.field),
                 }
             }
