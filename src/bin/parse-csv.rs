@@ -4,7 +4,7 @@ use std::io;
 use std::process;
 use display_as::{HTML, format_as};
 
-use progression_website::data::{Activity, Concept, Data, Change, ChangeRelationship};
+use progression_website::data::{Activity, Concept, Data, Change};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
 enum ThingType {
@@ -123,7 +123,6 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                 external_url: nonempty_string(datum.external_url),
                 status: nonempty_string(datum.status),
                 notes: nonempty_string(datum.notes),
-                addremove: ChangeRelationship::none(),
             };
             data.set_activity(c.id, c);
         } else {

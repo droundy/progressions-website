@@ -321,7 +321,6 @@ impl Data {
             external_url: None,
             status: None,
             notes: None,
-            addremove: ChangeRelationship::none(),
         });
         newid
     }
@@ -665,7 +664,8 @@ impl Data {
                         .map(|c| Child::add(parentid, relationship, self.get(c.id).clone()))
                         .filter(|c| !concepts.iter().any(|x| x.id == c.id))
                         .collect();
-                    let activity = Some(self.get(a.id).clone());
+                    let activity = Some(Child::remove(parentid, relationship,
+                                                      self.get(a.id).clone()));
                     ActivityGroup { activity, concepts, hint_concepts, }
                 } else {
                     ActivityGroup {
@@ -680,14 +680,16 @@ impl Data {
     fn extend_groups_with_activity(&self, gs: &mut Vec<ActivityGroup>, a: Activity,
                                    parentid: impl Copy+DisplayAs<HTML>,
                                    relationship: &'static str) {
-        if gs.iter().any(|g| g.activity == Some(a.clone())) {
-            return; // it is already here
+        for existing_id in gs.iter().flat_map(|g| g.activity.iter().map(|x| x.id)) {
+            if existing_id == a.id {
+                return;
+            }
         }
         gs.push(ActivityGroup {
             hint_concepts: self.get(a.id).new_concepts.iter()
                 .map(|c| Child::add(parentid, relationship, self.get(*c).clone()))
                 .collect(),
-            activity: Some(a), // .remove(parentid, relationship)),
+            activity: Some(Child::remove(parentid, relationship, a)),
             concepts: Vec::new(),
         });
     }
@@ -738,7 +740,7 @@ impl DisplayAs<HTML> for PrereqCourse {}
 /// This is an activity and concepts it teaches.
 #[derive(Debug, Clone)]
 pub struct ActivityGroup {
-    pub activity: Option<Activity>,
+    pub activity: Option<Child<Activity>>,
     pub concepts: Vec<Child<Concept>>,
     pub hint_concepts: Vec<Child<Concept>>
 }
@@ -887,3 +889,6 @@ impl<T> std::ops::Deref for Child<T> {
 impl DisplayAs<URL> for Child<Concept> {}
 #[with_template("[%" "%]" "concept.html")]
 impl DisplayAs<HTML> for Child<Concept> {}
+
+#[with_template("/activity/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for Child<Activity> {}

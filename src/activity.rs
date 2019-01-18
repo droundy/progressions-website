@@ -21,32 +21,9 @@ pub struct Activity {
     pub external_url: Option<String>,
     pub status: Option<String>,
     pub notes: Option<String>,
-    #[serde(skip)]
-    pub addremove: ChangeRelationship,
 }
 #[with_template("/activity/" slug::slugify(&self.name))]
 impl DisplayAs<URL> for Activity {}
-
-impl Activity {
-    pub fn remove(&self, from: impl DisplayAs<HTML>, relationship: &'static str)
-                  -> Self
-    {
-        Activity {
-            addremove: ChangeRelationship::parent(from, "Remove", relationship)
-                .child(self.id),
-            .. self.clone()
-        }
-    }
-    pub fn add(&self, from: impl DisplayAs<HTML>, relationship: &'static str)
-                  -> Self
-    {
-        Activity {
-            addremove: ChangeRelationship::parent(from, "Add", relationship)
-                .child(self.id),
-            .. self.clone()
-        }
-    }
-}
 
 /// This is a activity, but with all the relationships filled in.
 #[derive(Debug, Clone)]
