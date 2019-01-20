@@ -488,14 +488,14 @@ impl Data {
         let needed_for_concepts: Vec<_> =
             self.concepts.borrow().iter()
             .filter(|x| x.prereq_concepts.contains(&id))
-            .map(|x| self.concept_view(x.id))
+            .map(|x| x.id)
             .collect();
 
         {
             let mut v = view.update();
             v.prereq_courses = prereq_courses;
             v.activities = activities;
-            v.prereq_concepts = prereq_concepts;
+            v.prereq_concepts = c.prereq_concepts.clone();
             v.needed_for_concepts = needed_for_concepts;
             v.prereq_groups = prereq_groups;
             v.output_groups = output_groups;

@@ -33,9 +33,9 @@ pub struct ConceptView {
     pub activities: Vec<RcRcu<ActivityView>>,
 
     pub prereq_courses: Vec<PrereqCourse>,
-    pub prereq_concepts: Vec<RcRcu<ConceptView>>,
+    pub prereq_concepts: Vec<ConceptID>,
     pub prereq_groups: Vec<ActivityGroup>,
-    pub needed_for_concepts: Vec<RcRcu<ConceptView>>,
+    pub needed_for_concepts: Vec<ConceptID>,
 
     pub all_concepts: Vec<Concept>, // used to generate ConceptChoices
 
@@ -70,8 +70,8 @@ impl ConceptView {
         };
         for c in self.all_concepts.iter() {
             // Try to list only the concepts that we might plausibly want.
-            if !self.prereq_concepts.iter().any(|pre| pre.id == c.id) &&
-                !self.needed_for_concepts.iter().any(|pre| pre.id == c.id)
+            if !self.prereq_concepts.contains(&c.id) &&
+                !self.needed_for_concepts.contains(&c.id)
             {
                 ch.choices.push(c.clone());
             }
