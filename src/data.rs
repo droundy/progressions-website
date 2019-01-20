@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
 use rcu_clean::RcRcu;
 use std::cell::RefCell;
-use display_as::{with_template, format_as, HTML, URL, DisplayAs};
+use display_as::{with_template, format_as, HTML, UTF8, URL, DisplayAs};
 use simple_error::bail;
 use crate::markdown::Markdown;
 
@@ -441,7 +441,8 @@ impl Data {
 
             output_groups: Vec::new(),
 
-            representations: c.representations.iter().map(|&rid| self.get(rid).clone()).collect(),
+            representations: c.representations.iter()
+                .map(|&rid| Child::remove(id, "uses", self.get(rid).clone())).collect(),
             courses: c.courses.iter().map(|&cid| self.get(cid).clone()).collect(),
             figure: c.figure.clone(),
             long_description: c.long_description.clone(),
@@ -526,7 +527,8 @@ impl Data {
 
             output_groups: Vec::new(),
 
-            representations: a.representations.iter().map(|&rid| self.get(rid).clone()).collect(),
+            representations: a.representations.iter()
+                .map(|&rid| Child::remove(id, "uses", self.get(rid).clone())).collect(),
             courses: a.courses.iter().map(|&cid| self.get(cid).clone()).collect(),
             figure: a.figure.clone(),
             long_description: a.long_description.clone(),
@@ -935,3 +937,9 @@ impl DisplayAs<HTML> for Child<Concept> {}
 
 #[with_template("/activity/" slug::slugify(&self.name))]
 impl DisplayAs<URL> for Child<Activity> {}
+
+#[with_template("/representation/" slug::slugify(&self.name))]
+impl DisplayAs<URL> for Child<Representation> {}
+#[with_template("[%" "%]" "representation.html")]
+impl DisplayAs<HTML> for Child<Representation> {}
+

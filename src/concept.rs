@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use rcu_clean::RcRcu;
 
 use crate::data::{CourseID, Course,
-                  RepresentationID, Representation,
+                  RepresentationID, Child, Representation,
                   ActivityGroup, ActivityView, ConceptID,
                   ConceptChoice, ChangeRelationship,
                   PrereqCourse};
@@ -41,7 +41,7 @@ pub struct ConceptView {
 
     pub output_groups: Vec<ActivityGroup>,
 
-    pub representations: Vec<Representation>,
+    pub representations: Vec<Child<Representation>>,
     pub courses: Vec<Course>,
     pub figure: Option<String>,
     pub long_description: String,

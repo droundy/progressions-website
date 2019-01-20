@@ -13,9 +13,6 @@ pub struct Representation {
 }
 #[with_template("/representation/" slug::slugify(&self.name))]
 impl DisplayAs<URL> for Representation {}
-#[with_template("[%" "%]" "representation.html")]
-impl DisplayAs<HTML> for Representation {}
-
 
 #[derive(Debug, Clone)]
 pub struct RepresentationView {
