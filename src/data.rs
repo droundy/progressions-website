@@ -143,7 +143,7 @@ impl Data {
             activities: Vec::new(),
             representations: Vec::new(),
             courses: Vec::new(),
-            // activities: Vec::new(),
+
             concept_views: RefCell::new(Vec::new()),
             activity_views: RefCell::new(Vec::new()),
         }
