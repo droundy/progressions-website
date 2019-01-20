@@ -159,11 +159,11 @@ impl Data {
                         self.get_mut(id).name = c.content.trim().to_string();
                     }
                     "needed for" => {
-                        let needed_for_id = self.concept_by_name(&c.content);
+                        let needed_for_id = self.concept_by_name_or_create(&c.content);
                         self.get_mut(needed_for_id).prereq_concepts.push(id);
                     }
                     "prereq" => {
-                        let prereq_id = self.concept_by_name(&c.content);
+                        let prereq_id = self.concept_by_name_or_create(&c.content);
                         self.get_mut(id).prereq_concepts.push(prereq_id);
                     }
                     "Add" => {
@@ -228,11 +228,11 @@ impl Data {
                         self.get_mut(id).name = c.content.trim().to_string();
                     }
                     "prereq" => {
-                        let prereq_id = self.concept_by_name(&c.content);
+                        let prereq_id = self.concept_by_name_or_create(&c.content);
                         self.get_mut(id).prereq_concepts.push(prereq_id);
                     }
                     "taught" => {
-                        let prereq_id = self.concept_by_name(&c.content);
+                        let prereq_id = self.concept_by_name_or_create(&c.content);
                         self.get_mut(id).new_concepts.push(prereq_id);
                     }
                     "Remove" => {
@@ -308,13 +308,17 @@ impl Data {
         self.save();
         Ok(())
     }
-    pub fn concept_by_name(&self, name: &str) -> ConceptID {
+    pub fn concept_by_name(&self, name: &str) -> Option<ConceptID> {
         let name = name.trim();
-        if let Some(c) = self.concepts.borrow().iter()
+        self.concepts.borrow().iter()
             .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
+            .map(|c| c.id)
             .next()
-        {
-            return c.id;
+    }
+    pub fn concept_by_name_or_create(&mut self, name: &str) -> ConceptID {
+        let name = name.trim();
+        if let Some(c) = self.concept_by_name(name) {
+            return c;
         }
         let newid = ConceptID(self.concepts.borrow().len());
         self.concepts.borrow_mut().push(Concept {
@@ -331,13 +335,15 @@ impl Data {
         });
         newid
     }
-    pub fn activity_by_name(&self, name: &str) -> ActivityID {
-        if let Some(c) = self
-            .activities.borrow().iter()
+    pub fn activity_by_name(&self, name: &str) -> Option<ActivityID> {
+        self.activities.borrow().iter()
             .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
+            .map(|c| c.id)
             .next()
-        {
-            return c.id;
+    }
+    pub fn activity_by_name_or_create(&mut self, name: &str) -> ActivityID {
+        if let Some(c) = self.activity_by_name(name) {
+            return c;
         }
         let newid = ActivityID(self.activities.borrow().len());
         self.activities.borrow_mut().push(Activity {
@@ -355,13 +361,15 @@ impl Data {
         });
         newid
     }
-    pub fn representation_by_name(&self, name: &str) -> RepresentationID {
-        if let Some(c) = self
-            .representations.borrow().iter()
+    pub fn representation_by_name(&self, name: &str) -> Option<RepresentationID> {
+        self.representations.borrow().iter()
             .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
+            .map(|c| c.id)
             .next()
-        {
-            return c.id;
+    }
+    pub fn representation_by_name_or_create(&mut self, name: &str) -> RepresentationID {
+        if let Some(c) = self.representation_by_name(name) {
+            return c;
         }
         let newid = RepresentationID(self.representations.borrow().len());
         self.representations.borrow_mut().push(Representation {
@@ -372,14 +380,18 @@ impl Data {
         });
         newid
     }
-    pub fn course_by_name(&self, name: &str) -> CourseID {
+    pub fn course_by_name(&self, name: &str) -> Option<CourseID> {
         let name = name.trim();
-        if let Some(c) = self
-            .courses.borrow().iter()
-            .filter(|c| &c.number == name || &c.name == name || &slug::slugify(&c.number) == name)
+        self.courses.borrow().iter()
+            .filter(|c| &c.number == name || &c.name == name ||
+                    &slug::slugify(&c.number) == name)
+            .map(|c| c.id)
             .next()
-        {
-            return c.id;
+    }
+    pub fn course_by_name_or_create(&mut self, name: &str) -> CourseID {
+        let name = name.trim();
+        if let Some(c) = self.course_by_name(name) {
+            return c;
         }
         let newid = CourseID(self.courses.borrow().len());
         let (number, name) = match name {
@@ -648,7 +660,7 @@ impl Data {
     }
 
     pub fn course_view(&self, name: &str) -> CourseSequence {
-        let id = self.course_by_name(name);
+        let id = self.course_by_name(name).unwrap();
         let mut cs = self.course_sequence(id);
 
         let my_concepts: Vec<_> = self.concepts.borrow().iter()

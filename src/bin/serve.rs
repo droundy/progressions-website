@@ -14,7 +14,9 @@ fn main() {
     let concept = path!("concept" / String)
         .map(|name: String| {
             let data = Data::new();
-            display(HTML, &*data.concept_view(data.concept_by_name(&name))).http_response()
+            display(HTML, &*data.concept_view(data.concept_by_name(&name)
+                                              .expect("Nonexisting concept")))
+                .http_response()
         });
     let course = path!("course" / String)
         .map(|name: String| {
@@ -24,12 +26,16 @@ fn main() {
     let representation = path!("representation" / String)
         .map(|name: String| {
             let data = Data::new();
-            display(HTML, &data.representation_view(data.representation_by_name(&name))).http_response()
+            display(HTML, &data.representation_view(data.representation_by_name(&name)
+                                                    .expect("Nonexisting representation")))
+                .http_response()
         });
     let activity = path!("activity" / String)
         .map(|name: String| {
             let data = Data::new();
-            display(HTML, &*data.activity_view(data.activity_by_name(&name))).http_response()
+            display(HTML, &*data.activity_view(data.activity_by_name(&name)
+                                               .expect("Nonexisting activity")))
+                .http_response()
         });
     let index = (warp::path::end().or(path!("index.html")))
         .map(|_| {

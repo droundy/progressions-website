@@ -78,26 +78,26 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
         datum.name = datum.name.trim();
         let prereqs: Vec<_> = parse_list(datum.prereq_concepts)
             .iter()
-            .map(|c| data.concept_by_name(c))
+            .map(|c| data.concept_by_name_or_create(c))
             .collect();
         let new_concepts: Vec<_> = parse_list(datum.new_concepts)
             .iter()
-            .map(|c| data.concept_by_name(c))
+            .map(|c| data.concept_by_name_or_create(c))
             .collect();
         let representations: Vec<_> = parse_list(datum.representations)
             .iter()
             .map(|x| fix_representation_name(&x))
-            .map(|c| data.representation_by_name(&c))
+            .map(|c| data.representation_by_name_or_create(&c))
             .collect();
         let courses: Vec<_> = if datum.course_number.len() == 0 {
             Vec::new()
         } else {
-            vec![data.course_by_name(datum.course_number)]
+            vec![data.course_by_name_or_create(datum.course_number)]
         };
         if datum.thingtype == "Concept" || datum.thingtype == "concept" {
             if datum.name.trim().len() > 0 {
                 let c = Concept {
-                    id: data.concept_by_name(datum.name),
+                    id: data.concept_by_name_or_create(datum.name),
                     name: datum.name.to_string(),
                     prereq_concepts: prereqs,
                     representations,
@@ -112,7 +112,7 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
             }
         } else if datum.thingtype == "Activity" || datum.thingtype == "activity" {
             let c = Activity {
-                id: data.activity_by_name(datum.name),
+                id: data.activity_by_name_or_create(datum.name),
                 name: datum.name.to_string(),
                 prereq_concepts: prereqs,
                 new_concepts,
@@ -148,8 +148,9 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
         (r"Table", r"$\begin{array}{c|c}x&y\\\hline3&0.2\\4&0.6\\5&0.9\end{array}$"),
     ];
     for (r,i) in icons.into_iter() {
+        let rid = data.representation_by_name_or_create(r);
         data.change(Change {
-            id: format_as!(HTML, data.representation_by_name(r)),
+            id: format_as!(HTML, rid),
             field: "icon".to_string(),
             content: i.to_string(),
             html: i.to_string(),
