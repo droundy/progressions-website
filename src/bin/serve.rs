@@ -23,6 +23,35 @@ fn main() {
             let data = Data::new();
             display(HTML, &data.course_view(&name)).http_response()
         });
+    let dot = path!("concept-map.dot")
+        .map(|| {
+            let data = Data::new();
+            let mut out: Vec<u8> = Vec::new();
+            dot::render(&data, &mut out).expect("Trouble rendering dot!");
+            String::from_utf8(out).expect("trouble converting utf8?")
+        });
+    let dotsvg = path!("concept-map.svg")
+        .map(|| {
+            let data = Data::new();
+            let mut child = std::process::Command::new("dot")
+                .args(&["-Tsvg"])
+                .stdin(std::process::Stdio::piped())
+                .stdout(std::process::Stdio::piped())
+                .spawn()
+                .expect("failed to spawn dot");
+            {
+                use std::io::Write;
+                let stdin = child.stdin.as_mut().expect("Failed to open stdin");
+                stdin.write(b"digraph concept_map { ratio=compress;size=8,1000\n").expect("trouble writing to pipe");
+                let mut out: Vec<u8> = Vec::new();
+                dot::render(&data, &mut out).expect("Trouble rendering dot!");
+                stdin.write(&out[22..]).expect("trouble foo");
+                println!("file: {}", String::from_utf8(Vec::from(&out[22..])).unwrap());
+                //dot::render(&data, &mut stdin).expect("Trouble rendering dot!");
+            }
+            let output = child.wait_with_output().expect("Failed to read stdout");
+            String::from_utf8(output.stdout).expect("Trouble utf8")
+        });
     let representation = path!("representation" / String)
         .map(|name: String| {
             let data = Data::new();
@@ -46,6 +75,8 @@ fn main() {
     let figs = path!("figs").and(warp::fs::dir("figs"));
 
     warp::serve(index
+                .or(dot)
+                .or(dotsvg)
                 .or(change)
                 .or(concept)
                 .or(activity)

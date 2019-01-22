@@ -19,6 +19,7 @@ rcu-clean = "0.1.6"
 display-as = { version = "0.4.2", features = ["warp"] }
 slug = "0.1.4"
 simple-error = "0.1.9"
+dot = "0.1.4"
 
 pulldown-cmark = { version = "0.2.0", default-features = false }
 html2md = "0.2.5"

@@ -1005,3 +1005,39 @@ impl DisplayAs<URL> for Child<Representation> {}
 #[with_template("[%" "%]" "representation.html")]
 impl DisplayAs<HTML> for Child<Representation> {}
 
+
+// The following enables visualization of graphs.
+impl<'a> dot::GraphWalk<'a,ConceptID,(ConceptID,ConceptID)> for Data {
+    fn nodes(&'a self) -> dot::Nodes<'a,ConceptID> {
+        let out: Vec<_> = self.concepts.iter().map(|c| c.id).collect();
+        out.into()
+    }
+    fn edges(&'a self) -> dot::Nodes<'a,(ConceptID,ConceptID)> {
+        let mut out = Vec::new();
+        for c in self.concepts.iter() {
+            out.extend(c.prereq_concepts.iter().map(|&pre| (pre, c.id)));
+        }
+        out.into()
+    }
+    fn source(&self, edge: &(ConceptID, ConceptID)) -> ConceptID {
+        edge.0
+    }
+    fn target(&self, edge: &(ConceptID, ConceptID)) -> ConceptID {
+        edge.1
+    }
+}
+
+impl<'a> dot::Labeller<'a, ConceptID, (ConceptID, ConceptID)> for Data {
+    fn graph_id(&'a self) -> dot::Id<'a> {
+        dot::Id::new("concept_map").expect("trouble with graph_id?")
+    }
+    fn node_id(&'a self, n: &ConceptID) -> dot::Id<'a> {
+        dot::Id::new(format_as!(HTML, n)).expect("trouble with node_id??")
+    }
+    fn node_label<'b>(&'b self, n: &ConceptID) -> dot::LabelText<'b> {
+        dot::LabelText::HtmlStr(format_as!(HTML, self.get(*n).name).into())
+    }
+    fn edge_label<'b>(&'b self, _: &(ConceptID, ConceptID)) -> dot::LabelText<'b> {
+        dot::LabelText::LabelStr("".into())
+    }
+}
