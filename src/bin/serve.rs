@@ -42,7 +42,7 @@ fn main() {
             {
                 use std::io::Write;
                 let stdin = child.stdin.as_mut().expect("Failed to open stdin");
-                stdin.write(b"digraph concept_map { ratio=compress;size=8,1000\n").expect("trouble writing to pipe");
+                stdin.write(b"digraph concept_map { ratio=compress; size=\"8,1000\"\n").expect("trouble writing to pipe");
                 let mut out: Vec<u8> = Vec::new();
                 dot::render(&data, &mut out).expect("Trouble rendering dot!");
                 stdin.write(&out[22..]).expect("trouble foo");
