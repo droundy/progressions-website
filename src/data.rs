@@ -326,7 +326,6 @@ impl Data {
             name: name.to_string(),
             prereq_concepts: Vec::new(),
             representations: Vec::new(),
-            courses: Vec::new(),
             figure: None,
             long_description: "".to_string(),
             external_url: None,
@@ -388,6 +387,12 @@ impl Data {
             .map(|c| c.id)
             .next()
     }
+    pub fn lower_anchor(&mut self, course_name: &str) -> ActivityID {
+        let course = self.course_by_name_or_create(course_name);
+        let id = self.activity_by_name_or_create(&format!("lower anchor {}", course_name));
+        self.get_mut(id).courses.push(course);
+        id
+    }
     pub fn course_by_name_or_create(&mut self, name: &str) -> CourseID {
         let name = name.trim();
         if let Some(c) = self.course_by_name(name) {
@@ -415,7 +420,35 @@ impl Data {
     pub fn set_activity(&mut self, id: ActivityID, c: Activity) {
         *self.get_mut(id) = c;
     }
+    pub fn get_activity(&mut self, id: ActivityID) -> &mut Activity {
+        self.get_mut(id)
+    }
 
+    fn courses_for_concept(&self, id: ConceptID) -> Vec<CourseID> {
+        let mut out = Vec::new();
+        for a in self.activities.iter().filter(|a| a.new_concepts.contains(&id)) {
+            out.extend(a.courses.iter().cloned());
+        }
+        out.sort();
+        out.dedup();
+        out
+    }
+    fn course_is_for_concept(&self, nid: ConceptID, rid: CourseID) -> bool {
+        self.activities.iter()
+            .filter(|a| a.new_concepts.contains(&nid))
+            .filter(|a| a.courses.contains(&rid))
+            .next()
+            .is_some()
+    }
+    fn concepts_for_course(&self, id: CourseID) -> Vec<ConceptID> {
+        let mut out = Vec::new();
+        for a in self.activities.iter().filter(|a| a.courses.contains(&id)) {
+            out.extend(a.new_concepts.iter().cloned());
+        }
+        out.sort();
+        out.dedup();
+        out
+    }
     pub fn concept_view(&self, id: ConceptID) -> RcRcu<ConceptView> {
         while id.0 >= self.concept_views.borrow().len() {
             self.concept_views.borrow_mut().push(None);
@@ -443,7 +476,7 @@ impl Data {
 
             representations: c.representations.iter()
                 .map(|&rid| Child::remove(id, "uses", self.get(rid).clone())).collect(),
-            courses: c.courses.iter().map(|&cid| self.get(cid).clone()).collect(),
+            courses: self.courses_for_concept(c.id).iter().map(|&cid| self.get(cid).clone()).collect(),
             figure: c.figure.clone(),
             long_description: c.long_description.clone(),
             external_url: c.external_url.clone(),
@@ -457,11 +490,12 @@ impl Data {
             .map(|course| PrereqCourse {
                 course: course.clone(),
                 concepts: my_prereq_concepts.iter()
-                    .filter(|c| c.courses.contains(&course.id))
+                    .filter(|c| self.course_is_for_concept(c.id, course.id))
                     .map(|c| self.concept_view(c.id))
                     .collect(),
             })
-            .filter(|xx| xx.concepts.len() > 0 && !c.courses.contains(&xx.course.id))
+            .filter(|xx| xx.concepts.len() > 0 &&
+                    !self.course_is_for_concept(c.id, xx.course.id))
             .collect();
         let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.id).collect();
 
@@ -482,7 +516,8 @@ impl Data {
         let prereq_concepts: Vec<_> =
             c.prereq_concepts.iter()
             .map(|x| self.get(*x))
-            .filter(|x| !the_prereq_courses.iter().any(|z| x.courses.contains(&z)))
+            .filter(|x| !the_prereq_courses.iter()
+                    .any(|&z| self.course_is_for_concept(x.id, z)))
             .map(|x| x.id)
             .collect();
         let prereq_groups = self.group_concepts(prereq_concepts.clone(), id, "prereq");
@@ -548,7 +583,7 @@ impl Data {
             .map(|course| PrereqCourse {
                 course: course.clone(),
                 concepts: my_prereq_concepts.iter()
-                    .filter(|c| c.courses.contains(&course.id))
+                    .filter(|c| self.course_is_for_concept(c.id, course.id))
                     .map(|c| self.concept_view(c.id))
                     .collect(),
             })
@@ -575,7 +610,8 @@ impl Data {
             .collect();
         let prereq_concepts_in_this_course: Vec<_> =
             a.prereq_concepts.iter().cloned()
-            .filter(|&cid| !self.get(cid).courses.iter().any(|cc| other_courses.contains(self.get(*cc))))
+            .filter(|&cid| !other_courses.iter()
+                    .any(|cc| self.course_is_for_concept(cid, cc.id)))
             .collect();
         let prereq_groups: Vec<_> = self.group_concepts(prereq_concepts_in_this_course,
                                                         id, "prereq");
@@ -638,9 +674,8 @@ impl Data {
         let prereq_courses: Vec<_> = self.courses.iter().take(courses[0].course.id.0).cloned()
             .map(|course| PrereqCourse {
                 course: course.clone(),
-                concepts: self.concepts.iter()
-                    .filter(|c| c.courses.contains(&course.id))
-                    .map(|c| self.concept_view(c.id))
+                concepts:  self.concepts_for_course(course.id).iter()
+                    .map(|&cid| self.concept_view(cid))
                     .collect(),
             })
             .collect();
@@ -652,9 +687,8 @@ impl Data {
 
     pub fn course_sequence(&self, id: CourseID) -> CourseSequence {
         let course = self.get(id).clone();
-        let course_concepts: Vec<_> = self.concepts.iter()
-            .filter(|c| c.courses.contains(&id))
-            .map(|c| self.concept_view(c.id))
+        let course_concepts: Vec<_> = self.concepts_for_course(id).iter()
+            .map(|&cid| self.concept_view(cid))
             .collect();
         let groups: Vec<ProgressionGroup> =
             self.progression_group_concepts(course_concepts);
@@ -665,10 +699,8 @@ impl Data {
         let id = self.course_by_name(name).unwrap();
         let mut cs = self.course_sequence(id);
 
-        let my_concepts: Vec<_> = self.concepts.iter()
-            .filter(|c| c.courses.contains(&id))
-            .cloned()
-            .collect();
+        let my_concepts: Vec<_> = self.concepts_for_course(id).iter()
+            .map(|&cid| self.get(cid).clone()).collect();
         let my_activities: Vec<_> = self.activities.iter()
             .filter(|a| a.courses.contains(&id))
             .cloned()
@@ -688,7 +720,7 @@ impl Data {
             .map(|course| PrereqCourse {
                 course: course.clone(),
                 concepts: my_prereq_concepts.iter()
-                    .filter(|c| c.courses.contains(&course.id))
+                    .filter(|c| self.course_is_for_concept(c.id, course.id))
                     .map(|c| self.concept_view(c.id))
                     .collect(),
             })

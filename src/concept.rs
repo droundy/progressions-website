@@ -2,7 +2,7 @@ use display_as::{with_template, format_as, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
 use rcu_clean::RcRcu;
 
-use crate::data::{CourseID, Course,
+use crate::data::{Course,
                   RepresentationID, Child, Representation,
                   ActivityGroup, ActivityView, ConceptID,
                   ConceptChoice, ChangeRelationship,
@@ -14,7 +14,6 @@ pub struct Concept {
     pub name: String,
     pub prereq_concepts: Vec<ConceptID>,
     pub representations: Vec<RepresentationID>,
-    pub courses: Vec<CourseID>,
     pub figure: Option<String>,
     pub long_description: String,
     pub external_url: Option<String>,

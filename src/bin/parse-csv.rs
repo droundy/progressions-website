@@ -101,13 +101,16 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                     name: datum.name.to_string(),
                     prereq_concepts: prereqs,
                     representations,
-                    courses,
                     figure: nonempty_string(datum.figure),
                     long_description: datum.long_description.to_string(),
                     external_url: nonempty_string(datum.external_url),
                     status: nonempty_string(datum.status),
                     notes: nonempty_string(datum.notes),
                 };
+                if datum.course_number.len() > 0 {
+                    let anchor = data.lower_anchor(&datum.course_number);
+                    data.get_activity(anchor).new_concepts.push(c.id);
+                }
                 data.set_concept(c.id, c);
             }
         } else if datum.thingtype == "Activity" || datum.thingtype == "activity" {
