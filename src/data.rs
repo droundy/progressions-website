@@ -1009,7 +1009,15 @@ impl DisplayAs<HTML> for Child<Representation> {}
 // The following enables visualization of graphs.
 impl<'a> dot::GraphWalk<'a,ConceptID,(ConceptID,ConceptID)> for Data {
     fn nodes(&'a self) -> dot::Nodes<'a,ConceptID> {
-        let out: Vec<_> = self.concepts.iter().map(|c| c.id).collect();
+        // Only include concepts that have *some* dependency.
+        let mut out: Vec<_> = self.concepts.iter().flat_map(|c| c.prereq_concepts.clone()).collect();
+        for c in self.concepts.iter() {
+            if c.prereq_concepts.len() > 0 {
+                out.push(c.id);
+            }
+        }
+        out.sort();
+        out.dedup();
         out.into()
     }
     fn edges(&'a self) -> dot::Nodes<'a,(ConceptID,ConceptID)> {

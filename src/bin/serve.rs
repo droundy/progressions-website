@@ -45,9 +45,10 @@ fn main() {
                 stdin.write(b"digraph concept_map { ratio=compress; size=\"8,1000\"\n").expect("trouble writing to pipe");
                 let mut out: Vec<u8> = Vec::new();
                 dot::render(&data, &mut out).expect("Trouble rendering dot!");
+                // 22 is the number of bytes in the first line of the
+                // generated code.  This is way hokey.
                 stdin.write(&out[22..]).expect("trouble foo");
-                println!("file: {}", String::from_utf8(Vec::from(&out[22..])).unwrap());
-                //dot::render(&data, &mut stdin).expect("Trouble rendering dot!");
+                //println!("file: {}", String::from_utf8(Vec::from(&out[22..])).unwrap());
             }
             let output = child.wait_with_output().expect("Failed to read stdout");
             String::from_utf8(output.stdout).expect("Trouble utf8")
