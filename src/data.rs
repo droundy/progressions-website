@@ -1036,11 +1036,14 @@ impl<'a> dot::GraphWalk<'a,ConceptID,(ConceptID,ConceptID)> for Data {
 }
 
 /// An attempt at Coffman-Graham
-pub fn layer_concepts(mut concepts: Vec<ConceptID>,
-                      edges: Vec<(ConceptID, ConceptID)>,
+pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
                       max_width: usize)
     -> Vec<Vec<ConceptID>>
 {
+    let mut concepts: Vec<ConceptID> = edges.iter()
+        .flat_map(|x| vec![x.0,x.1].into_iter()).collect();
+    concepts.sort();
+    concepts.dedup();
     // FIXME I should first ensure there is no cycle in the
     // edges... to avoid an infinite loop.
     use std::collections::BTreeMap;
@@ -1077,7 +1080,7 @@ pub fn layer_concepts(mut concepts: Vec<ConceptID>,
     let mut concepts: Vec<_> = out.into_iter().map(|(k,v)| (v,k)).collect();
     concepts.sort();
     concepts.reverse();
-    let concepts: Vec<_> = concepts.into_iter().map(|(_,v)| v).collect();
+    let mut concepts: Vec<_> = concepts.into_iter().map(|(_,v)| v).collect();
     let out = Vec::new();
     while concepts.len() > 0 {
         for i in 0..out.len() {
