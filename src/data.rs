@@ -1035,6 +1035,58 @@ impl<'a> dot::GraphWalk<'a,ConceptID,(ConceptID,ConceptID)> for Data {
     }
 }
 
+/// An attempt at Coffman-Graham
+pub fn layer_concepts(mut concepts: Vec<ConceptID>,
+                      edges: Vec<(ConceptID, ConceptID)>,
+                      max_width: usize)
+    -> Vec<Vec<ConceptID>>
+{
+    // FIXME I should first ensure there is no cycle in the
+    // edges... to avoid an infinite loop.
+    use std::collections::BTreeMap;
+    let mut children_map = BTreeMap::new();
+    let mut parents_map = BTreeMap::new();
+    for c in concepts.iter().cloned() {
+        children_map.insert(c, Vec::new());
+        parents_map.insert(c, Vec::new());
+    }
+    for (parent, child) in edges.into_iter() {
+        children_map.entry(parent).or_insert(Vec::new()).push(child);
+        parents_map.entry(child).or_insert(Vec::new()).push(parent);
+    }
+    let mut out = BTreeMap::new();
+    // Find possible nodes to start with...
+    let starts: Vec<_> =
+        concepts.iter().cloned().filter(|c| parents_map[c].len() == 0).collect();
+    if starts.len() > 0 {
+        // just pick the first concept that doesn't need anything
+        // else.
+        out.insert(starts[0], 0);
+        concepts.retain(|&x| x != starts[0]);
+        while concepts.len() > 0 {
+            let mut nexts: Vec<_> = concepts.iter().cloned()
+                .filter(|c| parents_map[c].iter().all(|p| out.contains_key(p)))
+                .collect();
+            nexts.sort_by_key(|c| parents_map[c].iter()
+                              .map(|p| -out.get(p).unwrap_or(&-1))
+                              .min());
+            // FIXME should pick from possible next ones via algorithm...
+            out.insert(nexts[0], out.len() as isize);
+        }
+    }
+    let mut concepts: Vec<_> = out.into_iter().map(|(k,v)| (v,k)).collect();
+    concepts.sort();
+    concepts.reverse();
+    let concepts: Vec<_> = concepts.into_iter().map(|(_,v)| v).collect();
+    let out = Vec::new();
+    while concepts.len() > 0 {
+        for i in 0..out.len() {
+            
+        }
+    }
+    out
+}
+
 impl<'a> dot::Labeller<'a, ConceptID, (ConceptID, ConceptID)> for Data {
     fn graph_id(&'a self) -> dot::Id<'a> {
         dot::Id::new("concept_map").expect("trouble with graph_id?")
