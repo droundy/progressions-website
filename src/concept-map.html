@@ -1,0 +1,14 @@
+[%
+let extrajs = {};
+let readyjs = {};
+let title = { %] Testing Concept map [% self.rows.len() };
+let nav = {};
+let content = {
+%]<article>
+  Number of rows: [% self.rows.len() %]
+    </article>
+[%
+};
+include!("base.html");
+%]
+

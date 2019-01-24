@@ -23,6 +23,11 @@ fn main() {
             let data = Data::new();
             display(HTML, &data.course_view(&name)).http_response()
         });
+    let map = path!("concept-map")
+        .map(|| {
+            let data = Data::new();
+            display(HTML, &data.concept_map()).http_response()
+        });
     let dot = path!("concept-map.dot")
         .map(|| {
             let data = Data::new();
@@ -76,6 +81,7 @@ fn main() {
     let figs = path!("figs").and(warp::fs::dir("figs"));
 
     warp::serve(index
+                .or(map)
                 .or(dot)
                 .or(dotsvg)
                 .or(change)

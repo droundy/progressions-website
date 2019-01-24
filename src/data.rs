@@ -449,6 +449,60 @@ impl Data {
         out.dedup();
         out
     }
+    pub fn concept_map(&self) -> ConceptMap
+    {
+        let mut edges = Vec::new();
+        for c in self.concepts.iter() {
+            edges.extend(c.prereq_concepts.iter().map(|&pre| (pre, c.id)));
+        }
+        let layers = layer_concepts(edges.clone(), 5);
+
+        let concepts: Vec<ConceptID> = layers.iter().flat_map(|x| x.iter().cloned()).collect();
+        // FIXME I should first ensure there is no cycle in the
+        // edges... to avoid an infinite loop.
+        use std::collections::BTreeMap;
+        let mut children_map = BTreeMap::new();
+        let mut parents_map = BTreeMap::new();
+        for c in concepts.iter().cloned() {
+            children_map.insert(c, Vec::new());
+            parents_map.insert(c, Vec::new());
+        }
+        for (parent, child) in edges.into_iter() {
+            children_map.entry(parent).or_insert(Vec::new()).push(child);
+            parents_map.entry(child).or_insert(Vec::new()).push(parent);
+        }
+        let mut rows: Vec<Vec<ConceptNode>> = Vec::new();
+        let mut extras: Vec<ConceptNode> = Vec::new();
+        let mut next_fakeid = concepts.len();
+        for i in 0..layers.len()-1 {
+            let mut this_layer = Vec::new();
+            let my_extras: Vec<_> = extras.drain(..).collect();
+            for (which, mut node) in layers[i].iter().cloned()
+                .map(|c| ConceptNode::Concept {
+                    concept: c,
+                    children: children_map[&c].iter().map(|&c| c.into()).collect(),
+                })
+                .chain(my_extras.into_iter()).enumerate() // also add in the fake nodes for lines passing through...
+            {
+                for child in node.children().filter(|c| !layers[i+1].contains(&ConceptID(c.0)))
+                {
+                    let fakeid = NodeID({ next_fakeid += 1; next_fakeid });
+                    node.replace_child(child, fakeid);
+                    extras.push(ConceptNode::Fake { fakeid, child });
+                }
+                this_layer.push(node);
+            }
+            rows.push(this_layer);
+        }
+        rows.push(layers[layers.len()-1].iter()
+                  .map(|&c| ConceptNode::Concept {
+                      concept: c,
+                      children: children_map[&c].iter().map(|&c| c.into()).collect(),
+                  })
+                  .collect());
+        ConceptMap { rows }
+    }
+
     pub fn concept_view(&self, id: ConceptID) -> RcRcu<ConceptView> {
         while id.0 >= self.concept_views.borrow().len() {
             self.concept_views.borrow_mut().push(None);
@@ -1073,22 +1127,83 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
             nexts.sort_by_key(|c| parents_map[c].iter()
                               .map(|p| -out.get(p).unwrap_or(&-1))
                               .min());
-            // FIXME should pick from possible next ones via algorithm...
-            out.insert(nexts[0], out.len() as isize);
+            if nexts.len() == 0 {
+                println!("Interesting problem, some unreachable concepts:");
+                for c in concepts.iter() {
+                    println!("   Concept {}", c.0);
+                }
+                break;
+            } else {
+                // FIXME should pick from possible next ones via proper algorithm...
+                out.insert(nexts[0], out.len() as isize);
+                concepts.retain(|&cc| cc != nexts[0]);
+            }
         }
     }
     let mut concepts: Vec<_> = out.into_iter().map(|(k,v)| (v,k)).collect();
     concepts.sort();
     concepts.reverse();
     let mut concepts: Vec<_> = concepts.into_iter().map(|(_,v)| v).collect();
-    let out = Vec::new();
+    let mut out = Vec::new();
     while concepts.len() > 0 {
-        for i in 0..out.len() {
-            
-        }
+        // FIXME I need to put these into several per row.
+        out.push(vec![concepts.pop().unwrap()]);
     }
     out
 }
+
+#[derive(Copy, Clone,Eq, PartialEq)]
+pub struct NodeID(usize);
+impl From<ConceptID> for NodeID {
+    fn from(x: ConceptID) -> Self { NodeID(x.0) }
+}
+
+/// A node in the concept map
+#[derive(Clone,Eq, PartialEq)]
+pub enum ConceptNode {
+    /// An actual concept
+    Concept {
+        concept: ConceptID,
+        children: Vec<NodeID>,
+    },
+    /// A fake node carrying a connection between concepts.
+    Fake {
+        fakeid: NodeID,
+        child: NodeID,
+    }
+}
+impl ConceptNode {
+    fn id(&self) -> NodeID {
+        match self {
+            ConceptNode::Concept{concept,..} => NodeID(concept.0),
+            ConceptNode::Fake{fakeid,..} => *fakeid,
+        }
+    }
+    fn children(&self) -> impl Iterator<Item=NodeID> {
+        match self {
+            ConceptNode::Concept{children,..} => children.clone().into_iter(),
+            ConceptNode::Fake{child,..} => vec![*child].into_iter(),
+        }
+    }
+    fn replace_child(&mut self, old: NodeID, new: NodeID) {
+        match self {
+            ConceptNode::Concept{ref mut children,..} => {
+                for child in children.iter_mut() {
+                    if *child == old { *child = new; }
+                }
+            }
+            ConceptNode::Fake{ref mut child,..} => {
+                if *child == old { *child = new; }
+            }
+        }
+    }
+}
+
+pub struct ConceptMap {
+    rows: Vec<Vec<ConceptNode>>,
+}
+#[with_template("[%" "%]" "concept-map.html")]
+impl DisplayAs<HTML> for ConceptMap {}
 
 impl<'a> dot::Labeller<'a, ConceptID, (ConceptID, ConceptID)> for Data {
     fn graph_id(&'a self) -> dot::Id<'a> {
