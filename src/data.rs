@@ -1249,9 +1249,10 @@ pub struct ConceptMap {
 }
 #[with_template("[%" "%]" "concept-map.html")]
 impl DisplayAs<HTML> for ConceptMap {}
-const SCALE: usize = 1000000;
+const SCALE: usize = 10;
+const DISTANCE_SCALE: usize = 1000000;
 impl ConceptMap {
-    pub fn crossings(&self) -> usize {
+    pub fn crossings(&self, verbose: bool) -> usize {
         let mut cross = 0;
         let mut distance = 0;
         for w in self.rows[1..].windows(2) {
@@ -1274,7 +1275,11 @@ impl ConceptMap {
                 }
             }
         }
-        cross*SCALE + distance
+        if verbose {
+            let d = distance as f64/DISTANCE_SCALE as f64;
+            println!("   {} + {} = {}", cross, d, cross as f64 + d);
+        }
+        cross*SCALE + distance*SCALE/DISTANCE_SCALE
     }
     pub fn random_change(&self) -> Self {
         let mut out = self.clone();
@@ -1288,32 +1293,38 @@ impl ConceptMap {
     pub fn optimize(&self) -> Self {
         let mut best = self.clone();
         let mut current = self.clone();
-        let mut e_best = best.crossings();
+        let mut e_best = best.crossings(false);
         let mut e = e_best;
         let mut logw = std::collections::BTreeMap::new();
         logw.insert(e_best, 1);
         let num_iters = 1<<15;
         for i in 0..num_iters {
             let trial = current.random_change();
-            let e_trial = trial.crossings();
+            let e_trial = trial.crossings(false);
             let logw_old = logw.get(&e).unwrap_or(&0);
             let logw_new = logw.get(&e_trial).unwrap_or(&0);
-            if logw_new < logw_old || e_trial < e {
+            if logw_new < logw_old
+              //  || (logw_new - logw_old < 8
+              //      && rand::random::<usize>() % (1<<32) < (1<<32) >> (logw_new - logw_old) as u8)
+            {
                 // accept the move
                 e = e_trial;
                 current = trial;
                 if e < e_best {
                     e_best = e;
                     best = current.clone();
-                    if e_best < 2*SCALE {
+                    if e_best < 2 {
                         return best;
                     }
                 }
             }
-            *logw.entry(e).or_insert(0) += 1;
+            // rather than a flat histogram, attempt a 1/e histogram.
+            *logw.entry(e).or_insert(0) += e;
             if i % (num_iters/100) == 0 {
                 println!(" {:2}% done (current {}, best {})", i*100/num_iters,
-                         e as f64/(SCALE as f64), e_best as f64/(SCALE as f64));
+                         e as f64/SCALE as f64, e_best as f64/SCALE as f64);
+                current.crossings(true);
+                best.crossings(true);
             }
         }
         best
