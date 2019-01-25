@@ -473,7 +473,7 @@ impl Data {
         }
         let mut rows: Vec<Vec<ConceptNode>> = Vec::new();
         let mut extras: Vec<ConceptNode> = Vec::new();
-        let mut next_fakeid = concepts.len();
+        let mut next_fakeid = self.concepts.len();
         for i in 0..layers.len()-1 {
             let mut this_layer = Vec::new();
             let my_extras: Vec<_> = extras.drain(..).collect();

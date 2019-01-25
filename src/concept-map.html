@@ -17,8 +17,6 @@ function connectElements(svg, path, start, end) {
     var startY = startcoord.top + startHeight - svgcoord.top;
     var endX = endcoord.left + 0.5*endWidth - svgcoord.left;
     var endY = endcoord.top - svgcoord.top;
-    var rightgoing = endX > startX + 10;
-    var leftgoing = endX + 10 < startX;
 
     // check if the svg is big enough to draw the path, if not, set heigh/width
     svg.attr("width", Math.max(svg.attr("width"), startX, endX));
@@ -30,11 +28,14 @@ function connectElements(svg, path, start, end) {
     var dy = 20*(endY - startY)/dist;
     path.attr("d",  path.attr("d")
               + " M"  + startX + " " + startY
-              + " L" + endX + " " + endY
-              + " M" + (endX - dx*Math.cos(theta) - dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) + dx*Math.sin(theta))
-              + " L" + endX + " " + endY
-              + " M" + (endX - dx*Math.cos(theta) + dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) - dx*Math.sin(theta))
               + " L" + endX + " " + endY );
+    //path.attr("d",  path.attr("d")
+    //          + " M"  + startX + " " + startY
+    //          + " L" + endX + " " + endY
+    //          + " M" + (endX - dx*Math.cos(theta) - dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) + dx*Math.sin(theta))
+    //          + " L" + endX + " " + endY
+    //          + " M" + (endX - dx*Math.cos(theta) + dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) - dx*Math.sin(theta))
+    //          + " L" + endX + " " + endY );
 }
 
 function connectAll() {
@@ -42,14 +43,13 @@ function connectAll() {
     $("#arrows-svg").attr("height", "0");
     $("#arrows-svg").attr("width", "0");
     var svg = $("#arrows-svg");
-    var arrows = $("#right-arrows");
+    var arrows = $("#arrows");
     arrows.attr("d", "M0 0");
 
     $(".node").each(function(i,from) {
         if (from.id != '') {
-            console.log('id is', from.id);
-            $(".child-"+from.id).each(function(i,to) {
-                console.log('arrow connecting', from, to);
+            $(".child-"+from.id+"-").each(function(i,to) {
+                // console.log('arrow connecting', from, to);
                 connectElements(svg, arrows, to, from);
             });
         }
@@ -74,7 +74,7 @@ let nav = {};
 let content = {
 %]
 <svg id="arrows-svg" width="0" height="0">
-<path id="right-arrows" d="M0 0"
+<path id="arrows" d="M0 0"
       fill="none" stroke-width="2" stroke-linecap="round" />
 </svg>
 <article>

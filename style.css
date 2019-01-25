@@ -72,6 +72,9 @@ nav ul li{
     position:absolute;
     pointer-events: none;
 }
+#arrows {
+    stroke: black;
+}
 #left-arrows {
     stroke: var(--left-arrows-color);
 }
@@ -601,7 +604,20 @@ form.addremove {
     float: right;
 }
 
-.map .row .concept {
+.map .row {
+    flex-wrap: nowrap;
+}
+.map .row .fake {
+    width: 1em;
+    min-width: 1em;
+    flex-grow: 0.1;
+    flex-shrink: 10;
+    flex-basis: 1em;
+    max-height: 0;
+    margin-top: 1em;
+}
+
+.map .row .concept, .map .row .fake {
     margin-bottom: 2em;
     max-width: 20em;
 }
