@@ -74,6 +74,7 @@ $(document).ready(function() {
           $('[thisid]').attr('contenteditable','false');
           $('[thisid]').unbind('click', false);
         }
+        connectAll();
     });
     $('body').on('input', '[contenteditable]', function() {
       var data = {

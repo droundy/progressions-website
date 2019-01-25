@@ -524,7 +524,7 @@ impl Data {
                       children: children_map[&c].iter().map(|&c| c.into()).collect(),
                   })
                   .collect());
-        ConceptMap { rows }
+        ConceptMap { rows }.optimize()
     }
 
     pub fn concept_view(&self, id: ConceptID) -> RcRcu<ConceptView> {
@@ -1193,7 +1193,7 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
     out
 }
 
-#[derive(Copy, Clone,Eq, PartialEq)]
+#[derive(Copy, Clone,Eq, PartialEq, PartialOrd, Ord)]
 pub struct NodeID(usize);
 impl From<ConceptID> for NodeID {
     fn from(x: ConceptID) -> Self { NodeID(x.0) }
@@ -1243,11 +1243,82 @@ impl ConceptNode {
     }
 }
 
+#[derive(Clone)]
 pub struct ConceptMap {
     rows: Vec<Vec<ConceptNode>>,
 }
 #[with_template("[%" "%]" "concept-map.html")]
 impl DisplayAs<HTML> for ConceptMap {}
+const SCALE: usize = 1000000;
+impl ConceptMap {
+    pub fn crossings(&self) -> usize {
+        let mut cross = 0;
+        let mut distance = 0;
+        for w in self.rows[1..].windows(2) {
+            let mut after = std::collections::BTreeMap::new();
+            for (i,c) in w[1].iter().enumerate() {
+                after.insert(c.id(), i);
+            }
+            for (i1,x1) in w[0].iter().enumerate() {
+                for c1 in x1.children().flat_map(|x| after.get(&x)) {
+                    let p2 = ((500 + c1*1000)/(1+w[1].len())) as isize;
+                    let p1 = ((500 + i1*1000)/(1+w[0].len())) as isize;
+                    distance += ((p2-p1)*(p2-p1)) as usize;
+                    for x2 in w[0].iter().enumerate().filter(|(i2,_)| i2 > &i1).map(|(_,x)| x) {
+                        for c2 in x2.children().flat_map(|x| after.get(&x)) {
+                            if c2 < c1 {
+                                cross += 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        cross*SCALE + distance
+    }
+    pub fn random_change(&self) -> Self {
+        let mut out = self.clone();
+        let to_change: usize = rand::random::<usize>() % out.rows.len();
+        let rowlen: usize = out.rows[to_change].len();
+        let to_swap1 = rand::random::<usize>() % rowlen;
+        let to_swap2 = rand::random::<usize>() % rowlen;
+        out.rows[to_change].swap(to_swap1, to_swap2);
+        out
+    }
+    pub fn optimize(&self) -> Self {
+        let mut best = self.clone();
+        let mut current = self.clone();
+        let mut e_best = best.crossings();
+        let mut e = e_best;
+        let mut logw = std::collections::BTreeMap::new();
+        logw.insert(e_best, 1);
+        let num_iters = 1<<15;
+        for i in 0..num_iters {
+            let trial = current.random_change();
+            let e_trial = trial.crossings();
+            let logw_old = logw.get(&e).unwrap_or(&0);
+            let logw_new = logw.get(&e_trial).unwrap_or(&0);
+            if logw_new < logw_old || e_trial < e {
+                // accept the move
+                e = e_trial;
+                current = trial;
+                if e < e_best {
+                    e_best = e;
+                    best = current.clone();
+                    if e_best < 2*SCALE {
+                        return best;
+                    }
+                }
+            }
+            *logw.entry(e).or_insert(0) += 1;
+            if i % (num_iters/100) == 0 {
+                println!(" {:2}% done (current {}, best {})", i*100/num_iters,
+                         e as f64/(SCALE as f64), e_best as f64/(SCALE as f64));
+            }
+        }
+        best
+    }
+}
 
 impl<'a> dot::Labeller<'a, ConceptID, (ConceptID, ConceptID)> for Data {
     fn graph_id(&'a self) -> dot::Id<'a> {
