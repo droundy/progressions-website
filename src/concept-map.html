@@ -11,8 +11,8 @@ let content = {
     [% for row in self.rows.iter() { %]
     <div class="row">
       [% for node in row.iter() {
-        node.id().0 %] [%
-      } %]
+        node %]
+      [% } %]
     </div>
     [% } %]
   </div>

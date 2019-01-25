@@ -1172,6 +1172,9 @@ pub enum ConceptNode {
         child: NodeID,
     }
 }
+#[with_template("[%" "%]" "concept-node.html")]
+impl DisplayAs<HTML> for ConceptNode {}
+
 impl ConceptNode {
     fn id(&self) -> NodeID {
         match self {

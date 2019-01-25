@@ -1,0 +1,8 @@
+[%
+if let (ConceptNode::Concept{concept,..}) = self {
+  %] <div class="concept"> Concept [% self.id().0 %]</div> [%
+}
+if let (ConceptNode::Fake{fakeid,..}) = self {
+  %] <div class="fake"> Fake [% self.id().0 %] </div> [%
+}
+%]
