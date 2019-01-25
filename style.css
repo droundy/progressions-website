@@ -601,6 +601,11 @@ form.addremove {
     float: right;
 }
 
+.map .row .concept {
+    margin-bottom: 2em;
+    max-width: 20em;
+}
+
 .has0 .has1 .has3, .has2, .has4,.has5,.has6,.has7,.has8,.has9,.has10,.has11,.has12,.has13,.has14,.has15,.has16,.has17,.has18,.has19,.has20 {
     flex-grow: 1;
     flex-shrink: 1;

@@ -1,13 +1,85 @@
 [%
-let extrajs = {};
-let readyjs = {};
+let extrajs = { %]
+function connectElements(svg, path, start, end) {
+    var stroke = 0;// path.attr("stroke-width");
+
+    end = $(end); // always convert to a jQuery "thing"
+    start = $(start); // always convert to a jQuery "thing"
+    var startWidth = start.outerWidth();
+    var startHeight = start.outerHeight();
+    var endWidth = end.outerWidth();
+    var endHeight = end.outerHeight();
+
+    var svgcoord = svg.offset();
+    var startcoord = start.offset();
+    var endcoord = end.offset();
+    var startX = startcoord.left + 0.5*startWidth - svgcoord.left;
+    var startY = startcoord.top + startHeight - svgcoord.top;
+    var endX = endcoord.left + 0.5*endWidth - svgcoord.left;
+    var endY = endcoord.top - svgcoord.top;
+    var rightgoing = endX > startX + 10;
+    var leftgoing = endX + 10 < startX;
+
+    // check if the svg is big enough to draw the path, if not, set heigh/width
+    svg.attr("width", Math.max(svg.attr("width"), startX, endX));
+    svg.attr("height", Math.max(svg.attr("height"), startY+startHeight, endY+endHeight));
+
+    var dist = Math.sqrt(Math.pow(startX-endX,2)+Math.pow(startY-endY,2));
+    var theta = 0.2;
+    var dx = 20*(endX - startX)/dist;
+    var dy = 20*(endY - startY)/dist;
+    path.attr("d",  path.attr("d")
+              + " M"  + startX + " " + startY
+              + " L" + endX + " " + endY
+              + " M" + (endX - dx*Math.cos(theta) - dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) + dx*Math.sin(theta))
+              + " L" + endX + " " + endY
+              + " M" + (endX - dx*Math.cos(theta) + dy*Math.sin(theta)) + " " + (endY-dy*Math.cos(theta) - dx*Math.sin(theta))
+              + " L" + endX + " " + endY );
+}
+
+function connectAll() {
+    // reset svg each time
+    $("#arrows-svg").attr("height", "0");
+    $("#arrows-svg").attr("width", "0");
+    var svg = $("#arrows-svg");
+    var arrows = $("#right-arrows");
+    arrows.attr("d", "M0 0");
+
+    $(".node").each(function(i,from) {
+        if (from.id != '') {
+            console.log('id is', from.id);
+            $(".child-"+from.id).each(function(i,to) {
+                console.log('arrow connecting', from, to);
+                connectElements(svg, arrows, to, from);
+            });
+        }
+    });
+}
+[%
+};
+let readyjs = { %]
+    $(window).resize(connectAll);
+    connectAll();
+    setTimeout(connectAll, 200); // reconnect to correct for errors introduced by mathjax
+    setTimeout(connectAll, 400); // mathjax changes size of things gradually :(
+    setTimeout(connectAll, 1000);
+    setTimeout(connectAll, 2000);
+    setTimeout(connectAll, 3000);
+    setTimeout(connectAll, 4000);
+    setTimeout(connectAll, 5000);
+    setTimeout(connectAll, 10000);[%
+};
 let title = { %] Testing Concept map [% self.rows.len() };
 let nav = {};
 let content = {
 %]
+<svg id="arrows-svg" width="0" height="0">
+<path id="right-arrows" d="M0 0"
+      fill="none" stroke-width="2" stroke-linecap="round" />
+</svg>
 <article>
   Number of rows: [% self.rows.len() %]
-  <div>
+  <div class="map">
     [% for row in self.rows.iter() { %]
     <div class="row">
       [% for node in row.iter() {

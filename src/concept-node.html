@@ -1,8 +1,14 @@
 [%
+let arrow_classes = {
+  %] node[%
+  for ch in self.children() {
+    %] child-[% ch.0
+  }
+};
 if let (ConceptNode::Concept{concept,..}) = self {
-  %] <div class="concept"> Concept [% self.id().0 %]</div> [%
+  %] <div id="[% self.id().0 %]" class="concept[% arrow_classes %]"> Concept [% self.id().0 %]</div> [%
 }
 if let (ConceptNode::Fake{fakeid,..}) = self {
-  %] <div class="fake"> Fake [% self.id().0 %] </div> [%
+  %] <div id="[% self.id().0 %]"  class="fake[% arrow_classes %]"> Fake [% self.id().0 %] </div> [%
 }
 %]
