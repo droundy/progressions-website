@@ -1139,6 +1139,7 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
     // Find possible nodes to start with...
     let starts: Vec<_> =
         concepts.iter().cloned().filter(|c| parents_map[c].len() == 0).collect();
+    let mut buggy_concepts: Vec<ConceptID> = Vec::new();
     if starts.len() > 0 {
         // just pick the first concept that doesn't need anything
         // else.
@@ -1154,6 +1155,7 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
                               .max().unwrap_or(0));
             if nexts.len() == 0 {
                 println!("Interesting problem, some unreachable concepts:");
+                buggy_concepts.extend(concepts.iter());
                 for c in concepts.iter() {
                     println!("   Concept {}", c.0);
                 }
@@ -1177,12 +1179,16 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
             if out[i].len() < max_width {
                 where_to_push = Some(i);
             }
+            break; // this is hokey
         }
         if let Some(i) = where_to_push {
             out[i].push(concept);
         } else {
             out.push(vec![concept]);
         }
+    }
+    for c in buggy_concepts.into_iter() {
+        out.push(vec![c]);
     }
     out
 }
