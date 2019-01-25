@@ -474,15 +474,19 @@ impl Data {
         let mut rows: Vec<Vec<ConceptNode>> = Vec::new();
         let mut extras: Vec<ConceptNode> = Vec::new();
         let mut next_fakeid = self.concepts.len();
+        if layers.len() == 0 {
+            println!("Why are there no layers?!");
+            return ConceptMap { rows };
+        }
         for i in 0..layers.len()-1 {
             let mut this_layer = Vec::new();
             let my_extras: Vec<_> = extras.drain(..).collect();
-            for (which, mut node) in layers[i].iter().cloned()
+            for mut node in layers[i].iter().cloned()
                 .map(|c| ConceptNode::Concept {
                     concept: self.get(c).clone(),
                     children: children_map[&c].iter().map(|&c| c.into()).collect(),
                 })
-                .chain(my_extras.into_iter()).enumerate() // also add in the fake nodes for lines passing through...
+                .chain(my_extras.into_iter()) // also add in the fake nodes for lines passing through...
             {
                 for child in node.children().filter(|c| !layers[i+1].contains(&ConceptID(c.0)))
                 {
@@ -505,7 +509,11 @@ impl Data {
                         total_index += i;
                     }
                 }
-                total_index*1000/(1+num_parents)
+                if num_parents < 2 {
+                    500
+                } else {
+                    total_index*1000/(num_parents-1)
+                }
             };
             this_layer.sort_by_key(parentmean);
             rows.push(this_layer);
@@ -1140,9 +1148,10 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
             let mut nexts: Vec<_> = concepts.iter().cloned()
                 .filter(|c| parents_map[c].iter().all(|p| out.contains_key(p)))
                 .collect();
-            nexts.sort_by_key(|c| parents_map[c].iter()
-                              .map(|p| -out.get(p).unwrap_or(&-1))
-                              .min());
+            let outsize = out.len() as isize;
+            nexts.sort_by_key(|c| -parents_map[c].iter()
+                              .map(|p| outsize - out.get(p).unwrap_or(&outsize))
+                              .max().unwrap_or(0));
             if nexts.len() == 0 {
                 println!("Interesting problem, some unreachable concepts:");
                 for c in concepts.iter() {
@@ -1158,12 +1167,22 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
     }
     let mut concepts: Vec<_> = out.into_iter().map(|(k,v)| (v,k)).collect();
     concepts.sort();
-    concepts.reverse();
-    let mut concepts: Vec<_> = concepts.into_iter().map(|(_,v)| v).collect();
-    let mut out = Vec::new();
-    while concepts.len() > 0 {
-        // FIXME I need to put these into several per row.
-        out.push(vec![concepts.pop().unwrap()]);
+    let mut out: Vec<Vec<ConceptID>> = Vec::new();
+    for concept in concepts.into_iter().map(|(_,v)| v) {
+        let mut where_to_push: Option<usize> = None;
+        for i in (0..out.len()).rev() {
+            if out[i].iter().any(|x| children_map[x].contains(&concept)) {
+                break;
+            }
+            if out[i].len() < max_width {
+                where_to_push = Some(i);
+            }
+        }
+        if let Some(i) = where_to_push {
+            out[i].push(concept);
+        } else {
+            out.push(vec![concept]);
+        }
     }
     out
 }
