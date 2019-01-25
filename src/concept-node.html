@@ -6,7 +6,13 @@ let arrow_classes = {
   }
 };
 if let (ConceptNode::Concept{concept,..}) = self {
-  %] <div id="[% self.id().0 %]" class="concept[% arrow_classes %]"> Concept [% self.id().0 %]</div> [%
+  %]<a href="[% concept as URL %]" id="[% self.id().0 %]" class="concept[% arrow_classes %]">
+  <span thisid="[% concept.id %]" name="name">[% concept.name %]</span>
+  <div class="hint"><br/></div>
+  <div class="description hint" thisid="[% concept.id %]" name="long_description">
+    [% concept.long_description %]
+  </div>
+ </a> [%
 }
 if let (ConceptNode::Fake{fakeid,..}) = self {
   %] <div id="[% self.id().0 %]"  class="fake[% arrow_classes %]"></div> [%

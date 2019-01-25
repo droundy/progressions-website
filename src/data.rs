@@ -479,7 +479,7 @@ impl Data {
             let my_extras: Vec<_> = extras.drain(..).collect();
             for (which, mut node) in layers[i].iter().cloned()
                 .map(|c| ConceptNode::Concept {
-                    concept: c,
+                    concept: self.get(c).clone(),
                     children: children_map[&c].iter().map(|&c| c.into()).collect(),
                 })
                 .chain(my_extras.into_iter()).enumerate() // also add in the fake nodes for lines passing through...
@@ -496,7 +496,7 @@ impl Data {
         }
         rows.push(layers[layers.len()-1].iter()
                   .map(|&c| ConceptNode::Concept {
-                      concept: c,
+                      concept: self.get(c).clone(),
                       children: children_map[&c].iter().map(|&c| c.into()).collect(),
                   })
                   .collect());
@@ -1163,7 +1163,7 @@ impl From<ConceptID> for NodeID {
 pub enum ConceptNode {
     /// An actual concept
     Concept {
-        concept: ConceptID,
+        concept: Concept,
         children: Vec<NodeID>,
     },
     /// A fake node carrying a connection between concepts.
@@ -1178,7 +1178,7 @@ impl DisplayAs<HTML> for ConceptNode {}
 impl ConceptNode {
     fn id(&self) -> NodeID {
         match self {
-            ConceptNode::Concept{concept,..} => NodeID(concept.0),
+            ConceptNode::Concept{concept,..} => NodeID(concept.id.0),
             ConceptNode::Fake{fakeid,..} => *fakeid,
         }
     }
