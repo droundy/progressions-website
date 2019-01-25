@@ -54,6 +54,9 @@ function connectAll() {
             });
         }
     });
+    $(".fake.node").each(function(i,from) {
+        connectElements(svg, arrows, from, from);
+    });
 }
 [%
 };
