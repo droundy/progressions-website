@@ -492,6 +492,22 @@ impl Data {
                 }
                 this_layer.push(node);
             }
+            let lastlayer = Vec::new();
+            let lastlayer = rows.last().clone().unwrap_or(&lastlayer);
+            let parentmean = |child: &ConceptNode| {
+                // return the mean position of parents of this child,
+                // in the previous row.
+                let mut num_parents = 0;
+                let mut total_index = 0;
+                for (i,p) in lastlayer.iter().enumerate() {
+                    if p.children().any(|x| x == child.id()) {
+                        num_parents += 1;
+                        total_index += i;
+                    }
+                }
+                total_index*1000/(1+num_parents)
+            };
+            this_layer.sort_by_key(parentmean);
             rows.push(this_layer);
         }
         rows.push(layers[layers.len()-1].iter()
