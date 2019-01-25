@@ -4,9 +4,19 @@ let readyjs = {};
 let title = { %] Testing Concept map [% self.rows.len() };
 let nav = {};
 let content = {
-%]<article>
+%]
+<article>
   Number of rows: [% self.rows.len() %]
-    </article>
+  <div>
+    [% for row in self.rows.iter() { %]
+    <div class="row">
+      [% for node in row.iter() {
+        node.id().0 %] [%
+      } %]
+    </div>
+    [% } %]
+  </div>
+</article>
 [%
 };
 include!("base.html");
