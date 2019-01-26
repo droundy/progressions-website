@@ -611,7 +611,7 @@ form.addremove {
     width: 1em;
     min-width: 1em;
     flex-grow: 1;
-    flex-shrink: 1;
+    flex-shrink: 10;
     flex-basis: var(--minwidth);
 }
 
@@ -624,6 +624,10 @@ form.addremove {
     flex-grow: 1;
     flex-shrink: 1;
     flex-basis: calc(1*var(--minwidth));
+}
+
+.wide3, .wide4, .wide5, .wide6, .wide7, .wide8, .wide9 {
+    display: none;
 }
 
 @media only screen and (min-width: 24em) {
@@ -648,6 +652,12 @@ form.addremove {
         flex-shrink: 4;
         flex-basis: calc(4*var(--minwidth));
     }
+    .wide2 {
+        display: none;
+    }
+    .wide3 {
+        display: block;
+    }
 }
 
 @media only screen and (min-width: 60em) {
@@ -656,6 +666,12 @@ form.addremove {
         flex-shrink: 5;
         flex-basis: calc(5*var(--minwidth));
     }
+    .wide3 {
+        display: none;
+    }
+    .wide4 {
+        display: block;
+    }
 }
 
 @media only screen and (min-width: 72em) {
@@ -663,5 +679,11 @@ form.addremove {
         flex-grow: 6;
         flex-shrink: 6;
         flex-basis: calc(6*var(--minwidth));
+    }
+    .wide4 {
+        display: none;
+    }
+    .wide5 {
+        display: block;
     }
 }

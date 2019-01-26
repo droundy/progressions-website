@@ -23,11 +23,16 @@ fn main() {
             let data = Data::new();
             display(HTML, &data.course_view(&name)).http_response()
         });
-    let map = path!("concept-map")
-        .map(|| {
+    let map = path!("concept-map" / usize)
+        .map(|max_width: usize| {
             let data = Data::new();
-            display(HTML, &data.concept_map()).http_response()
-        });
+            display(HTML, &data.concept_map(max_width)).http_response()
+        })
+        .or(path!("concept-map")
+            .map(|| {
+                let data = Data::new();
+                display(HTML, &data.concept_map(4)).http_response()
+            }));
     let dot = path!("concept-map.dot")
         .map(|| {
             let data = Data::new();

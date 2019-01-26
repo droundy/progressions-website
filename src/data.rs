@@ -449,13 +449,13 @@ impl Data {
         out.dedup();
         out
     }
-    pub fn concept_map(&self) -> ConceptMap
+    pub fn concept_map(&self, max_width: usize) -> ConceptMap
     {
         let mut edges = Vec::new();
         for c in self.concepts.iter() {
             edges.extend(c.prereq_concepts.iter().map(|&pre| (pre, c.id)));
         }
-        let layers = layer_concepts(edges.clone(), 5);
+        let layers = layer_concepts(edges.clone(), max_width);
 
         let concepts: Vec<ConceptID> = layers.iter().flat_map(|x| x.iter().cloned()).collect();
         // FIXME I should first ensure there is no cycle in the
@@ -1158,6 +1158,9 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
                 buggy_concepts.extend(concepts.iter());
                 for c in concepts.iter() {
                     println!("   Concept {}", c.0);
+                    for p in parents_map[c].iter().filter(|p| !out.contains_key(p)) {
+                        println!("      missing parent: {}", p.0);
+                    }
                 }
                 break;
             } else {
@@ -1178,8 +1181,11 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
             }
             if out[i].len() < max_width {
                 where_to_push = Some(i);
+            } else {
+                // don't go up *above* a full row, or you're just
+                // asking for way-too-long lines.
+                break;
             }
-            break; // this is hokey
         }
         if let Some(i) = where_to_push {
             out[i].push(concept);
@@ -1249,7 +1255,7 @@ pub struct ConceptMap {
 }
 #[with_template("[%" "%]" "concept-map.html")]
 impl DisplayAs<HTML> for ConceptMap {}
-const SCALE: usize = 10;
+const SCALE: usize = 2;
 const DISTANCE_SCALE: usize = 1000000;
 impl ConceptMap {
     pub fn crossings(&self, verbose: bool) -> usize {
@@ -1320,7 +1326,7 @@ impl ConceptMap {
             }
             // rather than a flat histogram, attempt a 1/e histogram.
             *logw.entry(e).or_insert(0) += e;
-            if i % (num_iters/100) == 0 {
+            if i % (num_iters/20) == 0 {
                 println!(" {:2}% done (current {}, best {})", i*100/num_iters,
                          e as f64/SCALE as f64, e_best as f64/SCALE as f64);
                 current.crossings(true);
