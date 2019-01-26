@@ -1175,7 +1175,8 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
     let mut out: Vec<Vec<ConceptID>> = Vec::new();
     for concept in concepts.into_iter().map(|(_,v)| v) {
         let mut where_to_push: Option<usize> = None;
-        for i in (0..out.len()).rev() {
+        let starting_row = if out.len() > 2 { out.len() - 2 } else { 0 };
+        for i in (starting_row..out.len()).rev() {
             if out[i].iter().any(|x| children_map[x].contains(&concept)) {
                 break;
             }
@@ -1261,7 +1262,7 @@ impl ConceptMap {
     pub fn crossings(&self, verbose: bool) -> usize {
         let mut cross = 0;
         let mut distance = 0;
-        for w in self.rows[1..].windows(2) {
+        for w in self.rows.windows(2) {
             let mut after = std::collections::BTreeMap::new();
             for (i,c) in w[1].iter().enumerate() {
                 after.insert(c.id(), i);
@@ -1303,7 +1304,7 @@ impl ConceptMap {
         let mut e = e_best;
         let mut logw = std::collections::BTreeMap::new();
         logw.insert(e_best, 1);
-        let num_iters = 1<<15;
+        let num_iters = 1<<16;
         for i in 0..num_iters {
             let trial = current.random_change();
             let e_trial = trial.crossings(false);
@@ -1319,20 +1320,26 @@ impl ConceptMap {
                 if e < e_best {
                     e_best = e;
                     best = current.clone();
-                    if e_best < 2 {
+                    if e_best == 0 {
+                        // With our discretized result, there is no
+                        // improvement to be made!
+                        println!(" All done after {}% (best {})", i*100/num_iters, e_best as f64/SCALE as f64);
+                        best.crossings(true);
                         return best;
                     }
                 }
             }
             // rather than a flat histogram, attempt a 1/e histogram.
             *logw.entry(e).or_insert(0) += e;
-            if i % (num_iters/20) == 0 {
+            if i % (num_iters/20) == 1 {
                 println!(" {:2}% done (current {}, best {})", i*100/num_iters,
                          e as f64/SCALE as f64, e_best as f64/SCALE as f64);
                 current.crossings(true);
                 best.crossings(true);
             }
         }
+        println!(" 100% done (best {})", e_best as f64/SCALE as f64);
+        best.crossings(true);
         best
     }
 }
