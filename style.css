@@ -626,7 +626,7 @@ form.addremove {
     flex-basis: calc(1*var(--minwidth));
 }
 
-.wide3, .wide4, .wide5, .wide6, .wide7, .wide8, .wide9 {
+.wide3, .wide4, .wide5 {
     display: none;
 }
 
