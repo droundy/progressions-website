@@ -34,6 +34,8 @@ impl DisplayAs<HTML> for RepresentationID {}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct CourseID(usize);
+#[with_template("C" self.0)]
+impl DisplayAs<HTML> for CourseID {}
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Course {
@@ -65,6 +67,7 @@ pub struct Data {
 
 enum AnyID {
     Concept(ConceptID),
+    Course(CourseID),
     Activity(ActivityID),
     Representation(RepresentationID),
 }
@@ -72,6 +75,7 @@ impl AnyID {
     fn parse(s: &str) -> Result<Self, Box<std::error::Error>> {
         match s.chars().next() {
             Some('c') => Ok(AnyID::Concept(ConceptID(s[1..].parse()?))),
+            Some('C') => Ok(AnyID::Course(CourseID(s[1..].parse()?))),
             Some('a') => Ok(AnyID::Activity(ActivityID(s[1..].parse()?))),
             Some('r') => Ok(AnyID::Representation(RepresentationID(s[1..].parse()?))),
             _ => bail!("Crazy kind: {}", s),
@@ -150,6 +154,17 @@ impl Data {
     }
     pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
         match AnyID::parse(&c.id)? {
+            AnyID::Course(id) => {
+                match &c.field as &str {
+                    "activity" => {
+                        let a = self.activity_by_name_or_create(&c.content);
+                        self.get_mut(a).courses.push(id);
+                    }
+                    _ => {
+                        bail!("Weird field for course: {}", c.field);
+                    }
+                }
+            }
             AnyID::Concept(id) => {
                 match &c.field as &str {
                     "long_description" => {
@@ -767,12 +782,23 @@ impl Data {
 
     pub fn course_sequence(&self, id: CourseID) -> CourseSequence {
         let course = self.get(id).clone();
-        let course_concepts: Vec<_> = self.concepts_for_course(id).iter()
-            .map(|&cid| self.concept_view(cid))
-            .collect();
-        let groups: Vec<ProgressionGroup> =
-            self.progression_group_concepts(course_concepts);
-        CourseSequence { course, prereq_courses: Vec::new(), groups }
+        let course_activities: Vec<_> = self.activities.iter()
+            .filter(|a| a.courses.contains(&id))
+            .map(|a| self.activity_view(a.id)).collect();
+        let mut groups = Vec::new();
+        for a in course_activities.into_iter() {
+            groups.push(ProgressionGroup {
+                concepts: a.new_concepts.clone(),
+                activity: a,
+            });
+        }
+        let new_activity = ActivityChoice {
+            id: format_as!(HTML, id),
+            field: "activity".to_string(),
+            choices: self.activities.iter().filter(|a| !a.courses.contains(&id))
+                .cloned().collect(),
+        };
+        CourseSequence { course, prereq_courses: Vec::new(), new_activity, groups }
     }
 
     pub fn course_view(&self, name: &str) -> CourseSequence {
@@ -875,39 +901,6 @@ impl Data {
             concepts: Vec::new(),
         });
     }
-
-    fn progression_group_concepts(&self, x: Vec<RcRcu<ConceptView>>) -> Vec<ProgressionGroup> {
-        let mut out: Vec<ProgressionGroup> = Vec::new();
-        for c in x.into_iter() {
-            let mut act: Vec<_> = c.activities.iter().map(|x| Some(x.clone())).collect();
-            if act.len() == 0 {
-                act.push(None);
-            }
-            if let Some(ref mut group) = out.iter_mut()
-                .filter(|x| act.contains(&x.activity))
-                .next()
-            {
-                group.concepts.push(c);
-            } else {
-                if act.len() >= 1 {
-                    out.push(ProgressionGroup { activity: act[0].clone(), concepts: vec![c] });
-                } else {
-                    out.push(ProgressionGroup { activity: None, concepts: vec![c] });
-                }
-            }
-        }
-        out.sort_unstable_by_key(|g| {
-            if let Some(ref a) = g.activity {
-                a.id
-            } else {
-                ActivityID(100000)
-            }
-        });
-        for g in out.iter_mut() {
-            g.concepts.sort_unstable_by_key(|c| c.id);
-        }
-        out
-    }
 }
 
 /// This is a course and concepts it teaches.
@@ -932,7 +925,7 @@ impl DisplayAs<HTML> for ActivityGroup {}
 /// This is an activity and concepts it teaches, but displayed in a progression.
 #[derive(Debug, Clone)]
 pub struct ProgressionGroup {
-    pub activity: Option<RcRcu<ActivityView>>,
+    pub activity: RcRcu<ActivityView>,
     pub concepts: Vec<RcRcu<ConceptView>>,
 }
 #[with_template("[%" "%]" "progression-group.html")]
@@ -941,6 +934,7 @@ impl DisplayAs<HTML> for ProgressionGroup {}
 pub struct CourseSequence {
     course: Course,
     prereq_courses: Vec<PrereqCourse>,
+    new_activity: ActivityChoice,
     groups: Vec<ProgressionGroup>,
 }
 #[with_template("[%" "%]" "course-sequence.html")]
@@ -961,6 +955,15 @@ pub struct ConceptChoice {
 }
 #[with_template("[%" "%]" "concept-choice.html")]
 impl DisplayAs<HTML> for ConceptChoice {}
+
+/// Represents a choice between activities!
+pub struct ActivityChoice {
+    pub id: String,
+    pub field: String,
+    pub choices: Vec<Activity>,
+}
+#[with_template("[%" "%]" "activity-choice.html")]
+impl DisplayAs<HTML> for ActivityChoice {}
 
 /// Represents adding or removing a thingy.
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize, Default)]

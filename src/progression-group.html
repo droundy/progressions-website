@@ -1,28 +1,23 @@
 <div class="activity-grouping">
-  [% if let Some(ref activity) = self.activity.iter().next() { %]
-  <a href="[% activity as URL %]" class="activity[%
-     for c in activity.prereq_concepts.iter() {
-     %] from-[% c.id } %]" id="[% activity.id %]">
-    <div class="activity" thisid="[% activity.id %]" name="name">[% activity.name %]</div>
+  <a href="[% self.activity as URL %]" class="activity[%
+     for c in self.activity.prereq_concepts.iter() {
+       %] from-[% c.id
+     } %]" id="[% self.activity.id %]">
+    <div class="activity" thisid="[% self.activity.id %]" name="name">[% self.activity.name %]</div>
     <div class="hint"><br/></div>
-    <div class="description hint" thisid="[% activity.id %]" name="long_description">
-      [% activity.long_description %]
+    <div class="description hint" thisid="[% self.activity.id %]" name="long_description">
+      [% self.activity.long_description %]
     </div>[%
-    for r in activity.representations.iter() {
+    for r in self.activity.representations.iter() {
       r
     } %]
-  </a>[%
-  } else { %]
-  <a href="/activity/orphans" class="activity orphans" id="orphans">
-    <div class="activity orphans">No activity!</div>
-  </a> [%
-  } %]
+  </a>
   <div class="concepts">
     [% for concept in self.concepts.iter() { %]
     <a href="[% concept as URL %]" class="concept[%
-       if self.activity.is_none() { %] orphans[% }
        for a in concept.activities.iter() {
-       %] from-[% a.id } %]" id="[% concept.id %]"> [%
+         %] from-[% a.id
+       } %]" id="[% concept.id %]"> [%
       for r in concept.representations.iter() {
         r
       }

@@ -59,7 +59,7 @@ function connectAll() {
     var arrows = $("#right-arrows");
     arrows.attr("d", "M0 0");
 
-    $(".activity").each(function(i,from) {
+    $(".activity:not(.hint)").each(function(i,from) {
         if (from.id != '') {
             $(".concept.from-"+from.id).each(function(i,to) {
                 // console.log('arrow connecting', from, to);
@@ -69,7 +69,7 @@ function connectAll() {
     });
     var arrows = $("#left-arrows");
     arrows.attr("d", "M0 0");
-    $(".concept").each(function(i,from) {
+    $(".concept:not(.hint)").each(function(i,from) {
         if (from.id != '') {
             $(".activity.from-"+from.id).each(function(i,to) {
                 // console.log('arrow connecting', from, to);
@@ -110,6 +110,7 @@ let content = {
       %]
 
       <div class="progression">
+        <div class="hint activity-grouping">[% self.new_activity %]</div>
         [% for group in self.groups.iter() {
           group
         } %]

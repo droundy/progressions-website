@@ -1,0 +1,17 @@
+<form class="activity hint has1" action="/change" method="post"
+      target="hidden-form"
+      onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
+  <label>New [% self.field %]</label>
+  <input list="choices" name="content">
+  <datalist id="choices">
+    [%
+    for c in self.choices.iter() {
+      %]<option value="[% c.name %]">[%
+    }
+    %]
+  </datalist>
+  <input type="hidden" name="id" value="[% self.id %]">
+  <input type="hidden" name="field" value="[% self.field %]">
+  <input type="hidden" name="html" value="">
+</form>
+<iframe style="display:none" name="hidden-form"></iframe>
