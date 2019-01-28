@@ -111,9 +111,11 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                     let anchor = data.lower_anchor(&datum.course_number);
                     data.get_activity(anchor).new_concepts.push(c.id);
                 }
-                data.set_concept(c.id, c);
+                data.set_concept(c);
             }
         } else if datum.thingtype == "Activity" || datum.thingtype == "activity" {
+            let anchor = data.lower_anchor(&datum.course_number);
+            data.get_activity(anchor).new_concepts.retain(|c| !new_concepts.contains(&c));
             let c = Activity {
                 id: data.activity_by_name_or_create(datum.name),
                 name: datum.name.to_string(),
@@ -127,7 +129,7 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                 status: nonempty_string(datum.status),
                 notes: nonempty_string(datum.notes),
             };
-            data.set_activity(c.id, c);
+            data.set_activity(c);
         } else {
             println!("   {}: {}", datum.thingtype, datum.name);
         }

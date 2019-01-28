@@ -414,10 +414,12 @@ impl Data {
         });
         newid
     }
-    pub fn set_concept(&mut self, id: ConceptID, c: Concept) {
+    pub fn set_concept(&mut self, c: Concept) {
+        let id = c.id;
         *self.get_mut(id) = c;
     }
-    pub fn set_activity(&mut self, id: ActivityID, c: Activity) {
+    pub fn set_activity(&mut self, c: Activity) {
+        let id = c.id;
         *self.get_mut(id) = c;
     }
     pub fn get_activity(&mut self, id: ActivityID) -> &mut Activity {
