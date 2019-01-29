@@ -4,7 +4,7 @@ use rcu_clean::RcRcu;
 
 use crate::data::{Course,
                   RepresentationID, Child, Representation,
-                  ActivityGroup, ActivityView, ConceptID,
+                  Activity, ActivityChoice, ActivityGroup, ActivityView, ConceptID,
                   ConceptChoice, ChangeRelationship,
                   PrereqCourse};
 
@@ -37,6 +37,7 @@ pub struct ConceptView {
     pub needed_for_concepts: Vec<ConceptID>,
 
     pub all_concepts: Vec<Concept>, // used to generate ConceptChoices
+    pub all_activities: Vec<Activity>, // used to generate ActivityChoices
 
     pub output_groups: Vec<ActivityGroup>,
 
@@ -83,5 +84,19 @@ impl ConceptView {
             field: "prereq".to_string(),
             choices: self.possibly_needed_for_concepts().choices,
         }
+    }
+    pub fn possible_activities(&self) -> ActivityChoice {
+        let mut ch = ActivityChoice {
+            id: format_as!(HTML, self.id),
+            field: "taught by".to_string(),
+            choices: Vec::new(),
+        };
+        for a in self.all_activities.iter() {
+            // Try to list only the concepts that we might plausibly want.
+            if !a.new_concepts.contains(&self.id) {
+                ch.choices.push(a.clone());
+            }
+        }
+        ch
     }
 }

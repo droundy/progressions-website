@@ -39,7 +39,7 @@ let content = {
             %]<a href="[% a as URL %]" class="activity">
               [% myremove.child(a.id) %][% a.name %]
             </a>[%
-            } %]
+            } %][% self.possible_activities() %]
           </div>
         </div>
         <h2 thisid="[% self.id %]" name="name">[% self.name %]</h2>

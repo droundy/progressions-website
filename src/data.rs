@@ -181,6 +181,10 @@ impl Data {
                         let prereq_id = self.concept_by_name_or_create(&c.content);
                         self.get_mut(id).prereq_concepts.push(prereq_id);
                     }
+                    "taught by" => {
+                        let activity_id = self.activity_by_name_or_create(&c.content);
+                        self.get_mut(activity_id).new_concepts.push(id);
+                    }
                     "Add" => {
                         match c.html.as_ref() {
                             "needed for" => {
@@ -559,6 +563,7 @@ impl Data {
             name: c.name.clone(),
 
             all_concepts: self.concepts.clone(),
+            all_activities: self.activities.clone(),
 
             activities: Vec::new(),
             prereq_courses: Vec::new(),
