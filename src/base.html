@@ -82,9 +82,11 @@ $(document).ready(function() {
               e.preventDefault();
           });
         } else {
-            reTypeset();
-            $('[thisid]').attr('contenteditable','false');
-            // // We don't even bother reenabling clicks.  When done editing, just refresh.
+            // Just refresh the page, pulling it from the server.
+            // This ensures we get the new edited data.
+            window.location.reload(true);
+            // reTypeset();
+            // $('[thisid]').attr('contenteditable','false');
             // $('[thisid]').unbind('click', false);
         }
         connectAll();
