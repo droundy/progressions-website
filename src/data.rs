@@ -19,23 +19,53 @@ pub struct Change {
 pub struct ConceptID(usize);
 #[with_template("c" self.0)]
 impl DisplayAs<HTML> for ConceptID {}
+#[with_template("/concept/" self.0)]
+impl DisplayAs<URL> for ConceptID {}
+impl std::str::FromStr for ConceptID {
+    type Err = std::num::ParseIntError;
+    fn from_str(x: &str) -> Result<Self, Self::Err> {
+        Ok(ConceptID(usize::from_str(x)?))
+    }
+}
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ActivityID(usize);
 #[with_template("a" self.0)]
 impl DisplayAs<HTML> for ActivityID {}
+#[with_template("/activity/" self.0)]
+impl DisplayAs<URL> for ActivityID {}
+impl std::str::FromStr for ActivityID {
+    type Err = std::num::ParseIntError;
+    fn from_str(x: &str) -> Result<Self, Self::Err> {
+        Ok(ActivityID(usize::from_str(x)?))
+    }
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct RepresentationID(usize);
-#[with_template("FIXME-RepresentationID:" self.0)]
+#[with_template("/representation/" self.0)]
 impl DisplayAs<URL> for RepresentationID {}
 #[with_template("r" self.0)]
 impl DisplayAs<HTML> for RepresentationID {}
+impl std::str::FromStr for RepresentationID {
+    type Err = std::num::ParseIntError;
+    fn from_str(x: &str) -> Result<Self, Self::Err> {
+        Ok(RepresentationID(usize::from_str(x)?))
+    }
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct CourseID(usize);
 #[with_template("C" self.0)]
 impl DisplayAs<HTML> for CourseID {}
+#[with_template("/course/" self.0)]
+impl DisplayAs<URL> for CourseID {}
+impl std::str::FromStr for CourseID {
+    type Err = std::num::ParseIntError;
+    fn from_str(x: &str) -> Result<Self, Self::Err> {
+        Ok(CourseID(usize::from_str(x)?))
+    }
+}
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Course {
@@ -43,7 +73,7 @@ pub struct Course {
     pub number: String,
     pub name: String,
 }
-#[with_template("/course/" slug::slugify(&self.number))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for Course {}
 #[with_template(r#"<a href=""# self as URL r#"" class="course">"# self.name r#"</a>"#)]
 impl DisplayAs<HTML> for Course {}
@@ -330,7 +360,8 @@ impl Data {
     pub fn concept_by_name(&self, name: &str) -> Option<ConceptID> {
         let name = name.trim();
         self.concepts.iter()
-            .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
+            .filter(|c| &c.name == name || &slug::slugify(&c.name) == name
+                    || Some(c.id.0) == name.parse().ok())
             .map(|c| c.id)
             .next()
     }
@@ -806,8 +837,7 @@ impl Data {
         CourseSequence { course, prereq_courses: Vec::new(), new_activity, groups }
     }
 
-    pub fn course_view(&self, name: &str) -> CourseSequence {
-        let id = self.course_by_name(name).unwrap();
+    pub fn course_view(&self, id: CourseID) -> CourseSequence {
         let mut cs = self.course_sequence(id);
 
         let my_concepts: Vec<_> = self.concepts_for_course(id).iter()
@@ -1080,15 +1110,15 @@ impl<T> std::ops::Deref for Child<T> {
     }
 }
 
-#[with_template("/concept/" slug::slugify(&self.name))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for Child<Concept> {}
 #[with_template("[%" "%]" "concept.html")]
 impl DisplayAs<HTML> for Child<Concept> {}
 
-#[with_template("/activity/" slug::slugify(&self.name))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for Child<Activity> {}
 
-#[with_template("/representation/" slug::slugify(&self.name))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for Child<Representation> {}
 #[with_template("[%" "%]" "representation.html")]
 impl DisplayAs<HTML> for Child<Representation> {}

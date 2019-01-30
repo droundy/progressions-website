@@ -20,7 +20,7 @@ pub struct Concept {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
-#[with_template("/concept/" slug::slugify(&self.name))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for Concept {}
 
 /// This is a concept, but with all the relationships filled in.
@@ -51,7 +51,7 @@ pub struct ConceptView {
 }
 #[with_template("[%" "%]" "concept-view.html")]
 impl DisplayAs<HTML> for ConceptView {}
-#[with_template("/concept/" slug::slugify(&self.name))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for ConceptView {}
 
 impl PartialEq for ConceptView {

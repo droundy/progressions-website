@@ -1,5 +1,6 @@
 use warp::{Filter, path};
-use progression_website::data::{ Data, Change };
+use progression_website::data::{ Data, Change, CourseID,
+                                 ConceptID, ActivityID, RepresentationID };
 use display_as::{HTML, display};
 
 fn main() {
@@ -11,17 +12,16 @@ fn main() {
             }
             "okay"
         });
-    let concept = path!("concept" / String)
-        .map(|name: String| {
+    let concept = path!("concept" / ConceptID)
+        .map(|id: ConceptID| {
             let data = Data::new();
-            display(HTML, &*data.concept_view(data.concept_by_name(&name)
-                                              .expect("Nonexisting concept")))
+            display(HTML, &*data.concept_view(id))
                 .http_response()
         });
-    let course = path!("course" / String)
-        .map(|name: String| {
+    let course = path!("course" / CourseID)
+        .map(|id: CourseID| {
             let data = Data::new();
-            display(HTML, &data.course_view(&name)).http_response()
+            display(HTML, &data.course_view(id)).http_response()
         });
     let map = path!("concept-map" / usize)
         .map(|max_width: usize| {
@@ -63,19 +63,15 @@ fn main() {
             let output = child.wait_with_output().expect("Failed to read stdout");
             String::from_utf8(output.stdout).expect("Trouble utf8")
         });
-    let representation = path!("representation" / String)
-        .map(|name: String| {
+    let representation = path!("representation" / RepresentationID)
+        .map(|id: RepresentationID| {
             let data = Data::new();
-            display(HTML, &data.representation_view(data.representation_by_name(&name)
-                                                    .expect("Nonexisting representation")))
-                .http_response()
+            display(HTML, &data.representation_view(id)).http_response()
         });
-    let activity = path!("activity" / String)
-        .map(|name: String| {
+    let activity = path!("activity" / ActivityID)
+        .map(|id: ActivityID| {
             let data = Data::new();
-            display(HTML, &*data.activity_view(data.activity_by_name(&name)
-                                               .expect("Nonexisting activity")))
-                .http_response()
+            display(HTML, &*data.activity_view(id)).http_response()
         });
     let index = (warp::path::end().or(path!("index.html")))
         .map(|_| {

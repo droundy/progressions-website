@@ -22,7 +22,7 @@ pub struct Activity {
     pub status: Option<String>,
     pub notes: Option<String>,
 }
-#[with_template("/activity/" slug::slugify(&self.name))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for Activity {}
 
 /// This is a activity, but with all the relationships filled in.
@@ -53,7 +53,7 @@ pub struct ActivityView {
 
 #[with_template("[%" "%]" "activity.html")]
 impl DisplayAs<HTML> for ActivityView {}
-#[with_template("/activity/" slug::slugify(&self.name))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for ActivityView {}
 
 impl PartialEq for ActivityView {

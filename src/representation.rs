@@ -11,7 +11,7 @@ pub struct Representation {
     pub description: Markdown,
     pub icon: String,
 }
-#[with_template("/representation/" slug::slugify(&self.name))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for Representation {}
 
 #[derive(Debug, Clone)]
@@ -23,7 +23,7 @@ pub struct RepresentationView {
     pub groups: Vec<ActivityGroup>,
     pub other_concepts: Vec<Child<Concept>>,
 }
-#[with_template("/representation/" slug::slugify(&self.name))]
+#[with_template( self.id )]
 impl DisplayAs<URL> for RepresentationView {}
 
 #[with_template("[%" "%]" "representation-view.html")]
