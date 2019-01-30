@@ -75,10 +75,17 @@ $(document).ready(function() {
           removeTypeset();
           $('[thisid]').unbind('click', false);
           $('[thisid]').prop("onclick", null).off('click');
+          $('a').on("click", function (e) { // redundant disabler of clicks so we can edit
+              e.preventDefault();
+          });
+          $('div').on("click", function (e) { // redundant disabler of clicks so we can edit
+              e.preventDefault();
+          });
         } else {
-          reTypeset();
-          $('[thisid]').attr('contenteditable','false');
-          $('[thisid]').unbind('click', false);
+            reTypeset();
+            $('[thisid]').attr('contenteditable','false');
+            // // We don't even bother reenabling clicks.  When done editing, just refresh.
+            // $('[thisid]').unbind('click', false);
         }
         connectAll();
     });
