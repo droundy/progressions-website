@@ -2,7 +2,6 @@ use crate::atomicfile::AtomicFile;
 use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
 use rcu_clean::RcRcu;
-use std::cell::RefCell;
 use display_as::{with_template, format_as, HTML, UTF8, URL, DisplayAs};
 use simple_error::bail;
 use crate::markdown::Markdown;
@@ -88,11 +87,6 @@ pub struct Data {
     activities: Vec<Activity>,
     representations: Vec<Representation>,
     courses: Vec<Course>,
-    // activities: Vec<Activity>,
-    #[serde(skip)]
-    concept_views: RefCell<Vec<Option<RcRcu<ConceptView>>>>,
-    #[serde(skip)]
-    activity_views: RefCell<Vec<Option<RcRcu<ActivityView>>>>,
 }
 
 enum AnyID {
@@ -177,9 +171,6 @@ impl Data {
             activities: Vec::new(),
             representations: Vec::new(),
             courses: Vec::new(),
-
-            concept_views: RefCell::new(Vec::new()),
-            activity_views: RefCell::new(Vec::new()),
         }
     }
     pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
@@ -580,12 +571,6 @@ impl Data {
     }
 
     pub fn concept_view(&self, id: ConceptID) -> RcRcu<ConceptView> {
-        while id.0 >= self.concept_views.borrow().len() {
-            self.concept_views.borrow_mut().push(None);
-        }
-        if let Some(ref c) = self.concept_views.borrow()[id.0] {
-            return c.clone();
-        }
         let c = &self.get(id);
         let my_prereq_concepts: Vec<_> =
             self.concepts.iter().filter(|x| c.prereq_concepts.contains(&x.id)).cloned().collect();
@@ -614,7 +599,6 @@ impl Data {
             status: c.status.clone(),
             notes: c.notes.clone(),
         });
-        self.concept_views.borrow_mut()[id.0] = Some(view.clone());
         // We haven't generated this view yet, so we need to add the
         // related concepts.
         let prereq_courses: Vec<_> = self.courses.iter().cloned()
@@ -670,12 +654,6 @@ impl Data {
     }
 
     pub fn activity_view(&self, id: ActivityID) -> RcRcu<ActivityView> {
-        while id.0 >= self.activity_views.borrow().len() {
-            self.activity_views.borrow_mut().push(None);
-        }
-        if let Some(ref a) = self.activity_views.borrow()[id.0] {
-            return a.clone();
-        }
         let a = &self.get(id);
         let my_prereq_concepts: Vec<_> = self.concepts.iter()
             .filter(|x| a.prereq_concepts.contains(&x.id)).cloned().collect();
@@ -733,10 +711,9 @@ impl Data {
 
         let new_concepts: Vec<_> = self.concepts.iter()
             .filter(|x| a.new_concepts.contains(&x.id))
-            .map(|x| self.concept_view(x.id))
-            .collect();
+            .cloned().collect();
         let prereq_concepts: Vec<_> = a.prereq_concepts.iter()
-            .map(|x| self.concept_view(*x))
+            .map(|&x| self.get(x).clone())
             .collect();
         let prereq_concepts_in_this_course: Vec<_> =
             a.prereq_concepts.iter().cloned()
@@ -749,9 +726,8 @@ impl Data {
             let mut v = view.update();
 
             v.prereq_courses = prereq_courses;
-            for p in a.prereq_concepts.iter() {
-                let pre = self.concept_view(*p);
-                v.prereq_concepts.push(pre);
+            for &p in a.prereq_concepts.iter() {
+                v.prereq_concepts.push(self.get(p).clone());
             }
             v.prereq_concepts = prereq_concepts;
             v.new_concepts = new_concepts;
@@ -823,7 +799,7 @@ impl Data {
         let mut groups = Vec::new();
         for a in course_activities.into_iter() {
             groups.push(ProgressionGroup {
-                concepts: a.new_concepts.clone(),
+                concepts: a.new_concepts.iter().map(|c| self.concept_view(c.id)).collect(),
                 activity: a,
             });
         }

@@ -3,10 +3,9 @@ use serde_derive::{Deserialize, Serialize};
 use crate::data::{Course, CourseID,
                   Child, Representation, RepresentationID,
                   ActivityGroup,
-                  ConceptID, Concept, ConceptView, ConceptChoice,
+                  ConceptID, Concept, ConceptChoice,
                   ActivityID,
                   PrereqCourse, ChangeRelationship};
-use rcu_clean::RcRcu;
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Activity {
@@ -32,10 +31,10 @@ pub struct ActivityView {
     pub name: String,
 
     pub prereq_courses: Vec<PrereqCourse>,
-    pub prereq_concepts: Vec<RcRcu<ConceptView>>,
+    pub prereq_concepts: Vec<Concept>,
     pub prereq_groups: Vec<ActivityGroup>,
 
-    pub new_concepts: Vec<RcRcu<ConceptView>>,
+    pub new_concepts: Vec<Concept>,
 
     pub all_concepts: Vec<Concept>, // used to generate ConceptChoices
 
