@@ -350,8 +350,7 @@ impl Data {
     pub fn concept_by_name(&self, name: &str) -> Option<ConceptID> {
         let name = name.trim();
         self.concepts.iter()
-            .filter(|c| &c.name == name || &slug::slugify(&c.name) == name
-                    || Some(c.id.0) == name.parse().ok())
+            .filter(|c| &c.name == name || Some(c.id.0) == name.parse().ok())
             .map(|c| c.id)
             .next()
     }
@@ -376,7 +375,7 @@ impl Data {
     }
     pub fn activity_by_name(&self, name: &str) -> Option<ActivityID> {
         self.activities.iter()
-            .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
+            .filter(|c| &c.name == name)
             .map(|c| c.id)
             .next()
     }
@@ -402,7 +401,7 @@ impl Data {
     }
     pub fn representation_by_name(&self, name: &str) -> Option<RepresentationID> {
         self.representations.iter()
-            .filter(|c| &c.name == name || &slug::slugify(&c.name) == name)
+            .filter(|c| &c.name == name)
             .map(|c| c.id)
             .next()
     }
@@ -422,8 +421,7 @@ impl Data {
     pub fn course_by_name(&self, name: &str) -> Option<CourseID> {
         let name = name.trim();
         self.courses.iter()
-            .filter(|c| &c.number == name || &c.name == name ||
-                    &slug::slugify(&c.number) == name)
+            .filter(|c| &c.number == name || &c.name == name)
             .map(|c| c.id)
             .next()
     }
