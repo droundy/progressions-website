@@ -312,6 +312,37 @@ figure img {
     width: 30vw;
 }
 
+article > .representation p:nth-child(odd) > img + strong {
+    float: left;
+    clear: left;
+    width: 30vw;
+    text-align: center;
+}
+article > .representation p:nth-child(odd) > img {
+    float: left;
+    clear: left;
+    margin-right: 0.75em;
+}
+article > .representation p:nth-child(odd) > img {
+    height: auto;
+    width: 30vw;
+}
+article > .representation p:nth-child(even) > img + strong {
+    float: right;
+    clear: right;
+    width: 30vw;
+    text-align: center;
+}
+article > .representation p:nth-child(even) > img {
+    float: right;
+    clear: right;
+    margin-left: 0.75em;
+}
+article > .representation p:nth-child(even) > img {
+    height: auto;
+    width: 30vw;
+}
+
 article > .representation h1 {
     text-align: center;
     margin: 0.5em 0 -1em 0;
