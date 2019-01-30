@@ -15,7 +15,7 @@ fn main() {
     let concept = path!("concept" / ConceptID)
         .map(|id: ConceptID| {
             let data = Data::new();
-            display(HTML, &*data.concept_view(id))
+            display(HTML, &data.concept_view(id))
                 .http_response()
         });
     let course = path!("course" / CourseID)
@@ -71,7 +71,7 @@ fn main() {
     let activity = path!("activity" / ActivityID)
         .map(|id: ActivityID| {
             let data = Data::new();
-            display(HTML, &*data.activity_view(id)).http_response()
+            display(HTML, &data.activity_view(id)).http_response()
         });
     let index = (warp::path::end().or(path!("index.html")))
         .map(|_| {

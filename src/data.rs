@@ -1,7 +1,6 @@
 use crate::atomicfile::AtomicFile;
 use serde_derive::{Deserialize, Serialize};
 use serde_yaml;
-use rcu_clean::RcRcu;
 use display_as::{with_template, format_as, HTML, UTF8, URL, DisplayAs};
 use simple_error::bail;
 use crate::markdown::Markdown;
@@ -570,11 +569,11 @@ impl Data {
         ConceptMap { rows }.optimize()
     }
 
-    pub fn concept_view(&self, id: ConceptID) -> RcRcu<ConceptView> {
+    pub fn concept_view(&self, id: ConceptID) -> ConceptView {
         let c = &self.get(id);
         let my_prereq_concepts: Vec<_> =
             self.concepts.iter().filter(|x| c.prereq_concepts.contains(&x.id)).cloned().collect();
-        let view = RcRcu::new(ConceptView {
+        let mut view = ConceptView {
             id,
             name: c.name.clone(),
 
@@ -598,10 +597,10 @@ impl Data {
             external_url: c.external_url.clone(),
             status: c.status.clone(),
             notes: c.notes.clone(),
-        });
+        };
         // We haven't generated this view yet, so we need to add the
         // related concepts.
-        let prereq_courses: Vec<_> = self.courses.iter().cloned()
+        view.prereq_courses = self.courses.iter().cloned()
             .map(|course| PrereqCourse {
                 course: course.clone(),
                 concepts: my_prereq_concepts.iter()
@@ -612,52 +611,42 @@ impl Data {
             .filter(|xx| xx.concepts.len() > 0 &&
                     !self.course_is_for_concept(c.id, xx.course.id))
             .collect();
-        let the_prereq_courses: Vec<_> = prereq_courses.iter().map(|x| x.course.id).collect();
+        let the_prereq_courses: Vec<_> = view.prereq_courses.iter().map(|x| x.course.id).collect();
 
         let output_concepts: Vec<_> = self.concepts.iter()
             .filter(|x| x.prereq_concepts.contains(&id))
             .map(|x| x.id)
             .collect();
-        let mut output_groups = self.group_concepts(output_concepts, id, "needed for");
+        view.output_groups = self.group_concepts(output_concepts, id, "needed for");
         for a in self.activities.iter().filter(|a| a.prereq_concepts.contains(&id))
         {
-            self.extend_groups_with_activity(&mut output_groups, a.clone(), id, "needed for");
+            self.extend_groups_with_activity(&mut view.output_groups, a.clone(), id, "needed for");
         }
-        let activities: Vec<_> =
+        view.activities =
             self.activities.iter()
             .filter(|a| a.new_concepts.contains(&id))
             .cloned().collect();
-        let prereq_concepts: Vec<_> =
+        view.prereq_concepts =
             c.prereq_concepts.iter()
             .map(|x| self.get(*x))
             .filter(|x| !the_prereq_courses.iter()
                     .any(|&z| self.course_is_for_concept(x.id, z)))
             .map(|x| x.id)
             .collect();
-        let prereq_groups = self.group_concepts(prereq_concepts.clone(), id, "prereq");
-        let needed_for_concepts: Vec<_> =
+        view.prereq_groups = self.group_concepts(view.prereq_concepts.clone(), id, "prereq");
+        view.needed_for_concepts =
             self.concepts.iter()
             .filter(|x| x.prereq_concepts.contains(&id))
             .map(|x| x.id)
             .collect();
-
-        {
-            let mut v = view.update();
-            v.prereq_courses = prereq_courses;
-            v.activities = activities;
-            v.prereq_concepts = c.prereq_concepts.clone();
-            v.needed_for_concepts = needed_for_concepts;
-            v.prereq_groups = prereq_groups;
-            v.output_groups = output_groups;
-        }
         view
     }
 
-    pub fn activity_view(&self, id: ActivityID) -> RcRcu<ActivityView> {
+    pub fn activity_view(&self, id: ActivityID) -> ActivityView {
         let a = &self.get(id);
         let my_prereq_concepts: Vec<_> = self.concepts.iter()
             .filter(|x| a.prereq_concepts.contains(&x.id)).cloned().collect();
-        let view = RcRcu::new(ActivityView {
+        let mut view = ActivityView {
             id,
             name: a.name.clone(),
 
@@ -680,14 +669,14 @@ impl Data {
             status: a.status.clone(),
             notes: a.notes.clone(),
             addremove: ChangeRelationship::none(),
-        });
+        };
         // We haven't generated this view yet, so we need to add the
         // related concepts.
         let other_courses: Vec<_> = self.courses.iter()
             .filter(|xx| !a.courses.contains(&xx.id))
             .cloned()
             .collect();
-        let prereq_courses: Vec<_> = self.courses.iter().cloned()
+        view.prereq_courses = self.courses.iter().cloned()
             .map(|course| PrereqCourse {
                 course: course.clone(),
                 concepts: my_prereq_concepts.iter()
@@ -702,17 +691,17 @@ impl Data {
             .filter(|x| a.new_concepts.contains(&x.id))
             .map(|x| x.id)
             .collect();
-        let mut output_groups = self.group_concepts(output_concepts, id, "new concept");
+        view.output_groups = self.group_concepts(output_concepts, id, "new concept");
         for a in self.activities.iter()
             .filter(|aa| a.new_concepts.iter().any(|cc| aa.prereq_concepts.contains(&cc)))
         {
-            self.extend_groups_with_activity(&mut output_groups, a.clone(), id, "new concept");
+            self.extend_groups_with_activity(&mut view.output_groups, a.clone(), id, "new concept");
         }
 
-        let new_concepts: Vec<_> = self.concepts.iter()
+        view.new_concepts = self.concepts.iter()
             .filter(|x| a.new_concepts.contains(&x.id))
             .cloned().collect();
-        let prereq_concepts: Vec<_> = a.prereq_concepts.iter()
+        view.prereq_concepts = a.prereq_concepts.iter()
             .map(|&x| self.get(x).clone())
             .collect();
         let prereq_concepts_in_this_course: Vec<_> =
@@ -720,21 +709,8 @@ impl Data {
             .filter(|&cid| !other_courses.iter()
                     .any(|cc| self.course_is_for_concept(cid, cc.id)))
             .collect();
-        let prereq_groups: Vec<_> = self.group_concepts(prereq_concepts_in_this_course,
-                                                        id, "prereq");
-        {
-            let mut v = view.update();
-
-            v.prereq_courses = prereq_courses;
-            for &p in a.prereq_concepts.iter() {
-                v.prereq_concepts.push(self.get(p).clone());
-            }
-            v.prereq_concepts = prereq_concepts;
-            v.new_concepts = new_concepts;
-            v.prereq_groups = prereq_groups;
-
-            v.output_groups = output_groups;
-        }
+        view.prereq_groups = self.group_concepts(prereq_concepts_in_this_course,
+                                                 id, "prereq");
         view
     }
 
@@ -917,7 +893,7 @@ impl Data {
 #[derive(Debug, Clone)]
 pub struct PrereqCourse {
     pub course: Course,
-    pub concepts: Vec<RcRcu<ConceptView>>,
+    pub concepts: Vec<ConceptView>,
 }
 #[with_template("[%" "%]" "prereq-course.html")]
 impl DisplayAs<HTML> for PrereqCourse {}
@@ -935,8 +911,8 @@ impl DisplayAs<HTML> for ActivityGroup {}
 /// This is an activity and concepts it teaches, but displayed in a progression.
 #[derive(Debug, Clone)]
 pub struct ProgressionGroup {
-    pub activity: RcRcu<ActivityView>,
-    pub concepts: Vec<RcRcu<ConceptView>>,
+    pub activity: ActivityView,
+    pub concepts: Vec<ConceptView>,
 }
 #[with_template("[%" "%]" "progression-group.html")]
 impl DisplayAs<HTML> for ProgressionGroup {}
