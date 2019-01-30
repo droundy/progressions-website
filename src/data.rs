@@ -642,8 +642,7 @@ impl Data {
         let activities: Vec<_> =
             self.activities.iter()
             .filter(|a| a.new_concepts.contains(&id))
-            .map(|a| self.activity_view(a.id)) // RcRcu::new( .remove(id, "taught by"))
-            .collect();
+            .cloned().collect();
         let prereq_concepts: Vec<_> =
             c.prereq_concepts.iter()
             .map(|x| self.get(*x))
