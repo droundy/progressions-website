@@ -559,7 +559,18 @@ impl Data {
                       children: children_map[&c].iter().map(|&c| c.into()).collect(),
                   })
                   .collect());
-        ConceptMap { rows }.optimize()
+        let orphans: Vec<_> = self.concepts.iter()
+            .filter(|c| !children_map.contains_key(&c.id) && !parents_map.contains_key(&c.id))
+            .map(|c| ConceptNode::Concept {
+                concept: c.clone(),
+                children: Vec::new(),
+            })
+            .collect();
+        let mut cmap = ConceptMap { rows }.optimize();
+        for orph in orphans.chunks(max_width) {
+            cmap.rows.push(orph.to_vec());
+        }
+        cmap
     }
 
     pub fn concept_view(&self, id: ConceptID) -> ConceptView {
