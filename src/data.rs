@@ -367,9 +367,6 @@ impl Data {
             representations: Vec::new(),
             figure: None,
             long_description: "".to_string(),
-            external_url: None,
-            status: None,
-            notes: None,
         });
         newid
     }
@@ -394,8 +391,6 @@ impl Data {
             figure: None,
             long_description: "".to_string(),
             external_url: None,
-            status: None,
-            notes: None,
         });
         newid
     }
@@ -592,9 +587,6 @@ impl Data {
             courses: self.courses_for_concept(c.id).iter().map(|&cid| self.get(cid).clone()).collect(),
             figure: c.figure.clone(),
             long_description: c.long_description.clone(),
-            external_url: c.external_url.clone(),
-            status: c.status.clone(),
-            notes: c.notes.clone(),
         };
         // We haven't generated this view yet, so we need to add the
         // related concepts.
@@ -664,8 +656,6 @@ impl Data {
             figure: a.figure.clone(),
             long_description: a.long_description.clone(),
             external_url: a.external_url.clone(),
-            status: a.status.clone(),
-            notes: a.notes.clone(),
             addremove: ChangeRelationship::none(),
         };
         // We haven't generated this view yet, so we need to add the

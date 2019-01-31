@@ -25,8 +25,8 @@ struct Row<'a> {
     figure: &'a str,
     long_description: &'a str,
     external_url: &'a str,
-    status: &'a str,
-    notes: &'a str,
+    _status: &'a str,
+    _notes: &'a str,
 }
 
 fn parse_list(s: &str) -> Vec<String> {
@@ -103,9 +103,6 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                     representations,
                     figure: nonempty_string(datum.figure),
                     long_description: datum.long_description.to_string(),
-                    external_url: nonempty_string(datum.external_url),
-                    status: nonempty_string(datum.status),
-                    notes: nonempty_string(datum.notes),
                 };
                 if datum.course_number.len() > 0 {
                     let anchor = data.lower_anchor(&datum.course_number);
@@ -126,8 +123,6 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                 figure: nonempty_string(datum.figure),
                 long_description: datum.long_description.to_string(),
                 external_url: nonempty_string(datum.external_url),
-                status: nonempty_string(datum.status),
-                notes: nonempty_string(datum.notes),
             };
             data.set_activity(c);
         } else {

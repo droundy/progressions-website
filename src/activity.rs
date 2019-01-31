@@ -18,8 +18,6 @@ pub struct Activity {
     pub figure: Option<String>,
     pub long_description: String,
     pub external_url: Option<String>,
-    pub status: Option<String>,
-    pub notes: Option<String>,
 }
 #[with_template( self.id )]
 impl DisplayAs<URL> for Activity {}
@@ -45,8 +43,6 @@ pub struct ActivityView {
     pub figure: Option<String>,
     pub long_description: String,
     pub external_url: Option<String>,
-    pub status: Option<String>,
-    pub notes: Option<String>,
     pub addremove: ChangeRelationship,
 }
 

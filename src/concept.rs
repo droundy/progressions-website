@@ -15,9 +15,6 @@ pub struct Concept {
     pub representations: Vec<RepresentationID>,
     pub figure: Option<String>,
     pub long_description: String,
-    pub external_url: Option<String>,
-    pub status: Option<String>,
-    pub notes: Option<String>,
 }
 #[with_template( self.id )]
 impl DisplayAs<URL> for Concept {}
@@ -44,9 +41,6 @@ pub struct ConceptView {
     pub courses: Vec<Course>,
     pub figure: Option<String>,
     pub long_description: String,
-    pub external_url: Option<String>,
-    pub status: Option<String>,
-    pub notes: Option<String>,
 }
 #[with_template("[%" "%]" "concept-view.html")]
 impl DisplayAs<HTML> for ConceptView {}

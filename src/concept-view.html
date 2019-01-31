@@ -28,9 +28,7 @@ let content = {
         </div>
         [% self.possibly_prereq_concepts() %]
       </details>
-      <div [% if let Some(ref url) = self.external_url { %]
-           thisid="[% self.id %]" name="none" onclick="location.href='[% url as URL %]';" style="cursor: pointer;"[%
-           } %] class="concept">
+      <div class="concept">
         <div class="taughtby">
           <div class="taughtby"> [%
             let myremove = ChangeRelationship::parent(self.id, "Remove",
