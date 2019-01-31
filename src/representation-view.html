@@ -8,7 +8,13 @@ let content = {
       <div class="representation">
         <h1>[% self.icon as UTF8 %]</h1>
         <br/>
-        [% self.description.edit_me(self.id, "description") %]
+        <div class="description" thisid="[% self.id %]" name="description">
+          [% if self.description.len() == 0 {
+            %] NEED DESCRIPTION HERE [%
+          } else {
+            self.description
+          } %]
+        </div>
         <div class="row">
           [% for c in self.other_concepts.iter() { c } %]
         </div>

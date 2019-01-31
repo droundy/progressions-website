@@ -69,8 +69,6 @@ $(document).ready(function() {
     $('.hint').hide();
     $('h1').click(function(){
         $('.hint').toggle();
-        $('.unhint').toggle();
-        $('textarea').trigger('input');
         var value = $('[thisid]').attr('contenteditable');
         if (value != 'true') {
           $('[thisid]').attr('contenteditable','true');
@@ -80,9 +78,9 @@ $(document).ready(function() {
           $('a').on("click", function (e) { // redundant disabler of clicks so we can edit
               e.preventDefault();
           });
-          // $('div').on("click", function (e) { // redundant disabler of clicks so we can edit
-          //     e.preventDefault();
-          // });
+          $('div').on("click", function (e) { // redundant disabler of clicks so we can edit
+              e.preventDefault();
+          });
         } else {
             // Just refresh the page, pulling it from the server.
             // This ensures we get the new edited data.
@@ -105,13 +103,7 @@ $(document).ready(function() {
         url: '/change',
         data: data,
       });
-    });
-    $('textarea').each(function () {
-        this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
-    }).on('input', function () {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
-    });
+});
     [% readyjs %]
 });
   </script>
