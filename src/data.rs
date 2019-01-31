@@ -106,7 +106,7 @@ impl AnyID {
     }
 }
 
-trait ID: Copy+Clone {
+pub trait ID: Copy+Clone+DisplayAs<HTML> {
     type Target;
     fn get(self, data: &Data) -> &Self::Target;
     fn get_mut(self, data: &mut Data) -> &mut Self::Target;
@@ -307,7 +307,8 @@ impl Data {
                         self.get_mut(id).name = c.content.trim().to_string();
                     }
                     "description" => {
-                        self.get_mut(id).description = Markdown::from_html(&c.html);
+                        println!("setting description to:\n\n{}", c.content);
+                        self.get_mut(id).description = Markdown::new(c.content);
                     }
                     "Add" => {
                         match c.html.as_ref() {
