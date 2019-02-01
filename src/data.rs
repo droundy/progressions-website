@@ -76,7 +76,8 @@ impl DisplayAs<URL> for Course {}
 #[with_template(r#"<a href=""# self as URL r#"" class="course">"# self.name r#"</a>"#)]
 impl DisplayAs<HTML> for Course {}
 
-pub use crate::concept::{Concept, ConceptView};
+pub use crate::concept::{Concept, ConceptView,
+                         ConceptRepresentation, ConceptRepresentationView};
 pub use crate::activity::{Activity, ActivityView};
 pub use crate::representation::{Representation, RepresentationView};
 
@@ -314,7 +315,7 @@ impl Data {
                             "used by" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(child_id) => {
-                                        self.get_mut(child_id).representations.push(id)
+                                        self.get_mut(child_id).add_representation(id);
                                     }
                                     _ => bail!("Weird used by type: {:?}", c.content),
                                 }
@@ -327,8 +328,7 @@ impl Data {
                             "used by" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(child_id) => {
-                                        self.get_mut(child_id).representations
-                                            .retain(|&r| r != id);
+                                        self.get_mut(child_id).representations.remove(&id);
                                     }
                                     AnyID::Activity(child_id) => {
                                         self.get_mut(child_id).representations
@@ -364,7 +364,7 @@ impl Data {
             id: newid,
             name: name.to_string(),
             prereq_concepts: Vec::new(),
-            representations: Vec::new(),
+            representations: std::collections::BTreeMap::new(),
             figure: None,
             long_description: "".to_string(),
         });
@@ -573,6 +573,18 @@ impl Data {
         cmap
     }
 
+    pub fn concept_representation_view(&self, cid: ConceptID, rid: RepresentationID)
+                                       -> Option<ConceptRepresentationView> {
+        let rr = self.get(cid).representations.get(&rid)?;
+        Some(ConceptRepresentationView {
+            cid: cid,
+            representation: Child::remove(cid, "with", self.get(rid).clone()),
+            name: rr.name.clone(),
+            long_description: rr.long_description.clone(),
+            figure: rr.figure.clone(),
+        })
+    }
+
     pub fn concept_view(&self, id: ConceptID) -> ConceptView {
         let c = &self.get(id);
         let my_prereq_concepts: Vec<_> =
@@ -593,8 +605,11 @@ impl Data {
 
             output_groups: Vec::new(),
 
-            representations: c.representations.iter()
-                .map(|&rid| Child::remove(id, "uses", self.get(rid).clone())).collect(),
+            representations: c.representations.keys()
+                .map(|&rid| Child::remove(id, "uses",
+                                          self.concept_representation_view(id, rid)
+                                          .unwrap()))
+                .collect(),
             courses: self.courses_for_concept(c.id).iter().map(|&cid| self.get(cid).clone()).collect(),
             figure: c.figure.clone(),
             long_description: c.long_description.clone(),
@@ -716,7 +731,7 @@ impl Data {
     pub fn representation_view(&self, id: RepresentationID) -> RepresentationView {
         let r = self.get(id).clone();
         let all_concepts_using_r: Vec<_> = self.concepts.iter()
-            .filter(|c| c.representations.contains(&id))
+            .filter(|c| c.representations.contains_key(&id))
             .cloned()
             .collect();
         let all_activities_using_r: Vec<_> = self.activities.iter()

@@ -1,5 +1,6 @@
 use display_as::{with_template, format_as, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
+use std::collections::BTreeMap;
 
 use crate::data::{Course,
                   RepresentationID, Child, Representation,
@@ -12,14 +13,21 @@ pub struct Concept {
     pub id: ConceptID,
     pub name: String,
     pub prereq_concepts: Vec<ConceptID>,
-    pub representations: Vec<Representation>, // fixme change to ConceptRepresentation, possible BTreeMap
+    pub representations: BTreeMap<RepresentationID,ConceptRepresentation>, // fixme change to ConceptRepresentation, possible BTreeMap
     pub figure: Option<String>,
     pub long_description: String,
 }
+impl Concept {
+    pub fn add_representation(&mut self, id: RepresentationID) {
+        self.representations.insert(id, ConceptRepresentation {
+            name: "".to_string(),
+            long_description: "".to_string(),
+            figure: None,
+        });
+    }
+}
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ConceptRepresentation {
-    pub cid: ConceptID,
-    pub rid: RepresentationID,
     pub name: String,
     pub long_description: String,
     pub figure: Option<String>,
@@ -46,7 +54,7 @@ pub struct ConceptView {
 
     pub output_groups: Vec<ActivityGroup>,
 
-    pub representations: Vec<Child<Representation>>,
+    pub representations: Vec<Child<ConceptRepresentationView>>,
     pub courses: Vec<Course>,
     pub figure: Option<String>,
     pub long_description: String,
@@ -102,3 +110,16 @@ impl ConceptView {
         ch
     }
 }
+
+#[derive(Debug, Clone)]
+pub struct ConceptRepresentationView {
+    pub cid: ConceptID,
+    pub representation: Child<Representation>,
+    pub name: String,
+    pub long_description: String,
+    pub figure: Option<String>,
+}
+#[with_template("[%" "%]" "concept-representation-view.html")]
+impl DisplayAs<HTML> for ConceptRepresentationView {}
+#[with_template( self.representation.id )]
+impl DisplayAs<URL> for ConceptRepresentationView {}

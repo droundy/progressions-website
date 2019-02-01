@@ -96,14 +96,17 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
         };
         if datum.thingtype == "Concept" || datum.thingtype == "concept" {
             if datum.name.trim().len() > 0 {
-                let c = Concept {
+                let mut c = Concept {
                     id: data.concept_by_name_or_create(datum.name),
                     name: datum.name.to_string(),
                     prereq_concepts: prereqs,
-                    representations,
+                    representations: std::collections::BTreeMap::new(),
                     figure: nonempty_string(datum.figure),
                     long_description: datum.long_description.to_string(),
                 };
+                for r in representations.iter().cloned() {
+                    c.add_representation(r);
+                }
                 if datum.course_number.len() > 0 {
                     let anchor = data.lower_anchor(&datum.course_number);
                     data.get_activity(anchor).new_concepts.push(c.id);
