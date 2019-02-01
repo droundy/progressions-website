@@ -12,10 +12,19 @@ pub struct Concept {
     pub id: ConceptID,
     pub name: String,
     pub prereq_concepts: Vec<ConceptID>,
-    pub representations: Vec<RepresentationID>,
+    pub representations: Vec<Representation>, // fixme change to ConceptRepresentation, possible BTreeMap
     pub figure: Option<String>,
     pub long_description: String,
 }
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+pub struct ConceptRepresentation {
+    pub cid: ConceptID,
+    pub rid: RepresentationID,
+    pub name: String,
+    pub long_description: String,
+    pub figure: Option<String>,
+}
+
 #[with_template( self.id )]
 impl DisplayAs<URL> for Concept {}
 
