@@ -51,9 +51,10 @@ impl ConceptRepresentationID {
         }
     }
     fn str2manifestation(x: &str) -> Option<Self> {
+        use std::str::FromStr;
         let mut things = x.split("/");
-        let cid = ConceptID::from_str(things.next()?);
-        let rid = RepresentationID::from_str(things.next()?);
+        let cid = ConceptID::from_str(things.next()?).ok()?;
+        let rid = RepresentationID::from_str(things.next()?).ok()?;
         Some(ConceptRepresentationID::Manifestation(cid, rid))
     }
 }
