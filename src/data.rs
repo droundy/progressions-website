@@ -27,6 +27,47 @@ impl std::str::FromStr for ConceptID {
 }
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+pub enum ConceptRepresentationID {
+    Concept(ConceptID),
+    Manifestation(ConceptID, RepresentationID),
+}
+#[with_template( self.to_html() as UTF8 )]
+impl DisplayAs<HTML> for ConceptRepresentationID {}
+#[with_template( self.to_url() as UTF8 )]
+impl DisplayAs<URL> for ConceptRepresentationID {}
+impl ConceptRepresentationID {
+    fn to_url(&self) -> String {
+        match self {
+            ConceptRepresentationID::Concept(cid) => format!("/concept/{}", cid.0),
+            ConceptRepresentationID::Manifestation(cid, rid) =>
+                format!("/concept/{}/{}", cid.0, rid.0),
+        }
+    }
+    fn to_html(&self) -> String {
+        match self {
+            ConceptRepresentationID::Concept(cid) => format!("c{}", cid.0),
+            ConceptRepresentationID::Manifestation(cid, rid) =>
+                format!("c{}-r{}", cid.0, rid.0),
+        }
+    }
+    fn str2manifestation(x: &str) -> Option<Self> {
+        let mut things = x.split("/");
+        let cid = ConceptID::from_str(things.next()?);
+        let rid = RepresentationID::from_str(things.next()?);
+        Some(ConceptRepresentationID::Manifestation(cid, rid))
+    }
+}
+impl std::str::FromStr for ConceptRepresentationID {
+    type Err = std::num::ParseIntError;
+    fn from_str(x: &str) -> Result<Self, Self::Err> {
+        if let Some(id) = ConceptRepresentationID::str2manifestation(x) {
+            return Ok(id);
+        }
+        return Ok(ConceptRepresentationID::Concept(ConceptID::from_str(x)?));
+    }
+}
+
+#[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ActivityID(usize);
 #[with_template("a" self.0)]
 impl DisplayAs<HTML> for ActivityID {}
@@ -39,7 +80,7 @@ impl std::str::FromStr for ActivityID {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct RepresentationID(usize);
 #[with_template("/representation/" self.0)]
 impl DisplayAs<URL> for RepresentationID {}
