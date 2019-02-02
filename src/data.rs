@@ -27,35 +27,29 @@ impl std::str::FromStr for ConceptID {
 }
 
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-pub enum ConceptRepresentationID {
-    Concept(ConceptID),
-    Manifestation(ConceptID, RepresentationID),
+pub struct ConceptRepresentationID {
+    concept: ConceptID,
+    representation: Option<RepresentationID>,
 }
-#[with_template( self.to_html() as UTF8 )]
+#[with_template( if let Some(rid) = self.representation {
+    self.concept "-" rid
+} else {
+    self.concept
+} )]
 impl DisplayAs<HTML> for ConceptRepresentationID {}
-#[with_template( self.to_url() as UTF8 )]
+#[with_template( if let Some(rid) = self.representation {
+    self.concept "/" rid.0
+} else {
+    self.concept
+} )]
 impl DisplayAs<URL> for ConceptRepresentationID {}
 impl ConceptRepresentationID {
-    fn to_url(&self) -> String {
-        match self {
-            ConceptRepresentationID::Concept(cid) => format!("/concept/{}", cid.0),
-            ConceptRepresentationID::Manifestation(cid, rid) =>
-                format!("/concept/{}/{}", cid.0, rid.0),
-        }
-    }
-    fn to_html(&self) -> String {
-        match self {
-            ConceptRepresentationID::Concept(cid) => format!("c{}", cid.0),
-            ConceptRepresentationID::Manifestation(cid, rid) =>
-                format!("c{}-r{}", cid.0, rid.0),
-        }
-    }
     fn str2manifestation(x: &str) -> Option<Self> {
         use std::str::FromStr;
         let mut things = x.split("/");
-        let cid = ConceptID::from_str(things.next()?).ok()?;
-        let rid = RepresentationID::from_str(things.next()?).ok()?;
-        Some(ConceptRepresentationID::Manifestation(cid, rid))
+        let concept = ConceptID::from_str(things.next()?).ok()?;
+        let representation = Some(RepresentationID::from_str(things.next()?).ok()?);
+        Some(ConceptRepresentationID { concept, representation })
     }
 }
 impl std::str::FromStr for ConceptRepresentationID {
@@ -64,7 +58,10 @@ impl std::str::FromStr for ConceptRepresentationID {
         if let Some(id) = ConceptRepresentationID::str2manifestation(x) {
             return Ok(id);
         }
-        return Ok(ConceptRepresentationID::Concept(ConceptID::from_str(x)?));
+        Ok(ConceptRepresentationID {
+            concept: ConceptID::from_str(x)?,
+            representation: None,
+        })
     }
 }
 
