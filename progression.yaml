@@ -75,7 +75,7 @@ concepts:
     prereq_concepts: []
     representations: {}
     figure: ~
-    long_description: "A long description for The derivative is a linear function is not yet available--feel free to give us your suggestions on the poster! NOTE: do we mean to say that the derivative is a linar operator?"
+    long_description: "A long description for The derivative is a linear function is not yet available--feel free to give us your suggestions on the poster! FIXME: do we mean to say that the derivative is a linar operator?"
   - id: 9
     name: Power law
     prereq_concepts: []
@@ -95,7 +95,15 @@ concepts:
   - id: 11
     name: Variables can be held constant
     prereq_concepts: []
-    representations: {}
+    representations:
+      5:
+        name: ""
+        long_description: ""
+        figure: ~
+      28:
+        name: ""
+        long_description: ""
+        figure: ~
     figure: ~
     long_description: "When taking a derivative of a multivariable function, it is possible to consider a simpler situation in which some of the variables are considered to be constant. "
   - id: 12
@@ -171,14 +179,15 @@ concepts:
     long_description: "For a smooth, two dimensional function, a tangent line exists at any point and in any direction."
   - id: 19
     name: The derivative is related to the density of contour lines
-    prereq_concepts: []
+    prereq_concepts:
+      - 1
     representations:
       6:
         name: ""
         long_description: ""
         figure: ~
     figure: ~
-    long_description: "The magnitude of the derivative of a function is directly related to how closely together lie contour lines of the function: the closer together the contour lines, the greater the magnitude of the derivative."
+    long_description: "The magnitude of the derivative of a function is directly related to how closely together lie contour lines of the function: the closer together the contour lines, the greater the magnitude of the derivative. FIXME the long description has a lot of info than the concept name and we haven't usually been having it that way."
   - id: 20
     name: The value of a partial derivative depends on the value(s) of what is held constant
     prereq_concepts: []
@@ -188,7 +197,7 @@ concepts:
         long_description: ""
         figure: ~
     figure: ~
-    long_description: "A long description for The value of a partial derivative depends on the value(s) of what is held constant is not yet available--feel free to give us your suggestions on the poster! Note: Is this really a statement about paths? I don't think we have path-related concepts."
+    long_description: "A long description for The value of a partial derivative depends on the value(s) of what is held constant is not yet available--feel free to give us your suggestions on the poster! FIXME: Is this really a statement about paths? I don't think we have path-related concepts."
   - id: 21
     name: A partial derivative can be expressed in terms of other partial derivatives
     prereq_concepts:
@@ -328,7 +337,7 @@ concepts:
         long_description: ""
         figure: ~
     figure: ~
-    long_description: "A long description for Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors.  is not yet available--feel free to give us your suggestions on the poster! NOTE: This concept does not make any sense."
+    long_description: "A long description for Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors.  is not yet available--feel free to give us your suggestions on the poster! FIXME: This concept does not make any sense."
   - id: 32
     name: "The magnitude of $d\\vec r$ is the length of a small step along a path"
     prereq_concepts:
@@ -339,7 +348,7 @@ concepts:
         long_description: ""
         figure: ~
     figure: ~
-    long_description: "A long description for The magnitude of $d\\vec r$ is the length of a small step along a path is not yet available--feel free to give us your suggestions on the poster! NOTE: What's the point of this concept?"
+    long_description: "A long description for The magnitude of $d\\vec r$ is the length of a small step along a path is not yet available--feel free to give us your suggestions on the poster! FIXME: What's the point of this concept?"
   - id: 33
     name: "The direction of $d\\vec r$ is tangent to a path"
     prereq_concepts: []
@@ -349,7 +358,7 @@ concepts:
         long_description: ""
         figure: ~
     figure: ~
-    long_description: "A long description for The direction of $d\\vec r$ is tangent to a path is not yet available--feel free to give us your suggestions on the poster! NOTE: Tangent to what path? How is this useful?"
+    long_description: "A long description for The direction of $d\\vec r$ is tangent to a path is not yet available--feel free to give us your suggestions on the poster! FIXME: Tangent to what path? How is this useful?"
   - id: 34
     name: The gradient can tell you a small change in a function in any direction (differentials edition)
     prereq_concepts:
@@ -384,7 +393,7 @@ concepts:
         long_description: ""
         figure: ~
     figure: ~
-    long_description: ""
+    long_description: FIXME
   - id: 37
     name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
     prereq_concepts: []
@@ -394,19 +403,19 @@ concepts:
         long_description: ""
         figure: ~
     figure: ~
-    long_description: ""
+    long_description: FIXME
   - id: 38
     name: "$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$"
     prereq_concepts: []
     representations: {}
     figure: ~
-    long_description: ""
+    long_description: FIXME
   - id: 39
     name: "$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$"
     prereq_concepts: []
     representations: {}
     figure: ~
-    long_description: ""
+    long_description: FIXME
   - id: 40
     name: "Differential form of $\\vec r$ in spherical and cylindrical coordinates"
     prereq_concepts:
@@ -490,10 +499,11 @@ concepts:
         long_description: ""
         figure: ~
     figure: ~
-    long_description: A long description for The divergence of the electric field is equal to is not yet available--feel free to give us your suggestions on the poster!
+    long_description: A long description for The divergence of the electric field is equal to is not yet available--feel free to give us your suggestions on the poster! FIXME not a complete concept
   - id: 48
     name: The divergence of the magnetic field is zero
-    prereq_concepts: []
+    prereq_concepts:
+      - 7
     representations:
       12:
         name: ""
@@ -535,7 +545,8 @@ concepts:
     long_description: A long description for The curl is a local quantity is not yet available--feel free to give us your suggestions on the poster!
   - id: 52
     name: The magnetic field is equal to the curl of the magnetic vector potential
-    prereq_concepts: []
+    prereq_concepts:
+      - 50
     representations:
       13:
         name: ""
@@ -545,7 +556,9 @@ concepts:
     long_description: A long description for The magnetic field is equal to the curl of the magnetic vector potential is not yet available--feel free to give us your suggestions on the poster!
   - id: 53
     name: The curl of the electric field is zero in electrostatics
-    prereq_concepts: []
+    prereq_concepts:
+      - 7
+      - 52
     representations:
       13:
         name: ""
@@ -587,13 +600,13 @@ concepts:
         long_description: ""
         figure: ~
     figure: ~
-    long_description: "A long description for Equations can be 'zapped with d' to relate differentials is not yet available--feel free to give us your suggestions on the poster! NOTE: Does the difference between zapping with d and taking the total differential need to be articulated?"
+    long_description: "A long description for Equations can be 'zapped with d' to relate differentials is not yet available--feel free to give us your suggestions on the poster! FIXME: Does the difference between zapping with d and taking the total differential need to be articulated?"
   - id: 57
     name: Individual differentials can be manipulated algebraically
     prereq_concepts: []
     representations: {}
     figure: ~
-    long_description: A long description for Individual differentials can be manipulated algebraically is not yet available--feel free to give us your suggestions on the poster!
+    long_description: A long description for Individual differentials can be manipulated algebraically is not yet available--feel free to give us your suggestions on the poster! FIXME what?
   - id: 58
     name: Total differentials are linear
     prereq_concepts: []
@@ -606,7 +619,8 @@ concepts:
     long_description: "No matter how complicated a multivariable function is when written as an equation, the total differential of that function will be linear in the differential terms. In other words: $dF(x,y,z)=A dx + B dy + C dz.$"
   - id: 59
     name: Differentials are small chunks
-    prereq_concepts: []
+    prereq_concepts:
+      - 0
     representations:
       14:
         name: ""
@@ -638,7 +652,7 @@ concepts:
     prereq_concepts: []
     representations: {}
     figure: ~
-    long_description: "While the constituents of a derivative (the $f$ and $x$ in $\\frac{df}{dx}$) can have physical interpretations, the derivative itself can have a different physical interpretation. For example, $\\frac{dx}{dt}$ is a velocity. NOTE: find a better example"
+    long_description: "While the constituents of a derivative (the $f$ and $x$ in $\\frac{df}{dx}$) can have physical interpretations, the derivative itself can have a different physical interpretation. For example, $\\frac{dx}{dt}$ is a velocity. FIXME: find a better example"
   - id: 62
     name: Partial derivatives that do not have the same variable(s) held constant are not the same derivative
     prereq_concepts:
@@ -773,8 +787,104 @@ activities:
       - 13
       - 14
       - 15
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 13
+      - 14
+      - 15
     representations: []
     courses:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
       - 0
       - 0
       - 0
@@ -862,8 +972,80 @@ activities:
       - 26
       - 27
       - 28
+      - 22
+      - 26
+      - 27
+      - 28
+      - 22
+      - 26
+      - 27
+      - 28
+      - 22
+      - 26
+      - 27
+      - 28
     representations: []
     courses:
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
       - 1
       - 1
       - 1
@@ -1077,8 +1259,53 @@ activities:
       - 37
       - 38
       - 39
+      - 31
+      - 36
+      - 37
+      - 38
+      - 39
+      - 31
+      - 36
+      - 37
+      - 38
+      - 39
+      - 31
+      - 36
+      - 37
+      - 38
+      - 39
     representations: []
     courses:
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
+      - 2
       - 2
       - 2
       - 2
@@ -1150,8 +1377,92 @@ activities:
       - 52
       - 53
       - 54
+      - 43
+      - 47
+      - 48
+      - 52
+      - 53
+      - 54
+      - 43
+      - 47
+      - 48
+      - 52
+      - 53
+      - 54
+      - 43
+      - 47
+      - 48
+      - 52
+      - 53
+      - 54
     representations: []
     courses:
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
+      - 3
       - 3
       - 3
       - 3
@@ -1258,7 +1569,7 @@ activities:
     courses:
       - 2
     figure: ~
-    long_description: Needs a Long Description
+    long_description: FIXME
     external_url: ~
   - id: 11
     name: The Hill
@@ -1385,6 +1696,54 @@ activities:
     new_concepts: []
     representations: []
     courses:
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
+      - 4
       - 4
       - 4
       - 4
@@ -1648,6 +2007,10 @@ representations:
     name: picture of PDM
     description: ""
     icon: "<img src=\"/figs/pdm.jpg\"/>"
+  - id: 28
+    name: Contour Map
+    description: ""
+    icon: Contour Map
 courses:
   - id: 0
     number: MTH 251
