@@ -109,7 +109,9 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                 }
                 if datum.course_number.len() > 0 {
                     let anchor = data.lower_anchor(&datum.course_number);
-                    data.get_activity(anchor).new_concepts.push(c.id.into());
+                    if !data.get_activity(anchor).new_concepts.contains(&c.id.into()) {
+                        data.get_activity(anchor).new_concepts.push(c.id.into());
+                    }
                 }
                 data.set_concept(c);
             }
