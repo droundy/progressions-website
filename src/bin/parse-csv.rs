@@ -4,7 +4,7 @@ use std::io;
 use std::process;
 use display_as::{HTML, format_as};
 
-use progression_website::data::{Activity, Concept, Data, Change};
+use progression_website::data::{Activity, Concept, ConceptRepresentationID, Data, Change};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize)]
 enum ThingType {
@@ -80,9 +80,9 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
             .iter()
             .map(|c| data.concept_by_name_or_create(c))
             .collect();
-        let new_concepts: Vec<_> = parse_list(datum.new_concepts)
+        let new_concepts: Vec<ConceptRepresentationID> = parse_list(datum.new_concepts)
             .iter()
-            .map(|c| data.concept_by_name_or_create(c))
+            .map(|c| data.concept_by_name_or_create(c).into())
             .collect();
         let representations: Vec<_> = parse_list(datum.representations)
             .iter()
@@ -109,7 +109,7 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                 }
                 if datum.course_number.len() > 0 {
                     let anchor = data.lower_anchor(&datum.course_number);
-                    data.get_activity(anchor).new_concepts.push(c.id);
+                    data.get_activity(anchor).new_concepts.push(c.id.into());
                 }
                 data.set_concept(c);
             }
@@ -119,7 +119,7 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
             let c = Activity {
                 id: data.activity_by_name_or_create(datum.name),
                 name: datum.name.to_string(),
-                prereq_concepts: prereqs,
+                prereq_concepts: prereqs.iter().map(|&c| c.into()).collect(),
                 new_concepts,
                 representations,
                 courses,

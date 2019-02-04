@@ -103,7 +103,7 @@ impl ConceptView {
         };
         for a in self.all_activities.iter() {
             // Try to list only the concepts that we might plausibly want.
-            if !a.new_concepts.contains(&self.id) {
+            if !a.new_concepts.contains(&self.id.into()) {
                 ch.choices.push(a.clone());
             }
         }

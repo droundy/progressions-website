@@ -96,11 +96,11 @@ concepts:
     name: Variables can be held constant
     prereq_concepts: []
     representations:
-      5:
+      3:
         name: ""
         long_description: ""
         figure: ~
-      28:
+      4:
         name: ""
         long_description: ""
         figure: ~
@@ -110,7 +110,7 @@ concepts:
     name: Product rule
     prereq_concepts: []
     representations:
-      3:
+      5:
         name: ""
         long_description: ""
         figure: ~
@@ -120,7 +120,7 @@ concepts:
     name: Single variable chain rule
     prereq_concepts: []
     representations:
-      3:
+      5:
         name: ""
         long_description: ""
         figure: ~
@@ -130,7 +130,7 @@ concepts:
     name: You can flip a derivative
     prereq_concepts: []
     representations:
-      3:
+      5:
         name: ""
         long_description: ""
         figure: ~
@@ -140,7 +140,7 @@ concepts:
     name: "\"With respect to what\" matters"
     prereq_concepts: []
     representations:
-      3:
+      5:
         name: ""
         long_description: ""
         figure: ~
@@ -151,7 +151,7 @@ concepts:
     prereq_concepts:
       - 11
     representations:
-      4:
+      6:
         name: ""
         long_description: ""
         figure: ~
@@ -161,7 +161,7 @@ concepts:
     name: There is a partial derivative in every direction at any point
     prereq_concepts: []
     representations:
-      5:
+      3:
         name: ""
         long_description: ""
         figure: ~
@@ -171,7 +171,7 @@ concepts:
     name: There is a tangent line in every direction at every point
     prereq_concepts: []
     representations:
-      5:
+      3:
         name: ""
         long_description: ""
         figure: ~
@@ -182,7 +182,7 @@ concepts:
     prereq_concepts:
       - 1
     representations:
-      6:
+      7:
         name: ""
         long_description: ""
         figure: ~
@@ -192,7 +192,7 @@ concepts:
     name: The value of a partial derivative depends on the value(s) of what is held constant
     prereq_concepts: []
     representations:
-      4:
+      6:
         name: ""
         long_description: ""
         figure: ~
@@ -203,11 +203,11 @@ concepts:
     prereq_concepts:
       - 13
     representations:
-      4:
+      6:
         name: ""
         long_description: ""
         figure: ~
-      7:
+      8:
         name: ""
         long_description: ""
         figure: ~
@@ -217,7 +217,7 @@ concepts:
     name: The gradient is a vector
     prereq_concepts: []
     representations:
-      8:
+      9:
         name: ""
         long_description: ""
         figure: ~
@@ -229,7 +229,7 @@ concepts:
       - 4
       - 22
     representations:
-      8:
+      9:
         name: ""
         long_description: ""
         figure: ~
@@ -239,7 +239,7 @@ concepts:
     name: The gradient is perpendicular to contour lines
     prereq_concepts: []
     representations:
-      6:
+      7:
         name: ""
         long_description: ""
         figure: ~
@@ -251,7 +251,7 @@ concepts:
       - 4
       - 17
     representations:
-      5:
+      3:
         name: ""
         long_description: ""
         figure: ~
@@ -261,7 +261,7 @@ concepts:
     name: The derivative is a local quantity
     prereq_concepts: []
     representations:
-      3:
+      5:
         name: ""
         long_description: ""
         figure: ~
@@ -272,11 +272,11 @@ concepts:
     prereq_concepts:
       - 6
     representations:
-      4:
+      6:
         name: ""
         long_description: ""
         figure: ~
-      7:
+      8:
         name: ""
         long_description: ""
         figure: ~
@@ -287,7 +287,7 @@ concepts:
     prereq_concepts:
       - 6
     representations:
-      8:
+      9:
         name: ""
         long_description: ""
         figure: ~
@@ -297,11 +297,11 @@ concepts:
     name: The components of the gradient are partial derivatives
     prereq_concepts: []
     representations:
-      4:
+      6:
         name: ""
         long_description: ""
         figure: ~
-      8:
+      9:
         name: ""
         long_description: ""
         figure: ~
@@ -313,15 +313,15 @@ concepts:
       - 4
       - 22
     representations:
-      6:
+      7:
         name: ""
         long_description: ""
         figure: ~
-      8:
+      9:
         name: ""
         long_description: ""
         figure: ~
-      10:
+      11:
         name: ""
         long_description: ""
         figure: ~
@@ -332,7 +332,7 @@ concepts:
     prereq_concepts:
       - 0
     representations:
-      11:
+      12:
         name: ""
         long_description: ""
         figure: ~
@@ -343,7 +343,7 @@ concepts:
     prereq_concepts:
       - 0
     representations:
-      11:
+      12:
         name: ""
         long_description: ""
         figure: ~
@@ -353,7 +353,7 @@ concepts:
     name: "The direction of $d\\vec r$ is tangent to a path"
     prereq_concepts: []
     representations:
-      11:
+      12:
         name: ""
         long_description: ""
         figure: ~
@@ -364,11 +364,11 @@ concepts:
     prereq_concepts:
       - 0
     representations:
-      8:
+      9:
         name: ""
         long_description: ""
         figure: ~
-      11:
+      12:
         name: ""
         long_description: ""
         figure: ~
@@ -378,7 +378,7 @@ concepts:
     name: The divergence is a scalar field
     prereq_concepts: []
     representations:
-      12:
+      13:
         name: ""
         long_description: ""
         figure: ~
@@ -388,7 +388,7 @@ concepts:
     name: "$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$"
     prereq_concepts: []
     representations:
-      12:
+      13:
         name: ""
         long_description: ""
         figure: ~
@@ -398,7 +398,7 @@ concepts:
     name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
     prereq_concepts: []
     representations:
-      13:
+      14:
         name: ""
         long_description: ""
         figure: ~
@@ -421,7 +421,7 @@ concepts:
     prereq_concepts:
       - 26
     representations:
-      11:
+      12:
         name: ""
         long_description: ""
         figure: ~
@@ -431,7 +431,7 @@ concepts:
     name: The gradient lives in the domain and has the same number of spatial dimensions as the original function
     prereq_concepts: []
     representations:
-      8:
+      9:
         name: ""
         long_description: ""
         figure: ~
@@ -442,7 +442,7 @@ concepts:
     prereq_concepts:
       - 26
     representations:
-      8:
+      9:
         name: ""
         long_description: ""
         figure: ~
@@ -452,7 +452,7 @@ concepts:
     name: The electric field is the negative gradient of the electric potential
     prereq_concepts: []
     representations:
-      8:
+      9:
         name: ""
         long_description: ""
         figure: ~
@@ -462,7 +462,7 @@ concepts:
     name: The divergence is related to the total flux through a closed surface
     prereq_concepts: []
     representations:
-      12:
+      13:
         name: ""
         long_description: ""
         figure: ~
@@ -473,7 +473,7 @@ concepts:
     prereq_concepts:
       - 6
     representations:
-      12:
+      13:
         name: ""
         long_description: ""
         figure: ~
@@ -484,7 +484,7 @@ concepts:
     prereq_concepts:
       - 26
     representations:
-      12:
+      13:
         name: ""
         long_description: ""
         figure: ~
@@ -494,7 +494,7 @@ concepts:
     name: The divergence of the electric field is equal to
     prereq_concepts: []
     representations:
-      12:
+      13:
         name: ""
         long_description: ""
         figure: ~
@@ -505,7 +505,7 @@ concepts:
     prereq_concepts:
       - 7
     representations:
-      12:
+      13:
         name: ""
         long_description: ""
         figure: ~
@@ -515,7 +515,7 @@ concepts:
     name: "The curl is related to the line integral around a closed loop. (\"circulation\")"
     prereq_concepts: []
     representations:
-      13:
+      14:
         name: ""
         long_description: ""
         figure: ~
@@ -526,7 +526,7 @@ concepts:
     prereq_concepts:
       - 6
     representations:
-      13:
+      14:
         name: ""
         long_description: ""
         figure: ~
@@ -537,7 +537,7 @@ concepts:
     prereq_concepts:
       - 26
     representations:
-      13:
+      14:
         name: ""
         long_description: ""
         figure: ~
@@ -548,7 +548,7 @@ concepts:
     prereq_concepts:
       - 50
     representations:
-      13:
+      14:
         name: ""
         long_description: ""
         figure: ~
@@ -560,7 +560,7 @@ concepts:
       - 7
       - 52
     representations:
-      13:
+      14:
         name: ""
         long_description: ""
         figure: ~
@@ -570,11 +570,11 @@ concepts:
     name: The divergence of the curl is equal to mu times the current in magneto-statics
     prereq_concepts: []
     representations:
-      12:
+      13:
         name: ""
         long_description: ""
         figure: ~
-      13:
+      14:
         name: ""
         long_description: ""
         figure: ~
@@ -585,7 +585,7 @@ concepts:
     prereq_concepts:
       - 0
     representations:
-      14:
+      15:
         name: ""
         long_description: ""
         figure: ~
@@ -595,7 +595,7 @@ concepts:
     name: "Equations can be 'zapped with d' to relate differentials"
     prereq_concepts: []
     representations:
-      14:
+      15:
         name: ""
         long_description: ""
         figure: ~
@@ -611,7 +611,7 @@ concepts:
     name: Total differentials are linear
     prereq_concepts: []
     representations:
-      14:
+      15:
         name: ""
         long_description: ""
         figure: ~
@@ -622,7 +622,7 @@ concepts:
     prereq_concepts:
       - 0
     representations:
-      14:
+      15:
         name: ""
         long_description: ""
         figure: ~
@@ -637,11 +637,11 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-      18:
+      19:
         name: ""
         long_description: ""
         figure: ~
-      19:
+      20:
         name: ""
         long_description: ""
         figure: ~
@@ -659,7 +659,7 @@ concepts:
       - 16
       - 20
     representations:
-      4:
+      6:
         name: ""
         long_description: ""
         figure: ~
@@ -671,11 +671,11 @@ concepts:
       - 2
       - 55
     representations:
-      4:
+      6:
         name: ""
         long_description: ""
         figure: ~
-      7:
+      8:
         name: ""
         long_description: ""
         figure: ~
@@ -687,11 +687,11 @@ concepts:
       - 14
       - 16
     representations:
-      4:
+      6:
         name: ""
         long_description: ""
         figure: ~
-      7:
+      8:
         name: ""
         long_description: ""
         figure: ~
@@ -701,7 +701,7 @@ concepts:
     name: There might be experimental limits on which quantities you can measure
     prereq_concepts: []
     representations:
-      19:
+      20:
         name: ""
         long_description: ""
         figure: ~
@@ -712,7 +712,7 @@ concepts:
     prereq_concepts:
       - 58
     representations:
-      14:
+      15:
         name: ""
         long_description: ""
         figure: ~
@@ -723,184 +723,56 @@ activities:
     name: lower anchor MTH 251
     prereq_concepts: []
     new_concepts:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 13
-      - 14
-      - 15
+      - concept: 0
+      - concept: 1
+      - concept: 2
+      - concept: 3
+      - concept: 4
+      - concept: 5
+      - concept: 6
+      - concept: 7
+      - concept: 8
+      - concept: 9
+      - concept: 10
+      - concept: 11
+      - concept: 12
+      - concept: 13
+      - concept: 14
+      - concept: 15
+      - concept: 0
+      - concept: 1
+      - concept: 2
+      - concept: 3
+      - concept: 4
+      - concept: 5
+      - concept: 6
+      - concept: 7
+      - concept: 8
+      - concept: 9
+      - concept: 10
+      - concept: 11
+      - concept: 12
+      - concept: 13
+      - concept: 14
+      - concept: 15
+      - concept: 0
+      - concept: 1
+      - concept: 2
+      - concept: 3
+      - concept: 4
+      - concept: 5
+      - concept: 6
+      - concept: 7
+      - concept: 8
+      - concept: 9
+      - concept: 10
+      - concept: 11
+      - concept: 12
+      - concept: 13
+      - concept: 14
+      - concept: 15
     representations: []
     courses:
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
       - 0
       - 0
       - 0
@@ -956,116 +828,20 @@ activities:
     name: lower anchor MTH 254
     prereq_concepts: []
     new_concepts:
-      - 22
-      - 26
-      - 27
-      - 28
-      - 22
-      - 26
-      - 27
-      - 28
-      - 22
-      - 26
-      - 27
-      - 28
-      - 22
-      - 26
-      - 27
-      - 28
-      - 22
-      - 26
-      - 27
-      - 28
-      - 22
-      - 26
-      - 27
-      - 28
-      - 22
-      - 26
-      - 27
-      - 28
+      - concept: 22
+      - concept: 26
+      - concept: 27
+      - concept: 28
+      - concept: 22
+      - concept: 26
+      - concept: 27
+      - concept: 28
+      - concept: 22
+      - concept: 26
+      - concept: 27
+      - concept: 28
     representations: []
     courses:
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
       - 1
       - 1
       - 1
@@ -1132,13 +908,13 @@ activities:
   - id: 2
     name: The Heater II
     prereq_concepts:
-      - 2
-      - 11
-      - 15
+      - concept: 2
+      - concept: 11
+      - concept: 15
     new_concepts:
-      - 16
+      - concept: 16
     representations:
-      - 6
+      - 7
     courses:
       - 1
     figure: mvheater2.jpg
@@ -1147,19 +923,19 @@ activities:
   - id: 3
     name: The Hot Plate
     prereq_concepts:
-      - 4
-      - 6
-      - 10
-      - 15
+      - concept: 4
+      - concept: 6
+      - concept: 10
+      - concept: 15
     new_concepts:
-      - 17
-      - 18
-      - 19
-      - 20
+      - concept: 17
+      - concept: 18
+      - concept: 19
+      - concept: 20
     representations:
+      - 8
       - 7
-      - 6
-      - 9
+      - 10
     courses:
       - 1
     figure: mvhotplate.jpg
@@ -1168,16 +944,16 @@ activities:
   - id: 4
     name: Chain Rule
     prereq_concepts:
-      - 6
-      - 8
-      - 11
-      - 12
-      - 15
-      - 13
+      - concept: 6
+      - concept: 8
+      - concept: 11
+      - concept: 12
+      - concept: 15
+      - concept: 13
     new_concepts:
-      - 21
+      - concept: 21
     representations:
-      - 7
+      - 8
     courses:
       - 1
     figure: TreeDiagram.jpg
@@ -1186,12 +962,12 @@ activities:
   - id: 5
     name: Chain Rule Measurements
     prereq_concepts:
-      - 4
-      - 21
+      - concept: 4
+      - concept: 21
     new_concepts: []
     representations:
-      - 7
-      - 9
+      - 8
+      - 10
     courses:
       - 1
     figure: ~
@@ -1200,18 +976,18 @@ activities:
   - id: 6
     name: The Hillside
     prereq_concepts:
-      - 4
-      - 16
-      - 17
-      - 18
+      - concept: 4
+      - concept: 16
+      - concept: 17
+      - concept: 18
     new_concepts:
-      - 30
-      - 23
-      - 24
+      - concept: 30
+      - concept: 23
+      - concept: 24
     representations:
-      - 7
+      - 8
+      - 11
       - 10
-      - 9
     courses:
       - 1
     figure: vchill.jpg
@@ -1220,16 +996,16 @@ activities:
   - id: 7
     name: Directional Derivatives
     prereq_concepts:
-      - 8
-      - 17
-      - 21
+      - concept: 8
+      - concept: 17
+      - concept: 21
     new_concepts:
-      - 25
-      - 29
+      - concept: 25
+      - concept: 29
     representations:
-      - 7
-      - 9
       - 8
+      - 10
+      - 9
     courses:
       - 1
     figure: MathSurfaces1.jpg
@@ -1239,83 +1015,23 @@ activities:
     name: lower anchor MTH 255
     prereq_concepts: []
     new_concepts:
-      - 31
-      - 36
-      - 37
-      - 38
-      - 39
-      - 31
-      - 36
-      - 37
-      - 38
-      - 39
-      - 31
-      - 36
-      - 37
-      - 38
-      - 39
-      - 31
-      - 36
-      - 37
-      - 38
-      - 39
-      - 31
-      - 36
-      - 37
-      - 38
-      - 39
-      - 31
-      - 36
-      - 37
-      - 38
-      - 39
-      - 31
-      - 36
-      - 37
-      - 38
-      - 39
+      - concept: 31
+      - concept: 36
+      - concept: 37
+      - concept: 38
+      - concept: 39
+      - concept: 31
+      - concept: 36
+      - concept: 37
+      - concept: 38
+      - concept: 39
+      - concept: 31
+      - concept: 36
+      - concept: 37
+      - concept: 38
+      - concept: 39
     representations: []
     courses:
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
       - 2
       - 2
       - 2
@@ -1353,138 +1069,26 @@ activities:
     name: lower anchor PH 422
     prereq_concepts: []
     new_concepts:
-      - 43
-      - 47
-      - 48
-      - 52
-      - 53
-      - 54
-      - 43
-      - 47
-      - 48
-      - 52
-      - 53
-      - 54
-      - 43
-      - 47
-      - 48
-      - 52
-      - 53
-      - 54
-      - 43
-      - 47
-      - 48
-      - 52
-      - 53
-      - 54
-      - 43
-      - 47
-      - 48
-      - 52
-      - 53
-      - 54
-      - 43
-      - 47
-      - 48
-      - 52
-      - 53
-      - 54
-      - 43
-      - 47
-      - 48
-      - 52
-      - 53
-      - 54
+      - concept: 43
+      - concept: 47
+      - concept: 48
+      - concept: 52
+      - concept: 53
+      - concept: 54
+      - concept: 43
+      - concept: 47
+      - concept: 48
+      - concept: 52
+      - concept: 53
+      - concept: 54
+      - concept: 43
+      - concept: 47
+      - concept: 48
+      - concept: 52
+      - concept: 53
+      - concept: 54
     representations: []
     courses:
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
       - 3
       - 3
       - 3
@@ -1558,14 +1162,14 @@ activities:
     name: The Master Formula
     prereq_concepts: []
     new_concepts:
-      - 22
-      - 30
-      - 23
-      - 24
+      - concept: 22
+      - concept: 30
+      - concept: 23
+      - concept: 24
     representations:
-      - 14
-      - 8
-      - 11
+      - 15
+      - 9
+      - 12
     courses:
       - 2
     figure: ~
@@ -1574,17 +1178,17 @@ activities:
   - id: 11
     name: The Hill
     prereq_concepts:
-      - 16
-      - 17
-      - 19
-      - 20
+      - concept: 16
+      - concept: 17
+      - concept: 19
+      - concept: 20
     new_concepts:
-      - 30
-      - 23
-      - 24
+      - concept: 30
+      - concept: 23
+      - concept: 24
     representations:
-      - 6
-      - 8
+      - 7
+      - 9
     courses:
       - 2
     figure: vchill.jpg
@@ -1593,11 +1197,11 @@ activities:
   - id: 12
     name: The Valley
     prereq_concepts:
-      - 29
+      - concept: 29
     new_concepts:
-      - 34
+      - concept: 34
     representations:
-      - 6
+      - 7
     courses:
       - 2
     figure: vcvalley.jpg
@@ -1606,15 +1210,15 @@ activities:
   - id: 13
     name: Vector Differentials
     prereq_concepts:
-      - 0
-      - 31
+      - concept: 0
+      - concept: 31
     new_concepts:
-      - 40
-      - 32
-      - 33
+      - concept: 40
+      - concept: 32
+      - concept: 33
     representations:
-      - 11
-      - 15
+      - 12
+      - 16
     courses:
       - 3
     figure: vfdrvectorcurvi.jpg
@@ -1623,15 +1227,15 @@ activities:
   - id: 14
     name: Acting out the Gradient
     prereq_concepts:
-      - 22
-      - 30
+      - concept: 22
+      - concept: 30
     new_concepts:
-      - 41
-      - 42
+      - concept: 41
+      - concept: 42
     representations:
-      - 8
-      - 16
-      - 6
+      - 9
+      - 17
+      - 7
     courses:
       - 3
     figure: vfactinggrad.jpg
@@ -1640,16 +1244,16 @@ activities:
   - id: 15
     name: Visualizing Gradient
     prereq_concepts:
-      - 23
-      - 24
-      - 30
+      - concept: 23
+      - concept: 24
+      - concept: 30
     new_concepts:
-      - 41
-      - 42
+      - concept: 41
+      - concept: 42
     representations:
-      - 16
       - 17
-      - 6
+      - 18
+      - 7
     courses:
       - 3
     figure: vfgradient.jpg
@@ -1658,16 +1262,16 @@ activities:
   - id: 16
     name: Visualizing Divergence
     prereq_concepts:
-      - 2
-      - 5
-      - 6
-      - 35
+      - concept: 2
+      - concept: 5
+      - concept: 6
+      - concept: 35
     new_concepts:
-      - 44
-      - 45
-      - 46
+      - concept: 44
+      - concept: 45
+      - concept: 46
     representations:
-      - 17
+      - 18
     courses:
       - 3
     figure: vfdivergence.jpg
@@ -1676,15 +1280,15 @@ activities:
   - id: 17
     name: Visualizing Curl
     prereq_concepts:
-      - 2
-      - 5
-      - 6
+      - concept: 2
+      - concept: 5
+      - concept: 6
     new_concepts:
-      - 49
-      - 50
-      - 51
+      - concept: 49
+      - concept: 50
+      - concept: 51
     representations:
-      - 17
+      - 18
     courses:
       - 3
     figure: vfcurlvis.jpg
@@ -1744,89 +1348,25 @@ activities:
       - 4
       - 4
       - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
     figure: ~
     long_description: ""
     external_url: ~
   - id: 19
     name: Zapping with d
     prereq_concepts:
-      - 0
-      - 2
-      - 3
-      - 5
-      - 6
-      - 11
+      - concept: 0
+      - concept: 2
+      - concept: 3
+      - concept: 5
+      - concept: 6
+      - concept: 11
     new_concepts:
-      - 55
-      - 56
-      - 57
-      - 58
+      - concept: 55
+      - concept: 56
+      - concept: 57
+      - concept: 58
     representations:
-      - 14
+      - 15
     courses:
       - 4
     figure: LPsmall.jpg
@@ -1835,13 +1375,13 @@ activities:
   - id: 20
     name: Energy and Integrals
     prereq_concepts:
-      - 55
-      - 57
+      - concept: 55
+      - concept: 57
     new_concepts:
-      - 59
+      - concept: 59
     representations:
-      - 20
-      - 14
+      - 21
+      - 15
     courses:
       - 4
     figure: inpotentiallab.jpg
@@ -1850,21 +1390,21 @@ activities:
   - id: 21
     name: Partial Derivative Machine Derivatives
     prereq_concepts:
-      - 2
-      - 11
-      - 16
-      - 20
-      - 55
+      - concept: 2
+      - concept: 11
+      - concept: 16
+      - concept: 20
+      - concept: 55
     new_concepts:
-      - 60
-      - 61
-      - 62
-      - 63
+      - concept: 60
+      - concept: 61
+      - concept: 62
+      - concept: 63
     representations:
-      - 20
-      - 7
-      - 4
       - 21
+      - 8
+      - 6
+      - 22
     courses:
       - 4
     figure: PDMD.jpg
@@ -1873,22 +1413,22 @@ activities:
   - id: 22
     name: Chain Rules
     prereq_concepts:
-      - 2
-      - 6
-      - 11
-      - 16
-      - 21
-      - 55
-      - 56
-      - 57
-      - 62
-      - 63
+      - concept: 2
+      - concept: 6
+      - concept: 11
+      - concept: 16
+      - concept: 21
+      - concept: 55
+      - concept: 56
+      - concept: 57
+      - concept: 62
+      - concept: 63
     new_concepts:
-      - 64
-      - 65
-      - 66
+      - concept: 64
+      - concept: 65
+      - concept: 66
     representations:
-      - 14
+      - 15
     courses:
       - 4
     figure: pdm.jpg
@@ -1908,109 +1448,109 @@ representations:
     description: ""
     icon: 1D Graph
   - id: 3
-    name: "$\\frac{d f}{d x}$"
-    description: ""
-    icon: "$\\frac{d f}{d x}$"
-  - id: 4
-    name: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
-    description: ""
-    icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
-  - id: 5
     name: 2D Graph
     description: ""
     icon: 2D Graph
-  - id: 6
-    name: Contour Maps
-    description: ""
-    icon: "<img src=\"/figs/contour-map.svg\"/>"
-  - id: 7
-    name: "$\\frac{\\partial f}{\\partial x}$"
-    description: ""
-    icon: "$\\frac{\\partial f}{\\partial x}$"
-  - id: 8
-    name: "$\\vec \\nabla f$"
-    description: ""
-    icon: "$\\vec \\nabla f$"
-  - id: 9
-    name: Inclinometer
-    description: ""
-    icon: "<img src=\"/figs/inclinometer.jpg\"/>"
-  - id: 10
-    name: surface
-    description: ""
-    icon: "<img src=\"/figs/surface.jpg\"/>"
-  - id: 11
-    name: "$d \\vec r$"
-    description: ""
-    icon: "$d \\vec r$"
-  - id: 12
-    name: "$\\vec \\nabla \\cdot \\vec v$"
-    description: ""
-    icon: "$\\vec \\nabla \\cdot \\vec v$"
-  - id: 13
-    name: "$\\vec \\nabla \\times \\vec v$"
-    description: ""
-    icon: "$\\vec \\nabla \\times \\vec v$"
-  - id: 14
-    name: $df$
-    description: ""
-    icon: $df$
-  - id: 15
-    name: 3D plots
-    description: ""
-    icon: "<img src=\"/figs/3dplot.jpg\"/>"
-  - id: 16
-    name: Kinesthetic
-    description: ""
-    icon: "<img src=\"/figs/kin.jpg\"/>"
-  - id: 17
-    name: Vector Field Map
-    description: ""
-    icon: "<img src=\"/figs/vector-field-map.jpg\"/>"
-  - id: 18
-    name: $dx$
-    description: ""
-    icon: $dx$
-  - id: 19
-    name: Experiment
-    description: ""
-    icon: Experiment
-  - id: 20
-    name: PDM
-    description: ""
-    icon: "<img src=\"/figs/pdm.jpg\"/>"
-  - id: 21
-    name: Table
-    description: ""
-    icon: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
-  - id: 22
-    name: partial f/partial x
-    description: ""
-    icon: "$\\frac{\\partial f}{\\partial x}$"
-  - id: 23
-    name: partial f/partial x fixing y
-    description: ""
-    icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
-  - id: 24
-    name: Del f
-    description: ""
-    icon: "$\\vec\\nabla f$"
-  - id: 25
-    name: Del dot f
-    description: ""
-    icon: "$\\vec\\nabla\\cdot\\vec f$"
-  - id: 26
-    name: df
-    description: ""
-    icon: $df$
-  - id: 27
-    name: picture of PDM
-    description: ""
-    icon: "<img src=\"/figs/pdm.jpg\"/>"
-  - id: 28
+  - id: 4
     name: Contour Map
     description: ""
     icon: Contour Map
+  - id: 5
+    name: "$\\frac{d f}{d x}$"
+    description: ""
+    icon: "$\\frac{d f}{d x}$"
+  - id: 6
+    name: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+    description: ""
+    icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+  - id: 7
+    name: Contour Maps
+    description: ""
+    icon: "<img src=\"/figs/contour-map.svg\"/>"
+  - id: 8
+    name: "$\\frac{\\partial f}{\\partial x}$"
+    description: ""
+    icon: "$\\frac{\\partial f}{\\partial x}$"
+  - id: 9
+    name: "$\\vec \\nabla f$"
+    description: ""
+    icon: "$\\vec \\nabla f$"
+  - id: 10
+    name: Inclinometer
+    description: ""
+    icon: "<img src=\"/figs/inclinometer.jpg\"/>"
+  - id: 11
+    name: surface
+    description: ""
+    icon: "<img src=\"/figs/surface.jpg\"/>"
+  - id: 12
+    name: "$d \\vec r$"
+    description: ""
+    icon: "$d \\vec r$"
+  - id: 13
+    name: "$\\vec \\nabla \\cdot \\vec v$"
+    description: ""
+    icon: "$\\vec \\nabla \\cdot \\vec v$"
+  - id: 14
+    name: "$\\vec \\nabla \\times \\vec v$"
+    description: ""
+    icon: "$\\vec \\nabla \\times \\vec v$"
+  - id: 15
+    name: $df$
+    description: ""
+    icon: $df$
+  - id: 16
+    name: 3D plots
+    description: ""
+    icon: "<img src=\"/figs/3dplot.jpg\"/>"
+  - id: 17
+    name: Kinesthetic
+    description: ""
+    icon: "<img src=\"/figs/kin.jpg\"/>"
+  - id: 18
+    name: Vector Field Map
+    description: ""
+    icon: "<img src=\"/figs/vector-field-map.jpg\"/>"
+  - id: 19
+    name: $dx$
+    description: ""
+    icon: $dx$
+  - id: 20
+    name: Experiment
+    description: ""
+    icon: Experiment
+  - id: 21
+    name: PDM
+    description: ""
+    icon: "<img src=\"/figs/pdm.jpg\"/>"
+  - id: 22
+    name: Table
+    description: ""
+    icon: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
+  - id: 23
+    name: partial f/partial x
+    description: ""
+    icon: "$\\frac{\\partial f}{\\partial x}$"
+  - id: 24
+    name: partial f/partial x fixing y
+    description: ""
+    icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+  - id: 25
+    name: Del f
+    description: ""
+    icon: "$\\vec\\nabla f$"
+  - id: 26
+    name: Del dot f
+    description: ""
+    icon: "$\\vec\\nabla\\cdot\\vec f$"
+  - id: 27
+    name: df
+    description: ""
+    icon: $df$
+  - id: 28
+    name: picture of PDM
+    description: ""
+    icon: "<img src=\"/figs/pdm.jpg\"/>"
 courses:
   - id: 0
     number: MTH 251

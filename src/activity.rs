@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use crate::data::{Course, CourseID,
                   Child, Representation, RepresentationID,
                   ActivityGroup,
-                  ConceptID, Concept, ConceptChoice,
+                  Concept, ConceptRepresentationID, ConceptChoice,
                   ActivityID,
                   PrereqCourse, ChangeRelationship};
 
@@ -11,8 +11,8 @@ use crate::data::{Course, CourseID,
 pub struct Activity {
     pub id: ActivityID,
     pub name: String,
-    pub prereq_concepts: Vec<ConceptID>,
-    pub new_concepts: Vec<ConceptID>,
+    pub prereq_concepts: Vec<ConceptRepresentationID>,
+    pub new_concepts: Vec<ConceptRepresentationID>,
     pub representations: Vec<RepresentationID>,
     pub courses: Vec<CourseID>,
     pub figure: Option<String>,
