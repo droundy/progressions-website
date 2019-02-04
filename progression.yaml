@@ -8,7 +8,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: Understanding both difference (how far apart two values are at one time) and change (how far apart the value of a single parameter is at two different times) is necessary for understanding derivatives.
   - id: 1
     name: How much $f$ changes as $x$ changes
@@ -18,7 +17,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "Conceptually, a derivative can be thought of as how much one value changes as another value changes. "
   - id: 2
     name: The derivative is a ratio of small changes
@@ -28,7 +26,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "One can view $\\frac{df}{dx}$ as approximately given by a fraction where $df$ is a small change in $f$ and $dx$ is a small change in $x$."
   - id: 3
     name: The derivative can be approximated by the slope of a secant line
@@ -38,7 +35,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: The value of the derivative at a point on a curve can be approximated by the slope of a line secant with the curve near that point.
   - id: 4
     name: The derivative at a point is the slope of a tangent line at that point
@@ -48,39 +44,33 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: The value of the derivative at a point on a curve is equivalent to the slope of a line tangent to the curve at that point. The tangent line can be thought of as the limit of a secant line between two points infinitesimally close together
   - id: 5
     name: The derivative is a limit
     prereq_concepts:
       - 2
     representations: {}
-    figure: ~
     long_description: "Technically, the derivative is a ratio of small changes in the limit that the change in the denominator goes to zero: $\\frac{df}{dx}=\\lim_{h \\rightarrow 0} \\frac{f(x+h)-f(x)}{h}$"
   - id: 6
     name: The derivative is a function
     prereq_concepts: []
     representations: {}
-    figure: ~
     long_description: "The derivative of a function is itself a function, with the same domain as the original function. Both the (derivative) function and the value of the derivative at a point are commonly referred to as \"the derivative.\""
   - id: 7
     name: The derivative of a constant is zero
     prereq_concepts:
       - 0
     representations: {}
-    figure: ~
     long_description: "The derivative of a constant is always zero. This can be understood by thinking of 'The derivative is a ratio of small changes,' as the amount by which a constant changes is zero."
   - id: 8
     name: The derivative is a linear function
     prereq_concepts: []
     representations: {}
-    figure: ~
     long_description: "A long description for The derivative is a linear function is not yet available--feel free to give us your suggestions on the poster! FIXME: do we mean to say that the derivative is a linar operator?"
   - id: 9
     name: Power law
     prereq_concepts: []
     representations: {}
-    figure: ~
     long_description: "The derivative with respect to $x$ of $x^A$ is $A \\cdot x^{A-1}$."
   - id: 10
     name: The derivative at a cusp is undefined
@@ -90,7 +80,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: " At a cusp (or kink) in a curve, the derivative (and it's value) are not defined."
   - id: 11
     name: Variables can be held constant
@@ -104,7 +93,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "When taking a derivative of a multivariable function, it is possible to consider a simpler situation in which some of the variables are considered to be constant. "
   - id: 12
     name: Product rule
@@ -114,7 +102,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "When taking the derivative of a product with $n$ factors, the product rule gives that this derivative is equal a sum of $n$ terms, the $i$th of which is the original function but with  the $i$th factor replaced by the derivative of the $i$th factor:  $\\frac{d}{dt}(xy)=\\frac{dx}{dt} y+x \\frac{dy}{dt}$"
   - id: 13
     name: Single variable chain rule
@@ -124,7 +111,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "If $f=f(y)$ and $y=y(x), then \\frac{df}{dy}=\\frac{df}{dx}\\frac{dx}{dy}.$"
   - id: 14
     name: You can flip a derivative
@@ -134,7 +120,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "In other words, $\\frac{dy}{dx} = \\frac{1}{\\frac{dx}{dy}}$.  Note that this concept is challenging to express in Newton's notation, but arises naturally if implicit differentiation is covered."
   - id: 15
     name: "\"With respect to what\" matters"
@@ -144,7 +129,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "Taking derivatives of the same function with respect to different variables will produce different results. In physics, these different results might have different dimensions and thus the derivative can have wildly different physical interpretations based off of \"'with respect to' what\". "
   - id: 16
     name: Derivatives can be found while holding one or more variables constant
@@ -155,7 +139,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "Derivatives of multivariable functions can be found by holding one ore more variables constant (subject to physical limitations). "
   - id: 17
     name: There is a partial derivative in every direction at any point
@@ -165,7 +148,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "For a smooth, two dimensional function, a partial derivative can be found at any point and in any direction."
   - id: 18
     name: There is a tangent line in every direction at every point
@@ -175,7 +157,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "For a smooth, two dimensional function, a tangent line exists at any point and in any direction."
   - id: 19
     name: The derivative is related to the density of contour lines
@@ -186,7 +167,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "The magnitude of the derivative of a function is directly related to how closely together lie contour lines of the function: the closer together the contour lines, the greater the magnitude of the derivative. FIXME the long description has a lot of info than the concept name and we haven't usually been having it that way."
   - id: 20
     name: The value of a partial derivative depends on the value(s) of what is held constant
@@ -196,7 +176,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "A long description for The value of a partial derivative depends on the value(s) of what is held constant is not yet available--feel free to give us your suggestions on the poster! FIXME: Is this really a statement about paths? I don't think we have path-related concepts."
   - id: 21
     name: A partial derivative can be expressed in terms of other partial derivatives
@@ -211,7 +190,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for A partial derivative can be expressed in terms of other partial derivatives is not yet available--feel free to give us your suggestions on the poster!
   - id: 22
     name: The gradient is a vector
@@ -221,7 +199,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "For an $n-$dimensional function $f$, the gradient of $f$ at a point is an $n-$dimensional vector "
   - id: 23
     name: The magnitude of the gradient is the value of the slope in the steepest direction
@@ -233,7 +210,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for The magnitude of the gradient is the value of the slope in the steepest direction is not yet available--feel free to give us your suggestions on the poster!
   - id: 24
     name: The gradient is perpendicular to contour lines
@@ -243,7 +219,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "As the gradient lies along the direction of greatest change for a function, and contour lines lie along the direction of no change, these two objects (the gradient and contour lines) are perpendicular."
   - id: 25
     name: All partial derivatives can be found as a slope of a tangent plane
@@ -255,7 +230,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "Just as the derivative of a one-dimensional function at a point is equal to the slope of a tangent line at that point, and partial derivative of a multivariable function can be found as a slope of a tangent plane. "
   - id: 26
     name: The derivative is a local quantity
@@ -265,7 +239,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "The value of the derivative is a function of the same variables as the original function. Thus, it's value depends on where the derivative is being evaluated. Geometrically, the derivative (slope) of a curve at a point is not a statement about the general shape of the curve but rather about the behavior of the curve immediately around that point. "
   - id: 27
     name: Partial derivatives are functions
@@ -280,7 +253,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "The partial derivative of a function is itself a function (although taking a partial derivative at a point will just give a number). "
   - id: 28
     name: The gradient is a function
@@ -291,7 +263,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: The gradient of a function (unless taken at a single point) is itself a function
   - id: 29
     name: The components of the gradient are partial derivatives
@@ -305,7 +276,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: This is the long description for The components of the gradient are partial derivatives. It is quite a long description!
   - id: 30
     name: The gradient points in the direction of greatest increase of the function
@@ -325,7 +295,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "The Master Formula states that a small change in a function $df$ is the dot product of the gradient of the function with a small step $d \\vec r$ through the domain of the function:\n\\[df = \\vec \\nabla f \\cdot d \\vec r.\\]\nIn order to maximize the change in $f$ one must maximize this dot product, which happens when the small step $d \\vec r$ is parallel to the gradient. Or, turning this statement around, the gradient points in the direction in which the function is increasing the most."
   - id: 31
     name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
@@ -336,7 +305,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "A long description for Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors.  is not yet available--feel free to give us your suggestions on the poster! FIXME: This concept does not make any sense."
   - id: 32
     name: "The magnitude of $d\\vec r$ is the length of a small step along a path"
@@ -347,7 +315,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "A long description for The magnitude of $d\\vec r$ is the length of a small step along a path is not yet available--feel free to give us your suggestions on the poster! FIXME: What's the point of this concept?"
   - id: 33
     name: "The direction of $d\\vec r$ is tangent to a path"
@@ -357,7 +324,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "A long description for The direction of $d\\vec r$ is tangent to a path is not yet available--feel free to give us your suggestions on the poster! FIXME: Tangent to what path? How is this useful?"
   - id: 34
     name: The gradient can tell you a small change in a function in any direction (differentials edition)
@@ -372,7 +338,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "$df=\\vec \\nabla f \\cdot d \\vec r$"
   - id: 35
     name: The divergence is a scalar field
@@ -382,7 +347,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "The divergence at a point is a scalar. Taking the divergence of a function yields a scalar at every value in the domain of that function: a scalar field"
   - id: 36
     name: "$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$"
@@ -392,7 +356,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: FIXME
   - id: 37
     name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
@@ -402,19 +365,16 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: FIXME
   - id: 38
     name: "$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$"
     prereq_concepts: []
     representations: {}
-    figure: ~
     long_description: FIXME
   - id: 39
     name: "$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$"
     prereq_concepts: []
     representations: {}
-    figure: ~
     long_description: FIXME
   - id: 40
     name: "Differential form of $\\vec r$ in spherical and cylindrical coordinates"
@@ -425,7 +385,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "A long description for Differential form of $\\vec r$ in spherical and cylindrical coordinates is not yet available--feel free to give us your suggestions on the poster!"
   - id: 41
     name: The gradient lives in the domain and has the same number of spatial dimensions as the original function
@@ -435,7 +394,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "The gradient of an $n$ dimensional function is $n$ dimensional. This is not to be confused with the gradient having the same physical dimensions (e.g., Newtons) as the original function."
   - id: 42
     name: The gradient is a local quantity
@@ -446,7 +404,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "The magnitude and direction of the gradient depends on the behavior of the function infinitesimally near the point of interest.  For example, the gradient does not point in the direction of maxima a finite distance away (except accidentally), but rather in the direction of steepest slope at the point of interest."
   - id: 43
     name: The electric field is the negative gradient of the electric potential
@@ -456,7 +413,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "While the magnitude of the electric field is equal to the gradient of the electric potential, the electric field points in the opposite direction of the gradient of the electric potential, and thus $\\vec E = - \\vec \\nabla V$."
   - id: 44
     name: The divergence is related to the total flux through a closed surface
@@ -466,7 +422,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "If the total flux through a closed surface is not zero, then the divergence of the function at that point is non-zero. "
   - id: 45
     name: The divergence is a function
@@ -477,7 +432,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: The divergence of a function (unless taken at a single point) is itself a function
   - id: 46
     name: The divergence is a local quantity
@@ -488,7 +442,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for The divergence is a local quantity is not yet available--feel free to give us your suggestions on the poster!
   - id: 47
     name: The divergence of the electric field is equal to
@@ -498,7 +451,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for The divergence of the electric field is equal to is not yet available--feel free to give us your suggestions on the poster! FIXME not a complete concept
   - id: 48
     name: The divergence of the magnetic field is zero
@@ -509,7 +461,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for The divergence of the magnetic field is zero is not yet available--feel free to give us your suggestions on the poster!
   - id: 49
     name: "The curl is related to the line integral around a closed loop. (\"circulation\")"
@@ -519,7 +470,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "A long description for The curl is related to the line integral around a closed loop. (\"circulation\") is not yet available--feel free to give us your suggestions on the poster!"
   - id: 50
     name: the curl is a (vector) function
@@ -530,7 +480,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for the curl is a (vector) function is not yet available--feel free to give us your suggestions on the poster!
   - id: 51
     name: The curl is a local quantity
@@ -541,7 +490,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for The curl is a local quantity is not yet available--feel free to give us your suggestions on the poster!
   - id: 52
     name: The magnetic field is equal to the curl of the magnetic vector potential
@@ -552,7 +500,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for The magnetic field is equal to the curl of the magnetic vector potential is not yet available--feel free to give us your suggestions on the poster!
   - id: 53
     name: The curl of the electric field is zero in electrostatics
@@ -564,7 +511,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for The curl of the electric field is zero in electrostatics is not yet available--feel free to give us your suggestions on the poster!
   - id: 54
     name: The divergence of the curl is equal to mu times the current in magneto-statics
@@ -578,7 +524,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: A long description for The divergence of the curl is equal to mu times the current in magneto-statics is not yet available--feel free to give us your suggestions on the poster!
   - id: 55
     name: Differentials are small changes or differences
@@ -599,13 +544,11 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "A long description for Equations can be 'zapped with d' to relate differentials is not yet available--feel free to give us your suggestions on the poster! FIXME: Does the difference between zapping with d and taking the total differential need to be articulated?"
   - id: 57
     name: Individual differentials can be manipulated algebraically
     prereq_concepts: []
     representations: {}
-    figure: ~
     long_description: A long description for Individual differentials can be manipulated algebraically is not yet available--feel free to give us your suggestions on the poster! FIXME what?
   - id: 58
     name: Total differentials are linear
@@ -615,7 +558,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "No matter how complicated a multivariable function is when written as an equation, the total differential of that function will be linear in the differential terms. In other words: $dF(x,y,z)=A dx + B dy + C dz.$"
   - id: 59
     name: Differentials are small chunks
@@ -626,7 +568,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "$df$ can be viewed as a small chunk of $f$. When combined with 'The derivative is a ratio of small changes', it's easy to relate differentials to derivatives."
   - id: 60
     name: There are experimental limits to how $small$ of a change can be measured
@@ -645,13 +586,11 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "While it is relatively easy to imagine very, very small changes in physical values, there are often experimental limits on how small of a change can be measured. When designing and conducting experiments, there is a tension between these experimental limitations and normative representations of functions as smooth lines or "
   - id: 61
     name: The derivative can be interpreted physically
     prereq_concepts: []
     representations: {}
-    figure: ~
     long_description: "While the constituents of a derivative (the $f$ and $x$ in $\\frac{df}{dx}$) can have physical interpretations, the derivative itself can have a different physical interpretation. For example, $\\frac{dx}{dt}$ is a velocity. FIXME: find a better example"
   - id: 62
     name: Partial derivatives that do not have the same variable(s) held constant are not the same derivative
@@ -695,7 +634,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "In other words, \\[\\left(\\frac{\\partial y}{\\partial x}\\right)_z = \\frac1{\\left(\\frac{\\partial x}{\\partial y}\\right)_z}. \\]  Note that this equality is only true if the same variables are being held fixed on each side of the equality.  This therefore relies on the thermodynamics notation that specifies what quantities are being held fixed for a partial derivative."
   - id: 65
     name: There might be experimental limits on which quantities you can measure
@@ -705,7 +643,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "While it may be possible to conceptualize a particular derivative, such as $\\left(\\frac{\\partial U}{\\partial S}\\right)_{V},$ Where $U$ is internal energy, $S$ is entropy, and $V$ is volume, that does not mean that the particular derivative can be directly measured. In the above example, the entropy $S$ is not measurable. "
   - id: 66
     name: Differentials allow the finding of partial derivatives when a variable cannot be solved for
@@ -716,7 +653,6 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    figure: ~
     long_description: "Because total differentials are linear, one can find the total differential and then solve algebraically to obtain partial derivatives that might not be obtainable though differentiation. "
 activities:
   - id: 0
@@ -740,9 +676,7 @@ activities:
       - concept: 14
       - concept: 15
     representations: []
-    figure: ~
     long_description: ""
-    external_url: ~
   - id: 1
     name: lower anchor MTH 254
     prereq_concepts: []
@@ -752,9 +686,7 @@ activities:
       - concept: 27
       - concept: 28
     representations: []
-    figure: ~
     long_description: ""
-    external_url: ~
   - id: 2
     name: The Heater II
     prereq_concepts:
@@ -765,8 +697,8 @@ activities:
       - concept: 16
     representations:
       - 7
-    figure: mvheater2.jpg
     long_description: "This small group activity is designed to help students interpret partial derivatives using contour diagrams. Students work in small groups to determine rates of change using a contour diagram showing isotherms over time and space. The whole class wrap-up discussion emphasizes giving a physical interpretation for the derivative, the value of units in thinking about functions and derivatives, and the need to specify “with respect to what” when finding derivatives in multivariable contexts."
+    figure: mvheater2.jpg
     external_url: mvheater2
   - id: 3
     name: The Hot Plate
@@ -784,8 +716,8 @@ activities:
       - 8
       - 7
       - 10
-    figure: mvhotplate.jpg
     long_description: This small group activity using surfaces introduces a geometric interpretation of partial derivatives in terms of measured ratios of small changes. Students work in small groups to identify locations on their surface with particular properties. The whole class wrap-up discussion emphasizes the equivalence of multiple representations of partial derivatives.
+    figure: mvhotplate.jpg
     external_url: mvhotplate
   - id: 4
     name: Chain Rule
@@ -800,8 +732,8 @@ activities:
       - concept: 21
     representations:
       - 8
-    figure: TreeDiagram.jpg
     long_description: This activity is still in development!
+    figure: TreeDiagram.jpg
     external_url: mvchain
   - id: 5
     name: Chain Rule Measurements
@@ -812,7 +744,6 @@ activities:
     representations:
       - 8
       - 10
-    figure: ~
     long_description: "This small group activity using surfaces combines practice with the multivariable chain rule while emphasizing numerical representations of derivatives. Students work in small groups to measure partial derivatives in both rectangular and polar coordinates, then verify their results using the chain rule. The whole class wrap-up discussion emphasizes the relationship between a directional derivative in the r-direction and derivatives in x- and y-directions using the chain rule."
     external_url: mvpchain
   - id: 6
@@ -830,8 +761,8 @@ activities:
       - 8
       - 11
       - 10
-    figure: vchill.jpg
     long_description: "This small group activity using surfaces introduces the gradient.  Students work in small groups to determine the steepest slope and direction at a given point, then compare these results with the computed gradient.  The whole class wrap-up discussion emphasizes the geometric properties of the gradient."
+    figure: vchill.jpg
     external_url: mvhillside
   - id: 7
     name: Directional Derivatives
@@ -846,8 +777,8 @@ activities:
       - 8
       - 10
       - 9
-    figure: MathSurfaces1.jpg
     long_description: "This small group activity using surfaces relates the geometric definition of directional derivatives to the components of the gradient vector. Students work in small groups to measure a directional derivative directly, then compare its components with measured partial derivatives in rectangular coordinates. The whole class wrap-up discussion emphasizes the relationship between the geometric gradient vector and directional derivatives."
+    figure: MathSurfaces1.jpg
     external_url: mvdderiv
   - id: 8
     name: lower anchor MTH 255
@@ -859,9 +790,7 @@ activities:
       - concept: 38
       - concept: 39
     representations: []
-    figure: ~
     long_description: ""
-    external_url: ~
   - id: 9
     name: lower anchor PH 422
     prereq_concepts: []
@@ -873,9 +802,7 @@ activities:
       - concept: 53
       - concept: 54
     representations: []
-    figure: ~
     long_description: ""
-    external_url: ~
   - id: 10
     name: The Master Formula
     prereq_concepts: []
@@ -888,9 +815,7 @@ activities:
       - 15
       - 9
       - 12
-    figure: ~
     long_description: FIXME
-    external_url: ~
   - id: 11
     name: The Hill
     prereq_concepts:
@@ -905,8 +830,8 @@ activities:
     representations:
       - 7
       - 9
-    figure: vchill.jpg
     long_description: "This small group activity is designed to reinforce the geometric definition of the gradient. Students work in small groups to construct the gradient vector at different points on a hill. Then, students compare and contrast their findings to reinforce that the gradient is a vector field, but also that it is a local quantity. The whole class wrap-up discussion emphasizes that the gradient lives in the domain, not on the graph."
+    figure: vchill.jpg
     external_url: vchill
   - id: 12
     name: The Valley
@@ -916,8 +841,8 @@ activities:
       - concept: 34
     representations:
       - 7
-    figure: vcvalley.jpg
     long_description: "This small group activity is designed to reinforce the geometry of line integrals, and to set the stage for path independence, and builds on the Hill activity.  Students work in small groups to evaluate the elevation change along different paths. The whole class wrap-up discussion reinforces the importance of a “Use what you know!” strategy to evaluate line integrals, and emphasizes that different paths with the same endpoints must have the same elevation gain."
+    figure: vcvalley.jpg
     external_url: vcvalley
   - id: 13
     name: Vector Differentials
@@ -931,8 +856,8 @@ activities:
     representations:
       - 12
       - 16
-    figure: vfdrvectorcurvi.jpg
     long_description: "We use the vector differential to create a unified view of calculus. Students have a lot of difficulty writing down exact differentials and writing down equations for vectors in curvilinear coordinates. This activity allows students to use geometric reasoning to practice both of these skills.  In particular, students are provided with a variety of alternate tangible representations for rectangular, cylindrical, and spherical coordinates, including oatmeal cans, globes, pineapples, and pumpkins."
+    figure: vfdrvectorcurvi.jpg
     external_url: vfdrvectorcurvi
   - id: 14
     name: Acting out the Gradient
@@ -946,8 +871,8 @@ activities:
       - 9
       - 17
       - 7
-    figure: vfactinggrad.jpg
     long_description: "Oftentimes, students are not correctly interpreting situations geometrically when it seems they are. This activity is designed to test the ability of a class to represent the gradient physically for a function $f(x,y)$ that represents an elliptical hill. In the activity, the students, distributed throughout the classroom, represent a vector field at various points. Students are asked to point, using their right arm, in the direction of the gradient. The instructor will also have the opportunity to clarify the proper gradient direction (in the $xy$-plane) for students that are pointing incorrectly (\"up\" the hill)."
+    figure: vfactinggrad.jpg
     external_url: vfactinggrad
   - id: 15
     name: Visualizing Gradient
@@ -962,8 +887,8 @@ activities:
       - 17
       - 18
       - 7
-    figure: vfgradient.jpg
     long_description: "Building a geometric understanding of the gradient can be challenging for students, particularly in physics classrooms when their only prior exposure to the gradient is in mathematics courses. This activity is a follow-up to Acting out the Gradient, in which students use Mathematica to calculate and visualize the gradient for different representations of scalar fields.  Students explicitly compare and contrast these different representations, in particular identifying that the gradient is always perpendicular to constant surfaces."
+    figure: vfgradient.jpg
     external_url: vfgradient
   - id: 16
     name: Visualizing Divergence
@@ -978,8 +903,8 @@ activities:
       - concept: 46
     representations:
       - 18
-    figure: vfdivergence.jpg
     long_description: "The traditional discussion of divergence in vector calculus derives an algebraic expression in rectangular coordinates. We prefer to give a geometric derivation as flux per unit volume through an appropriately shaped box. In this activity, students learn how to predict the value of the divergence at any point by looking at the vector field near that point.  The activity is an excellent one for fostering representational fluency, as students can be asked to engage with vector field maps on paper, plots in Mathematica, and symbolic expressions for vector fields.  A nice extension is to have students consider vector fields that have different fundamental symmetries and to recognize that they can adjust the shape of the infinitesimal box to take advantage of such symmetry."
+    figure: vfdivergence.jpg
     external_url: vfdivergence
   - id: 17
     name: Visualizing Curl
@@ -993,17 +918,15 @@ activities:
       - concept: 51
     representations:
       - 18
-    figure: vfcurlvis.jpg
     long_description: "The traditional discussion of curl in vector calculus derives an algebraic expression in rectangular coordinates. As with divergence (see the Visualizing Divergence activity), we prefer to give a geometric derivation as circulation per unit area around an appropriately shaped closed curve. In this activity, students learn how to predict the value of the curl at any point by looking at the vector field near that point.  The activity is an excellent one for fostering representational fluency, as students can be asked to engage with vector field maps on paper, plots in Mathematica, and symbolic expressions for vector fields.  A nice extension is to have students consider vector fields that have different fundamental symmetries and to recognize that they can adjust the shape of the infinitesimal box to take advantage of such symmetry."
+    figure: vfcurlvis.jpg
     external_url: vfcurlvis
   - id: 18
     name: lower anchor PH 423
     prereq_concepts: []
     new_concepts: []
     representations: []
-    figure: ~
     long_description: ""
-    external_url: ~
   - id: 19
     name: Zapping with d
     prereq_concepts:
@@ -1020,8 +943,8 @@ activities:
       - concept: 58
     representations:
       - 15
-    figure: LPsmall.jpg
     long_description: "We would like our students to have both a practical and mathematical understanding of a total differential. In particular, with this activity students learn what the consequences of ``zapping'' a function with the operator ``d'' are. This activity also opens up a conversation on infinitesimals, and their relation to total differentials. The use of variables not associated with the Partial Derivative Machine in this activity allows students to apply the mathematical techniques they have been practicing during the course to a less familiar physical system."
+    figure: LPsmall.jpg
     external_url: inzapd
   - id: 20
     name: Energy and Integrals
@@ -1033,8 +956,8 @@ activities:
     representations:
       - 21
       - 15
-    figure: inpotentiallab.jpg
     long_description: This integrated lab activity is designed to ask upper-division undergraduate students to measure the change in potential energy in an elastic system (PDM) between two different states. Students use the Partial Derivative Machine (PDM) to verify experimentally that the forces and dimensions of their system are state variables as well as measure the relationships between these quantities to compute the potential energy of their system. The whole class discussion focuses on the meaning of integration of discrete experimental data.
+    figure: inpotentiallab.jpg
     external_url: inpotentiallab
   - id: 21
     name: Partial Derivative Machine Derivatives
@@ -1054,8 +977,8 @@ activities:
       - 8
       - 6
       - 22
-    figure: PDMD.jpg
     long_description: "In this activity, students experimentally determine various derivatives using the partial derivate machine, a mechanical analogue for thermodynamic systems. Students explore the ratio, limit, and function aspects of multi-variable derivatives, with an emphasis on holding different variables constant. This activity is also an excellent exercise in representational fluency, as students must coordinate experiments and tables of data with (new) symbolic notations. $\\textrm{Leibniz Notation}\\\\ \\frac{\\partial f}{\\partial x} \\rightarrow \\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+    figure: PDMD.jpg
     external_url: inisowidth
   - id: 22
     name: Chain Rules
@@ -1076,8 +999,8 @@ activities:
       - concept: 66
     representations:
       - 15
-    figure: pdm.jpg
     long_description: "NOT CORRECT DESCRIPTION: In this activity, students experimentally determine various derivatives using the partial derivate machine, a mechanical analogue for thermodynamic systems. Students explore the ratio, limit, and function aspects of multi-variable derivatives, with an emphasis on holding different variables constant. This activity is also an excellent exercise in representational fluency, as students must coordinate experiments and tables of data with (new) symbolic notations."
+    figure: pdm.jpg
     external_url: incycchainrule
 representations:
   - id: 0

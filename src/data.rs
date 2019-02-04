@@ -29,7 +29,6 @@ impl std::str::FromStr for ConceptID {
 #[derive(Debug, Hash, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ConceptRepresentationID {
     concept: ConceptID,
-    #[serde(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     representation: Option<RepresentationID>,
 }

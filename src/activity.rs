@@ -14,8 +14,10 @@ pub struct Activity {
     pub prereq_concepts: Vec<ConceptRepresentationID>,
     pub new_concepts: Vec<ConceptRepresentationID>,
     pub representations: Vec<RepresentationID>,
-    pub figure: Option<String>,
     pub long_description: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub figure: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub external_url: Option<String>,
 }
 #[with_template( self.id )]

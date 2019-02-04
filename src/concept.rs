@@ -14,6 +14,7 @@ pub struct Concept {
     pub name: String,
     pub prereq_concepts: Vec<ConceptID>,
     pub representations: BTreeMap<RepresentationID,ConceptRepresentation>, // fixme change to ConceptRepresentation, possible BTreeMap
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub figure: Option<String>,
     pub long_description: String,
 }
