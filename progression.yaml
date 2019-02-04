@@ -739,200 +739,7 @@ activities:
       - concept: 13
       - concept: 14
       - concept: 15
-      - concept: 0
-      - concept: 1
-      - concept: 2
-      - concept: 3
-      - concept: 4
-      - concept: 5
-      - concept: 6
-      - concept: 7
-      - concept: 8
-      - concept: 9
-      - concept: 10
-      - concept: 11
-      - concept: 12
-      - concept: 13
-      - concept: 14
-      - concept: 15
-      - concept: 0
-      - concept: 1
-      - concept: 2
-      - concept: 3
-      - concept: 4
-      - concept: 5
-      - concept: 6
-      - concept: 7
-      - concept: 8
-      - concept: 9
-      - concept: 10
-      - concept: 11
-      - concept: 12
-      - concept: 13
-      - concept: 14
-      - concept: 15
     representations: []
-    courses:
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
-      - 0
     figure: ~
     long_description: ""
     external_url: ~
@@ -945,207 +752,6 @@ activities:
       - concept: 27
       - concept: 28
     representations: []
-    courses:
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
-      - 1
     figure: ~
     long_description: ""
     external_url: ~
@@ -1159,8 +765,6 @@ activities:
       - concept: 16
     representations:
       - 7
-    courses:
-      - 1
     figure: mvheater2.jpg
     long_description: "This small group activity is designed to help students interpret partial derivatives using contour diagrams. Students work in small groups to determine rates of change using a contour diagram showing isotherms over time and space. The whole class wrap-up discussion emphasizes giving a physical interpretation for the derivative, the value of units in thinking about functions and derivatives, and the need to specify “with respect to what” when finding derivatives in multivariable contexts."
     external_url: mvheater2
@@ -1180,8 +784,6 @@ activities:
       - 8
       - 7
       - 10
-    courses:
-      - 1
     figure: mvhotplate.jpg
     long_description: This small group activity using surfaces introduces a geometric interpretation of partial derivatives in terms of measured ratios of small changes. Students work in small groups to identify locations on their surface with particular properties. The whole class wrap-up discussion emphasizes the equivalence of multiple representations of partial derivatives.
     external_url: mvhotplate
@@ -1198,8 +800,6 @@ activities:
       - concept: 21
     representations:
       - 8
-    courses:
-      - 1
     figure: TreeDiagram.jpg
     long_description: This activity is still in development!
     external_url: mvchain
@@ -1212,8 +812,6 @@ activities:
     representations:
       - 8
       - 10
-    courses:
-      - 1
     figure: ~
     long_description: "This small group activity using surfaces combines practice with the multivariable chain rule while emphasizing numerical representations of derivatives. Students work in small groups to measure partial derivatives in both rectangular and polar coordinates, then verify their results using the chain rule. The whole class wrap-up discussion emphasizes the relationship between a directional derivative in the r-direction and derivatives in x- and y-directions using the chain rule."
     external_url: mvpchain
@@ -1232,8 +830,6 @@ activities:
       - 8
       - 11
       - 10
-    courses:
-      - 1
     figure: vchill.jpg
     long_description: "This small group activity using surfaces introduces the gradient.  Students work in small groups to determine the steepest slope and direction at a given point, then compare these results with the computed gradient.  The whole class wrap-up discussion emphasizes the geometric properties of the gradient."
     external_url: mvhillside
@@ -1250,8 +846,6 @@ activities:
       - 8
       - 10
       - 9
-    courses:
-      - 1
     figure: MathSurfaces1.jpg
     long_description: "This small group activity using surfaces relates the geometric definition of directional derivatives to the components of the gradient vector. Students work in small groups to measure a directional derivative directly, then compare its components with measured partial derivatives in rectangular coordinates. The whole class wrap-up discussion emphasizes the relationship between the geometric gradient vector and directional derivatives."
     external_url: mvdderiv
@@ -1265,107 +859,6 @@ activities:
       - concept: 38
       - concept: 39
     representations: []
-    courses:
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
-      - 2
     figure: ~
     long_description: ""
     external_url: ~
@@ -1380,227 +873,6 @@ activities:
       - concept: 53
       - concept: 54
     representations: []
-    courses:
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
-      - 3
     figure: ~
     long_description: ""
     external_url: ~
@@ -1616,8 +888,6 @@ activities:
       - 15
       - 9
       - 12
-    courses:
-      - 2
     figure: ~
     long_description: FIXME
     external_url: ~
@@ -1635,8 +905,6 @@ activities:
     representations:
       - 7
       - 9
-    courses:
-      - 2
     figure: vchill.jpg
     long_description: "This small group activity is designed to reinforce the geometric definition of the gradient. Students work in small groups to construct the gradient vector at different points on a hill. Then, students compare and contrast their findings to reinforce that the gradient is a vector field, but also that it is a local quantity. The whole class wrap-up discussion emphasizes that the gradient lives in the domain, not on the graph."
     external_url: vchill
@@ -1648,8 +916,6 @@ activities:
       - concept: 34
     representations:
       - 7
-    courses:
-      - 2
     figure: vcvalley.jpg
     long_description: "This small group activity is designed to reinforce the geometry of line integrals, and to set the stage for path independence, and builds on the Hill activity.  Students work in small groups to evaluate the elevation change along different paths. The whole class wrap-up discussion reinforces the importance of a “Use what you know!” strategy to evaluate line integrals, and emphasizes that different paths with the same endpoints must have the same elevation gain."
     external_url: vcvalley
@@ -1665,8 +931,6 @@ activities:
     representations:
       - 12
       - 16
-    courses:
-      - 3
     figure: vfdrvectorcurvi.jpg
     long_description: "We use the vector differential to create a unified view of calculus. Students have a lot of difficulty writing down exact differentials and writing down equations for vectors in curvilinear coordinates. This activity allows students to use geometric reasoning to practice both of these skills.  In particular, students are provided with a variety of alternate tangible representations for rectangular, cylindrical, and spherical coordinates, including oatmeal cans, globes, pineapples, and pumpkins."
     external_url: vfdrvectorcurvi
@@ -1682,8 +946,6 @@ activities:
       - 9
       - 17
       - 7
-    courses:
-      - 3
     figure: vfactinggrad.jpg
     long_description: "Oftentimes, students are not correctly interpreting situations geometrically when it seems they are. This activity is designed to test the ability of a class to represent the gradient physically for a function $f(x,y)$ that represents an elliptical hill. In the activity, the students, distributed throughout the classroom, represent a vector field at various points. Students are asked to point, using their right arm, in the direction of the gradient. The instructor will also have the opportunity to clarify the proper gradient direction (in the $xy$-plane) for students that are pointing incorrectly (\"up\" the hill)."
     external_url: vfactinggrad
@@ -1700,8 +962,6 @@ activities:
       - 17
       - 18
       - 7
-    courses:
-      - 3
     figure: vfgradient.jpg
     long_description: "Building a geometric understanding of the gradient can be challenging for students, particularly in physics classrooms when their only prior exposure to the gradient is in mathematics courses. This activity is a follow-up to Acting out the Gradient, in which students use Mathematica to calculate and visualize the gradient for different representations of scalar fields.  Students explicitly compare and contrast these different representations, in particular identifying that the gradient is always perpendicular to constant surfaces."
     external_url: vfgradient
@@ -1718,8 +978,6 @@ activities:
       - concept: 46
     representations:
       - 18
-    courses:
-      - 3
     figure: vfdivergence.jpg
     long_description: "The traditional discussion of divergence in vector calculus derives an algebraic expression in rectangular coordinates. We prefer to give a geometric derivation as flux per unit volume through an appropriately shaped box. In this activity, students learn how to predict the value of the divergence at any point by looking at the vector field near that point.  The activity is an excellent one for fostering representational fluency, as students can be asked to engage with vector field maps on paper, plots in Mathematica, and symbolic expressions for vector fields.  A nice extension is to have students consider vector fields that have different fundamental symmetries and to recognize that they can adjust the shape of the infinitesimal box to take advantage of such symmetry."
     external_url: vfdivergence
@@ -1735,8 +993,6 @@ activities:
       - concept: 51
     representations:
       - 18
-    courses:
-      - 3
     figure: vfcurlvis.jpg
     long_description: "The traditional discussion of curl in vector calculus derives an algebraic expression in rectangular coordinates. As with divergence (see the Visualizing Divergence activity), we prefer to give a geometric derivation as circulation per unit area around an appropriately shaped closed curve. In this activity, students learn how to predict the value of the curl at any point by looking at the vector field near that point.  The activity is an excellent one for fostering representational fluency, as students can be asked to engage with vector field maps on paper, plots in Mathematica, and symbolic expressions for vector fields.  A nice extension is to have students consider vector fields that have different fundamental symmetries and to recognize that they can adjust the shape of the infinitesimal box to take advantage of such symmetry."
     external_url: vfcurlvis
@@ -1745,167 +1001,6 @@ activities:
     prereq_concepts: []
     new_concepts: []
     representations: []
-    courses:
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
-      - 4
     figure: ~
     long_description: ""
     external_url: ~
@@ -1925,8 +1020,6 @@ activities:
       - concept: 58
     representations:
       - 15
-    courses:
-      - 4
     figure: LPsmall.jpg
     long_description: "We would like our students to have both a practical and mathematical understanding of a total differential. In particular, with this activity students learn what the consequences of ``zapping'' a function with the operator ``d'' are. This activity also opens up a conversation on infinitesimals, and their relation to total differentials. The use of variables not associated with the Partial Derivative Machine in this activity allows students to apply the mathematical techniques they have been practicing during the course to a less familiar physical system."
     external_url: inzapd
@@ -1940,8 +1033,6 @@ activities:
     representations:
       - 21
       - 15
-    courses:
-      - 4
     figure: inpotentiallab.jpg
     long_description: This integrated lab activity is designed to ask upper-division undergraduate students to measure the change in potential energy in an elastic system (PDM) between two different states. Students use the Partial Derivative Machine (PDM) to verify experimentally that the forces and dimensions of their system are state variables as well as measure the relationships between these quantities to compute the potential energy of their system. The whole class discussion focuses on the meaning of integration of discrete experimental data.
     external_url: inpotentiallab
@@ -1963,8 +1054,6 @@ activities:
       - 8
       - 6
       - 22
-    courses:
-      - 4
     figure: PDMD.jpg
     long_description: "In this activity, students experimentally determine various derivatives using the partial derivate machine, a mechanical analogue for thermodynamic systems. Students explore the ratio, limit, and function aspects of multi-variable derivatives, with an emphasis on holding different variables constant. This activity is also an excellent exercise in representational fluency, as students must coordinate experiments and tables of data with (new) symbolic notations. $\\textrm{Leibniz Notation}\\\\ \\frac{\\partial f}{\\partial x} \\rightarrow \\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
     external_url: inisowidth
@@ -1987,8 +1076,6 @@ activities:
       - concept: 66
     representations:
       - 15
-    courses:
-      - 4
     figure: pdm.jpg
     long_description: "NOT CORRECT DESCRIPTION: In this activity, students experimentally determine various derivatives using the partial derivate machine, a mechanical analogue for thermodynamic systems. Students explore the ratio, limit, and function aspects of multi-variable derivatives, with an emphasis on holding different variables constant. This activity is also an excellent exercise in representational fluency, as students must coordinate experiments and tables of data with (new) symbolic notations."
     external_url: incycchainrule
@@ -2113,15 +1200,43 @@ courses:
   - id: 0
     number: MTH 251
     name: Differential Calculus
+    activities:
+      - 0
   - id: 1
     number: MTH 254
     name: Multivariable Calculus
+    activities:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
   - id: 2
     number: MTH 255
     name: Vector Calculus
+    activities:
+      - 8
+      - 10
+      - 11
+      - 12
   - id: 3
     number: PH 422
     name: Static Fields
+    activities:
+      - 9
+      - 13
+      - 14
+      - 15
+      - 16
+      - 17
   - id: 4
     number: PH 423
     name: Energy and Entropy
+    activities:
+      - 18
+      - 19
+      - 20
+      - 21
+      - 22

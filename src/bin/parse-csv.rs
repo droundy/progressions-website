@@ -124,11 +124,13 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                 prereq_concepts: prereqs.iter().map(|&c| c.into()).collect(),
                 new_concepts,
                 representations,
-                courses,
                 figure: nonempty_string(datum.figure),
                 long_description: datum.long_description.to_string(),
                 external_url: nonempty_string(datum.external_url),
             };
+            for &course in courses.iter() {
+                data.add_to_course(course, c.id);
+            }
             data.set_activity(c);
         } else {
             println!("   {}: {}", datum.thingtype, datum.name);

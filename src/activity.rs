@@ -1,6 +1,6 @@
 use display_as::{with_template, format_as, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
-use crate::data::{Course, CourseID,
+use crate::data::{Course,
                   Child, Representation, RepresentationID,
                   ActivityGroup,
                   Concept, ConceptRepresentationID, ConceptChoice,
@@ -14,7 +14,6 @@ pub struct Activity {
     pub prereq_concepts: Vec<ConceptRepresentationID>,
     pub new_concepts: Vec<ConceptRepresentationID>,
     pub representations: Vec<RepresentationID>,
-    pub courses: Vec<CourseID>,
     pub figure: Option<String>,
     pub long_description: String,
     pub external_url: Option<String>,

@@ -116,6 +116,7 @@ pub struct Course {
     pub id: CourseID,
     pub number: String,
     pub name: String,
+    pub activities: Vec<ActivityID>,
 }
 #[with_template( self.id )]
 impl DisplayAs<URL> for Course {}
@@ -225,7 +226,7 @@ impl Data {
                 match &c.field as &str {
                     "activity" => {
                         let a = self.activity_by_name_or_create(&c.content);
-                        self.get_mut(a).courses.push(id);
+                        self.add_to_course(id, a);
                     }
                     _ => {
                         bail!("Weird field for course: {}", c.field);
@@ -433,7 +434,6 @@ impl Data {
             prereq_concepts: Vec::new(),
             new_concepts: Vec::new(),
             representations: Vec::new(),
-            courses: Vec::new(),
             figure: None,
             long_description: "".to_string(),
             external_url: None,
@@ -466,10 +466,15 @@ impl Data {
             .map(|c| c.id)
             .next()
     }
+    pub fn add_to_course(&mut self, course: CourseID, a: ActivityID) {
+        if !self.get(course).activities.contains(&a) {
+            self.get_mut(course).activities.push(a);
+        }
+    }
     pub fn lower_anchor(&mut self, course_name: &str) -> ActivityID {
         let course = self.course_by_name_or_create(course_name);
         let id = self.activity_by_name_or_create(&format!("lower anchor {}", course_name));
-        self.get_mut(id).courses.push(course);
+        self.add_to_course(course, id);
         id
     }
     pub fn course_by_name_or_create(&mut self, name: &str) -> CourseID {
@@ -490,6 +495,7 @@ impl Data {
             id: newid,
             number: number.to_string(),
             name: name.to_string(),
+            activities: Vec::new(),
         });
         newid
     }
@@ -506,25 +512,18 @@ impl Data {
     }
 
     fn courses_for_concept(&self, id: ConceptID) -> Vec<CourseID> {
-        let mut out = Vec::new();
-        for a in self.activities.iter().filter(|a| a.new_concepts.iter().any(|c| c.concept == id)) {
-            out.extend(a.courses.iter().cloned());
-        }
-        out.sort();
-        out.dedup();
-        out
+        self.courses.iter()
+            .filter(|c| self.course_is_for_concept(id, c.id))
+            .map(|c| c.id)
+            .collect()
     }
     fn course_is_for_concept(&self, nid: ConceptID, rid: CourseID) -> bool {
-        self.activities.iter()
-            .filter(|a| a.new_concepts.iter().any(|c| c.concept == nid))
-            .filter(|a| a.courses.contains(&rid))
-            .next()
-            .is_some()
+        self.concepts_for_course(rid).contains(&nid)
     }
     fn concepts_for_course(&self, id: CourseID) -> Vec<ConceptID> {
         let mut out = Vec::new();
-        for a in self.activities.iter().filter(|a| a.courses.contains(&id)) {
-            out.extend(a.new_concepts.iter().map(|c| c.concept));
+        for a in self.get(id).activities.iter() {
+            out.extend(self.get(*a).new_concepts.iter().map(|c| c.concept));
         }
         out.sort();
         out.dedup();
@@ -726,7 +725,8 @@ impl Data {
 
             representations: a.representations.iter()
                 .map(|&rid| Child::remove(id, "uses", self.get(rid).clone())).collect(),
-            courses: a.courses.iter().map(|&cid| self.get(cid).clone()).collect(),
+            courses: self.courses.iter().filter(|c| c.activities.contains(&id))
+                .cloned().collect(),
             figure: a.figure.clone(),
             long_description: a.long_description.clone(),
             external_url: a.external_url.clone(),
@@ -735,7 +735,7 @@ impl Data {
         // We haven't generated this view yet, so we need to add the
         // related concepts.
         let other_courses: Vec<_> = self.courses.iter()
-            .filter(|xx| !a.courses.contains(&xx.id))
+            .filter(|xx| !xx.activities.contains(&a.id))
             .cloned()
             .collect();
         view.prereq_courses = self.courses.iter().cloned()
@@ -833,9 +833,8 @@ impl Data {
 
     pub fn course_sequence(&self, id: CourseID) -> CourseSequence {
         let course = self.get(id).clone();
-        let course_activities: Vec<_> = self.activities.iter()
-            .filter(|a| a.courses.contains(&id))
-            .map(|a| self.activity_view(a.id)).collect();
+        let course_activities: Vec<_> = course.activities.iter()
+            .map(|&a| self.activity_view(a)).collect();
         let mut groups = Vec::new();
         for a in course_activities.into_iter() {
             groups.push(ProgressionGroup {
@@ -846,8 +845,8 @@ impl Data {
         let new_activity = ActivityChoice {
             id: format_as!(HTML, id),
             field: "activity".to_string(),
-            choices: self.activities.iter().filter(|a| !a.courses.contains(&id))
-                .cloned().collect(),
+            choices: self.get(id).activities.iter().map(|&a| self.get(a).clone())
+                .collect(),
         };
         CourseSequence { course, prereq_courses: Vec::new(), new_activity, groups }
     }
@@ -857,10 +856,8 @@ impl Data {
 
         let my_concepts: Vec<_> = self.concepts_for_course(id).iter()
             .map(|&cid| self.get(cid).clone()).collect();
-        let my_activities: Vec<_> = self.activities.iter()
-            .filter(|a| a.courses.contains(&id))
-            .cloned()
-            .collect();
+        let my_activities: Vec<Activity> = self.get(id).activities.iter()
+            .map(|&a| self.get(a).clone()).collect();
 
         let mut my_prereq_concepts: Vec<ConceptID> = my_concepts.iter()
             .flat_map(|c| c.prereq_concepts.clone())
