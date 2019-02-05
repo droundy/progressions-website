@@ -284,7 +284,13 @@ impl Data {
                 match &c.field as &str {
                     "name" => {
                         self.get_mut(id.concept).representations
-                            .get_mut(&id.representation.unwrap()).unwrap().name = c.content.trim().to_string();
+                            .get_mut(&id.representation.unwrap()).unwrap()
+                            .name = c.content.trim().to_string();
+                    }
+                    "long_description" => {
+                        self.get_mut(id.concept).representations
+                            .get_mut(&id.representation.unwrap()).unwrap()
+                            .long_description = c.content.trim().to_string();
                     }
                     _ => {
                         bail!("Weird field for ConceptRepresentation: {}", c.field);
