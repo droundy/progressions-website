@@ -709,6 +709,64 @@ impl Data {
         }
     }
 
+    pub fn name_it(&self, id: ConceptRepresentationID) -> String {
+        let c = self.get(id.concept);
+        if let Some(rid) = id.representation {
+            let n = c.representations.get(&rid).unwrap().name.clone();
+            if n.len() == 0 {
+                c.name.clone()
+            } else {
+                n
+            }
+        } else {
+            c.name.clone()
+        }
+    }
+    pub fn concept_representation_to_id(&self, name: &str) -> ConceptRepresentationID {
+        if let Some(c) = self.concepts.iter().filter(|c| c.name == name).next() {
+            return c.id.into();
+        } else {
+            for c in self.concepts.iter() {
+                if c.name == name {
+                    if c.representations.len() == 1
+                        && c.representations.values().next().unwrap().name.len() == 0
+                    {
+                        // If we have a single unnamed representation,
+                        // then assume that representation is
+                        // "universal".
+                        return (c.id, *c.representations.keys().next().unwrap()).into();
+                    }
+                    return c.id.into();
+                }
+                for (rid,cr) in c.representations.iter() {
+                    if cr.name == name {
+                        return (c.id, *rid).into();
+                    }
+                }
+            }
+            panic!("Invalid id!")
+        }
+    }
+    pub fn all_concept_representations(&self, id: impl Copy+DisplayAs<HTML>, field: &str)
+                                       -> ConceptRepresentationChoice {
+        let mut names: Vec<_> = self.concepts.iter()
+            .map(|c| c.name.clone())
+            .chain(self.concepts.iter()
+                   .flat_map(|c| {
+                       let id = c.id;
+                       c.representations.keys()
+                           .map(move |&x| self.name_it((id, x).into()))
+                   }))
+            .collect();
+        names.sort();
+        names.dedup();
+        ConceptRepresentationChoice {
+            id: format_as!(HTML, id),
+            field: field.to_string(),
+            choices: names,
+        }
+    }
+
     pub fn concept_view(&self, id: ConceptID) -> ConceptView {
         let c = &self.get(id);
         let my_prereq_concepts: Vec<_> =
@@ -1082,6 +1140,15 @@ pub struct ConceptChoice {
 }
 #[with_template("[%" "%]" "concept-choice.html")]
 impl DisplayAs<HTML> for ConceptChoice {}
+
+/// Represents a choice between concepts!
+pub struct ConceptRepresentationChoice {
+    pub id: String,
+    pub field: String,
+    pub choices: Vec<String>,
+}
+#[with_template("[%" "%]" "concept-representation-choice.html")]
+impl DisplayAs<HTML> for ConceptRepresentationChoice {}
 
 /// Represents a choice between activities!
 pub struct ActivityChoice {

@@ -3,7 +3,8 @@ use serde_derive::{Deserialize, Serialize};
 use crate::data::{Course,
                   Child, Representation, RepresentationID,
                   ActivityGroup,
-                  Concept, ConceptRepresentationID, ConceptChoice,
+                  Concept, ConceptRepresentationID,
+                  ConceptChoice, ConceptRepresentationChoice,
                   ActivityID,
                   PrereqCourse, ChangeRelationship};
 
@@ -78,6 +79,26 @@ impl ActivityView {
             .. self.clone()
         }
     }
+    pub fn all_choices(&self, field: &str) -> ConceptRepresentationChoice {
+        let mut names: Vec<_> = self.all_concepts.iter()
+            .map(|c| c.name.clone())
+            .chain(self.all_concepts.iter()
+                   .flat_map(|c| c.representations.values()
+                             .map(move |x| if x.name.len() == 0 {
+                                 format!("{} ({})", c.name, x.long_description)
+                             } else {
+                                 x.name.clone()
+                             })))
+            .collect();
+        names.sort();
+        names.dedup();
+        ConceptRepresentationChoice {
+            id: format_as!(HTML, self.id),
+            field: field.to_string(),
+            choices: names,
+        }
+    }
+
     pub fn possibly_taught_concepts(&self) -> ConceptChoice {
         let mut ch = ConceptChoice {
             id: format_as!(HTML, self.id),

@@ -654,6 +654,16 @@ concepts:
         long_description: ""
         figure: ~
     long_description: "Because total differentials are linear, one can find the total differential and then solve algebraically to obtain partial derivatives that might not be obtainable though differentiation. "
+  - id: 67
+    name: "\"With respect to what\" matters ()"
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
+  - id: 68
+    name: The magnitude of the gradient is the value of the slope in the steepest direction ()
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
 activities:
   - id: 0
     name: lower anchor MTH 251
@@ -707,6 +717,7 @@ activities:
       - concept: 6
       - concept: 10
       - concept: 15
+      - concept: 67
     new_concepts:
       - concept: 17
       - concept: 18
@@ -811,6 +822,7 @@ activities:
       - concept: 30
       - concept: 23
       - concept: 24
+      - concept: 68
     representations:
       - 15
       - 9

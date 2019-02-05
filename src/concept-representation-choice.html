@@ -1,0 +1,17 @@
+<form class="concept hint has2" action="/change" method="post"
+      target="hidden-form"
+      onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
+  <label>New [% self.field %] concept/representation</label>
+  <input list="choices" name="content">
+  <datalist id="choices">
+    [%
+    for name in self.choices.iter() {
+      %]<option value="[% name %]">[%
+    }
+    %]
+  </datalist>
+  <input type="hidden" name="id" value="[% self.id %]">
+  <input type="hidden" name="field" value="[% self.field %]">
+  <input type="hidden" name="html" value="">
+</form>
+<iframe style="display:none" name="hidden-form"></iframe>
