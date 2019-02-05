@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 
 use crate::data::{Course,
-                  RepresentationID, Child, Representation,
+                  RepresentationID, Child, Representation, ConceptRepresentationID,
                   Activity, ActivityChoice, ActivityGroup, ConceptID,
                   ConceptChoice, ChangeRelationship,
                   PrereqCourse};
@@ -114,13 +114,13 @@ impl ConceptView {
 
 #[derive(Debug, Clone)]
 pub struct ConceptRepresentationView {
-    pub cid: ConceptID,
-    pub representation: Child<Representation>,
+    pub id: ConceptRepresentationID,
+    pub representation: Representation,
     pub name: String,
     pub long_description: String,
     pub figure: Option<String>,
 }
 #[with_template("[%" "%]" "concept-representation-view.html")]
-impl DisplayAs<HTML> for ConceptRepresentationView {}
+impl DisplayAs<HTML> for Child<ConceptRepresentationView> {}
 #[with_template( self.representation.id )]
 impl DisplayAs<URL> for ConceptRepresentationView {}

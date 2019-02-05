@@ -366,20 +366,6 @@ article > .concept {
     flex-basis: 100%;
 }
 
-article > .concept .concept {
-    top: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-    font-weight: bold;
-    font-size: 1.5em;
-    background-color: transparent;
-    border-style: none;
-    flex-basis: 100%;
-    flex-grow: 1;
-    flex-shrink: 0;
-}
-
 .taughtby {
     position: absolute;
 }

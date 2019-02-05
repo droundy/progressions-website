@@ -47,10 +47,27 @@ impl DisplayAs<URL> for ConceptRepresentationID {}
 impl ConceptRepresentationID {
     fn str2manifestation(x: &str) -> Option<Self> {
         use std::str::FromStr;
-        let mut things = x.split("/");
-        let concept = ConceptID::from_str(things.next()?).ok()?;
-        let representation = Some(RepresentationID::from_str(things.next()?).ok()?);
-        Some(ConceptRepresentationID { concept, representation })
+        if x == "" {
+            return None;
+        }
+        if x.split_at(1).0 == "c" {
+            let x = x.split_at(1).1;
+            let mut things = x.split("-");
+            let first_substr = things.next()?;
+            let concept = ConceptID::from_str(first_substr).ok()?;
+            let (r,x) = things.next()?.split_at(1);
+            if r != "r" {
+                return None;
+            }
+            let representation = Some(RepresentationID::from_str(x).ok()?);
+            Some(ConceptRepresentationID { concept, representation })
+        } else {
+            let mut things = x.split("/");
+            let first_substr = things.next()?;
+            let concept = ConceptID::from_str(first_substr).ok()?;
+            let representation = Some(RepresentationID::from_str(things.next()?).ok()?);
+            Some(ConceptRepresentationID { concept, representation })
+        }
     }
 }
 impl std::str::FromStr for ConceptRepresentationID {
@@ -65,9 +82,28 @@ impl std::str::FromStr for ConceptRepresentationID {
         })
     }
 }
+#[test]
+fn test_concept_representation_id() {
+    use std::str::FromStr;
+
+    let oneone: ConceptRepresentationID = (ConceptID(1), RepresentationID(2)).into();
+    assert_eq!("c1-r2", &format_as!(HTML, oneone));
+    assert_eq!(Ok(oneone), ConceptRepresentationID::from_str(&format_as!(HTML, oneone)));
+
+    let id: ConceptRepresentationID = (ConceptID(27), RepresentationID(6)).into();
+    assert_eq!("c27-r6", &format_as!(HTML, id));
+    assert_eq!(Ok(id), ConceptRepresentationID::from_str(&format_as!(HTML, id)));
+
+    assert!(AnyID::parse("c27-r6").is_ok());
+}
 impl From<ConceptID> for ConceptRepresentationID {
     fn from(concept: ConceptID) -> Self {
         ConceptRepresentationID { concept, representation: None }
+    }
+}
+impl From<(ConceptID, RepresentationID)> for ConceptRepresentationID {
+    fn from(ids: (ConceptID, RepresentationID)) -> Self {
+        ConceptRepresentationID { concept: ids.0, representation: Some(ids.1) }
     }
 }
 
@@ -140,11 +176,21 @@ enum AnyID {
     Course(CourseID),
     Activity(ActivityID),
     Representation(RepresentationID),
+    ConceptRepresentation(ConceptRepresentationID),
 }
 impl AnyID {
     fn parse(s: &str) -> Result<Self, Box<std::error::Error>> {
         match s.chars().next() {
-            Some('c') => Ok(AnyID::Concept(ConceptID(s[1..].parse()?))),
+            Some('c') => {
+                println!("I have a c in '{}'", s);
+                if s.contains("r") {
+                    use std::str::FromStr;
+                    Ok(AnyID::ConceptRepresentation(
+                        ConceptRepresentationID::from_str(s)?))
+                } else {
+                    Ok(AnyID::Concept(ConceptID(s[1..].parse()?)))
+                }
+            },
             Some('C') => Ok(AnyID::Course(CourseID(s[1..].parse()?))),
             Some('a') => Ok(AnyID::Activity(ActivityID(s[1..].parse()?))),
             Some('r') => Ok(AnyID::Representation(RepresentationID(s[1..].parse()?))),
@@ -220,6 +266,7 @@ impl Data {
         }
     }
     pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
+        println!("I am looking at id {}", c.id);
         match AnyID::parse(&c.id)? {
             AnyID::Course(id) => {
                 match &c.field as &str {
@@ -229,6 +276,18 @@ impl Data {
                     }
                     _ => {
                         bail!("Weird field for course: {}", c.field);
+                    }
+                }
+            }
+            AnyID::ConceptRepresentation(id) => {
+                println!("It is a conceptrepresentation");
+                match &c.field as &str {
+                    "name" => {
+                        self.get_mut(id.concept).representations
+                            .get_mut(&id.representation.unwrap()).unwrap().name = c.content.trim().to_string();
+                    }
+                    _ => {
+                        bail!("Weird field for ConceptRepresentation: {}", c.field);
                     }
                 }
             }
@@ -618,15 +677,15 @@ impl Data {
     }
 
     pub fn concept_representation_view(&self, cid: ConceptID, rid: RepresentationID)
-                                       -> Option<ConceptRepresentationView> {
+                                       -> Option<Child<ConceptRepresentationView>> {
         let rr = self.get(cid).representations.get(&rid)?;
-        Some(ConceptRepresentationView {
-            cid: cid,
-            representation: Child::remove(cid, "with", self.get(rid).clone()),
+        Some(Child::remove(cid, "with", ConceptRepresentationView {
+            id: (cid, rid).into(),
+            representation: self.get(rid).clone(),
             name: rr.name.clone(),
             long_description: rr.long_description.clone(),
             figure: rr.figure.clone(),
-        })
+        }))
     }
 
     pub fn concept_view(&self, id: ConceptID) -> ConceptView {
@@ -650,9 +709,7 @@ impl Data {
             output_groups: Vec::new(),
 
             representations: c.representations.keys()
-                .map(|&rid| Child::remove(id, "uses",
-                                          self.concept_representation_view(id, rid)
-                                          .unwrap()))
+                .map(|&rid| self.concept_representation_view(id, rid).unwrap())
                 .collect(),
             courses: self.courses_for_concept(c.id).iter().map(|&cid| self.get(cid).clone()).collect(),
             figure: c.figure.clone(),
@@ -1072,6 +1129,15 @@ impl<T> Child<T> {
             relationship: relationship.to_string(),
         }
     }
+    pub fn none(child: T) -> Self
+    {
+        Child {
+            child,
+            parentid: "".to_string(),
+            verb: "".to_string(),
+            relationship: "".to_string(),
+        }
+    }
     pub fn add(parentid: impl DisplayAs<HTML>,
                relationship: &'static str, child: T) -> Self
     {
@@ -1115,6 +1181,7 @@ macro_rules! impl_child_addremove{
 impl_child_addremove!(Concept);
 impl_child_addremove!(Activity);
 impl_child_addremove!(Representation);
+impl_child_addremove!(ConceptRepresentationView);
 
 impl<T> std::ops::Deref for Child<T> {
     type Target = T;
