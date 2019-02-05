@@ -115,12 +115,13 @@ impl ConceptView {
 #[derive(Debug, Clone)]
 pub struct ConceptRepresentationView {
     pub id: ConceptRepresentationID,
-    pub representation: Representation,
+    pub activities: Vec<Activity>,
+    pub representation: Option<Representation>,
     pub name: String,
     pub long_description: String,
     pub figure: Option<String>,
 }
 #[with_template("[%" "%]" "concept-representation-view.html")]
 impl DisplayAs<HTML> for Child<ConceptRepresentationView> {}
-#[with_template( self.representation.id )]
+#[with_template( self.id )]
 impl DisplayAs<URL> for ConceptRepresentationView {}
