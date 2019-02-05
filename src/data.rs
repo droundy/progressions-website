@@ -1119,6 +1119,8 @@ pub struct Child<T> {
     pub verb: String,
     /// relationship is "prereq" or similar.
     pub relationship: String,
+    /// Show extra detail
+    pub show_detail: bool,
 }
 
 impl<T> Child<T> {
@@ -1130,6 +1132,7 @@ impl<T> Child<T> {
             parentid: format_as!(HTML, parentid),
             verb: verb.to_string(),
             relationship: relationship.to_string(),
+            show_detail: false,
         }
     }
     pub fn none(child: T) -> Self
@@ -1139,6 +1142,7 @@ impl<T> Child<T> {
             parentid: "".to_string(),
             verb: "".to_string(),
             relationship: "".to_string(),
+            show_detail: false,
         }
     }
     pub fn add(parentid: impl DisplayAs<HTML>,
@@ -1149,6 +1153,7 @@ impl<T> Child<T> {
             parentid: format_as!(HTML, parentid),
             verb: "Add".to_string(),
             relationship: relationship.to_string(),
+            show_detail: false,
         }
     }
     pub fn remove(parentid: impl DisplayAs<HTML>,
@@ -1159,7 +1164,12 @@ impl<T> Child<T> {
             parentid: format_as!(HTML, parentid),
             verb: "Remove".to_string(),
             relationship: relationship.to_string(),
+            show_detail: false,
         }
+    }
+    pub fn with_detail(self) -> Self
+    {
+        Child { show_detail: true, .. self }
     }
 }
 macro_rules! impl_child_addremove{

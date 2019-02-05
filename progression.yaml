@@ -247,11 +247,11 @@ concepts:
     representations:
       6:
         name: ""
-        long_description: ""
+        long_description: "A partial derivative with something held fixed is a function of both variables:  the one held fixed and the one that is changing."
         figure: ~
       8:
         name: ""
-        long_description: ""
+        long_description: The partial partial derivative in this representation is a function of the variable that is changing as well as one or more other implied variables.
         figure: ~
     long_description: "The partial derivative of a function is itself a function (although taking a partial derivative at a point will just give a number). "
   - id: 28

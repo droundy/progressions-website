@@ -51,7 +51,7 @@ let content = {
         <h3>Representations used</h3>
         <div class="row"> [%
           for r in self.representations.iter() {
-             r
+             r.clone().with_detail()
           }
           %]
         </div>

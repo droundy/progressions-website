@@ -8,7 +8,7 @@
     }%]</h3>
   [% Child::none(self.representation.clone()) %]
   <div class="hint"><br/></div>
-  <div class="description hint" thisid="[% self.id %]" name="long_description">
+  <div class="description [% if !self.show_detail { %]hint[% } %]" thisid="[% self.id %]" name="long_description">
     [%
     if self.long_description.len() == 0 {
       %]<span class="hint">ENTER LONG DESCRIPTION</class>[%
