@@ -182,7 +182,6 @@ impl AnyID {
     fn parse(s: &str) -> Result<Self, Box<std::error::Error>> {
         match s.chars().next() {
             Some('c') => {
-                println!("I have a c in '{}'", s);
                 if s.contains("r") {
                     use std::str::FromStr;
                     Ok(AnyID::ConceptRepresentation(
@@ -266,7 +265,6 @@ impl Data {
         }
     }
     pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
-        println!("I am looking at id {}", c.id);
         match AnyID::parse(&c.id)? {
             AnyID::Course(id) => {
                 match &c.field as &str {
@@ -280,7 +278,6 @@ impl Data {
                 }
             }
             AnyID::ConceptRepresentation(id) => {
-                println!("It is a conceptrepresentation");
                 match &c.field as &str {
                     "name" => {
                         self.get_mut(id.concept).representations

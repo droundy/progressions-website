@@ -1,11 +1,11 @@
 <div href="[% self as URL %]" class="concept has1">
   [% self.addremove()
-  %]<span thisid="[% self.id %]" name="name">[%
+  %]<h3 thisid="[% self.id %]" name="name">[%
     if self.name.len() == 0 {
       %]<span class="hint">NEEDS NAME</class>[%
     } else {
       self.name
-    }%]</span>
+    }%]</h3>
   [% Child::none(self.representation.clone()) %]
   <div class="hint"><br/></div>
   <div class="description hint" thisid="[% self.id %]" name="long_description">
