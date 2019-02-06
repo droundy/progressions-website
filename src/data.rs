@@ -400,9 +400,6 @@ impl Data {
                             _ => bail!("Unknown relationship on remove from activity: {}", c.html),
                         }
                     }
-                    "none" => {
-                        bail!("\n\nnone in activity: {}")
-                    }
                     _ => bail!("Unknown field of activity: {}", c.field),
                 }
             }
@@ -682,6 +679,7 @@ impl Data {
                                        field: &'static str,
                                        id: ConceptRepresentationID)
                                        -> Child<ConceptRepresentationView> {
+        let c = self.get(id.concept);
         if let Some(rid) = id.representation {
             let rr = self.get(id.concept).representations.get(&rid)
                 .expect("trying to access invalid ConceptRepresentationID");
@@ -695,9 +693,21 @@ impl Data {
                 long_description: rr.long_description.clone(),
                 figure: rr.figure.clone(),
             })
+        } else if c.representations.len() == 1 &&
+            c.representations.values().next().unwrap().name.len() == 0
+        {
+            Child::remove(parent, field, ConceptRepresentationView {
+                id,
+                representation: Some(self.get(*c.representations.keys().next().unwrap()).clone()),
+                activities: self.activities.iter()
+                    .filter(|a| a.new_concepts.contains(&id))
+                    .cloned().collect(),
+                name: c.name.clone(),
+                long_description: c.long_description.clone(),
+                figure: c.figure.clone(),
+            })
         } else {
-            let c = self.get(id.concept);
-            Child::remove(parent, "field", ConceptRepresentationView {
+            Child::remove(parent, field, ConceptRepresentationView {
                 id,
                 representation: None,
                 activities: self.activities.iter()

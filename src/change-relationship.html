@@ -1,4 +1,4 @@
-[% if self.parentid.len() > 0 && self.childid.len() > 0 {
+[% if self.parentid.len() > 0 && self.childid.len() > 0 && self.relationship.len() > 0 {
 %]<form class="hint addremove" action="/change" method="post"
       target="hidden-form"
       onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
