@@ -87,6 +87,13 @@ a, a:link, a:active, a:hover {
     color: black;
 }
 
+body .external_url {
+    float: right;
+    margin-right: 1em;
+    margin-top: 1em;
+    text-decoration: underline;
+}
+
 .activity {
     grid-column: main;
     display: block;

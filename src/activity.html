@@ -26,11 +26,15 @@ let content = {
         </div>
       </details>
 
-      <div
-         [% if let Some(ref url) = self.external_url {
-            %]thisid="[% self.id %]" name="none" onclick="location.href='http://physics.oregonstate.edu/portfolioswiki/acts:[% url as URL %]';" style="cursor: pointer;" [%
-         } %]
-         class="activity">
+      <div class="activity">
+        [%
+        if let Some(ref url) = self.external_url {
+          %]<a class="external_url"href="http://physics.oregonstate.edu/portfolioswiki/acts:[%
+              url as URL %]">Instructor guide <span class="hint" thisid="[% self.id %]"
+                 name="external_url">[%
+             url as URL %]</span></a>[%
+         }
+        %]
         <h1>[% self.name %]</h1>[%
         if let Some(ref fig) = self.figure {
           %]<img src="/figs/[% fig %]" class="figure"/>[%
