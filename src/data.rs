@@ -846,7 +846,17 @@ impl Data {
 
             choices: self.all_concept_representations(id, "???"),
 
-            prereq_courses: Vec::new(),
+            prereq_courses: self.courses.iter().cloned()
+                .filter(|course| !course.activities.contains(&a.id))
+                .map(|course| PrereqCourse {
+                    course: course.clone(),
+                    concepts: my_prereq_concepts.iter()
+                        .filter(|c| self.course_is_for_concept(c.id, course.id))
+                        .map(|c| self.concept_view(c.id))
+                        .collect(),
+                })
+                .filter(|xx| xx.concepts.len() > 0)
+                .collect(),
 
             prereq_concepts: Vec::new(),
             prereq_groups: Vec::new(),
@@ -854,7 +864,8 @@ impl Data {
                 .map(|&cid| self.concept_representation_view(id, "new", cid))
                 .collect(),
 
-            output_groups: Vec::new(),
+            output_groups: self.group_concept_representations(a.new_concepts.clone(),
+                                                              id, "depends on"),
 
             representations: a.representations.iter()
                 .map(|&rid| Child::remove(id, "uses", self.get(rid).clone())).collect(),
@@ -865,32 +876,12 @@ impl Data {
             external_url: a.external_url.clone(),
             addremove: ChangeRelationship::none(),
         };
-        // We haven't generated this view yet, so we need to add the
-        // related concepts.
-        let other_courses: Vec<_> = self.courses.iter()
-            .filter(|xx| !xx.activities.contains(&a.id))
-            .cloned()
-            .collect();
-        view.prereq_courses = self.courses.iter().cloned()
-            .map(|course| PrereqCourse {
-                course: course.clone(),
-                concepts: my_prereq_concepts.iter()
-                    .filter(|c| self.course_is_for_concept(c.id, course.id))
-                    .map(|c| self.concept_view(c.id))
-                    .collect(),
-            })
-            .filter(|xx| xx.concepts.len() > 0 && other_courses.contains(&xx.course))
-            .collect();
 
-        let output_concepts: Vec<_> = self.concepts.iter()
-            .filter(|x| a.new_concepts.iter().any(|cc| cc.concept == x.id))
-            .map(|x| x.id)
-            .collect();
-        view.output_groups = self.group_concepts(output_concepts, id, "new concept");
         for a in self.activities.iter()
             .filter(|aa| a.new_concepts.iter().any(|cc| aa.prereq_concepts.contains(&cc)))
         {
-            self.extend_groups_with_activity(&mut view.output_groups, a.clone(), id, "new concept");
+            self.extend_groups_with_activity(&mut view.output_groups, a.clone(), id,
+                                             "depends on");
         }
 
         view.prereq_concepts = a.prereq_concepts.iter()
@@ -898,7 +889,8 @@ impl Data {
             .collect();
         let prereq_concepts_in_this_course: Vec<_> =
             a.prereq_concepts.iter().cloned()
-            .filter(|&cid| !other_courses.iter()
+            .filter(|&cid| !self.courses.iter()
+                    .filter(|xx| !xx.activities.contains(&a.id))
                     .any(|cc| self.course_is_for_concept(cid.concept, cc.id)))
             .collect();
         view.prereq_groups = self.group_concepts(prereq_concepts_in_this_course.iter()
@@ -1021,17 +1013,16 @@ impl Data {
                       relationship: &'static str) -> Vec<ActivityGroup> {
         let mut out: Vec<ActivityGroup> = Vec::new();
         for cid in x.iter().cloned() {
-            let c = self.get(cid);
             let act: Vec<_> = self.activities.iter()
                 .filter(|a| a.new_concepts.contains(&cid.into()))
                 .map(|x| x.id).collect();
-            let cc = Child::remove(parentid, relationship, c.clone());
+            let cc = self.concept_representation_view(parentid, relationship, cid.into());
             if let Some(ref mut group) = out.iter_mut()
                 .filter(|x| act.iter().any(|&xx| Some(Child::remove(parentid, relationship, self.get(xx).clone())) == x.activity))
                 .next()
             {
                 group.concepts.push(cc);
-                group.hint_concepts.retain(|x| x.id != cid);
+                group.hint_concepts.retain(|x| x.id != cid.into());
             } else {
                 if act.len() >= 1 {
                     let a = self.get(act[0]);
@@ -1041,8 +1032,61 @@ impl Data {
                         concepts: vec![cc],
                         hint_concepts: a.new_concepts.iter()
                             .filter(|&&x| x.concept != cid)
-                            .map(|&id| Child::add(parentid, relationship,
-                                                 self.get(id.concept).clone()))
+                            .map(|&id| self.concept_representation_view(parentid,
+                                                                        relationship,
+                                                                        id)
+                                 .set_verb("Add"))
+                            .collect(),
+                    });
+                } else {
+                    out.push(ActivityGroup {
+                        activity: None,
+                        concepts: vec![cc],
+                        hint_concepts: Vec::new(),
+                    });
+                }
+            }
+        }
+        out.sort_unstable_by_key(|g| {
+            if let Some(ref a) = g.activity {
+                a.id
+            } else {
+                ActivityID(100000)
+            }
+        });
+        for g in out.iter_mut() {
+            g.concepts.sort_unstable_by_key(|c| c.id);
+        }
+        out
+    }
+    fn group_concept_representations(&self, x: Vec<ConceptRepresentationID>,
+                                     parentid: impl Copy+DisplayAs<HTML>,
+                                     relationship: &'static str) -> Vec<ActivityGroup> {
+        let mut out: Vec<ActivityGroup> = Vec::new();
+        for id in x.into_iter() {
+            let act: Vec<_> = self.activities.iter()
+                .filter(|a| a.new_concepts.contains(&id))
+                .map(|x| x.id).collect();
+            let cc = self.concept_representation_view(parentid, relationship, id);
+            if let Some(ref mut group) = out.iter_mut()
+                .filter(|x| act.iter().any(|&xx| Some(Child::remove(parentid, relationship, self.get(xx).clone())) == x.activity))
+                .next()
+            {
+                group.concepts.push(cc);
+                group.hint_concepts.retain(|x| x.id != id);
+            } else {
+                if act.len() >= 1 {
+                    let a = self.get(act[0]);
+                    out.push(ActivityGroup {
+                        activity: Some(Child::remove(parentid, relationship,
+                                                     a.clone())),
+                        concepts: vec![cc],
+                        hint_concepts: a.new_concepts.iter()
+                            .filter(|&&x| x != id)
+                            .map(|&z| self.concept_representation_view(parentid,
+                                                                       relationship,
+                                                                       z)
+                                 .set_verb("Add"))
                             .collect(),
                     });
                 } else {
@@ -1076,7 +1120,8 @@ impl Data {
         }
         gs.push(ActivityGroup {
             hint_concepts: self.get(a.id).new_concepts.iter()
-                .map(|c| Child::add(parentid, relationship, self.get(c.concept).clone()))
+                .map(|&c| self.concept_representation_view(parentid, relationship, c)
+                     .set_verb("Add"))
                 .collect(),
             activity: Some(Child::remove(parentid, relationship, a)),
             concepts: Vec::new(),
@@ -1097,8 +1142,8 @@ impl DisplayAs<HTML> for PrereqCourse {}
 #[derive(Debug, Clone)]
 pub struct ActivityGroup {
     pub activity: Option<Child<Activity>>,
-    pub concepts: Vec<Child<Concept>>,
-    pub hint_concepts: Vec<Child<Concept>>
+    pub concepts: Vec<Child<ConceptRepresentationView>>,
+    pub hint_concepts: Vec<Child<ConceptRepresentationView>>
 }
 #[with_template("[%" "%]" "activity-group.html")]
 impl DisplayAs<HTML> for ActivityGroup {}
@@ -1253,6 +1298,10 @@ impl<T> Child<T> {
     pub fn with_detail(self) -> Self
     {
         Child { show_detail: true, .. self }
+    }
+    pub fn set_verb(self, verb: &'static str) -> Self
+    {
+        Child { verb: verb.to_string(), .. self }
     }
 }
 macro_rules! impl_child_addremove{
