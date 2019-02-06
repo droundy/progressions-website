@@ -117,6 +117,7 @@ pub struct ConceptRepresentationView {
     pub id: ConceptRepresentationID,
     pub activities: Vec<Activity>,
     pub representation: Option<Representation>,
+    pub summary_name: String,
     pub name: String,
     pub long_description: String,
     pub figure: Option<String>,

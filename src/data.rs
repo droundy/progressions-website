@@ -381,12 +381,16 @@ impl Data {
                     }
                     "Remove" => {
                         match c.html.as_ref() {
-                            "new_concept" => {
+                            "new" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(c_id) => {
-                                        self.get_mut(id).new_concepts.retain(|&x| x.concept != c_id);
+                                        self.get_mut(id).new_concepts
+                                            .retain(|&x| x.concept != c_id);
                                     }
-                                    _ => bail!("No new_concept as other type"),
+                                    AnyID::ConceptRepresentation(c_id) => {
+                                        self.get_mut(id).new_concepts.retain(|&x| x != c_id);
+                                    }
+                                    _ => bail!("No new as other type {}", c.content),
                                 }
                             }
                             "prereq" => {
@@ -394,7 +398,7 @@ impl Data {
                                     AnyID::Concept(c_id) => {
                                         self.get_mut(id).prereq_concepts.retain(|&x| x.concept != c_id);
                                     }
-                                    _ => bail!("No new_concept as other type"),
+                                    _ => bail!("No prereq as other type"),
                                 }
                             }
                             _ => bail!("Unknown relationship on remove from activity: {}", c.html),
@@ -690,21 +694,9 @@ impl Data {
                     .filter(|a| a.new_concepts.contains(&id))
                     .cloned().collect(),
                 name: rr.name.clone(),
+                summary_name: self.name_it(id),
                 long_description: rr.long_description.clone(),
                 figure: rr.figure.clone(),
-            })
-        } else if c.representations.len() == 1 &&
-            c.representations.values().next().unwrap().name.len() == 0
-        {
-            Child::remove(parent, field, ConceptRepresentationView {
-                id,
-                representation: Some(self.get(*c.representations.keys().next().unwrap()).clone()),
-                activities: self.activities.iter()
-                    .filter(|a| a.new_concepts.contains(&id))
-                    .cloned().collect(),
-                name: c.name.clone(),
-                long_description: c.long_description.clone(),
-                figure: c.figure.clone(),
             })
         } else {
             Child::remove(parent, field, ConceptRepresentationView {
@@ -714,6 +706,7 @@ impl Data {
                     .filter(|a| a.new_concepts.contains(&id))
                     .cloned().collect(),
                 name: c.name.clone(),
+                summary_name: c.name.clone(),
                 long_description: c.long_description.clone(),
                 figure: c.figure.clone(),
             })
@@ -725,7 +718,7 @@ impl Data {
         if let Some(rid) = id.representation {
             let n = c.representations.get(&rid).unwrap().name.clone();
             if n.len() == 0 {
-                c.name.clone()
+                format!("{} using {}", c.name, self.get(rid).name.to_lowercase())
             } else {
                 n
             }
@@ -739,19 +732,11 @@ impl Data {
         } else {
             for c in self.concepts.iter() {
                 if c.name == name {
-                    if c.representations.len() == 1
-                        && c.representations.values().next().unwrap().name.len() == 0
-                    {
-                        // If we have a single unnamed representation,
-                        // then assume that representation is
-                        // "universal".
-                        return (c.id, *c.representations.keys().next().unwrap()).into();
-                    }
                     return c.id.into();
                 }
-                for (rid,cr) in c.representations.iter() {
-                    if cr.name == name {
-                        return (c.id, *rid).into();
+                for &rid in c.representations.keys() {
+                    if self.name_it((c.id, rid).into()) == name {
+                        return (c.id, rid).into();
                     }
                 }
             }
@@ -865,7 +850,9 @@ impl Data {
 
             prereq_concepts: Vec::new(),
             prereq_groups: Vec::new(),
-            new_concepts: Vec::new(),
+            new_concepts: a.new_concepts.iter()
+                .map(|&cid| self.concept_representation_view(id, "new", cid))
+                .collect(),
 
             output_groups: Vec::new(),
 
@@ -906,9 +893,6 @@ impl Data {
             self.extend_groups_with_activity(&mut view.output_groups, a.clone(), id, "new concept");
         }
 
-        view.new_concepts = a.new_concepts.iter()
-            .map(|&cid| self.concept_representation_view(id, "new", cid))
-            .collect();
         view.prereq_concepts = a.prereq_concepts.iter()
             .map(|&x| self.get(x.concept).clone())
             .collect();

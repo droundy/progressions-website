@@ -1,11 +1,14 @@
 <div href="[% self as URL %]" class="concept has1">
-  [% self.addremove()
-  %]<[% if self.show_detail { %]h3[% } else { %]span[% } %] thisid="[% self.id %]" name="name">[%
-    if self.name.len() == 0 {
+[% let h3 = { if self.show_detail { %]h3[% } else { %]span[% } }; %]
+[% self.addremove()
+  %]<[% h3 %] thisid="[% self.id %]" name="name">[%
+    if !self.show_detail {
+      self.summary_name
+    } else if self.name.len() == 0 {
       %]<span class="hint">NEEDS NAME</class>[%
     } else {
       self.name
-    }%]</[% if self.show_detail { %]h3[% } else { %]span[% } %]>
+    }%]</[% h3 %]>
     [% if let Some(r) = self.representation.clone() { Child::none(r) } %]
   <div class="hint"><br/></div>
   <div class="description [% if !self.show_detail { %]hint[% } %]" thisid="[% self.id %]" name="long_description">
