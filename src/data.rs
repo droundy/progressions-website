@@ -372,11 +372,19 @@ impl Data {
                         self.get_mut(id).name = c.content.trim().to_string();
                     }
                     "prereq" => {
-                        let prereq_id = self.concept_representation_to_id(&c.content);
+                        let prereq_id = if let Some(prereq_id) = self.concept_representation_to_id(&c.content) {
+                            prereq_id
+                        } else {
+                            self.concept_by_name_or_create(&c.content).into()
+                        };
                         self.get_mut(id).prereq_concepts.push(prereq_id.into());
                     }
                     "taught" => {
-                        let prereq_id = self.concept_representation_to_id(&c.content);
+                        let prereq_id = if let Some(prereq_id) = self.concept_representation_to_id(&c.content) {
+                            prereq_id
+                        } else {
+                            self.concept_by_name_or_create(&c.content).into()
+                        };
                         self.get_mut(id).new_concepts.push(prereq_id);
                     }
                     "Remove" => {
@@ -726,21 +734,21 @@ impl Data {
             c.name.clone()
         }
     }
-    pub fn concept_representation_to_id(&self, name: &str) -> ConceptRepresentationID {
+    pub fn concept_representation_to_id(&self, name: &str) -> Option<ConceptRepresentationID> {
         if let Some(c) = self.concepts.iter().filter(|c| c.name == name).next() {
-            return c.id.into();
+            return Some(c.id.into());
         } else {
             for c in self.concepts.iter() {
                 if c.name == name {
-                    return c.id.into();
+                    return Some(c.id.into());
                 }
                 for &rid in c.representations.keys() {
                     if self.name_it((c.id, rid).into()) == name {
-                        return (c.id, rid).into();
+                        return Some((c.id, rid).into());
                     }
                 }
             }
-            panic!("Invalid id!")
+            None
         }
     }
     pub fn all_concept_representations(&self, id: impl Copy+DisplayAs<HTML>, field: &str)
