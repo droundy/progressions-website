@@ -66,7 +66,7 @@ concepts:
     name: The derivative is a linear function
     prereq_concepts: []
     representations: {}
-    long_description: "A long description for The derivative is a linear function is not yet available--feel free to give us your suggestions on the poster! FIXME: do we mean to say that the derivative is a linar operator?"
+    long_description: "FIXME: do we mean to say that the derivative is a linar operator?"
   - id: 9
     name: Power law
     prereq_concepts: []
@@ -176,7 +176,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "A long description for The value of a partial derivative depends on the value(s) of what is held constant is not yet available--feel free to give us your suggestions on the poster! FIXME: Is this really a statement about paths? I don't think we have path-related concepts."
+    long_description: "FIXME: Is this really a statement about paths? I don't think we have path-related concepts."
   - id: 21
     name: A partial derivative can be expressed in terms of other partial derivatives
     prereq_concepts:
@@ -190,7 +190,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for A partial derivative can be expressed in terms of other partial derivatives is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 22
     name: The gradient is a vector
     prereq_concepts: []
@@ -210,7 +210,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for The magnitude of the gradient is the value of the slope in the steepest direction is not yet available--feel free to give us your suggestions on the poster!
+    long_description: "FIXME: What more do we want the long description to say than the short dscription?"
   - id: 24
     name: The gradient is perpendicular to contour lines
     prereq_concepts: []
@@ -276,7 +276,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: This is the long description for The components of the gradient are partial derivatives. It is quite a long description!
+    long_description: FIXME
   - id: 30
     name: The gradient points in the direction of greatest increase of the function
     prereq_concepts:
@@ -305,7 +305,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "A long description for Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors.  is not yet available--feel free to give us your suggestions on the poster! FIXME: This concept does not make any sense."
+    long_description: "FIXME: This concept does not make any sense."
   - id: 32
     name: "The magnitude of $d\\vec r$ is the length of a small step along a path"
     prereq_concepts:
@@ -315,7 +315,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "A long description for The magnitude of $d\\vec r$ is the length of a small step along a path is not yet available--feel free to give us your suggestions on the poster! FIXME: What's the point of this concept?"
+    long_description: "FIXME: What's the point of this concept?"
   - id: 33
     name: "The direction of $d\\vec r$ is tangent to a path"
     prereq_concepts: []
@@ -324,7 +324,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "A long description for The direction of $d\\vec r$ is tangent to a path is not yet available--feel free to give us your suggestions on the poster! FIXME: Tangent to what path? How is this useful?"
+    long_description: "FIXME: Tangent to what path? How is this useful?"
   - id: 34
     name: The gradient can tell you a small change in a function in any direction (differentials edition)
     prereq_concepts:
@@ -385,7 +385,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "A long description for Differential form of $\\vec r$ in spherical and cylindrical coordinates is not yet available--feel free to give us your suggestions on the poster!"
+    long_description: FIXME
   - id: 41
     name: The gradient lives in the domain and has the same number of spatial dimensions as the original function
     prereq_concepts: []
@@ -442,7 +442,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for The divergence is a local quantity is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 47
     name: The divergence of the electric field is equal to
     prereq_concepts: []
@@ -451,7 +451,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for The divergence of the electric field is equal to is not yet available--feel free to give us your suggestions on the poster! FIXME not a complete concept
+    long_description: FIXME
   - id: 48
     name: The divergence of the magnetic field is zero
     prereq_concepts:
@@ -461,7 +461,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for The divergence of the magnetic field is zero is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 49
     name: "The curl is related to the line integral around a closed loop. (\"circulation\")"
     prereq_concepts: []
@@ -470,7 +470,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "A long description for The curl is related to the line integral around a closed loop. (\"circulation\") is not yet available--feel free to give us your suggestions on the poster!"
+    long_description: FIXME
   - id: 50
     name: the curl is a (vector) function
     prereq_concepts:
@@ -480,7 +480,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for the curl is a (vector) function is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 51
     name: The curl is a local quantity
     prereq_concepts:
@@ -490,7 +490,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for The curl is a local quantity is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 52
     name: The magnetic field is equal to the curl of the magnetic vector potential
     prereq_concepts:
@@ -500,7 +500,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for The magnetic field is equal to the curl of the magnetic vector potential is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 53
     name: The curl of the electric field is zero in electrostatics
     prereq_concepts:
@@ -511,7 +511,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for The curl of the electric field is zero in electrostatics is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 54
     name: The divergence of the curl is equal to mu times the current in magneto-statics
     prereq_concepts: []
@@ -524,7 +524,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: A long description for The divergence of the curl is equal to mu times the current in magneto-statics is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 55
     name: Differentials are small changes or differences
     prereq_concepts:
@@ -544,12 +544,12 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "A long description for Equations can be 'zapped with d' to relate differentials is not yet available--feel free to give us your suggestions on the poster! FIXME: Does the difference between zapping with d and taking the total differential need to be articulated?"
+    long_description: "FIXME: Does the difference between zapping with d and taking the total differential need to be articulated?"
   - id: 57
     name: Individual differentials can be manipulated algebraically
     prereq_concepts: []
     representations: {}
-    long_description: A long description for Individual differentials can be manipulated algebraically is not yet available--feel free to give us your suggestions on the poster! FIXME what?
+    long_description: "FIXME: What?"
   - id: 58
     name: Total differentials are linear
     prereq_concepts: []
@@ -603,7 +603,7 @@ concepts:
         long_description: ""
         figure: ~
     figure: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y \\neq \\left(\\frac{\\partial f}{\\partial x}\\right)_z$"
-    long_description: A long description for Partial derivatives that do not have the same variable(s) held constant are not the same derivative is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 63
     name: Partial derivatives are coefficients in a differentials equation
     prereq_concepts:
@@ -619,7 +619,7 @@ concepts:
         long_description: ""
         figure: ~
     figure: "$df = \\left(\\frac{\\partial f}{\\partial x}\\right)_y dx + \\left(\\frac{\\partial f}{\\partial y}\\right)_x dy$"
-    long_description: A long description for Partial derivatives are coefficients in a differentials equation is not yet available--feel free to give us your suggestions on the poster!
+    long_description: FIXME
   - id: 64
     name: You can flip a partial derivative if the same variable(s) are constant
     prereq_concepts:
@@ -1014,7 +1014,7 @@ activities:
       - concept: 66
     representations:
       - 15
-    long_description: "NOT CORRECT DESCRIPTION: In this activity, students experimentally determine various derivatives using the partial derivate machine, a mechanical analogue for thermodynamic systems. Students explore the ratio, limit, and function aspects of multi-variable derivatives, with an emphasis on holding different variables constant. This activity is also an excellent exercise in representational fluency, as students must coordinate experiments and tables of data with (new) symbolic notations."
+    long_description: "FIXME: NOT CORRECT DESCRIPTION: In this activity, students experimentally determine various derivatives using the partial derivate machine, a mechanical analogue for thermodynamic systems. Students explore the ratio, limit, and function aspects of multi-variable derivatives, with an emphasis on holding different variables constant. This activity is also an excellent exercise in representational fluency, as students must coordinate experiments and tables of data with (new) symbolic notations."
     figure: pdm.jpg
     external_url: incycchainrule
 representations:
