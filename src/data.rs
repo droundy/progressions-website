@@ -38,11 +38,7 @@ pub struct ConceptRepresentationID {
     self.concept
 } )]
 impl DisplayAs<HTML> for ConceptRepresentationID {}
-#[with_template( if let Some(rid) = self.representation {
-    self.concept "/" rid.0
-} else {
-    self.concept
-} )]
+#[with_template( self.concept )]
 impl DisplayAs<URL> for ConceptRepresentationID {}
 impl ConceptRepresentationID {
     fn str2manifestation(x: &str) -> Option<Self> {
@@ -376,12 +372,12 @@ impl Data {
                         self.get_mut(id).name = c.content.trim().to_string();
                     }
                     "prereq" => {
-                        let prereq_id = self.concept_by_name_or_create(&c.content);
+                        let prereq_id = self.concept_representation_to_id(&c.content);
                         self.get_mut(id).prereq_concepts.push(prereq_id.into());
                     }
                     "taught" => {
-                        let prereq_id = self.concept_by_name_or_create(&c.content);
-                        self.get_mut(id).new_concepts.push(prereq_id.into());
+                        let prereq_id = self.concept_representation_to_id(&c.content);
+                        self.get_mut(id).new_concepts.push(prereq_id);
                     }
                     "Remove" => {
                         match c.html.as_ref() {
@@ -403,6 +399,9 @@ impl Data {
                             }
                             _ => bail!("Unknown relationship on remove from activity: {}", c.html),
                         }
+                    }
+                    "none" => {
+                        bail!("\n\nnone in activity: {}")
                     }
                     _ => bail!("Unknown field of activity: {}", c.field),
                 }
@@ -679,12 +678,14 @@ impl Data {
         cmap
     }
 
-    pub fn concept_representation_view(&self, id: ConceptRepresentationID)
+    pub fn concept_representation_view(&self, parent: impl Copy+DisplayAs<HTML>,
+                                       field: &'static str,
+                                       id: ConceptRepresentationID)
                                        -> Child<ConceptRepresentationView> {
         if let Some(rid) = id.representation {
             let rr = self.get(id.concept).representations.get(&rid)
                 .expect("trying to access invalid ConceptRepresentationID");
-            Child::remove(id, "with", ConceptRepresentationView {
+            Child::remove(parent, field, ConceptRepresentationView {
                 id,
                 representation: Some(self.get(rid).clone()),
                 activities: self.activities.iter()
@@ -696,7 +697,7 @@ impl Data {
             })
         } else {
             let c = self.get(id.concept);
-            Child::remove(id, "with", ConceptRepresentationView {
+            Child::remove(parent, "field", ConceptRepresentationView {
                 id,
                 representation: None,
                 activities: self.activities.iter()
@@ -753,9 +754,9 @@ impl Data {
             .map(|c| c.name.clone())
             .chain(self.concepts.iter()
                    .flat_map(|c| {
-                       let id = c.id;
+                       let cid = c.id;
                        c.representations.keys()
-                           .map(move |&x| self.name_it((id, x).into()))
+                           .map(move |&x| self.name_it((cid, x).into()))
                    }))
             .collect();
         names.sort();
@@ -788,7 +789,7 @@ impl Data {
             output_groups: Vec::new(),
 
             representations: c.representations.keys()
-                .map(|&rid| self.concept_representation_view((id, rid).into()))
+                .map(|&rid| self.concept_representation_view(id, "with", (id, rid).into()))
                 .collect(),
             courses: self.courses_for_concept(c.id).iter().map(|&cid| self.get(cid).clone()).collect(),
             figure: c.figure.clone(),
@@ -848,7 +849,7 @@ impl Data {
             id,
             name: a.name.clone(),
 
-            all_concepts: self.concepts.clone(),
+            choices: self.all_concept_representations(id, "???"),
 
             prereq_courses: Vec::new(),
 
@@ -895,9 +896,9 @@ impl Data {
             self.extend_groups_with_activity(&mut view.output_groups, a.clone(), id, "new concept");
         }
 
-        view.new_concepts = self.concepts.iter()
-            .filter(|x| a.new_concepts.iter().any(|cc| cc.concept == x.id))
-            .cloned().collect();
+        view.new_concepts = a.new_concepts.iter()
+            .map(|&cid| self.concept_representation_view(id, "new", cid))
+            .collect();
         view.prereq_concepts = a.prereq_concepts.iter()
             .map(|&x| self.get(x.concept).clone())
             .collect();
@@ -974,7 +975,8 @@ impl Data {
         for a in course_activities.into_iter() {
             groups.push(ProgressionGroup {
                 concepts: a.new_concepts.iter()
-                    .map(|c| self.concept_representation_view(c.id.into())).collect(),
+                    .map(|c| self.concept_representation_view(a.id, "new", c.id.into()))
+                    .collect(),
                 activity: a,
             });
         }
@@ -1142,6 +1144,7 @@ pub struct ConceptChoice {
 impl DisplayAs<HTML> for ConceptChoice {}
 
 /// Represents a choice between concepts!
+#[derive(Debug, Clone)]
 pub struct ConceptRepresentationChoice {
     pub id: String,
     pub field: String,

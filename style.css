@@ -472,12 +472,6 @@ article > .concept .taughtby > .taughtby, .taughtby > .taughtby  {
     padding: 1em;
 }
 
-.has1, .has3, .has2, .has4 {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: var(--minwidth);
-}
-
 img {
     height: var(--imgheight);
 }

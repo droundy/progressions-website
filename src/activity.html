@@ -20,7 +20,7 @@ let content = {
             for group in self.prereq_groups.iter() {
               group
             }
-            self.all_choices("prereq")
+            self.choices_for("prereq")
             %]
           </div>
         </div>
@@ -51,16 +51,8 @@ let content = {
         <div class="row">[%
           let myremove = ChangeRelationship::parent(self.id, "Remove",
                                                     "new_concept");
-          for c in self.new_concepts.iter() { %]
-          <a href="[% c as URL %]" class="concept">
-            [% myremove.child(c.id) %][% c.name %]
-            <div class="description hint">
-              <br/>
-              [% c.long_description %]
-            </div>
-          </a>[%
-          } %]
-          [% self.all_choices("taught") %]
+          for c in self.new_concepts.iter() { c } %]
+          [% self.choices_for("taught") %]
         </div>
       </div>
     </article>[%

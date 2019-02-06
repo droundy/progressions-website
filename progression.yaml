@@ -247,11 +247,11 @@ concepts:
     representations:
       6:
         name: ""
-        long_description: "A partial derivative with something held fixed is a function of both variables:  the one held fixed and the one that is changing."
+        long_description: ""
         figure: ~
       8:
         name: ""
-        long_description: The partial partial derivative in this representation is a function of the variable that is changing as well as one or more other implied variables.
+        long_description: ""
         figure: ~
     long_description: "The partial derivative of a function is itself a function (although taking a partial derivative at a point will just give a number). "
   - id: 28
@@ -664,6 +664,11 @@ concepts:
     prereq_concepts: []
     representations: {}
     long_description: ""
+  - id: 69
+    name: The gradient points in the direction up the surface
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
 activities:
   - id: 0
     name: lower anchor MTH 251
@@ -717,7 +722,6 @@ activities:
       - concept: 6
       - concept: 10
       - concept: 15
-      - concept: 67
     new_concepts:
       - concept: 17
       - concept: 18
@@ -822,7 +826,6 @@ activities:
       - concept: 30
       - concept: 23
       - concept: 24
-      - concept: 68
     representations:
       - 15
       - 9

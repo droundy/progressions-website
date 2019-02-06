@@ -1,10 +1,10 @@
-use display_as::{with_template, format_as, HTML, URL, DisplayAs};
+use display_as::{with_template, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
 use crate::data::{Course,
                   Child, Representation, RepresentationID,
                   ActivityGroup,
-                  Concept, ConceptRepresentationID,
-                  ConceptChoice, ConceptRepresentationChoice,
+                  Concept, ConceptRepresentationID, ConceptRepresentationView,
+                  ConceptRepresentationChoice,
                   ActivityID,
                   PrereqCourse, ChangeRelationship};
 
@@ -34,9 +34,9 @@ pub struct ActivityView {
     pub prereq_concepts: Vec<Concept>,
     pub prereq_groups: Vec<ActivityGroup>,
 
-    pub new_concepts: Vec<Concept>,
+    pub new_concepts: Vec<Child<ConceptRepresentationView>>,
 
-    pub all_concepts: Vec<Concept>, // used to generate ConceptChoices
+    pub choices: ConceptRepresentationChoice,
 
     pub output_groups: Vec<ActivityGroup>,
 
@@ -79,56 +79,7 @@ impl ActivityView {
             .. self.clone()
         }
     }
-    pub fn all_choices(&self, field: &str) -> ConceptRepresentationChoice {
-        let mut names: Vec<_> = self.all_concepts.iter()
-            .map(|c| c.name.clone())
-            .chain(self.all_concepts.iter()
-                   .flat_map(|c| c.representations.values()
-                             .map(move |x| if x.name.len() == 0 {
-                                 format!("{} ({})", c.name, x.long_description)
-                             } else {
-                                 x.name.clone()
-                             })))
-            .collect();
-        names.sort();
-        names.dedup();
-        ConceptRepresentationChoice {
-            id: format_as!(HTML, self.id),
-            field: field.to_string(),
-            choices: names,
-        }
-    }
-
-    pub fn possibly_taught_concepts(&self) -> ConceptChoice {
-        let mut ch = ConceptChoice {
-            id: format_as!(HTML, self.id),
-            field: "taught".to_string(),
-            choices: Vec::new(),
-        };
-        for c in self.all_concepts.iter() {
-            // Try to list only the concepts that we might plausibly want.
-            if !self.prereq_concepts.iter().any(|pre| pre.id == c.id) &&
-                !self.new_concepts.iter().any(|pre| pre.id == c.id)
-            {
-                ch.choices.push(c.clone());
-            }
-        }
-        ch
-    }
-    pub fn possibly_prereq_concepts(&self) -> ConceptChoice {
-        let mut ch = ConceptChoice {
-            id: format_as!(HTML, self.id),
-            field: "prereq".to_string(),
-            choices: Vec::new(),
-        };
-        for c in self.all_concepts.iter() {
-            // Try to list only the concepts that we might plausibly want.
-            if !self.prereq_concepts.iter().any(|pre| pre.id == c.id) &&
-                !self.new_concepts.iter().any(|pre| pre.id == c.id)
-            {
-                ch.choices.push(c.clone());
-            }
-        }
-        ch
+    pub fn choices_for(&self, field: &str) -> ConceptRepresentationChoice {
+        ConceptRepresentationChoice { field: field.to_string(), .. self.choices.clone() }
     }
 }
