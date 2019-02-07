@@ -2,8 +2,8 @@
       target="hidden-form"
       onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
   <label>New [% self.field %]</label>
-  <input list="choices" name="content">
-  <datalist id="choices">
+  <input list="[% self.class %]-choices" name="content">
+  <datalist id="[% self.class %]-choices">
     [%
     for name in self.choices.iter() {
       %]<option value="[% name %]">[%

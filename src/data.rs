@@ -361,7 +361,17 @@ impl Data {
                                     _ => bail!("taughtby must be an activity in remove"),
                                 }
                             }
-                            _ => bail!("Unknown relationship on remove: {}", c.html),
+                            "with" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::ConceptRepresentation(crid) => {
+                                        if let Some(r) = crid.representation {
+                                            self.get_mut(id).representations.remove(&r);
+                                        }
+                                    }
+                                    _ => bail!("prereq must be a concept in remove"),
+                                }
+                            }
+                            _ => bail!("Unknown relationship on remove from concept: {}", c.html),
                         }
                     }
                     _ => bail!("Unknown field of concept: {}", c.field),

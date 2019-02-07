@@ -1,4 +1,4 @@
-<div href="[% self as URL %]" class="concept has1">
+<a href="[% self as URL %]" class="concept has1">
 [% let h3 = { if self.show_detail { %]h3[% } else { %]span[% } }; %]
 [% self.addremove()
   %]<[% h3 %] thisid="[% self.id %]" name="name">[%
@@ -19,5 +19,5 @@
       self.long_description
     }%]
   </div>
-</div>
+</a>
 
