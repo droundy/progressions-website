@@ -18,7 +18,7 @@
        for a in concept.activities.iter() {
          %] from-[% a.id
          } %]" id="[% concept.id %]">
-      <span thisid="[% concept.id %]" name="name">[% concept.name %]</span>
+      <span thisid="[% concept.id %]" name="name">[% concept.summary_name %]</span>
       [% if let Some(r) = concept.representation.clone() { Child::none(r) } %]
       <div class="description hint" thisid="[% concept.id %]" name="long_description">
         <br/>
