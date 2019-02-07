@@ -5,7 +5,7 @@ use std::collections::BTreeMap;
 use crate::data::{Course,
                   RepresentationID, Child, Representation, ConceptRepresentationID,
                   Activity, ActivityChoice, ActivityGroup, ConceptID,
-                  ConceptChoice, ChangeRelationship,
+                  ConceptChoice, AnyChoice, ChangeRelationship,
                   PrereqCourse};
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
@@ -52,6 +52,7 @@ pub struct ConceptView {
 
     pub all_concepts: Vec<Concept>, // used to generate ConceptChoices
     pub all_activities: Vec<Activity>, // used to generate ActivityChoices
+    pub representation_choice: AnyChoice,
 
     pub output_groups: Vec<ActivityGroup>,
 

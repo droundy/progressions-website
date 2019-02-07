@@ -328,6 +328,14 @@ impl Data {
                                     _ => bail!("prereq must be a concept"),
                                 }
                             }
+                            "representation" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Representation(rid) => {
+                                        self.get_mut(id).add_representation(rid);
+                                    }
+                                    _ => bail!("representation must be a representation"),
+                                }
+                            }
                             _ => bail!("Unknown relationship: {}", c.html),
                         }
                     }
@@ -781,6 +789,12 @@ impl Data {
 
             all_concepts: self.concepts.clone(),
             all_activities: self.activities.clone(),
+            representation_choice: AnyChoice {
+                class: "representation".to_string(),
+                id: format_as!(HTML, id),
+                field: "representation".to_string(),
+                choices: self.concepts.iter().map(|c| c.name.clone()).collect(),
+            },
 
             activities: Vec::new(),
             prereq_courses: Vec::new(),
@@ -1208,6 +1222,17 @@ pub struct ActivityChoice {
 }
 #[with_template("[%" "%]" "activity-choice.html")]
 impl DisplayAs<HTML> for ActivityChoice {}
+
+/// Represents a choice between anything!
+#[derive(Debug, Clone)]
+pub struct AnyChoice {
+    pub class: String,
+    pub id: String,
+    pub field: String,
+    pub choices: Vec<String>,
+}
+#[with_template("[%" "%]" "any-choice.html")]
+impl DisplayAs<HTML> for AnyChoice {}
 
 /// Represents adding or removing a thingy.
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize, Default)]
