@@ -310,6 +310,10 @@ impl Data {
                         let activity_id = self.activity_by_name_or_create(&c.content);
                         self.get_mut(activity_id).new_concepts.push(id.into());
                     }
+                    "representation" => {
+                        let rid = self.representation_by_name_or_create(&c.content);
+                        self.get_mut(id).add_representation(rid);
+                    }
                     "Add" => {
                         match c.html.as_ref() {
                             "needed for" => {
@@ -326,14 +330,6 @@ impl Data {
                                         self.get_mut(id).prereq_concepts.push(prereq_id)
                                     }
                                     _ => bail!("prereq must be a concept"),
-                                }
-                            }
-                            "representation" => {
-                                match AnyID::parse(&c.content)? {
-                                    AnyID::Representation(rid) => {
-                                        self.get_mut(id).add_representation(rid);
-                                    }
-                                    _ => bail!("representation must be a representation"),
                                 }
                             }
                             _ => bail!("Unknown relationship: {}", c.html),
@@ -793,7 +789,7 @@ impl Data {
                 class: "representation".to_string(),
                 id: format_as!(HTML, id),
                 field: "representation".to_string(),
-                choices: self.concepts.iter().map(|c| c.name.clone()).collect(),
+                choices: self.representations.iter().map(|c| c.name.clone()).collect(),
             },
 
             activities: Vec::new(),
