@@ -1,7 +1,7 @@
 use display_as::{with_template, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
 use crate::data::{Course,
-                  Child, Representation, RepresentationID,
+                  Child, Representation, RepresentationID, AnyChoice,
                   ActivityGroup,
                   Concept, ConceptRepresentationID, ConceptRepresentationView,
                   ConceptRepresentationChoice,
@@ -37,6 +37,7 @@ pub struct ActivityView {
     pub new_concepts: Vec<Child<ConceptRepresentationView>>,
 
     pub choices: ConceptRepresentationChoice,
+    pub representation_choice: AnyChoice,
 
     pub output_groups: Vec<ActivityGroup>,
 

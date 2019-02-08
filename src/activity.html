@@ -48,7 +48,9 @@ let content = {
         <div class="row">[%
           for r in self.representations.iter() {
             r
-          } %]
+          }
+          self.representation_choice
+          %]
         </div>[%
         } %]
         <h3>Concepts taught</h3>

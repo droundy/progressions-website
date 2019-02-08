@@ -401,6 +401,10 @@ impl Data {
                         };
                         self.get_mut(id).new_concepts.push(prereq_id);
                     }
+                    "representation" => {
+                        let rid = self.representation_by_name_or_create(&c.content);
+                        self.get_mut(id).representations.push(rid);
+                    }
                     "Remove" => {
                         match c.html.as_ref() {
                             "new" => {
@@ -885,6 +889,12 @@ impl Data {
             name: a.name.clone(),
 
             choices: self.all_concept_representations(id, "???"),
+            representation_choice: AnyChoice {
+                class: "representation".to_string(),
+                id: format_as!(HTML, id),
+                field: "representation".to_string(),
+                choices: self.representations.iter().map(|c| c.name.clone()).collect(),
+            },
 
             prereq_courses: self.courses.iter().cloned()
                 .filter(|course| !course.activities.contains(&a.id))
