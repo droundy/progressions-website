@@ -1650,7 +1650,7 @@ impl ConceptMap {
         let mut e = e_best;
         let mut logw = std::collections::BTreeMap::new();
         logw.insert(e_best, 1);
-        let num_iters = 1<<16;
+        let num_iters = 1<<17;
         for i in 0..num_iters {
             let trial = current.random_change();
             let e_trial = trial.crossings(false);
