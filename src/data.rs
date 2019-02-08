@@ -420,6 +420,18 @@ impl Data {
                                     AnyID::Concept(c_id) => {
                                         self.get_mut(id).prereq_concepts.retain(|&x| x.concept != c_id);
                                     }
+                                    AnyID::ConceptRepresentation(c_id) => {
+                                        self.get_mut(id).prereq_concepts.retain(|&x| x != c_id);
+                                    }
+                                    _ => bail!("No prereq as other type"),
+                                }
+                            }
+                            "uses" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Representation(rid) => {
+                                        self.get_mut(id).representations
+                                            .retain(|&x| x != rid);
+                                    }
                                     _ => bail!("No prereq as other type"),
                                 }
                             }
@@ -1288,6 +1300,10 @@ pub struct Child<T> {
     pub relationship: String,
     /// Show extra detail
     pub show_detail: bool,
+    /// Extra class to display
+    pub extra_class: String,
+    /// The id in HTML
+    pub html_id: Option<String>,
 }
 
 impl<T> Child<T> {
@@ -1300,6 +1316,8 @@ impl<T> Child<T> {
             verb: verb.to_string(),
             relationship: relationship.to_string(),
             show_detail: false,
+            extra_class: "".to_string(),
+            html_id: None,
         }
     }
     pub fn none(child: T) -> Self
@@ -1310,6 +1328,8 @@ impl<T> Child<T> {
             verb: "".to_string(),
             relationship: "".to_string(),
             show_detail: false,
+            extra_class: "".to_string(),
+            html_id: None,
         }
     }
     pub fn add(parentid: impl DisplayAs<HTML>,
@@ -1321,6 +1341,8 @@ impl<T> Child<T> {
             verb: "Add".to_string(),
             relationship: relationship.to_string(),
             show_detail: false,
+            extra_class: "".to_string(),
+            html_id: None,
         }
     }
     pub fn remove(parentid: impl DisplayAs<HTML>,
@@ -1332,6 +1354,8 @@ impl<T> Child<T> {
             verb: "Remove".to_string(),
             relationship: relationship.to_string(),
             show_detail: false,
+            extra_class: "".to_string(),
+            html_id: None,
         }
     }
     pub fn with_detail(self) -> Self
@@ -1341,6 +1365,14 @@ impl<T> Child<T> {
     pub fn set_verb(self, verb: &'static str) -> Self
     {
         Child { verb: verb.to_string(), .. self }
+    }
+    pub fn with_class(self, extra_class: String) -> Self
+    {
+        Child { extra_class, .. self }
+    }
+    pub fn with_html_id(self, html_id: String) -> Self
+    {
+        Child { html_id: Some(html_id), .. self }
     }
 }
 macro_rules! impl_child_addremove{
