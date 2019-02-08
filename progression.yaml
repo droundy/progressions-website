@@ -378,8 +378,7 @@ concepts:
     long_description: FIXME
   - id: 40
     name: "Differential form of $\\vec r$ in spherical and cylindrical coordinates"
-    prereq_concepts:
-      - 26
+    prereq_concepts: []
     representations:
       12:
         name: ""
@@ -406,8 +405,9 @@ concepts:
         figure: ~
     long_description: "The magnitude and direction of the gradient depends on the behavior of the function infinitesimally near the point of interest.  For example, the gradient does not point in the direction of maxima a finite distance away (except accidentally), but rather in the direction of steepest slope at the point of interest."
   - id: 43
-    name: The electric field is the negative gradient of the electric potential
-    prereq_concepts: []
+    name: The negative gradient of the electric potential is the electric field
+    prereq_concepts:
+      - 61
     representations:
       9:
         name: ""
@@ -444,8 +444,9 @@ concepts:
         figure: ~
     long_description: FIXME
   - id: 47
-    name: The divergence of the electric field is equal to
-    prereq_concepts: []
+    name: "The divergence of the electric field is equal to $\\rho / \\epsilon_0$"
+    prereq_concepts:
+      - 61
     representations:
       13:
         name: ""
@@ -492,9 +493,9 @@ concepts:
         figure: ~
     long_description: FIXME
   - id: 52
-    name: The magnetic field is equal to the curl of the magnetic vector potential
+    name: The curl of the magnetic vector potential is the magnetic field
     prereq_concepts:
-      - 50
+      - 61
     representations:
       14:
         name: ""
@@ -513,8 +514,9 @@ concepts:
         figure: ~
     long_description: FIXME
   - id: 54
-    name: The divergence of the curl is equal to mu times the current in magneto-statics
-    prereq_concepts: []
+    name: "The divergence of the curl is equal to $\\mu_0$ times the current (in magneto-statics)"
+    prereq_concepts:
+      - 61
     representations:
       13:
         name: ""
@@ -538,7 +540,9 @@ concepts:
     long_description: "One typical notation used for derivatives is Leibniz notation ($e.g.,$ $df/dx$).  Physicists often think of the $df$ and $dx$ as distinct quantities (``differentials'') that can be measured, calculated, and manipulated independent of one another.  In particular, a differential can be thought of as the (small) change in a quantity when a small change is made to a physical system.  A differential can also be thought of as the difference between the values of a quantity between two different (nearby) physical states.  This line of thinking is also valuable for thinking about integration in physical situations."
   - id: 56
     name: "Equations can be 'zapped with d' to relate differentials"
-    prereq_concepts: []
+    prereq_concepts:
+      - 59
+      - 55
     representations:
       15:
         name: ""
@@ -562,7 +566,7 @@ concepts:
   - id: 59
     name: Differentials are small chunks
     prereq_concepts:
-      - 0
+      - 61
     representations:
       15:
         name: ""
@@ -605,7 +609,7 @@ concepts:
     figure: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y \\neq \\left(\\frac{\\partial f}{\\partial x}\\right)_z$"
     long_description: FIXME
   - id: 63
-    name: Partial derivatives are coefficients in a differentials equation
+    name: The coefficients in a differentials equation are partial derivatives
     prereq_concepts:
       - 2
       - 55
@@ -648,6 +652,8 @@ concepts:
     name: Differentials allow the finding of partial derivatives when a variable cannot be solved for
     prereq_concepts:
       - 58
+      - 56
+      - 57
     representations:
       15:
         name: ""
@@ -655,12 +661,12 @@ concepts:
         figure: ~
     long_description: "Because total differentials are linear, one can find the total differential and then solve algebraically to obtain partial derivatives that might not be obtainable though differentiation. "
   - id: 67
-    name: "\"With respect to what\" matters ()"
+    name: "FIXME: DELETE"
     prereq_concepts: []
     representations: {}
     long_description: ""
   - id: 68
-    name: The magnitude of the gradient is the value of the slope in the steepest direction ()
+    name: "FIXME: DELETE"
     prereq_concepts: []
     representations: {}
     long_description: ""
