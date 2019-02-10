@@ -201,16 +201,20 @@ concepts:
         figure: ~
     long_description: "For an $n-$dimensional function $f$, the gradient of $f$ at a point is an $n-$dimensional vector "
   - id: 23
-    name: The magnitude of the gradient is the value of the slope in the steepest direction
+    name: The Magnitude of the Gradient
     prereq_concepts:
       - 4
       - 22
     representations:
+      7:
+        name: The magnitude of the gradient is proportional to the density of contour lines
+        long_description: "As adjacent contour lines represent equal changes in the function, the denser the contour lines, the quicker the function is changing. Therefore, the magnitude of the gradient is greater where the contour lines are denser."
+        figure: ~
       9:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "FIXME: What more do we want the long description to say than the short dscription?"
+    long_description: The magnitude of the gradient is the value of the slope in the direction of greatest increase
   - id: 24
     name: "FIXME: DELETE"
     prereq_concepts: []
@@ -731,8 +735,9 @@ activities:
     new_concepts:
       - concept: 17
       - concept: 18
-      - concept: 19
       - concept: 20
+      - concept: 23
+        representation: 7
     representations:
       - 8
       - 7
@@ -842,6 +847,10 @@ activities:
       - concept: 17
       - concept: 19
       - concept: 20
+      - concept: 23
+        representation: 7
+      - concept: 23
+        representation: 7
     new_concepts:
       - concept: 30
       - concept: 23
