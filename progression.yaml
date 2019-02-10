@@ -278,13 +278,13 @@ concepts:
         figure: ~
     long_description: FIXME
   - id: 30
-    name: The gradient points in the direction of greatest increase of the function
+    name: The Direction of the Gradient
     prereq_concepts:
       - 4
       - 22
     representations:
       7:
-        name: The gradient is perpendicular to contour lines
+        name: The direction of the gradient is perpendicular to contour lines
         long_description: "As the gradient lies along the direction of greatest change for a function, and contour lines lie along the direction of no change, these two objects (the gradient and contour lines) are perpendicular."
         figure: ~
       9:
@@ -292,8 +292,8 @@ concepts:
         long_description: ""
         figure: ~
       11:
-        name: NEEDS NAME
-        long_description: "The gradient does not point towards the highest point on the surface, it points in the direction of local greatest increase. Also, for a surface, the gradient does not have a vertical component; it lies in the plane of the table."
+        name: "The direction of the gradient shows what way is 'uphill'"
+        long_description: The gradient at any point on the surface gives the direction in which the height of the surface is increasing the most. The gradient neither points towards the highest point on the surface (the global maximum) nor has a vertical component (it lies in the plane of the table).
         figure: ~
     long_description: "The Master Formula states that a small change in a function $df$ is the dot product of the gradient of the function with a small step $d \\vec r$ through the domain of the function:\n\\[df = \\vec \\nabla f \\cdot d \\vec r.\\]\nIn order to maximize the change in $f$ one must maximize this dot product, which happens when the small step $d \\vec r$ is parallel to the gradient. Or, turning this statement around, the gradient points in the direction in which the function is increasing the most."
   - id: 31
