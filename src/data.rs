@@ -1481,14 +1481,37 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
         children_map.entry(parent).or_insert(Vec::new()).push(child);
         parents_map.entry(child).or_insert(Vec::new()).push(parent);
     }
-    let mut out = BTreeMap::new();
+    // out is a map from ConceptID to the order it should have in the
+    // sort.  This representation makes it easy to look up a the
+    // location of a given concept in an ordered thingy.
+    let mut out: BTreeMap<ConceptID, isize> = BTreeMap::new();
     // Find possible nodes to start with...
-    let starts: Vec<_> =
+    let mut starts: Vec<_> =
         concepts.iter().cloned().filter(|c| parents_map[c].len() == 0).collect();
     let mut buggy_concepts: Vec<ConceptID> = Vec::new();
     if starts.len() > 0 {
-        // just pick the first concept that doesn't need anything
-        // else.
+        use std::collections::BTreeSet;
+        let descendents_of = |c: ConceptID| -> BTreeSet<ConceptID> {
+            let mut d = BTreeSet::new();
+            d.insert(c);
+            for _ in 0..30 { // just sloppily look at 30 generations of descendents
+                let vc: Vec<_> = d.iter().cloned().collect();
+                for cc in vc.into_iter() {
+                    for x in children_map.get(&cc).iter().flat_map(|x| x.iter()) {
+                        d.insert(*x);
+                    }
+                }
+            }
+            d.remove(&c);
+            // println!("\n    descendents of {} are", c.0);
+            // for dd in d.iter() {
+            //     println!("        {}", dd.0);
+            // }
+            d
+        };
+        starts.sort_unstable_by_key(|c| -(descendents_of(*c).len() as isize));
+        // start with the concept that has the most descendents in
+        // total that doesn't need anything else.
         out.insert(starts[0], 0);
         concepts.retain(|&x| x != starts[0]);
         while concepts.len() > 0 {
@@ -1496,9 +1519,20 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
                 .filter(|c| parents_map[c].iter().all(|p| out.contains_key(p)))
                 .collect();
             let outsize = out.len() as isize;
-            nexts.sort_by_key(|c| -parents_map[c].iter()
-                              .map(|p| outsize - out.get(p).unwrap_or(&outsize))
-                              .max().unwrap_or(0));
+            let urgency = |c: &ConceptID| -> isize {
+                let urg = -parents_map[c].iter()
+                    .map(|p| outsize - out.get(p).unwrap_or(&outsize))
+                    .max().unwrap_or(0);
+                let d_urg = -descendents_of(*c).iter()
+                    .map(|cc| parents_map[cc].iter()
+                         .map(|p| outsize - out.get(p).unwrap_or(&outsize))
+                         .max().unwrap_or(0))
+                    .max().unwrap_or(0);
+                // println!("urgency of {} is {} from {} and {}", c.0, urg*4 + d_urg, urg, d_urg);
+                urg*16 + d_urg
+            };
+            // println!("\nsorting by urgency...");
+            nexts.sort_by_key(urgency);
             if nexts.len() == 0 {
                 println!("Interesting problem, some unreachable concepts:");
                 buggy_concepts.extend(concepts.iter());
@@ -1510,7 +1544,9 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
                 }
                 break;
             } else {
-                // FIXME should pick from possible next ones via proper algorithm...
+                // FIXME should pick from next ones with equal urgency
+                // via proper algorithm...
+                // println!("picking {}", nexts[0].0);
                 out.insert(nexts[0], out.len() as isize);
                 concepts.retain(|&cc| cc != nexts[0]);
             }
@@ -1528,6 +1564,9 @@ pub fn layer_concepts(edges: Vec<(ConceptID, ConceptID)>,
             }
             if out[i].len() < max_width {
                 where_to_push = Some(i);
+                if children_map[&concept].len() > 0 {
+                    break;
+                }
             } else {
                 // don't go up *above* a full row, or you're just
                 // asking for way-too-long lines.
