@@ -617,16 +617,12 @@ impl Data {
             .collect()
     }
     fn course_is_for_concept(&self, nid: ConceptID, rid: CourseID) -> bool {
-        self.concepts_for_course(rid).contains(&nid)
-    }
-    fn concepts_for_course(&self, id: CourseID) -> Vec<ConceptID> {
-        let mut out = Vec::new();
-        for a in self.get(id).activities.iter() {
-            out.extend(self.get(*a).new_concepts.iter().map(|c| c.concept));
+        for a in self.get(rid).activities.iter() {
+            if self.get(*a).new_concepts.contains(&nid.into()) {
+                return true;
+            }
         }
-        out.sort();
-        out.dedup();
-        out
+        false
     }
     pub fn concept_map(&self, max_width: usize) -> ConceptMap
     {
@@ -841,7 +837,7 @@ impl Data {
                 course: course.clone(),
                 concepts: my_prereq_concepts.iter()
                     .filter(|c| self.course_is_for_concept(c.id, course.id))
-                    .map(|c| self.concept_view(c.id))
+                    .map(|c| self.concept_representation_view(id, "prereq", c.id.into()))
                     .collect(),
             })
             .filter(|xx| xx.concepts.len() > 0 &&
@@ -881,9 +877,6 @@ impl Data {
 
     pub fn activity_view(&self, id: ActivityID) -> ActivityView {
         let a = &self.get(id);
-        let my_prereq_concepts: Vec<_> = self.concepts.iter()
-            .filter(|x| a.prereq_concepts.iter().any(|xx| xx.concept == x.id))
-            .cloned().collect();
         let mut view = ActivityView {
             id,
             name: a.name.clone(),
@@ -898,12 +891,15 @@ impl Data {
 
             prereq_courses: self.courses.iter().cloned()
                 .filter(|course| !course.activities.contains(&a.id))
-                .map(|course| PrereqCourse {
-                    course: course.clone(),
-                    concepts: my_prereq_concepts.iter()
-                        .filter(|c| self.course_is_for_concept(c.id, course.id))
-                        .map(|c| self.concept_view(c.id))
-                        .collect(),
+                .map(|course| {
+                    use std::collections::BTreeSet;
+                    let crs: BTreeSet<ConceptRepresentationID> =
+                        course.activities.iter().flat_map(|&a| self.get(a).new_concepts.clone()).collect();
+                    PrereqCourse {
+                        course: course.clone(),
+                        concepts:  crs.iter().map(|&cid| self.concept_representation_view(course.id, "", cid))
+                            .collect(),
+                    }
                 })
                 .filter(|xx| xx.concepts.len() > 0)
                 .collect(),
@@ -989,12 +985,17 @@ impl Data {
         let courses: Vec<_> = self.courses.iter().map(|c| self.course_sequence(c.id))
             .filter(|x| x.groups.len() > 1) // FIXME should handle prereqs better?
             .collect();
-        let prereq_courses: Vec<_> = self.courses.iter().take(courses[0].course.id.0).cloned()
-            .map(|course| PrereqCourse {
-                course: course.clone(),
-                concepts:  self.concepts_for_course(course.id).iter()
-                    .map(|&cid| self.concept_view(cid))
-                    .collect(),
+        let prereq_courses: Vec<_> = self.courses.iter()
+            .take(courses[0].course.id.0).cloned()
+            .map(|course| {
+                use std::collections::BTreeSet;
+                let crs: BTreeSet<ConceptRepresentationID> =
+                    course.activities.iter().flat_map(|&a| self.get(a).new_concepts.clone()).collect();
+                PrereqCourse {
+                    course: course.clone(),
+                    concepts:  crs.iter().map(|&cid| self.concept_representation_view(course.id, "", cid))
+                        .collect(),
+                }
             })
             .collect();
         ProgressionView {
@@ -1028,30 +1029,22 @@ impl Data {
     pub fn course_view(&self, id: CourseID) -> CourseSequence {
         let mut cs = self.course_sequence(id);
 
-        let my_concepts: Vec<_> = self.concepts_for_course(id).iter()
-            .map(|&cid| self.get(cid).clone()).collect();
         let my_activities: Vec<Activity> = self.get(id).activities.iter()
             .map(|&a| self.get(a).clone()).collect();
 
-        let mut my_prereq_concepts: Vec<ConceptID> = my_concepts.iter()
-            .flat_map(|c| c.prereq_concepts.clone())
-            .collect();
-        my_prereq_concepts.extend(my_activities.iter()
-                                  .flat_map(|a| a.prereq_concepts.iter()
-                                            .map(|c| c.concept)));
-        let my_prereq_concepts: Vec<Concept> = self.concepts.iter()
-            .filter(|c| my_prereq_concepts.contains(&c.id))
-            .cloned()
-            .collect();
+        use std::collections::BTreeSet;
+        let my_prereq_concepts: BTreeSet<ConceptRepresentationID> =
+            my_activities.iter().flat_map(|a| a.prereq_concepts.clone()).collect();
+        let my_prereq_concepts: Vec<Child<ConceptRepresentationView>> =
+            my_prereq_concepts.iter().map(|&cr| self.concept_representation_view(id, "prereq", cr)).collect();
 
         cs.prereq_courses = self.courses.iter()
             .filter(|course| course.id != id)
             .map(|course| PrereqCourse {
                 course: course.clone(),
                 concepts: my_prereq_concepts.iter()
-                    .filter(|c| self.course_is_for_concept(c.id, course.id))
-                    .map(|c| self.concept_view(c.id))
-                    .collect(),
+                    .filter(|c| self.course_is_for_concept(c.id.concept, course.id))
+                    .cloned().collect(),
             })
             .filter(|xx| xx.concepts.len() > 0)
             .collect();
@@ -1183,7 +1176,7 @@ impl Data {
 #[derive(Debug, Clone)]
 pub struct PrereqCourse {
     pub course: Course,
-    pub concepts: Vec<ConceptView>,
+    pub concepts: Vec<Child<ConceptRepresentationView>>,
 }
 #[with_template("[%" "%]" "prereq-course.html")]
 impl DisplayAs<HTML> for PrereqCourse {}
