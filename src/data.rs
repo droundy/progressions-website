@@ -893,11 +893,13 @@ impl Data {
                 .filter(|course| !course.activities.contains(&a.id))
                 .map(|course| {
                     use std::collections::BTreeSet;
-                    let crs: BTreeSet<ConceptRepresentationID> =
-                        course.activities.iter().flat_map(|&a| self.get(a).new_concepts.clone()).collect();
+                    let crs: BTreeSet<ConceptRepresentationID> = course.activities.iter()
+                        .flat_map(|&a| self.get(a).new_concepts.clone()).collect();
                     PrereqCourse {
                         course: course.clone(),
-                        concepts:  crs.iter().map(|&cid| self.concept_representation_view(course.id, "", cid))
+                        concepts: crs.iter()
+                            .filter(|&cid| a.prereq_concepts.contains(&cid))
+                            .map(|&cid| self.concept_representation_view(course.id, "", cid))
                             .collect(),
                     }
                 })
