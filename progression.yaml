@@ -830,7 +830,9 @@ activities:
     long_description: ""
   - id: 10
     name: The Master Formula
-    prereq_concepts: []
+    prereq_concepts:
+      - concept: 55
+        representation: 15
     new_concepts:
       - concept: 22
       - concept: 30
