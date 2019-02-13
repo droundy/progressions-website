@@ -1,7 +1,7 @@
 <div class="activity-grouping">
   <a href="[% self.activity as URL %]" class="activity[%
-     for c in self.activity.prereq_concepts.iter() {
-       %] from-[% c.id
+     for c in self.activity.prereq_concepts().into_iter() {
+       %] from-[% c
      } %]" id="[% self.activity.id %]">
     <div class="activity" thisid="[% self.activity.id %]" name="name">[% self.activity.name %]</div>
     <div class="hint"><br/></div>

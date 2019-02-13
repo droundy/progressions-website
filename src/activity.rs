@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use crate::data::{Course,
                   Child, Representation, RepresentationID, AnyChoice,
                   ActivityGroup,
-                  Concept, ConceptRepresentationID, ConceptRepresentationView,
+                  ConceptRepresentationID, ConceptRepresentationView,
                   ConceptRepresentationChoice,
                   ActivityID,
                   PrereqCourse, ChangeRelationship};
@@ -31,7 +31,6 @@ pub struct ActivityView {
     pub name: String,
 
     pub prereq_courses: Vec<PrereqCourse>,
-    pub prereq_concepts: Vec<Concept>,
     pub prereq_groups: Vec<ActivityGroup>,
 
     pub new_concepts: Vec<Child<ConceptRepresentationView>>,
@@ -82,5 +81,11 @@ impl ActivityView {
     }
     pub fn choices_for(&self, field: &str) -> ConceptRepresentationChoice {
         ConceptRepresentationChoice { field: field.to_string(), .. self.choices.clone() }
+    }
+    pub fn prereq_concepts(&self) -> Vec<ConceptRepresentationID> {
+        self.prereq_groups.iter()
+            .flat_map(|g| g.concepts.iter())
+            .map(|crv| crv.id)
+            .collect()
     }
 }
