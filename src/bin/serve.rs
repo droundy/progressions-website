@@ -68,6 +68,11 @@ fn main() {
             let data = Data::new();
             display(HTML, &data.representation_view(id)).http_response()
         });
+    let representations = path!("representations")
+        .map(|| {
+            let data = Data::new();
+            display(HTML, &data.all_representations()).http_response()
+        });
     let activity = path!("activity" / ActivityID)
         .map(|id: ActivityID| {
             let data = Data::new();
@@ -90,6 +95,7 @@ fn main() {
                 .or(activity)
                 .or(course)
                 .or(representation)
+                .or(representations)
                 .or(style_css)
                 .or(libraries)
                 .or(figs)

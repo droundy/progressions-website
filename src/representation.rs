@@ -28,4 +28,3 @@ impl DisplayAs<URL> for RepresentationView {}
 
 #[with_template("[%" "%]" "representation-view.html")]
 impl DisplayAs<HTML> for RepresentationView {}
-

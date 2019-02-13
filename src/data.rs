@@ -796,6 +796,9 @@ impl Data {
             choices: names,
         }
     }
+    pub fn all_representations(&self) -> impl DisplayAs<HTML> {
+        List(self.representations.iter().map(|r| Child::none(r.clone())).collect())
+    }
 
     pub fn concept_view(&self, id: ConceptID) -> ConceptView {
         let c = &self.get(id);
@@ -1736,3 +1739,8 @@ impl<'a> dot::Labeller<'a, ConceptID, (ConceptID, ConceptID)> for Data {
         dot::LabelText::LabelStr("".into())
     }
 }
+
+struct List<T>(Vec<T>);
+
+#[with_template("[%" "%]" "list.html")]
+impl<T: DisplayAs<HTML>>  DisplayAs<HTML> for List<T> {}
