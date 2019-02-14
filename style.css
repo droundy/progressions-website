@@ -627,10 +627,10 @@ form.addremove {
 }
 .map .row .fake {
     width: 1em;
-    min-width: 1em;
-    flex-grow: 1;
-    flex-shrink: 10;
-    flex-basis: var(--minwidth);
+    min-width: 0.5em;
+    flex-grow: 0.1;
+    flex-shrink: 0;
+    flex-basis: 0.5em;
 }
 
 .map .row .concept, .map .row .fake {
