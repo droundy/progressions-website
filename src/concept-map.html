@@ -26,9 +26,12 @@ function connectElements(svg, path, start, end) {
     var theta = 0.2;
     var dx = 20*(endX - startX)/dist;
     var dy = 20*(endY - startY)/dist;
+    var midY = (startY+endY)/2;
     path.attr("d",  path.attr("d")
               + " M"  + startX + " " + startY
-              + " L" + endX + " " + endY );
+              + " C" + startX + " " + midY
+              + " "  + endX + " " + midY
+              + " " + endX + " " + endY );
     //path.attr("d",  path.attr("d")
     //          + " M"  + startX + " " + startY
     //          + " L" + endX + " " + endY
