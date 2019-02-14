@@ -1605,6 +1605,12 @@ pub enum ConceptNode {
 impl DisplayAs<HTML> for ConceptNode {}
 
 impl ConceptNode {
+    fn is_fake(&self) -> bool {
+        match self {
+            ConceptNode::Concept{..} => false,
+            ConceptNode::Fake{..} => true,
+        }
+    }
     fn id(&self) -> NodeID {
         match self {
             ConceptNode::Concept{concept,..} => NodeID(concept.id.0),
@@ -1643,6 +1649,22 @@ impl ConceptMap {
     pub fn crossings(&self, verbose: bool) -> usize {
         let mut cross = 0;
         let mut distance = 0;
+        let findx = |ww: &[ConceptNode], ix| {
+            let mut width = 0;
+            let mut x = 0;
+            for ii in 0..ix {
+                if !ww[ii].is_fake() {
+                    x += 1;
+                }
+            }
+            width += x;
+            for ii in ix..ww.len() {
+                if !ww[ii].is_fake() {
+                    width += 1;
+                }
+            }
+            ((500 + x*1000)/(1+width)) as isize
+        };
         for w in self.rows.windows(2) {
             let mut after = std::collections::BTreeMap::new();
             for (i,c) in w[1].iter().enumerate() {
@@ -1650,8 +1672,8 @@ impl ConceptMap {
             }
             for (i1,x1) in w[0].iter().enumerate() {
                 for c1 in x1.children().flat_map(|x| after.get(&x)) {
-                    let p2 = ((500 + c1*1000)/(1+w[1].len())) as isize;
-                    let p1 = ((500 + i1*1000)/(1+w[0].len())) as isize;
+                    let p2 = findx(&w[1], *c1);
+                    let p1 = findx(&w[0], i1);
                     distance += ((p2-p1)*(p2-p1)) as usize;
                     for x2 in w[0].iter().enumerate().filter(|(i2,_)| i2 > &i1).map(|(_,x)| x) {
                         for c2 in x2.children().flat_map(|x| after.get(&x)) {
