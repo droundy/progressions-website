@@ -311,7 +311,7 @@ concepts:
         figure: ~
     long_description: "FIXME: This concept does not make any sense."
   - id: 32
-    name: "The magnitude of $d\\vec r$ is the length of a small step along a path"
+    name: "The magnitude of $d\\vec r$ is the length of a small step"
     prereq_concepts:
       - 0
     representations:
@@ -557,7 +557,7 @@ concepts:
     name: Individual differentials can be manipulated algebraically
     prereq_concepts: []
     representations: {}
-    long_description: "FIXME: What?"
+    long_description: "FIXME: What? One can do algebra with differentials and reinterpret them as partial derivatives. Can treat like a variable"
   - id: 58
     name: Total differentials are linear
     prereq_concepts: []
