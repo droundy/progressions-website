@@ -219,7 +219,7 @@ concepts:
     name: "*The Magnitude of a Derivative"
     prereq_concepts: []
     representations: {}
-    long_description: ""
+    long_description: "FIXME: Does the derivative of a constant go in here?"
   - id: 25
     name: All partial derivatives can be found as a slope of a tangent plane
     prereq_concepts:
@@ -667,7 +667,7 @@ concepts:
     name: "*The Magnitude of a Partial Derivative"
     prereq_concepts: []
     representations: {}
-    long_description: "FIXME: Add for Contours: \"The magnitude of a partial derivative is proportional to the density of contour lines along the path of the partial derivative.\" Add for Surfaces: \"The magnitude of a partial derivative is the slope of the surface along the path of the partial derivative.\""
+    long_description: "FIXME: Add for Contours: \"The magnitude of a partial derivative is proportional to the density of contour lines along the path of the partial derivative.\"\\[\\]FIXME: Add for Surfaces: \"The magnitude of a partial derivative is the slope of the surface along the path of the partial derivative.\"\\[\\]FIXME: Add current concept: \"All partial derivatives can be found as a slope of a tangent plane\" and change to \"The Magnitude of a partial derivative a slope of the tangent plane in the direction of the partial derivative FIXME: Direction Language?\""
   - id: 68
     name: "FIXME: DELETE"
     prereq_concepts: []
@@ -727,7 +727,7 @@ activities:
       - concept: 16
     representations:
       - 7
-    long_description: "This small group activity is designed to help students interpret partial derivatives using contour diagrams. Students work in small groups to determine rates of change using a contour diagram showing isotherms over time and space. The whole class wrap-up discussion emphasizes giving a physical interpretation for the derivative, the value of units in thinking about functions and derivatives, and the need to specify “with respect to what” when finding derivatives in multivariable contexts."
+    long_description: "This small group activity is designed to help students interpret partial derivatives using contour diagrams. Students work in small groups to determine rates of change using a contour diagram showing isotherms over time and space. The whole class wrap-up discussion emphasizes giving a physical interpretation for the derivative, the value of units in thinking about functions and derivatives, and the need to specify “with respect to what” when finding derivatives in multivariable contexts. FIXME: Add Magnitude of partial derivative/contour map pair once made"
     figure: mvheater2.jpg
     external_url: mvheater2
   - id: 3
