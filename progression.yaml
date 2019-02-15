@@ -667,7 +667,7 @@ concepts:
     name: "*The Magnitude of a Partial Derivative"
     prereq_concepts: []
     representations: {}
-    long_description: ""
+    long_description: "FIXME: Add for Contours: \"The magnitude of a partial derivative is proportional to the density of contour lines along the path of the partial derivative.\" Add for Surfaces: \"The magnitude of a partial derivative is the slope of the surface along the path of the partial derivative.\""
   - id: 68
     name: "FIXME: DELETE"
     prereq_concepts: []
