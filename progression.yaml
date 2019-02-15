@@ -139,7 +139,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "Derivatives of multivariable functions can be found by holding one ore more variables constant (subject to physical limitations). "
+    long_description: Derivatives of multivariable functions can be found by holding one or more variables constant (subject to physical limitations).
   - id: 17
     name: There is a partial derivative in every direction at any point
     prereq_concepts: []
@@ -301,7 +301,7 @@ concepts:
         figure: ~
     long_description: "The Master Formula states that a small change in a function $df$ is the dot product of the gradient of the function with a small step $d \\vec r$ through the domain of the function:\n\\[df = \\vec \\nabla f \\cdot d \\vec r.\\]\nIn order to maximize the change in $f$ one must maximize this dot product, which happens when the small step $d \\vec r$ is parallel to the gradient. Or, turning this statement around, the gradient points in the direction in which the function is increasing the most."
   - id: 31
-    name: "Each component of $d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
+    name: "$d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
     prereq_concepts:
       - 0
     representations:
