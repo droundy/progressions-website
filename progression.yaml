@@ -63,10 +63,10 @@ concepts:
     representations: {}
     long_description: "The derivative of a constant is always zero. This can be understood by thinking of 'The derivative is a ratio of small changes,' as the amount by which a constant changes is zero."
   - id: 8
-    name: The derivative is a linear function
+    name: The derivative is a linear operator
     prereq_concepts: []
     representations: {}
-    long_description: "FIXME: do we mean to say that the derivative is a linar operator?"
+    long_description: FIXME
   - id: 9
     name: Power law
     prereq_concepts: []
