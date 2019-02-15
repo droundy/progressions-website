@@ -53,10 +53,11 @@ let content = {
           for r in self.representations.iter() {
              r.clone().with_detail()
           }
-          self.representation_choice
           %]
         </div>
-[% } %]
+   [% }
+      self.representation_choice
+      %]
       </div>
       [% for group in self.output_groups.iter() {
         group
