@@ -201,7 +201,7 @@ concepts:
         figure: ~
     long_description: "For an $n-$dimensional function $f$, the gradient of $f$ at a point is an $n-$dimensional vector "
   - id: 23
-    name: The Magnitude of the Gradient
+    name: "*The Magnitude of the Gradient"
     prereq_concepts:
       - 4
       - 22
@@ -216,7 +216,7 @@ concepts:
         figure: ~
     long_description: The magnitude of the gradient is the value of the slope in the direction of greatest increase
   - id: 24
-    name: "FIXME: DELETE"
+    name: "*The Magnitude of a Derivative"
     prereq_concepts: []
     representations: {}
     long_description: ""
@@ -282,7 +282,7 @@ concepts:
         figure: ~
     long_description: FIXME
   - id: 30
-    name: The Direction of the Gradient
+    name: "*The Direction of the Gradient"
     prereq_concepts:
       - 4
       - 22
@@ -569,8 +569,7 @@ concepts:
     long_description: "No matter how complicated a multivariable function is when written as an equation, the total differential of that function will be linear in the differential terms. In other words: $dF(x,y,z)=A dx + B dy + C dz.$"
   - id: 59
     name: Differentials are small chunks
-    prereq_concepts:
-      - 61
+    prereq_concepts: []
     representations:
       15:
         name: ""
@@ -665,7 +664,7 @@ concepts:
         figure: ~
     long_description: "Because total differentials are linear, one can find the total differential and then solve algebraically to obtain partial derivatives that might not be obtainable though differentiation. "
   - id: 67
-    name: "FIXME: DELETE"
+    name: "*The Magnitude of a Partial Derivative"
     prereq_concepts: []
     representations: {}
     long_description: ""
@@ -677,6 +676,12 @@ concepts:
   - id: 69
     name: "FIXME:DELETE"
     prereq_concepts: []
+    representations: {}
+    long_description: ""
+  - id: 70
+    name: Partial derivatives are local quantities
+    prereq_concepts:
+      - 26
     representations: {}
     long_description: ""
 activities:
@@ -849,6 +854,8 @@ activities:
       - concept: 17
       - concept: 19
       - concept: 20
+      - concept: 23
+        representation: 7
       - concept: 23
         representation: 7
       - concept: 23
