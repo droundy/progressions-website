@@ -1,5 +1,29 @@
 [%
-let extrajs = {};
+let extrajs = {
+%]
+ function handleFiles(files) {
+     for (let i = 0; i < files.length; i++) {
+         const file = files[i];
+
+         const reader = new FileReader();
+         const xhr = new XMLHttpRequest();
+         this.xhr = xhr;
+
+         const self = this;
+
+         xhr.open("POST", "/icon/XXX");
+         xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
+         reader.onload = function(evt) {
+             xhr.send(evt.target.result);
+         };
+         reader.readAsBinaryString(file);
+
+         const reader = new FileReader();
+         reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+         reader.readAsDataURL(file);
+     }
+ }
+[% };
 let readyjs = {};
 let title = { %] Representation: [% self.name };
 let nav = {};
@@ -7,17 +31,11 @@ let content = {
   %]<article>
       <div class="representation">
         <h1>[% self.icon as UTF8 %]</h1>
-        <form action="/change" class="hint" method="post"
-              target="hidden-form"
-              onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
-          <label for="html">Image file for icon</label>
-          <input type="file" name="html" accept="image/*">
-          <input type="submit">
-          <input type="hidden" name="id" value="[% self.id %]">
-          <input type="hidden" name="field" value="icon">
-          <input type="hidden" name="content" value="">
+        <form class="hint">
+          <label for="icon">Image file for icon</label>
+          <input type="file" name="icon" accept="image/*"
+                 onchange="handleIcon(this.files)">
         </form>
-        <iframe style="display:none" name="hidden-form"></iframe>
 
 
         <br/>
