@@ -261,6 +261,7 @@ impl Data {
         }
     }
     pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
+        println!("change is {:?}", c);
         match AnyID::parse(&c.id)? {
             AnyID::Course(id) => {
                 match &c.field as &str {
