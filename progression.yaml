@@ -1071,7 +1071,7 @@ representations:
   - id: 7
     name: Contour Maps
     description: ""
-    icon: osu-logo.png
+    icon: "<img src=\"/figs/contour-map.svg\"/>"
   - id: 8
     name: "$\\frac{\\partial f}{\\partial x}$"
     description: ""
