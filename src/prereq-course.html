@@ -1,11 +1,5 @@
 <div class="course-prereq has[% self.concepts.len() %]">
   [% self.course %]
   [% for c in self.concepts.iter() {
-    %]
-  <a href="[% c as URL %]" class="concept">
-    <span thisid="[% c.id %]" name="name">[% c.name %]</span>
-    <div class="hint"><br/></div>
-    <div class="description hint" thisid="[% c.id %]" name="long_description">[% c.long_description %]</div>
-  </a>
-  [% } %]
+     c } %]
 </div>
