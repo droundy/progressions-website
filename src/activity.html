@@ -40,9 +40,9 @@ let content = {
           %]<img src="/figs/[% fig %]" class="figure"/>[%
         }
         %]
-        <div class="description">
+        <div class="description" thisid="[% self.id %]" name="long_description">
           [% self.long_description %]
-        </div>[%
+        </div> [%
         if self.representations.len() > 0 {
         %]<h3>Representations used</h3>
         <div class="row">[%
