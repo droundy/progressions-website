@@ -56,7 +56,7 @@ pub struct ConceptView {
 
     pub output_groups: Vec<ActivityGroup>,
 
-    pub representations: Vec<Child<ConceptRepresentationView>>,
+    pub representations: Vec<ActivityGroup>,
     pub courses: Vec<Course>,
     pub figure: Option<String>,
     pub long_description: String,
