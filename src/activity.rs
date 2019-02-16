@@ -86,6 +86,9 @@ impl ActivityView {
         self.prereq_groups.iter()
             .flat_map(|g| g.concepts.iter())
             .map(|crv| crv.id)
+            .chain(self.prereq_courses.iter()
+                   .flat_map(|cour| cour.concepts.iter()
+                   .map(|crv| crv.id)))
             .collect()
     }
 }
