@@ -787,6 +787,8 @@ activities:
     new_concepts:
       - concept: 30
       - concept: 23
+      - concept: 30
+        representation: 7
     representations:
       - 8
       - 11
