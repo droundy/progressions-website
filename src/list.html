@@ -1,1 +1,14 @@
-FIXME
+[%
+let extrajs = {};
+let readyjs = {};
+let title = { %] List of things [% };
+let nav = { };
+let content = {
+%]<article>
+  <div class="row">
+    [% for x in self.0.iter() { x } %]
+  </div>
+</article>
+[% };
+    include!("base.html");
+%]
