@@ -509,7 +509,6 @@ concepts:
   - id: 53
     name: The curl of the electric field is zero in electrostatics
     prereq_concepts:
-      - 7
       - 52
     representations:
       14:
@@ -1110,7 +1109,7 @@ representations:
     icon: $df$
   - id: 16
     name: 3D plots
-    description: ""
+    description: "FIXME: Need new image"
     icon: "<img src=\"/figs/3dplot.jpg\"/>"
   - id: 17
     name: Kinesthetic
@@ -1146,7 +1145,7 @@ representations:
     icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
   - id: 25
     name: Del f
-    description: ""
+    description: NEED DESCRIPTION HERE
     icon: "$\\vec\\nabla f$"
   - id: 26
     name: Del dot f
