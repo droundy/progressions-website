@@ -1,4 +1,14 @@
 <a href="[% self as URL %]" class="concept has1">
+  [% if self.show_detail {
+    if let Some(ref figure) = self.figure { %]
+    <img src="[% figure %]" class="figure"/>
+    [% } %]
+    <form class="hint">
+      <label for="icon">Figure</label>
+      <input type="file" name="icon" accept="image/*"
+             onchange="handleIconFor('[% self.id %]',this.files)">
+    </form>
+  [% } %]
 [% let h3 = { if self.show_detail { %]h3[% } else { %]span[% } }; %]
 [% self.addremove()
   %]<[% h3 %] thisid="[% self.id %]" name="name">[%

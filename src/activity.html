@@ -1,5 +1,13 @@
 [%
-let extrajs = {};
+let extrajs = {
+%]
+ function handleIcon(files) {
+     const xhr = new XMLHttpRequest();
+     xhr.open("POST", "/figure/[% self.id %]/" + files[0].name);
+     xhr.send(files[0]);
+ }
+ function connectAll() {}
+[% };
 let readyjs = {};
 let title = { %] Activity: [% self.name };
 let nav = {
@@ -40,6 +48,11 @@ let content = {
           %]<img src="/figs/[% fig %]" class="figure"/>[%
         }
         %]
+        <form class="hint">
+          <label for="icon">Figure</label>
+          <input type="file" name="icon" accept="image/*"
+                 onchange="handleIcon(this.files)">
+        </form>
         <div class="description" thisid="[% self.id %]" name="long_description">
           [% self.long_description %]
         </div> [%

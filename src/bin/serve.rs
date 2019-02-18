@@ -1,5 +1,5 @@
 use warp::{Filter, path};
-use progression_website::data::{ Data, Change, CourseID,
+use progression_website::data::{ Data, Change, CourseID, AnyID,
                                  ConceptID, ActivityID, RepresentationID };
 use display_as::{HTML, display};
 
@@ -9,6 +9,21 @@ fn main() {
         .map(|change: Change| {
             if let Err(e) = Data::new().change(change.clone()) {
                 println!("Error {} while changing {:?}", e, change);
+            }
+            "okay"
+        });
+    let figure = path!("figure" / AnyID / String)
+        .and(warp::body::content_length_limit(1024 * 1024 * 32))
+        .and(warp::body::concat())
+        .map(|id: AnyID, filename: String, full_body: warp::body::FullBody| {
+            println!("got {:?} and {}", id, filename);
+            // FullBody is a `Buf`, which could have several non-contiguous
+            // slices of memory...
+            use bytes::buf::Buf;
+            let b: Vec<u8> = full_body.collect();
+            std::fs::write(format!("figs/{}", filename), &b).unwrap();
+            if let Err(e) = Data::new().uploaded_figure(id, &filename) {
+                println!("Error {} while coping with new file {:?}", e, filename);
             }
             "okay"
         });
@@ -99,6 +114,7 @@ fn main() {
                 .or(style_css)
                 .or(libraries)
                 .or(figs)
+                .or(figure)
                 .with(warp::reply::with::default_header("Cache-Control", "no-store")))
         .run(([0, 0, 0, 0], 3030));
 }

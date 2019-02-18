@@ -1,5 +1,13 @@
 [%
-let extrajs = {};
+let extrajs = {
+%]
+ function handleIconFor(id, files) {
+     const xhr = new XMLHttpRequest();
+     xhr.open("POST", "/figure/"+ id + "/" + files[0].name);
+     xhr.send(files[0]);
+ }
+ function connectAll() {}
+[% };
 let readyjs = {};
 let title = { %] Concept: [% self.name };
 let nav = { if self.courses.len() > 0 {
@@ -44,6 +52,11 @@ let content = {
         [% if let Some(ref figure) = self.figure { %]
         <img src="[% figure %]" class="figure"/>
         [% } %]
+        <form class="hint">
+          <label for="icon">Figure</label>
+          <input type="file" name="icon" accept="image/*"
+                 onchange="handleIconFor('[% self.id %]', this.files)">
+        </form>
         <div class="description" thisid="[% self.id %]" name="long_description">
           [% self.long_description %]
         </div>

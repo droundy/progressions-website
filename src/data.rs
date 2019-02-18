@@ -167,7 +167,8 @@ pub struct Data {
     courses: Vec<Course>,
 }
 
-enum AnyID {
+#[derive(Debug)]
+pub enum AnyID {
     Concept(ConceptID),
     Course(CourseID),
     Activity(ActivityID),
@@ -191,6 +192,12 @@ impl AnyID {
             Some('r') => Ok(AnyID::Representation(RepresentationID(s[1..].parse()?))),
             _ => bail!("Crazy kind: {}", s),
         }
+    }
+}
+impl std::str::FromStr for AnyID {
+    type Err = Box<std::error::Error>;
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        AnyID::parse(s)
     }
 }
 
@@ -259,6 +266,31 @@ impl Data {
             representations: Vec::new(),
             courses: Vec::new(),
         }
+    }
+    pub fn uploaded_figure(&mut self, id: AnyID, filename: &str)
+                           -> Result<(), Box<std::error::Error>>
+    {
+        match id {
+            AnyID::Representation(id) => {
+                self.get_mut(id).icon = format!(r#"<img src="/figs/{}"/>"#, filename);
+            }
+            AnyID::Concept(id) => {
+                self.get_mut(id).figure = Some(format!("/figs/{}", filename));
+            }
+            AnyID::Activity(id) => {
+                self.get_mut(id).figure = Some(format!("/figs/{}", filename));
+            }
+            AnyID::ConceptRepresentation(id) => {
+                let rid = id.representation.unwrap();
+                self.get_mut(id.concept).representations.entry(rid)
+                    .and_modify(|e| e.figure = Some(format!("/figs/{}", filename)));
+            }
+            _ => {
+                bail!("Unhandled id type on uploaded_figure: {:?}", id);
+            }
+        }
+        self.save();
+        Ok(())
     }
     pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
         println!("change is {:?}", c);

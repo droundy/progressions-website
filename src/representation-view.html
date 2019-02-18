@@ -1,28 +1,12 @@
 [%
 let extrajs = {
 %]
- function handleFiles(files) {
-     for (let i = 0; i < files.length; i++) {
-         const file = files[i];
-
-         const reader = new FileReader();
-         const xhr = new XMLHttpRequest();
-         this.xhr = xhr;
-
-         const self = this;
-
-         xhr.open("POST", "/icon/XXX");
-         xhr.overrideMimeType('text/plain; charset=x-user-defined-binary');
-         reader.onload = function(evt) {
-             xhr.send(evt.target.result);
-         };
-         reader.readAsBinaryString(file);
-
-         const reader = new FileReader();
-         reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-         reader.readAsDataURL(file);
-     }
+ function handleIcon(files) {
+     const xhr = new XMLHttpRequest();
+     xhr.open("POST", "/figure/[% self.id %]/" + files[0].name);
+     xhr.send(files[0]);
  }
+ function connectAll() {}
 [% };
 let readyjs = {};
 let title = { %] Representation: [% self.name };
