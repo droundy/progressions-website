@@ -4,9 +4,8 @@
     <img src="[% figure %]" class="figure"/>
     [% } %]
     <form class="hint">
-      <label for="icon">Figure</label>
-      <input type="file" name="icon" accept="image/*"
-             onchange="handleIconFor('[% self.id %]',this.files)">
+      <input class="custom-file-input" type="file" name="icon" accept="image/*"
+             onchange="handleIconFor('[% self.id %]', this.files)">
     </form>
   [% } %]
 [% let h3 = { if self.show_detail { %]h3[% } else { %]span[% } }; %]

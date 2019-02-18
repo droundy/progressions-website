@@ -16,11 +16,9 @@ let content = {
       <div class="representation">
         <h1>[% self.icon as UTF8 %]</h1>
         <form class="hint">
-          <label for="icon">Image file for icon</label>
-          <input type="file" name="icon" accept="image/*"
+          <input class="custom-file-input" type="file" name="icon" accept="image/*"
                  onchange="handleIcon(this.files)">
         </form>
-
 
         <br/>
         <div class="description" thisid="[% self.id %]" name="description">

@@ -49,8 +49,7 @@ let content = {
         }
         %]
         <form class="hint">
-          <label for="icon">Figure</label>
-          <input type="file" name="icon" accept="image/*"
+          <input class="custom-file-input" type="file" name="icon" accept="image/*"
                  onchange="handleIcon(this.files)">
         </form>
         <div class="description" thisid="[% self.id %]" name="long_description">
