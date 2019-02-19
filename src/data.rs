@@ -690,8 +690,8 @@ impl Data {
             let mut this_layer = Vec::new();
             let my_extras: Vec<_> = extras.drain(..).collect();
             for mut node in layers[i].iter().cloned()
-                .map(|c| ConceptNode::Concept {
-                    concept: self.get(c).clone(),
+                .map(|c| ConceptNode::CheapConcept {
+                    concept: c,
                     children: children_map[&c].iter().map(|&c| c.into()).collect(),
                 })
                 .chain(my_extras.into_iter()) // also add in the fake nodes for lines passing through...
@@ -727,15 +727,15 @@ impl Data {
             rows.push(this_layer);
         }
         rows.push(layers[layers.len()-1].iter()
-                  .map(|&c| ConceptNode::Concept {
-                      concept: self.get(c).clone(),
+                  .map(|&c| ConceptNode::CheapConcept {
+                      concept: c,
                       children: children_map[&c].iter().map(|&c| c.into()).collect(),
                   })
                   .collect());
         let orphans: Vec<_> = self.concepts.iter()
             .filter(|c| !children_map.contains_key(&c.id) && !parents_map.contains_key(&c.id))
-            .map(|c| ConceptNode::Concept {
-                concept: c.clone(),
+            .map(|c| ConceptNode::CheapConcept {
+                concept: c.id,
                 children: Vec::new(),
             })
             .collect();
@@ -743,7 +743,7 @@ impl Data {
         for orph in orphans.chunks(max_width) {
             cmap.rows.push(orph.to_vec());
         }
-        cmap
+        cmap.make_expensive(self)
     }
 
     pub fn concept_representation_view(&self, parent: impl Copy+DisplayAs<HTML>,
@@ -1582,7 +1582,12 @@ impl From<ConceptID> for NodeID {
 pub enum ConceptNode {
     /// An actual concept
     Concept {
-        concept: Concept,
+        concept: ConceptView,
+        children: Vec<NodeID>,
+    },
+    /// A "cheap" concept that just stores its ID
+    CheapConcept {
+        concept: ConceptID,
         children: Vec<NodeID>,
     },
     /// A fake node carrying a connection between concepts.
@@ -1598,24 +1603,41 @@ impl ConceptNode {
     fn is_fake(&self) -> bool {
         match self {
             ConceptNode::Concept{..} => false,
+            ConceptNode::CheapConcept{..} => false,
             ConceptNode::Fake{..} => true,
+        }
+    }
+    fn make_expensive(self, data: &Data) -> Self {
+        match self {
+            ConceptNode::Concept{..} => self,
+            ConceptNode::CheapConcept{ concept, children} => {
+                ConceptNode::Concept{ concept: data.concept_view(concept), children }
+            },
+            ConceptNode::Fake{..} => self,
         }
     }
     fn id(&self) -> NodeID {
         match self {
             ConceptNode::Concept{concept,..} => NodeID(concept.id.0),
+            ConceptNode::CheapConcept{concept,..} => NodeID(concept.0),
             ConceptNode::Fake{fakeid,..} => *fakeid,
         }
     }
     fn children(&self) -> impl Iterator<Item=NodeID> {
         match self {
             ConceptNode::Concept{children,..} => children.clone().into_iter(),
+            ConceptNode::CheapConcept{children,..} => children.clone().into_iter(),
             ConceptNode::Fake{child,..} => vec![*child].into_iter(),
         }
     }
     fn replace_child(&mut self, old: NodeID, new: NodeID) {
         match self {
             ConceptNode::Concept{ref mut children,..} => {
+                for child in children.iter_mut() {
+                    if *child == old { *child = new; }
+                }
+            }
+            ConceptNode::CheapConcept{ref mut children,..} => {
                 for child in children.iter_mut() {
                     if *child == old { *child = new; }
                 }
@@ -1636,6 +1658,15 @@ impl DisplayAs<HTML> for ConceptMap {}
 const SCALE: usize = 2;
 const DISTANCE_SCALE: usize = 1000000;
 impl ConceptMap {
+    pub fn make_expensive(self, data: &Data) -> Self {
+        ConceptMap {
+            rows: self.rows.into_iter()
+                .map(|r| r.into_iter()
+                     .map(|node| node.make_expensive(data))
+                     .collect())
+                .collect()
+        }
+    }
     pub fn crossings(&self, verbose: bool) -> usize {
         let mut cross = 0;
         let mut distance = 0;

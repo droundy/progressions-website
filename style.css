@@ -532,6 +532,13 @@ article > .activity {
 article > .concept {
     --imgheight: 6em;
 }
+article .map  .row .concept .representation {
+    --imgheight: 1.5em;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+}
+/* article .map  .row .concept .representation:nth-child(even) { */
+/*     float: left; */
+/* } */
 
 .figure {
     float: left;
