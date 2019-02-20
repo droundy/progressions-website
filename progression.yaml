@@ -116,6 +116,14 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
+      6:
+        name: You can flip a partial derivative if the same variable(s) are constant
+        long_description: "In other words,\\[\\left(\\frac{\\partial y}{\\partial z}\\right)_z = \\frac1{\\left(\\frac{\\partial x}{\\partial y}\\right)_z}\\] Note that this equality is only true if the same variables are being held fixed on each side of the equality.  This therefore relies on the thermodynamics notation that specifies what quantities are being held fixed for a partial derivative."
+        figure: ~
+      8:
+        name: You cannot flip a partial derivative
+        long_description: This is what students are taught in multivariable calculus.  This relates to the ambiguity present in the non-thermo notation for partial derivatives.
+        figure: ~
     long_description: "In other words, $\\frac{dy}{dx} = \\frac{1}{\\frac{dx}{dy}}$.  Note that this concept is challenging to express in Newton's notation, but arises naturally if implicit differentiation is covered."
   - id: 15
     name: "\"With respect to what\" matters"
@@ -623,20 +631,10 @@ concepts:
     figure: "$df = \\left(\\frac{\\partial f}{\\partial x}\\right)_y dx + \\left(\\frac{\\partial f}{\\partial y}\\right)_x dy$"
     long_description: FIXME
   - id: 64
-    name: You can flip a partial derivative if the same variable(s) are constant (obsolete?)
-    prereq_concepts:
-      - 14
-      - 16
-    representations:
-      6:
-        name: ""
-        long_description: ""
-        figure: ~
-      8:
-        name: ""
-        long_description: ""
-        figure: ~
-    long_description: "In other words, \\[\\left(\\frac{\\partial y}{\\partial x}\\right)_z = \\frac1{\\left(\\frac{\\partial x}{\\partial y}\\right)_z}. \\]  Note that this equality is only true if the same variables are being held fixed on each side of the equality.  This therefore relies on the thermodynamics notation that specifies what quantities are being held fixed for a partial derivative."
+    name: "FIXME:DELETE"
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
   - id: 65
     name: There might be experimental limits on which quantities you can measure
     prereq_concepts: []
@@ -1030,9 +1028,10 @@ activities:
       - concept: 62
       - concept: 63
     new_concepts:
-      - concept: 64
       - concept: 65
       - concept: 66
+      - concept: 14
+        representation: 6
     representations:
       - 15
     long_description: "FIXME: NOT CORRECT DESCRIPTION: In this activity, students experimentally determine various derivatives using the partial derivate machine, a mechanical analogue for thermodynamic systems. Students explore the ratio, limit, and function aspects of multi-variable derivatives, with an emphasis on holding different variables constant. This activity is also an excellent exercise in representational fluency, as students must coordinate experiments and tables of data with (new) symbolic notations."
