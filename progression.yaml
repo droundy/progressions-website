@@ -3,11 +3,7 @@ concepts:
   - id: 0
     name: Difference / Change
     prereq_concepts: []
-    representations:
-      0:
-        name: ""
-        long_description: ""
-        figure: ~
+    representations: {}
     long_description: Understanding both difference (how far apart two values are at one time) and change (how far apart the value of a single parameter is at two different times) is necessary for understanding derivatives.
   - id: 1
     name: How much $f$ changes as $x$ changes
@@ -627,7 +623,7 @@ concepts:
     figure: "$df = \\left(\\frac{\\partial f}{\\partial x}\\right)_y dx + \\left(\\frac{\\partial f}{\\partial y}\\right)_x dy$"
     long_description: FIXME
   - id: 64
-    name: You can flip a partial derivative if the same variable(s) are constant
+    name: You can flip a partial derivative if the same variable(s) are constant (obsolete?)
     prereq_concepts:
       - 14
       - 16
