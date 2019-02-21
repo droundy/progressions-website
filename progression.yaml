@@ -6,11 +6,11 @@ concepts:
     representations: {}
     long_description: Understanding both difference (how far apart two values are at one time) and change (how far apart the value of a single parameter is at two different times) is necessary for understanding derivatives.
   - id: 1
-    name: "FIXME: DELETE"
+    name: The derivative relates how much $f$ changes as $x$ changes
     prereq_concepts:
       - 0
     representations: {}
-    long_description: ""
+    long_description: "Conceptually, a derivative can be thought of as how much one value changes as another value changes. FIXME: Representations"
   - id: 2
     name: The derivative is a ratio of small changes
     prereq_concepts:
@@ -31,14 +31,10 @@ concepts:
         figure: ~
     long_description: The value of the derivative at a point on a curve can be approximated by the slope of a line secant with the curve near that point.
   - id: 4
-    name: The derivative at a point is the slope of a tangent line at that point
+    name: "FIXME: DELETE"
     prereq_concepts: []
-    representations:
-      2:
-        name: ""
-        long_description: ""
-        figure: ~
-    long_description: The value of the derivative at a point on a curve is equivalent to the slope of a line tangent to the curve at that point. The tangent line can be thought of as the limit of a secant line between two points infinitesimally close together
+    representations: {}
+    long_description: ""
   - id: 5
     name: The derivative is a limit
     prereq_concepts:
@@ -165,9 +161,9 @@ concepts:
     prereq_concepts:
       - 0
     representations:
-      0:
-        name: The magnitude of the derivative is how much $f$ changes as $x$ changes
-        long_description: "Conceptually, a derivative can be thought of as how much one value changes as another value changes. FIXME: Is this the right representation icon?"
+      2:
+        name: The magnitude of the derivative at a point is the slope of a tangent line at that point
+        long_description: The value of the derivative at a point on a curve is equivalent to the slope of a line tangent to the curve at that point. The tangent line can be thought of as the limit of a secant line between two points infinitesimally close together
         figure: ~
       7:
         name: The magnitude of the derivative is related to the density of contour lines
@@ -209,7 +205,6 @@ concepts:
   - id: 23
     name: "*The Magnitude of the Gradient"
     prereq_concepts:
-      - 4
       - 22
     representations:
       7:
@@ -229,8 +224,8 @@ concepts:
   - id: 25
     name: All partial derivatives can be found as a slope of a tangent plane
     prereq_concepts:
-      - 4
       - 17
+      - 71
     representations:
       3:
         name: ""
@@ -290,7 +285,6 @@ concepts:
   - id: 30
     name: "*The Direction of the Gradient"
     prereq_concepts:
-      - 4
       - 22
     representations:
       7:
@@ -679,6 +673,11 @@ concepts:
       - 26
     representations: {}
     long_description: ""
+  - id: 71
+    name: The magnitude of the derivative at a point is the slope of a tangent line at that point
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
 activities:
   - id: 0
     name: lower anchor MTH 251
@@ -688,7 +687,6 @@ activities:
       - concept: 1
       - concept: 2
       - concept: 3
-      - concept: 4
       - concept: 5
       - concept: 6
       - concept: 7
@@ -700,6 +698,8 @@ activities:
       - concept: 13
       - concept: 14
       - concept: 15
+      - concept: 19
+        representation: 2
     representations: []
     long_description: ""
   - id: 1
@@ -729,10 +729,10 @@ activities:
   - id: 3
     name: The Hot Plate
     prereq_concepts:
-      - concept: 4
       - concept: 6
       - concept: 10
       - concept: 15
+      - concept: 71
     new_concepts:
       - concept: 17
       - concept: 18
@@ -766,7 +766,6 @@ activities:
   - id: 5
     name: Chain Rule Measurements
     prereq_concepts:
-      - concept: 4
       - concept: 21
     new_concepts: []
     representations:
@@ -777,10 +776,11 @@ activities:
   - id: 6
     name: The Hillside
     prereq_concepts:
-      - concept: 4
       - concept: 16
       - concept: 17
       - concept: 18
+      - concept: 19
+        representation: 2
     new_concepts:
       - concept: 23
       - concept: 30
