@@ -7,7 +7,8 @@ concepts:
     long_description: Understanding both difference (how far apart two values are at one time) and change (how far apart the value of a single parameter is at two different times) is necessary for understanding derivatives.
   - id: 1
     name: The derivative is how much $f$ changes as $x$ changes
-    prereq_concepts: []
+    prereq_concepts:
+      - 0
     representations:
       0:
         name: ""
@@ -16,7 +17,8 @@ concepts:
     long_description: "Conceptually, a derivative can be thought of as how much one value changes as another value changes. "
   - id: 2
     name: The derivative is a ratio of small changes
-    prereq_concepts: []
+    prereq_concepts:
+      - 0
     representations:
       1:
         name: ""
@@ -163,15 +165,15 @@ concepts:
         figure: ~
     long_description: "For a smooth, two dimensional function, a tangent line exists at any point and in any direction."
   - id: 19
-    name: The derivative is related to the density of contour lines
+    name: "*The Magnitude of the Derivative"
     prereq_concepts:
       - 1
     representations:
       7:
-        name: ""
-        long_description: ""
+        name: The magnitude of the derivative is related to the density of contour lines
+        long_description: "The magnitude of the derivative of a function is directly related to how close together the contour lines of the function lie: the closer together the contour lines, the greater the magnitude of the derivative."
         figure: ~
-    long_description: "The magnitude of the derivative of a function is directly related to how closely together lie contour lines of the function: the closer together the contour lines, the greater the magnitude of the derivative. FIXME the long description has a lot of info than the concept name and we haven't usually been having it that way."
+    long_description: FIXME
   - id: 20
     name: The value of a partial derivative depends on the value(s) of what is held constant
     prereq_concepts: []
@@ -305,19 +307,19 @@ concepts:
         figure: ~
     long_description: "The Master Formula states that a small change in a function $df$ is the dot product of the gradient of the function with a small step $d \\vec r$ through the domain of the function:\n\\[df = \\vec \\nabla f \\cdot d \\vec r.\\]\nIn order to maximize the change in $f$ one must maximize this dot product, which happens when the small step $d \\vec r$ is parallel to the gradient. Or, turning this statement around, the gradient points in the direction in which the function is increasing the most."
   - id: 31
-    name: "$d \\vec r$ is an arbitrary small change between two arbitrary position vectors."
+    name: "$d \\vec r$ is a small displacement vector"
     prereq_concepts:
-      - 0
+      - 55
     representations:
       12:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "FIXME: This concept does not make any sense."
+    long_description: FIXME
   - id: 32
-    name: "The magnitude of $d\\vec r$ is the length of a small step"
+    name: "The magnitude of $d\\vec r$ is the distance between two nearby points"
     prereq_concepts:
-      - 0
+      - 31
     representations:
       12:
         name: ""
@@ -325,8 +327,9 @@ concepts:
         figure: ~
     long_description: "FIXME: What's the point of this concept?"
   - id: 33
-    name: "The direction of $d\\vec r$ is tangent to a path"
-    prereq_concepts: []
+    name: "The direction of $d\\vec r$ is tangent to a path between two nearby points"
+    prereq_concepts:
+      - 31
     representations:
       12:
         name: ""
@@ -849,13 +852,14 @@ activities:
     prereq_concepts:
       - concept: 16
       - concept: 17
-      - concept: 19
       - concept: 20
       - concept: 23
         representation: 7
       - concept: 23
         representation: 7
       - concept: 23
+        representation: 7
+      - concept: 19
         representation: 7
     new_concepts:
       - concept: 23
@@ -873,6 +877,7 @@ activities:
     name: The Valley
     prereq_concepts:
       - concept: 29
+      - concept: 42
     new_concepts:
       - concept: 34
     representations:
