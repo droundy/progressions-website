@@ -6,15 +6,11 @@ concepts:
     representations: {}
     long_description: Understanding both difference (how far apart two values are at one time) and change (how far apart the value of a single parameter is at two different times) is necessary for understanding derivatives.
   - id: 1
-    name: The derivative is how much $f$ changes as $x$ changes
+    name: "FIXME: DELETE"
     prereq_concepts:
       - 0
-    representations:
-      0:
-        name: ""
-        long_description: ""
-        figure: ~
-    long_description: "Conceptually, a derivative can be thought of as how much one value changes as another value changes. "
+    representations: {}
+    long_description: ""
   - id: 2
     name: The derivative is a ratio of small changes
     prereq_concepts:
@@ -167,8 +163,12 @@ concepts:
   - id: 19
     name: "*The Magnitude of the Derivative"
     prereq_concepts:
-      - 1
+      - 0
     representations:
+      0:
+        name: The magnitude of the derivative is how much $f$ changes as $x$ changes
+        long_description: "Conceptually, a derivative can be thought of as how much one value changes as another value changes. FIXME: Is this the right representation icon?"
+        figure: ~
       7:
         name: The magnitude of the derivative is related to the density of contour lines
         long_description: "The magnitude of the derivative of a function is directly related to how close together the contour lines of the function lie: the closer together the contour lines, the greater the magnitude of the derivative."
