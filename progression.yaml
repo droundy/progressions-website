@@ -767,7 +767,8 @@ activities:
     name: Chain Rule Measurements
     prereq_concepts:
       - concept: 21
-    new_concepts: []
+    new_concepts:
+      - concept: 17
     representations:
       - 8
       - 10
@@ -862,14 +863,13 @@ activities:
         representation: 7
       - concept: 23
         representation: 7
-      - concept: 19
-        representation: 7
     new_concepts:
       - concept: 23
         representation: 7
       - concept: 30
         representation: 7
       - concept: 42
+      - concept: 41
     representations:
       - 7
       - 9
@@ -926,8 +926,9 @@ activities:
     new_concepts:
       - concept: 41
       - concept: 42
+      - concept: 30
+        representation: 7
     representations:
-      - 17
       - 18
       - 7
     long_description: "Building a geometric understanding of the gradient can be challenging for students, particularly in physics classrooms when their only prior exposure to the gradient is in mathematics courses. This activity is a follow-up to Acting out the Gradient, in which students use Mathematica to calculate and visualize the gradient for different representations of scalar fields.  Students explicitly compare and contrast these different representations, in particular identifying that the gradient is always perpendicular to constant surfaces."
@@ -996,6 +997,7 @@ activities:
       - concept: 57
     new_concepts:
       - concept: 59
+      - concept: 65
     representations:
       - 21
       - 15
