@@ -6,7 +6,7 @@ concepts:
     representations: {}
     long_description: Understanding both difference (how far apart two values are at one time) and change (how far apart the value of a single parameter is at two different times) is necessary for understanding derivatives.
   - id: 1
-    name: How much $f$ changes as $x$ changes
+    name: The derivative is how much $f$ changes as $x$ changes
     prereq_concepts: []
     representations:
       0:
@@ -463,8 +463,7 @@ concepts:
     long_description: FIXME
   - id: 48
     name: The divergence of the magnetic field is zero
-    prereq_concepts:
-      - 7
+    prereq_concepts: []
     representations:
       13:
         name: ""
@@ -718,6 +717,7 @@ activities:
       - concept: 15
     new_concepts:
       - concept: 16
+      - concept: 17
     representations:
       - 7
     long_description: "This small group activity is designed to help students interpret partial derivatives using contour diagrams. Students work in small groups to determine rates of change using a contour diagram showing isotherms over time and space. The whole class wrap-up discussion emphasizes giving a physical interpretation for the derivative, the value of units in thinking about functions and derivatives, and the need to specify “with respect to what” when finding derivatives in multivariable contexts. FIXME: Add Magnitude of partial derivative/contour map pair once made"
@@ -739,8 +739,9 @@ activities:
     representations:
       - 8
       - 7
+      - 11
       - 10
-    long_description: This small group activity using surfaces introduces a geometric interpretation of partial derivatives in terms of measured ratios of small changes. Students work in small groups to identify locations on their surface with particular properties. The whole class wrap-up discussion emphasizes the equivalence of multiple representations of partial derivatives.
+    long_description: "This small group activity using surfaces introduces a geometric interpretation of partial derivatives in terms of measured ratios of small changes. Students work in small groups to identify locations on their surface with particular properties. The whole class wrap-up discussion emphasizes the equivalence of multiple representations of partial derivatives.\\[\\]FIXME: Should \"the derivative at a cusp is undefined\" really be a prereq?"
     figure: mvhotplate.jpg
     external_url: mvhotplate
   - id: 4
@@ -778,7 +779,6 @@ activities:
       - concept: 17
       - concept: 18
     new_concepts:
-      - concept: 30
       - concept: 23
       - concept: 30
         representation: 7
@@ -858,10 +858,11 @@ activities:
       - concept: 23
         representation: 7
     new_concepts:
-      - concept: 30
       - concept: 23
+        representation: 7
       - concept: 30
         representation: 7
+      - concept: 42
     representations:
       - 7
       - 9
