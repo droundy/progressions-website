@@ -299,7 +299,7 @@ concepts:
         name: "The direction of the gradient shows what way is 'uphill'"
         long_description: The gradient at any point on the surface gives the direction in which the height of the surface is increasing the most. The gradient neither points towards the highest point on the surface (the global maximum) nor has a vertical component (it lies in the plane of the table).
         figure: ~
-    long_description: "The Master Formula states that a small change in a function $df$ is the dot product of the gradient of the function with a small step $d \\vec r$ through the domain of the function:\n\\[df = \\vec \\nabla f \\cdot d \\vec r.\\]\nIn order to maximize the change in $f$ one must maximize this dot product, which happens when the small step $d \\vec r$ is parallel to the gradient. Or, turning this statement around, the gradient points in the direction in which the function is increasing the most."
+    long_description: "The Master Formula states that a small change in a function $df$ is the dot product of the gradient of the function with a small step $d \\vec r$ through the domain of the function: \\[df = \\vec \\nabla f \\cdot d \\vec r.\\] In order to maximize the change in $f$ one must maximize this dot product, which happens when the small step $d \\vec r$ is parallel to the gradient. Or, turning this statement around, the gradient points in the direction in which the function is increasing the most."
   - id: 31
     name: "$d \\vec r$ is a small displacement vector"
     prereq_concepts:
@@ -781,12 +781,15 @@ activities:
       - concept: 18
       - concept: 19
         representation: 2
+      - concept: 22
     new_concepts:
-      - concept: 23
       - concept: 30
         representation: 7
       - concept: 30
         representation: 11
+      - concept: 23
+        representation: 7
+      - concept: 29
     representations:
       - 8
       - 11
