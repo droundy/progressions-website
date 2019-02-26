@@ -40,7 +40,7 @@ concepts:
         figure: ~
       30:
         name: Partial Derivatives are Functions
-        long_description: ""
+        long_description: ENTER LONG DESCRIPTION
         figure: ~
       31:
         name: The Divergence is a Function
@@ -1184,7 +1184,7 @@ representations:
   - id: 30
     name: ""
     description: ""
-    icon: "<span style=\"color: rgb(136, 136, 136); text-align: start;\">$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$</span>"
+    icon: "<span style=\"text-align: start;\"><span style=\"color: rgb(136, 136, 136);\">$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$</span><br></span>"
   - id: 31
     name: " "
     description: ""
