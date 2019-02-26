@@ -31,10 +31,22 @@ concepts:
         figure: ~
     long_description: The value of the derivative at a point on a curve can be approximated by the slope of a line secant with the curve near that point.
   - id: 4
-    name: "FIXME: DELETE"
+    name: Derivatives are Functions
     prereq_concepts: []
-    representations: {}
-    long_description: ""
+    representations:
+      29:
+        name: The Gradient is a Function
+        long_description: "FIXME: The properties of the gradient (that it points in the direction of the increase of the function with a magnitude equal to the greatest change in the function) generally have unique values at any point in space or time."
+        figure: ~
+      30:
+        name: Partial Derivatives are Functions
+        long_description: ""
+        figure: ~
+      31:
+        name: The Divergence is a Function
+        long_description: ""
+        figure: ~
+    long_description: "One of Zandieh's process-object layers for derivatives is that derivatives are functions. This means that the value of a derivative depends on where in the domain of the function one is looking."
   - id: 5
     name: The derivative is a limit
     prereq_concepts:
@@ -1165,6 +1177,18 @@ representations:
     name: picture of PDM
     description: ""
     icon: "<img src=\"/figs/pdm.jpg\"/>"
+  - id: 29
+    name: The gradient is a local quantity
+    description: ""
+    icon: ""
+  - id: 30
+    name: ""
+    description: ""
+    icon: "<span style=\"color: rgb(136, 136, 136); text-align: start;\">$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$</span>"
+  - id: 31
+    name: " "
+    description: ""
+    icon: ""
 courses:
   - id: 0
     number: MTH 251
