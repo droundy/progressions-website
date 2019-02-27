@@ -455,7 +455,7 @@ impl Data {
                             "prereq" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(c_id) => {
-                                        self.get_mut(id).prereq_concepts.retain(|&x| x.concept != c_id);
+                                        self.get_mut(id).prereq_concepts.retain(|&x| x != c_id.into());
                                     }
                                     AnyID::ConceptRepresentation(c_id) => {
                                         self.get_mut(id).prereq_concepts.retain(|&x| x != c_id);
@@ -504,6 +504,18 @@ impl Data {
                     }
                     "Remove" => {
                         match c.html.as_ref() {
+                            "exists" => {
+                                if id.0 == self.representations.len() - 1 {
+                                    self.representations.pop();
+                                    while self.representations[self.representations.len()-1].name.len() == 0 {
+                                        self.representations.pop();
+                                    }
+                                } else {
+                                    self.get_mut(id).name = "".to_string();
+                                    self.get_mut(id).icon = "".to_string();
+                                    self.get_mut(id).description = Markdown::new("".to_string());
+                                }
+                            }
                             "used by" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(child_id) => {
@@ -582,14 +594,27 @@ impl Data {
         if let Some(c) = self.representation_by_name(name) {
             return c;
         }
-        let newid = RepresentationID(self.representations.len());
-        self.representations.push(Representation {
-            id: newid,
-            name: name.to_string(),
-            description: Default::default(),
-            icon: name.to_string(),
-        });
-        newid
+        if let Some(newidnum) = self.representations.iter().enumerate()
+            .filter(|(_,r)| r.name.len() == 0).map(|(i,_)| i).next()
+        {
+            let newid = RepresentationID(newidnum);
+            self.representations[newidnum] = Representation {
+                id: newid,
+                name: name.to_string(),
+                description: Default::default(),
+                icon: name.to_string(),
+            };
+            newid
+        } else {
+            let newid = RepresentationID(self.representations.len());
+            self.representations.push(Representation {
+                id: newid,
+                name: name.to_string(),
+                description: Default::default(),
+                icon: name.to_string(),
+            });
+            newid
+        }
     }
     pub fn course_by_name(&self, name: &str) -> Option<CourseID> {
         let name = name.trim();
@@ -829,8 +854,25 @@ impl Data {
             choices: names,
         }
     }
+    fn representation_used(&self, id: RepresentationID) -> bool {
+        if self.activities.iter().any(|a| a.representations.contains(&id)) {
+            return true;
+        }
+        if self.concepts.iter().any(|c| c.representations.contains_key(&id)) {
+            return true;
+        }
+        false
+    }
     pub fn all_representations(&self) -> impl DisplayAs<HTML> {
-        List(self.representations.iter().map(|r| Child::none(r.clone())).collect())
+        List(self.representations.iter()
+             .filter(|r| r.name.len() > 0)
+             .map(|r| {
+                 if self.representation_used(r.id) {
+                     Child::none(r.clone())
+                 } else {
+                     Child::remove(r.id, "exists", r.clone())
+                 }
+             }).collect())
     }
 
     pub fn concept_view(&self, id: ConceptID) -> ConceptView {
@@ -915,6 +957,12 @@ impl Data {
 
     pub fn activity_view(&self, id: ActivityID) -> ActivityView {
         let a = &self.get(id);
+        let prereq_concepts_in_this_course: Vec<_> =
+            a.prereq_concepts.iter().cloned()
+            .filter(|&cid| self.courses.iter()
+                    .filter(|xx| xx.activities.contains(&id))
+                    .any(|cc| self.course_is_for_concept(cid, cc.id)))
+            .collect();
         let mut view = ActivityView {
             id,
             name: a.name.clone(),
@@ -936,15 +984,18 @@ impl Data {
                     PrereqCourse {
                         course: course.clone(),
                         concepts: crs.iter()
-                            .filter(|&cid| a.prereq_concepts.contains(&cid))
-                            .map(|&cid| self.concept_representation_view(course.id, "", cid))
+                            .filter(|&cid| a.prereq_concepts.contains(&cid)
+                                    //   && !prereq_concepts_in_this_course.contains(&cid)
+                            )
+                            .map(|&cid| self.concept_representation_view(id, "prereq", cid))
                             .collect(),
                     }
                 })
                 .filter(|xx| xx.concepts.len() > 0)
                 .collect(),
 
-            prereq_groups: Vec::new(),
+            prereq_groups: self.group_concepts(prereq_concepts_in_this_course,
+                                               id, "prereq"),
             new_concepts: a.new_concepts.iter()
                 .map(|&cid| self.concept_representation_view(id, "new", cid))
                 .collect(),
@@ -968,14 +1019,6 @@ impl Data {
                                              "depends on");
         }
 
-        let prereq_concepts_in_this_course: Vec<_> =
-            a.prereq_concepts.iter().cloned()
-            .filter(|&cid| !self.courses.iter()
-                    .filter(|xx| !xx.activities.contains(&a.id))
-                    .any(|cc| self.course_is_for_concept(cid, cc.id)))
-            .collect();
-        view.prereq_groups = self.group_concepts(prereq_concepts_in_this_course,
-                                                 id, "prereq");
         view
     }
 
