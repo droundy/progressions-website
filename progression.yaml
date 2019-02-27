@@ -140,7 +140,10 @@ concepts:
     long_description: Derivatives of multivariable functions can be found by holding one or more variables constant (subject to physical limitations).
   - id: 17
     name: There is a partial derivative in every direction at any point
-    prereq_concepts: []
+    prereq_concepts:
+      - 15
+      - 15
+      - 15
     representations:
       3:
         name: ""
@@ -210,6 +213,7 @@ concepts:
     name: "*The Magnitude of the Gradient"
     prereq_concepts:
       - 22
+      - 19
     representations:
       7:
         name: The magnitude of the gradient is proportional to the density of contour lines
@@ -221,7 +225,7 @@ concepts:
         figure: ~
     long_description: The magnitude of the gradient is the value of the slope in the direction of greatest increase
   - id: 24
-    name: "*The Magnitude of a Derivative"
+    name: "FIXME: DELETE"
     prereq_concepts: []
     representations: {}
     long_description: "FIXME: Does the derivative of a constant go in here?"
@@ -275,7 +279,8 @@ concepts:
     long_description: The gradient of a function (unless taken at a single point) is itself a function
   - id: 29
     name: The components of the gradient are partial derivatives
-    prereq_concepts: []
+    prereq_concepts:
+      - 22
     representations:
       6:
         name: ""
@@ -603,7 +608,7 @@ concepts:
     representations: {}
     long_description: "While the constituents of a derivative (the $f$ and $x$ in $\\frac{df}{dx}$) can have physical interpretations, the derivative itself can have a different physical interpretation. For example, $\\frac{dx}{dt}$ is a velocity. FIXME: find a better example"
   - id: 62
-    name: Partial derivatives that do not have the same variable(s) held constant are not the same derivative
+    name: Partial derivatives that do not have the same variable(s) held constant (at the same values?) are not the same derivative
     prereq_concepts:
       - 16
       - 20
@@ -658,7 +663,8 @@ concepts:
     long_description: "Because total differentials are linear, one can find the total differential and then solve algebraically to obtain partial derivatives that might not be obtainable though differentiation. "
   - id: 67
     name: "*The Magnitude of a Partial Derivative"
-    prereq_concepts: []
+    prereq_concepts:
+      - 19
     representations: {}
     long_description: "FIXME: Add for Contours: \"The magnitude of a partial derivative is proportional to the density of contour lines along the path of the partial derivative.\"\\[\\]FIXME: Add for Surfaces: \"The magnitude of a partial derivative is the slope of the surface along the path of the partial derivative.\"\\[\\]FIXME: Add current concept: \"All partial derivatives can be found as a slope of a tangent plane\" and change to \"The Magnitude of a partial derivative a slope of the tangent plane in the direction of the partial derivative FIXME: Direction Language?\""
   - id: 68
@@ -679,6 +685,11 @@ concepts:
     long_description: ""
   - id: 71
     name: The magnitude of the derivative at a point is the slope of a tangent line at that point
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
+  - id: 72
+    name: "FIXME: DELETE"
     prereq_concepts: []
     representations: {}
     long_description: ""
