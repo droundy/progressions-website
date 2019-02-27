@@ -504,6 +504,18 @@ impl Data {
                     }
                     "Remove" => {
                         match c.html.as_ref() {
+                            "exists" => {
+                                if id.0 == self.representations.len() - 1 {
+                                    self.representations.pop();
+                                    while self.representations[self.representations.len()-1].name.len() == 0 {
+                                        self.representations.pop();
+                                    }
+                                } else {
+                                    self.get_mut(id).name = "".to_string();
+                                    self.get_mut(id).icon = "".to_string();
+                                    self.get_mut(id).description = Markdown::new("".to_string());
+                                }
+                            }
                             "used by" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(child_id) => {
@@ -582,14 +594,27 @@ impl Data {
         if let Some(c) = self.representation_by_name(name) {
             return c;
         }
-        let newid = RepresentationID(self.representations.len());
-        self.representations.push(Representation {
-            id: newid,
-            name: name.to_string(),
-            description: Default::default(),
-            icon: name.to_string(),
-        });
-        newid
+        if let Some(newidnum) = self.representations.iter().enumerate()
+            .filter(|(_,r)| r.name.len() == 0).map(|(i,_)| i).next()
+        {
+            let newid = RepresentationID(newidnum);
+            self.representations[newidnum] = Representation {
+                id: newid,
+                name: name.to_string(),
+                description: Default::default(),
+                icon: name.to_string(),
+            };
+            newid
+        } else {
+            let newid = RepresentationID(self.representations.len());
+            self.representations.push(Representation {
+                id: newid,
+                name: name.to_string(),
+                description: Default::default(),
+                icon: name.to_string(),
+            });
+            newid
+        }
     }
     pub fn course_by_name(&self, name: &str) -> Option<CourseID> {
         let name = name.trim();
@@ -829,8 +854,25 @@ impl Data {
             choices: names,
         }
     }
+    fn representation_used(&self, id: RepresentationID) -> bool {
+        if self.activities.iter().any(|a| a.representations.contains(&id)) {
+            return true;
+        }
+        if self.concepts.iter().any(|c| c.representations.contains_key(&id)) {
+            return true;
+        }
+        false
+    }
     pub fn all_representations(&self) -> impl DisplayAs<HTML> {
-        List(self.representations.iter().map(|r| Child::none(r.clone())).collect())
+        List(self.representations.iter()
+             .filter(|r| r.name.len() > 0)
+             .map(|r| {
+                 if self.representation_used(r.id) {
+                     Child::none(r.clone())
+                 } else {
+                     Child::remove(r.id, "exists", r.clone())
+                 }
+             }).collect())
     }
 
     pub fn concept_view(&self, id: ConceptID) -> ConceptView {
