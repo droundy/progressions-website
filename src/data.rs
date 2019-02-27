@@ -915,6 +915,12 @@ impl Data {
 
     pub fn activity_view(&self, id: ActivityID) -> ActivityView {
         let a = &self.get(id);
+        let prereq_concepts_in_this_course: Vec<_> =
+            a.prereq_concepts.iter().cloned()
+            .filter(|&cid| self.courses.iter()
+                    .filter(|xx| xx.activities.contains(&id))
+                    .any(|cc| self.course_is_for_concept(cid, cc.id)))
+            .collect();
         let mut view = ActivityView {
             id,
             name: a.name.clone(),
@@ -936,7 +942,9 @@ impl Data {
                     PrereqCourse {
                         course: course.clone(),
                         concepts: crs.iter()
-                            .filter(|&cid| a.prereq_concepts.contains(&cid))
+                            .filter(|&cid| a.prereq_concepts.contains(&cid)
+                                    //   && !prereq_concepts_in_this_course.contains(&cid)
+                            )
                             .map(|&cid| self.concept_representation_view(id, "prereq", cid))
                             .collect(),
                     }
@@ -944,7 +952,8 @@ impl Data {
                 .filter(|xx| xx.concepts.len() > 0)
                 .collect(),
 
-            prereq_groups: Vec::new(),
+            prereq_groups: self.group_concepts(prereq_concepts_in_this_course,
+                                               id, "prereq"),
             new_concepts: a.new_concepts.iter()
                 .map(|&cid| self.concept_representation_view(id, "new", cid))
                 .collect(),
@@ -968,14 +977,6 @@ impl Data {
                                              "depends on");
         }
 
-        let prereq_concepts_in_this_course: Vec<_> =
-            a.prereq_concepts.iter().cloned()
-            .filter(|&cid| !self.courses.iter()
-                    .filter(|xx| !xx.activities.contains(&a.id))
-                    .any(|cc| self.course_is_for_concept(cid, cc.id)))
-            .collect();
-        view.prereq_groups = self.group_concepts(prereq_concepts_in_this_course,
-                                                 id, "prereq");
         view
     }
 
