@@ -79,7 +79,11 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-      4:
+      7:
+        name: ""
+        long_description: ""
+        figure: ~
+      11:
         name: ""
         long_description: ""
         figure: ~
@@ -134,6 +138,14 @@ concepts:
       - 11
     representations:
       6:
+        name: Leibniz Notation
+        long_description: "Using Leibniz notation, variables that are held constant when taking a partial derivative are denoted with subscripts"
+        figure: ~
+      7:
+        name: ""
+        long_description: ""
+        figure: ~
+      11:
         name: ""
         long_description: ""
         figure: ~
@@ -146,6 +158,14 @@ concepts:
       - 15
     representations:
       3:
+        name: ""
+        long_description: ""
+        figure: ~
+      7:
+        name: ""
+        long_description: ""
+        figure: ~
+      11:
         name: ""
         long_description: ""
         figure: ~
@@ -175,7 +195,8 @@ concepts:
     long_description: FIXME
   - id: 20
     name: The value of a partial derivative depends on the value(s) of what is held constant
-    prereq_concepts: []
+    prereq_concepts:
+      - 16
     representations:
       6:
         name: ""
@@ -262,17 +283,29 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
+      7:
+        name: ""
+        long_description: ""
+        figure: ~
       8:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "The partial derivative of a function is itself a function (although taking a partial derivative at a point will just give a number). "
+      11:
+        name: ""
+        long_description: ""
+        figure: ~
+    long_description: "The partial derivative of a function is itself a function (although taking a partial derivative at a point will just give a number). This means that the value of the partial derivative at different points in the domain will, in general, be different."
   - id: 28
     name: The gradient is a function
     prereq_concepts:
       - 6
     representations:
       9:
+        name: ""
+        long_description: ""
+        figure: ~
+      11:
         name: ""
         long_description: ""
         figure: ~
@@ -318,7 +351,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: FIXME
+    long_description: "$d \\vec r$ represents a small displacement vector (i.e., it points along the direction of a step with a magnitude equal to the length of that step)."
   - id: 32
     name: "The magnitude of $d\\vec r$ is the distance between two nearby points"
     prereq_concepts:
@@ -748,6 +781,7 @@ activities:
       - concept: 10
       - concept: 15
       - concept: 71
+      - concept: 20
     new_concepts:
       - concept: 17
       - concept: 18
@@ -1083,7 +1117,7 @@ representations:
   - id: 4
     name: Contour Map
     description: ""
-    icon: Contour Map
+    icon: REP 4 (Formally Contour Map Duplicate)&nbsp; &nbsp; &nbsp;&nbsp;
   - id: 5
     name: "$\\frac{d f}{d x}$"
     description: ""
@@ -1159,11 +1193,11 @@ representations:
   - id: 23
     name: partial f/partial x
     description: ""
-    icon: "$\\frac{\\partial f}{\\partial x}$"
+    icon: "Rep 23 (Formally $\\frac{\\partial f}{\\partial x}$ Duplicate)"
   - id: 24
     name: partial f/partial x fixing y
     description: ""
-    icon: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+    icon: "Rep 24 (Formally&nbsp;$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$&nbsp;<div>Duplicate) \n\n</div>"
   - id: 25
     name: Del f
     description: NEED DESCRIPTION HERE
