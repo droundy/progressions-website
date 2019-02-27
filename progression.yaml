@@ -34,17 +34,17 @@ concepts:
     name: Derivatives are Functions
     prereq_concepts: []
     representations:
-      29:
-        name: The Gradient is a Function
+      9:
+        name: The gradient is a function
         long_description: "FIXME: The properties of the gradient (that it points in the direction of the increase of the function with a magnitude equal to the greatest change in the function) generally have unique values at any point in space or time."
+        figure: ~
+      13:
+        name: The divergence is a function
+        long_description: ""
         figure: ~
       30:
         name: Partial Derivatives are Functions
         long_description: ENTER LONG DESCRIPTION
-        figure: ~
-      31:
-        name: The Divergence is a Function
-        long_description: ""
         figure: ~
     long_description: "One of Zandieh's process-object layers for derivatives is that derivatives are functions. This means that the value of a derivative depends on where in the domain of the function one is looking."
   - id: 5
