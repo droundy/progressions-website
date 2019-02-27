@@ -937,7 +937,7 @@ impl Data {
                         course: course.clone(),
                         concepts: crs.iter()
                             .filter(|&cid| a.prereq_concepts.contains(&cid))
-                            .map(|&cid| self.concept_representation_view(course.id, "", cid))
+                            .map(|&cid| self.concept_representation_view(id, "prereq", cid))
                             .collect(),
                     }
                 })
