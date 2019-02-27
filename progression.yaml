@@ -31,18 +31,10 @@ concepts:
         figure: ~
     long_description: The value of the derivative at a point on a curve can be approximated by the slope of a line secant with the curve near that point.
   - id: 4
-    name: Derivatives are Functions
+    name: "FIXME: DELETE"
     prereq_concepts: []
-    representations:
-      9:
-        name: The gradient is a function
-        long_description: "FIXME: The properties of the gradient (that it points in the direction of the increase of the function with a magnitude equal to the greatest change in the function) generally have unique values at any point in space or time."
-        figure: ~
-      13:
-        name: The divergence is a function
-        long_description: ""
-        figure: ~
-    long_description: "One of Zandieh's process-object layers for derivatives is that derivatives are functions. This means that the value of a derivative depends on where in the domain of the function one is looking."
+    representations: {}
+    long_description: ""
   - id: 5
     name: The derivative is a limit
     prereq_concepts:
@@ -53,7 +45,7 @@ concepts:
     name: The derivative is a function
     prereq_concepts: []
     representations: {}
-    long_description: "The derivative of a function is itself a function, with the same domain as the original function. Both the (derivative) function and the value of the derivative at a point are commonly referred to as \"the derivative.\""
+    long_description: "One of Zandieh's process-object layers for derivatives is that derivatives are functions. This means that the value of a derivative depends on where in the domain of the function one is looking. The derivative of a function is itself a function, with the same domain as the original function. Both the (derivative) function and the value of the derivative at a point are commonly referred to as \"the derivative.\""
   - id: 7
     name: The derivative of a constant is zero
     prereq_concepts:
@@ -197,6 +189,10 @@ concepts:
         long_description: ""
         figure: ~
       8:
+        name: ""
+        long_description: ""
+        figure: ~
+      32:
         name: ""
         long_description: ""
         figure: ~
@@ -1176,15 +1172,19 @@ representations:
   - id: 29
     name: The gradient is a local quantity
     description: ""
-    icon: ""
+    icon: "<div><br></div><div><br></div><div><br></div>"
   - id: 30
     name: ""
     description: ""
-    icon: "<span style=\"text-align: start;\">$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$</span>"
+    icon: "<span style=\"text-align: start;\"><br></span><span style=\"text-align: start;\"><br></span>"
   - id: 31
     name: " "
     description: ""
     icon: ""
+  - id: 32
+    name: Chain Rule Diagrams
+    description: ""
+    icon: Chain Rule Diagrams
 courses:
   - id: 0
     number: MTH 251
