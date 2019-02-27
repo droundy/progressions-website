@@ -455,7 +455,7 @@ impl Data {
                             "prereq" => {
                                 match AnyID::parse(&c.content)? {
                                     AnyID::Concept(c_id) => {
-                                        self.get_mut(id).prereq_concepts.retain(|&x| x.concept != c_id);
+                                        self.get_mut(id).prereq_concepts.retain(|&x| x != c_id.into());
                                     }
                                     AnyID::ConceptRepresentation(c_id) => {
                                         self.get_mut(id).prereq_concepts.retain(|&x| x != c_id);
