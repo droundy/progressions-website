@@ -1024,9 +1024,9 @@ impl Data {
 
     pub fn representation_view(&self, id: RepresentationID) -> RepresentationView {
         let r = self.get(id).clone();
-        let all_concepts_using_r: Vec<_> = self.concepts.iter()
+        let all_concepts_using_r: Vec<Child<ConceptRepresentationView>> = self.concepts.iter()
             .filter(|c| c.representations.contains_key(&id))
-            .cloned()
+            .map(|c| self.concept_representation_view(id, "", (c.id, r).into()))
             .collect();
         let all_activities_using_r: Vec<_> = self.activities.iter()
             .filter(|c| c.representations.contains(&id))
@@ -1034,12 +1034,11 @@ impl Data {
             .collect();
         let activity_concepts: Vec<_> = all_concepts_using_r.iter()
             .filter(|c| all_activities_using_r.iter()
-                    .any(|a| a.new_concepts.iter().any(|xx| xx.concept == c.id)))
+                    .any(|a| a.new_concepts.iter().any(|xx| xx == c.id)))
             .cloned()
             .collect();
         let other_concepts: Vec<_> = all_concepts_using_r.into_iter()
             .filter(|c| !activity_concepts.contains(&c))
-            .map(|c| Child::remove(id, "used by", c))
             .collect();
         let mut groups: Vec<_> = self.group_concepts(activity_concepts.iter()
                                                      .map(|c| c.id.into()).collect(),

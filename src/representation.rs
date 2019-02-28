@@ -1,6 +1,6 @@
 use display_as::{with_template, HTML, URL, UTF8, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
-use crate::data::{RepresentationID, ActivityGroup, Child, Concept};
+use crate::data::{RepresentationID, ActivityGroup, Child, ConceptRepresentationView};
 use crate::markdown::Markdown;
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
@@ -21,7 +21,7 @@ pub struct RepresentationView {
     pub description: Markdown,
     pub icon: String,
     pub groups: Vec<ActivityGroup>,
-    pub other_concepts: Vec<Child<Concept>>,
+    pub other_concepts: Vec<Child<ConceptRepresentationView>>,
 }
 #[with_template( self.id )]
 impl DisplayAs<URL> for RepresentationView {}
