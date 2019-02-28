@@ -14,6 +14,13 @@ let nav = {};
 let content = {
   %]<article>
       <div class="representation">
+        <h2 class="hint" thisid="[% self.id %]" name="name">
+          [% if self.name.len() == 0 {
+            %] NEED NAME HERE [%
+          } else {
+            self.name
+          } %]
+        </h2>
         <h1>[% self.icon as UTF8 %]</h1>
         <form class="hint">
           <input class="custom-file-input" type="file" name="icon" accept="image/*"
