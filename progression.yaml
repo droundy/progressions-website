@@ -403,7 +403,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: FIXME
+    long_description: The divergence in rectangular coordinates can be expressed in terms of partial derivatives
   - id: 37
     name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
     prereq_concepts: []
