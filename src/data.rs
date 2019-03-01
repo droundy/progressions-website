@@ -1026,7 +1026,7 @@ impl Data {
         let r = self.get(id).clone();
         let all_concepts_using_r: Vec<Child<ConceptRepresentationView>> = self.concepts.iter()
             .filter(|c| c.representations.contains_key(&id))
-            .map(|c| self.concept_representation_view(id, "", (c.id, r).into()))
+            .map(|c| self.concept_representation_view(id, "", (c.id, r.id).into()))
             .collect();
         let all_activities_using_r: Vec<_> = self.activities.iter()
             .filter(|c| c.representations.contains(&id))
@@ -1034,7 +1034,7 @@ impl Data {
             .collect();
         let activity_concepts: Vec<_> = all_concepts_using_r.iter()
             .filter(|c| all_activities_using_r.iter()
-                    .any(|a| a.new_concepts.iter().any(|xx| xx == c.id)))
+                    .any(|a| a.new_concepts.iter().any(|&xx| xx == c.id)))
             .cloned()
             .collect();
         let other_concepts: Vec<_> = all_concepts_using_r.into_iter()

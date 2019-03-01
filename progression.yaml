@@ -403,7 +403,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: The divergence in rectangular coordinates can be expressed in terms of partial derivatives
+    long_description: "The divergence in rectangular coordinates can be expressed in terms of partial derivatives\\[\\]The divergence"
   - id: 37
     name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
     prereq_concepts: []
@@ -417,7 +417,7 @@ concepts:
     name: "$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$"
     prereq_concepts: []
     representations: {}
-    long_description: FIXME
+    long_description: The flux of a function through a closed surface is equal to the total divergence of that function in the space bound by the closed surface
   - id: 39
     name: "$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$"
     prereq_concepts: []
