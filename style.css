@@ -651,6 +651,11 @@ form, form.concept {
 .Add {
     color: blue;
 }
+.updownarrow {
+    float: right;
+    clear: right;
+    width: 2em;
+}
 .up {
   box-sizing: border-box;
   height: 1em;

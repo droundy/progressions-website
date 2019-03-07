@@ -41,7 +41,9 @@ let content = {
                                          url as URL %]">Instructor guide</a>
         <span class="external_url hint" thisid="[% self.id %]" name="external_url">[%
              url as URL %]</span>[%
-         }
+        } else {
+        %]<span class="external_url hint" thisid="[% self.id %]" name="external_url">INSERT URL HERE</span>[%
+        }
         %]
         <h1>[% self.name %]</h1>[%
         if let Some(ref fig) = self.figure {

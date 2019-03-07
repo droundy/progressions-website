@@ -3,7 +3,7 @@
      for c in self.activity.prereq_concepts().into_iter() {
        %] from-[% c
        } %]" id="[% self.activity.id %]">
-    <form class="hint" action="/change" method="post"
+    <form class="hint updownarrow" action="/change" method="post"
           target="hidden-form"
           onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
       <input type="hidden" name="content" value="[% self.activity.id %]">
@@ -11,7 +11,7 @@
       <input type="hidden" name="html" value="">
       <input type="submit" name="field" value="up" class="up">
     </form>
-    <form class="hint" action="/change" method="post"
+    <form class="hint updownarrow" action="/change" method="post"
           target="hidden-form"
           onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
       <input type="hidden" name="content" value="[% self.activity.id %]">
