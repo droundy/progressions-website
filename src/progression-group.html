@@ -6,12 +6,20 @@
     <form class="hint" action="/change" method="post"
           target="hidden-form"
           onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
-      <input type="hidden" name="content" value="[% self.childid %]">
-      <input type="hidden" name="id" value="[% self.parentid %]">
-      <input type="hidden" name="field" value="[% self.verb %]">
-      <input type="hidden" name="html" value="[% self.relationship %]">
-      <input type="submit" value="[% self.verb %]" class="[% self.verb %]">
-    </form><iframe style="display:none" name="hidden-form"></iframe>
+      <input type="hidden" name="content" value="[% self.activity.id %]">
+      <input type="hidden" name="id" value="[% self.activity.courses[0].id %]">
+      <input type="hidden" name="html" value="">
+      <input type="submit" name="field" value="up" class="up">
+    </form>
+    <form class="hint" action="/change" method="post"
+          target="hidden-form"
+          onsubmit="setTimeout(function () { window.location.reload(); }, 500)">
+      <input type="hidden" name="content" value="[% self.activity.id %]">
+      <input type="hidden" name="id" value="[% self.activity.courses[0].id %]">
+      <input type="hidden" name="html" value="">
+      <input type="submit" name="field" value="down" class="down">
+    </form>
+    <iframe style="display:none" name="hidden-form"></iframe>
     <div class="activity" thisid="[% self.activity.id %]" name="name">[% self.activity.name %]</div>
     <div class="hint"><br/></div>
     <div class="description hint" thisid="[% self.activity.id %]" name="long_description">

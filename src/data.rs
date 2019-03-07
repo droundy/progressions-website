@@ -304,7 +304,12 @@ impl Data {
                     "up" => {
                         match AnyID::parse(&c.content)? {
                             AnyID::Activity(aid) => {
-                                self.get_mut(needed_for_id).prereq_concepts.push(id)
+                                println!("move activity up");
+                                let a = &mut self.get_mut(id).activities;
+                                let which = a.iter().enumerate().filter(|(_,x)| **x == aid)
+                                    .map(|(i,_)| i)
+                                    .next().unwrap();
+                                a.swap(which-1, which);
                             }
                             _ => bail!("Cannot handle \"up\" with other types"),
                         }
@@ -312,7 +317,12 @@ impl Data {
                     "down" => {
                         match AnyID::parse(&c.content)? {
                             AnyID::Activity(aid) => {
-                                self.get_mut(needed_for_id).prereq_concepts.push(id)
+                                println!("move activity down");
+                                let a = &mut self.get_mut(id).activities;
+                                let which = a.iter().enumerate().filter(|(_,x)| **x == aid)
+                                    .map(|(i,_)| i)
+                                    .next().unwrap();
+                                a.swap(which+1, which);
                             }
                             _ => bail!("Cannot handle \"down\" with other types"),
                         }
