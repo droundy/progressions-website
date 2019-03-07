@@ -464,6 +464,9 @@ impl Data {
                         let rid = self.representation_by_name_or_create(&c.content);
                         self.get_mut(id).representations.push(rid);
                     }
+                    "external_url" => {
+                        self.get_mut(id).external_url = Some(c.content.trim().to_string());
+                    }
                     "Remove" => {
                         match c.html.as_ref() {
                             "new" => {
