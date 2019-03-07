@@ -301,6 +301,22 @@ impl Data {
                         let a = self.activity_by_name_or_create(&c.content);
                         self.add_to_course(id, a);
                     }
+                    "up" => {
+                        match AnyID::parse(&c.content)? {
+                            AnyID::Activity(aid) => {
+                                self.get_mut(needed_for_id).prereq_concepts.push(id)
+                            }
+                            _ => bail!("Cannot handle \"up\" with other types"),
+                        }
+                    }
+                    "down" => {
+                        match AnyID::parse(&c.content)? {
+                            AnyID::Activity(aid) => {
+                                self.get_mut(needed_for_id).prereq_concepts.push(id)
+                            }
+                            _ => bail!("Cannot handle \"down\" with other types"),
+                        }
+                    }
                     _ => {
                         bail!("Weird field for course: {}", c.field);
                     }
