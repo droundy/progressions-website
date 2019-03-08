@@ -1150,6 +1150,58 @@ activities:
     name: Ice calorimetry lab II
     prereq_concepts: []
     new_concepts: []
+    representations:
+      - 20
+    long_description: ""
+    external_url: eemeltingice
+  - id: 28
+    name: The First Law
+    prereq_concepts:
+      - concept: 55
+      - concept: 59
+    new_concepts: []
+    representations:
+      - 15
+    long_description: ""
+  - id: 29
+    name: Elevators
+    prereq_concepts: []
+    new_concepts: []
+    representations:
+      - 21
+    long_description: ""
+  - id: 30
+    name: Using $pV$ and $TS$ plots
+    prereq_concepts: []
+    new_concepts: []
+    representations:
+      - 15
+    long_description: ""
+    external_url: eepvplots
+  - id: 31
+    name: A simple cycle
+    prereq_concepts: []
+    new_concepts: []
+    representations:
+      - 15
+    long_description: ""
+    external_url: eesimplecycle
+  - id: 32
+    name: "Name the experiment: changing entropy"
+    prereq_concepts:
+      - concept: 14
+        representation: 6
+    new_concepts: []
+    representations:
+      - 15
+      - 6
+      - 20
+    long_description: ""
+    external_url: eenametheexperiment2
+  - id: 33
+    name: The Second Law lecture
+    prereq_concepts: []
+    new_concepts: []
     representations: []
     long_description: ""
 representations:
@@ -1329,7 +1381,13 @@ courses:
       - 21
       - 22
       - 23
+      - 28
       - 25
       - 24
       - 26
       - 27
+      - 29
+      - 30
+      - 31
+      - 32
+      - 33
