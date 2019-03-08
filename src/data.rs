@@ -504,6 +504,41 @@ impl Data {
                             _ => bail!("Unknown relationship on remove from activity: {}", c.html),
                         }
                     }
+                    "Add" => {
+                        match c.html.as_ref() {
+                            "new" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(c_id) => {
+                                        self.get_mut(id).new_concepts.push(c_id.into());
+                                    }
+                                    AnyID::ConceptRepresentation(c_id) => {
+                                        self.get_mut(id).new_concepts.push(c_id);
+                                    }
+                                    _ => bail!("No new as other type {}", c.content),
+                                }
+                            }
+                            "prereq" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Concept(c_id) => {
+                                        self.get_mut(id).prereq_concepts.push(c_id.into());
+                                    }
+                                    AnyID::ConceptRepresentation(c_id) => {
+                                        self.get_mut(id).prereq_concepts.push(c_id);
+                                    }
+                                    _ => bail!("No prereq as other type"),
+                                }
+                            }
+                            "uses" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Representation(rid) => {
+                                        self.get_mut(id).representations.push(rid);
+                                    }
+                                    _ => bail!("No prereq as other type"),
+                                }
+                            }
+                            _ => bail!("Unknown relationship on add to activity: {}", c.html),
+                        }
+                    }
                     _ => bail!("Unknown field of activity: {}", c.field),
                 }
             }

@@ -1104,6 +1104,26 @@ activities:
     new_concepts: []
     representations: []
     long_description: ""
+    external_url: eeice
+  - id: 24
+    name: Name the experiment I
+    prereq_concepts:
+      - concept: 62
+      - concept: 61
+    new_concepts: []
+    representations: []
+    long_description: ""
+    external_url: eenametheexperiment
+  - id: 25
+    name: Thermodynamic identity lecture
+    prereq_concepts:
+      - concept: 55
+        representation: 15
+      - concept: 55
+        representation: 15
+    new_concepts: []
+    representations: []
+    long_description: ""
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1282,3 +1302,5 @@ courses:
       - 21
       - 22
       - 23
+      - 25
+      - 24
