@@ -726,6 +726,11 @@ concepts:
     prereq_concepts: []
     representations: {}
     long_description: ""
+  - id: 73
+    name: The thermodynamic identity defines temperature and pressure as partial derivatives
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
 activities:
   - id: 0
     name: lower anchor MTH 251
@@ -1131,11 +1136,12 @@ activities:
         representation: 15
       - concept: 55
       - concept: 63
-    new_concepts: []
+    new_concepts:
+      - concept: 73
     representations:
       - 15
       - 6
-    long_description: ""
+    long_description: Content of lecture goes here.
   - id: 26
     name: Heat capacity lecture
     prereq_concepts:
