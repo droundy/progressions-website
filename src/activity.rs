@@ -45,7 +45,6 @@ pub struct ActivityView {
     pub figure: Option<String>,
     pub long_description: String,
     pub external_url: Option<String>,
-    pub addremove: ChangeRelationship,
 }
 
 #[with_template("[%" "%]" "activity.html")]
@@ -61,24 +60,6 @@ impl PartialEq for ActivityView {
 impl Eq for ActivityView {}
 
 impl ActivityView {
-    pub fn remove(&self, from: impl DisplayAs<HTML>, relationship: &'static str)
-                  -> Self
-    {
-        ActivityView {
-            addremove: ChangeRelationship::parent(from, "Remove", relationship)
-                .child(self.id),
-            .. self.clone()
-        }
-    }
-    pub fn add(&self, from: impl DisplayAs<HTML>, relationship: &'static str)
-                  -> Self
-    {
-        ActivityView {
-            addremove: ChangeRelationship::parent(from, "Add", relationship)
-                .child(self.id),
-            .. self.clone()
-        }
-    }
     pub fn choices_for(&self, field: &str) -> ConceptRepresentationChoice {
         ConceptRepresentationChoice { field: field.to_string(), .. self.choices.clone() }
     }

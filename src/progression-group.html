@@ -19,6 +19,7 @@
       <input type="hidden" name="html" value="">
       <input type="submit" name="field" value="down" class="down">
     </form>
+    [% self.activity.addremove() %]
     <iframe style="display:none" name="hidden-form"></iframe>
     <div class="activity" thisid="[% self.activity.id %]" name="name">[% self.activity.name %]</div>
     <div class="hint"><br/></div>

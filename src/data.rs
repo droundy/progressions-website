@@ -327,6 +327,19 @@ impl Data {
                             _ => bail!("Cannot handle \"down\" with other types"),
                         }
                     }
+                    "Remove" => {
+                        match c.html.as_ref() {
+                            "teaches" => {
+                                match AnyID::parse(&c.content)? {
+                                    AnyID::Activity(a_id) => {
+                                        self.get_mut(id).activities.retain(|&x| x != a_id);
+                                    }
+                                    _ => bail!("taughtby must be an activity in remove"),
+                                }
+                            }
+                            _ => bail!("Unknown relationship on remove from course: {}", c.html),
+                        }
+                    }
                     _ => {
                         bail!("Weird field for course: {}", c.field);
                     }
@@ -1073,7 +1086,6 @@ impl Data {
             figure: a.figure.clone(),
             long_description: a.long_description.clone(),
             external_url: a.external_url.clone(),
-            addremove: ChangeRelationship::none(),
         };
 
         for a in self.activities.iter()
@@ -1155,7 +1167,7 @@ impl Data {
                 concepts: a.new_concepts.iter()
                     .map(|c| self.concept_representation_view(a.id, "new", c.id.into()))
                     .collect(),
-                activity: a,
+                activity: Child::remove(id, "teaches", a),
             });
         }
         let new_activity = ActivityChoice {
@@ -1293,7 +1305,7 @@ impl DisplayAs<HTML> for ActivityGroup {}
 /// This is an activity and concepts it teaches, but displayed in a progression.
 #[derive(Debug, Clone)]
 pub struct ProgressionGroup {
-    pub activity: ActivityView,
+    pub activity: Child<ActivityView>,
     pub concepts: Vec<Child<ConceptRepresentationView>>,
 }
 #[with_template("[%" "%]" "progression-group.html")]
@@ -1498,6 +1510,7 @@ macro_rules! impl_child_addremove{
 }
 impl_child_addremove!(Concept);
 impl_child_addremove!(Activity);
+impl_child_addremove!(ActivityView);
 impl_child_addremove!(Representation);
 impl_child_addremove!(ConceptRepresentationView);
 

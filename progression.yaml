@@ -1101,8 +1101,11 @@ activities:
     name: Ice calorimetry lab
     prereq_concepts:
       - concept: 61
+      - concept: 60
     new_concepts: []
-    representations: []
+    representations:
+      - 20
+      - 6
     long_description: ""
     external_url: eeice
   - id: 24
@@ -1110,8 +1113,13 @@ activities:
     prereq_concepts:
       - concept: 62
       - concept: 61
+      - concept: 65
+      - concept: 14
+        representation: 6
     new_concepts: []
-    representations: []
+    representations:
+      - 20
+      - 6
     long_description: ""
     external_url: eenametheexperiment
   - id: 25
@@ -1121,6 +1129,26 @@ activities:
         representation: 15
       - concept: 55
         representation: 15
+      - concept: 55
+      - concept: 63
+    new_concepts: []
+    representations:
+      - 15
+      - 6
+    long_description: ""
+  - id: 26
+    name: Heat capacity lecture
+    prereq_concepts:
+      - concept: 62
+      - concept: 63
+    new_concepts: []
+    representations:
+      - 15
+      - 6
+    long_description: ""
+  - id: 27
+    name: Ice calorimetry lab II
+    prereq_concepts: []
     new_concepts: []
     representations: []
     long_description: ""
@@ -1296,7 +1324,6 @@ courses:
     number: PH 423
     name: Energy and Entropy
     activities:
-      - 18
       - 19
       - 20
       - 21
@@ -1304,3 +1331,5 @@ courses:
       - 23
       - 25
       - 24
+      - 26
+      - 27
