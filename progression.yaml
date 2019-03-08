@@ -731,6 +731,16 @@ concepts:
     prereq_concepts: []
     representations: {}
     long_description: ""
+  - id: 74
+    name: dbar Q = TdS (edit later)
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
+  - id: 75
+    name: dbar w = - pdV (edit later)
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
 activities:
   - id: 0
     name: lower anchor MTH 251
@@ -1138,6 +1148,8 @@ activities:
       - concept: 63
     new_concepts:
       - concept: 73
+      - concept: 74
+      - concept: 75
     representations:
       - 15
       - 6
