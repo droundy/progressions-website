@@ -728,9 +728,10 @@ concepts:
     long_description: ""
   - id: 73
     name: The thermodynamic identity defines temperature and pressure as partial derivatives
-    prereq_concepts: []
+    prereq_concepts:
+      - 61
     representations: {}
-    long_description: ""
+    long_description: "\\[T = \\left(\\frac{\\partial U}{\\partial S}\\right)_V\\]\n        \\[p = -\\left(\\frac{\\partial U}{\\partial V}\\right)_S\\]"
   - id: 74
     name: dbar Q = TdS (edit later)
     prereq_concepts: []
@@ -1153,7 +1154,7 @@ activities:
     representations:
       - 15
       - 6
-    long_description: Content of lecture goes here.
+    long_description: "The internal energy is clearly a state function, and thus its differential must be an exact differential \\[𝑑𝑈= ?=đ𝑄−đ𝑊=đ𝑄−𝑝𝑑𝑉\\] only when change is quasistatic. This $−𝑝𝑑𝑉$ term can be a bit confusing at first. You are accustomed to work being $𝐹𝑑𝑥$. With a little thought, you can recognize pp as the force per unit volume, and the ratio of 𝑑𝑉 and 𝑑𝑥 as the area. The minus sign comes from the fact that a positive pressure pushes outwards. What is this $đ𝑄$? As it turns out, we can define a state function 𝑆 called entropy and so long as a process is done reversibly $đ𝑄=𝑇𝑑𝑆$ only when change is quasistaticso we find out that𝑑𝑈=𝑇𝑑𝑆−𝑝𝑑𝑉The fact that the 𝑇 in this equation is actually the physical temperature measured by our thermometers was originally an observation based on experiment. At this point, the entropy 𝑆 is just some weird heat-related state function.If you decide to get a thermodynamics tattoo, my recommendation would be to choose the thermodynamic identity $$𝑑𝑈=𝑇𝑑𝑆−𝑝𝑑𝑉$$ It is far and away the most fundamental and essential equation, and one which you will need to come back to again and again. It contains hidden within it (if you remember the First Law) the thermodynamic definition of entropy."
   - id: 26
     name: Heat capacity lecture
     prereq_concepts:
@@ -1257,6 +1258,14 @@ activities:
     representations: []
     long_description: ""
     external_url: eethermopartials
+  - id: 39
+    name: "Name the experiment: Maxwell relations"
+    prereq_concepts: []
+    new_concepts: []
+    representations:
+      - 20
+    long_description: ""
+    external_url: eenametheexperiment3
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1449,3 +1458,4 @@ courses:
       - 36
       - 37
       - 38
+      - 39
