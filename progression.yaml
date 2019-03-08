@@ -669,7 +669,7 @@ concepts:
     figure: "$df = \\left(\\frac{\\partial f}{\\partial x}\\right)_y dx + \\left(\\frac{\\partial f}{\\partial y}\\right)_x dy$"
     long_description: FIXME
   - id: 64
-    name: "FIXME:DELETE"
+    name: Thermodynamic potentials are related through Legendre transformations
     prereq_concepts: []
     representations: {}
     long_description: ""
