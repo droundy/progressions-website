@@ -1204,6 +1204,41 @@ activities:
     new_concepts: []
     representations: []
     long_description: ""
+  - id: 34
+    name: Free expansion not-quiz and discussion
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+    external_url: eefree_expansion
+  - id: 35
+    name: Legendre transformations lecture
+    prereq_concepts:
+      - concept: 66
+    new_concepts: []
+    representations: []
+    long_description: ""
+  - id: 36
+    name: Legendre transformations on the PDM
+    prereq_concepts: []
+    new_concepts: []
+    representations:
+      - 20
+    long_description: ""
+    external_url: eembpdmlegendretransforms
+  - id: 37
+    name: Maxwell relations lecture
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+  - id: 38
+    name: Seeking the right Maxwell relation
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+    external_url: eethermopartials
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1391,3 +1426,8 @@ courses:
       - 31
       - 32
       - 33
+      - 34
+      - 35
+      - 36
+      - 37
+      - 38
