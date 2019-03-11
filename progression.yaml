@@ -743,7 +743,7 @@ concepts:
     representations: {}
     long_description: ""
   - id: 76
-    name: The change in internal energy of a system must be equal to the total energy transferred to it by heating and working
+    name: REUSE THIS
     prereq_concepts:
       - 59
       - 55
@@ -1143,7 +1143,7 @@ activities:
     long_description: FIXME this is a cool lab.
     external_url: eenametheexperiment
   - id: 25
-    name: Thermodynamic identity lecture
+    name: First Law and thermodynamic identity
     prereq_concepts:
       - concept: 55
         representation: 15
@@ -1179,15 +1179,11 @@ activities:
     long_description: ""
     external_url: eemeltingice
   - id: 28
-    name: The First Law
-    prereq_concepts:
-      - concept: 55
-      - concept: 59
-    new_concepts:
-      - concept: 76
-    representations:
-      - 15
-    long_description: "\\[\\Delta U = Q + W\\]\n        \\[dU = dQ + dW\\]"
+    name: REUSE THIS LATER
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: "\\"
   - id: 29
     name: Elevators
     prereq_concepts: []
@@ -1449,8 +1445,8 @@ courses:
       - 21
       - 22
       - 23
-      - 28
       - 25
+      - 28
       - 24
       - 26
       - 27
