@@ -1129,13 +1129,11 @@ activities:
       - concept: 62
       - concept: 61
       - concept: 65
-      - concept: 14
-        representation: 6
     new_concepts: []
     representations:
       - 20
       - 6
-    long_description: ""
+    long_description: "David Roundy does not remember why he made this depend on flipping a partial derivative.  Need to look at lab to see whether and when that is used, possibly remove that thing."
     external_url: eenametheexperiment
   - id: 25
     name: Thermodynamic identity lecture
