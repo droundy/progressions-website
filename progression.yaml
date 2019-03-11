@@ -742,6 +742,13 @@ concepts:
     prereq_concepts: []
     representations: {}
     long_description: ""
+  - id: 76
+    name: The change in internal energy of a system must be equal to the total energy transferred to it by heating and working
+    prereq_concepts:
+      - 59
+      - 55
+    representations: {}
+    long_description: $$ dU = dQ + dW $$
 activities:
   - id: 0
     name: lower anchor MTH 251
@@ -1144,6 +1151,7 @@ activities:
         representation: 15
       - concept: 55
       - concept: 63
+      - concept: 76
     new_concepts:
       - concept: 73
       - concept: 74
@@ -1175,10 +1183,11 @@ activities:
     prereq_concepts:
       - concept: 55
       - concept: 59
-    new_concepts: []
+    new_concepts:
+      - concept: 76
     representations:
       - 15
-    long_description: ""
+    long_description: "\\[\\Delta U = Q + W\\]\n        \\[dU = dQ + dW\\]"
   - id: 29
     name: Elevators
     prereq_concepts: []
