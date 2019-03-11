@@ -903,7 +903,7 @@ activities:
     representations: []
     long_description: ""
   - id: 10
-    name: The Master Formula
+    name: The Master Formula (Probably move to 254)
     prereq_concepts:
       - concept: 55
         representation: 15
