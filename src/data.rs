@@ -1173,8 +1173,7 @@ impl Data {
         let new_activity = ActivityChoice {
             id: format_as!(HTML, id),
             field: "activity".to_string(),
-            choices: self.get(id).activities.iter().map(|&a| self.get(a).clone())
-                .collect(),
+            choices: self.activities.clone(),
         };
         CourseSequence { course, prereq_courses: Vec::new(), new_activity, groups }
     }
