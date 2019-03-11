@@ -1246,17 +1246,17 @@ activities:
     long_description: ""
     external_url: eembpdmlegendretransforms
   - id: 37
-    name: Maxwell relations lecture
+    name: USE FOR NEXT ACTIVITY
     prereq_concepts: []
     new_concepts: []
     representations: []
     long_description: ""
   - id: 38
-    name: Seeking the right Maxwell relation
+    name: Maxwell relations
     prereq_concepts: []
     new_concepts: []
     representations: []
-    long_description: ""
+    long_description: This activity involves a lecture followed by an activity.
     external_url: eethermopartials
   - id: 39
     name: "Name the experiment: Maxwell relations"
@@ -1421,7 +1421,6 @@ courses:
     name: Vector Calculus
     activities:
       - 8
-      - 10
       - 11
       - 12
   - id: 3
@@ -1456,6 +1455,6 @@ courses:
       - 34
       - 35
       - 36
-      - 37
       - 38
       - 39
+      - 37
