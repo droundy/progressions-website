@@ -1269,6 +1269,30 @@ activities:
       - 20
     long_description: ""
     external_url: eenametheexperiment3
+  - id: 40
+    name: " Pizza and Cola"
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+  - id: 41
+    name: Contour Maps Lecture
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+  - id: 42
+    name: Differentials Lecture
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+  - id: 43
+    name: Chain Rule (Tree) Diagrams
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1413,7 +1437,11 @@ courses:
     name: Multivariable Calculus
     activities:
       - 1
+      - 40
+      - 41
+      - 42
       - 2
+      - 43
       - 3
       - 4
       - 5
