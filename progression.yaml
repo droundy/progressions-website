@@ -1298,6 +1298,7 @@ activities:
     new_concepts: []
     representations: []
     long_description: ""
+    figure: /figs/dflecture.png
     external_url: "http://physics.oregonstate.edu/BridgeBook/book:math:partial"
   - id: 43
     name: Chain Rule (Tree) Diagrams
