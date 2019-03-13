@@ -1312,9 +1312,9 @@ representations:
     description: ""
     icon: 2D Graph
   - id: 4
-    name: Contour Map
+    name: ""
     description: ""
-    icon: REP 4 (Formally Contour Map Duplicate)&nbsp; &nbsp; &nbsp;&nbsp;
+    icon: ""
   - id: 5
     name: "$\\frac{d f}{d x}$"
     description: ""
@@ -1388,39 +1388,39 @@ representations:
     description: ""
     icon: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
   - id: 23
-    name: partial f/partial x
+    name: ""
     description: ""
-    icon: "Rep 23 (Formally $\\frac{\\partial f}{\\partial x}$ Duplicate)"
+    icon: ""
   - id: 24
-    name: partial f/partial x fixing y
+    name: ""
     description: ""
-    icon: "Rep 24 (Formally&nbsp;$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$&nbsp;<div>Duplicate) \n\n</div>"
+    icon: ""
   - id: 25
-    name: Del f
-    description: NEED DESCRIPTION HERE
-    icon: "$\\vec\\nabla f$"
+    name: ""
+    description: ""
+    icon: ""
   - id: 26
     name: Del dot f
     description: ""
     icon: "$\\vec\\nabla\\cdot\\vec f$"
   - id: 27
-    name: df
+    name: ""
     description: ""
-    icon: $df$
+    icon: ""
   - id: 28
-    name: picture of PDM
+    name: ""
     description: ""
-    icon: "<img src=\"/figs/pdm.jpg\"/>"
+    icon: ""
   - id: 29
-    name: The gradient is a local quantity
+    name: ""
     description: ""
-    icon: "<div><br></div><div><br></div><div><br></div>"
+    icon: ""
   - id: 30
     name: ""
     description: ""
     icon: "<span style=\"text-align: start;\"><br></span><span style=\"text-align: start;\"><br></span>"
   - id: 31
-    name: " "
+    name: ""
     description: ""
     icon: ""
   - id: 32
