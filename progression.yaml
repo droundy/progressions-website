@@ -1275,6 +1275,7 @@ activities:
     new_concepts: []
     representations: []
     long_description: ""
+    figure: /figs/pizzathumbnail.png
   - id: 41
     name: Contour Maps Lecture
     prereq_concepts: []
