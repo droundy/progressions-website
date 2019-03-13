@@ -1273,10 +1273,11 @@ activities:
     name: " Pizza and Cola"
     prereq_concepts:
       - concept: 11
+      - concept: 0
     new_concepts: []
     representations:
       - 3
-    long_description: ""
+    long_description: This SWBQ provides an easy introduction to the graphical representation of functions of several variables.
     figure: /figs/pizzathumbnail.png
   - id: 41
     name: Contour Maps Lecture
@@ -1284,6 +1285,7 @@ activities:
     new_concepts: []
     representations: []
     long_description: ""
+    figure: /figs/hemispherecontour.png
   - id: 42
     name: Differentials Lecture
     prereq_concepts: []
