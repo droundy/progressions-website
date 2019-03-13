@@ -1273,7 +1273,8 @@ activities:
     name: " Pizza and Cola"
     prereq_concepts: []
     new_concepts: []
-    representations: []
+    representations:
+      - 3
     long_description: ""
     figure: /figs/pizzathumbnail.png
   - id: 41
