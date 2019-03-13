@@ -1283,7 +1283,9 @@ activities:
     name: Contour Maps Lecture
     prereq_concepts: []
     new_concepts: []
-    representations: []
+    representations:
+      - 7
+      - 16
     long_description: ""
     figure: /figs/hemispherecontour.png
   - id: 42
@@ -1366,7 +1368,7 @@ representations:
   - id: 16
     name: 3D models
     description: "FIXME: Need new image"
-    icon: "<img src=\"/figs/3dplot.jpg\"/>"
+    icon: "<img src=\"/figs/3dmodel.png\"/>"
   - id: 17
     name: Kinesthetic
     description: ""
