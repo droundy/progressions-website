@@ -1282,7 +1282,9 @@ activities:
   - id: 41
     name: Contour Maps Lecture
     prereq_concepts: []
-    new_concepts: []
+    new_concepts:
+      - concept: 23
+        representation: 7
     representations:
       - 7
       - 16
