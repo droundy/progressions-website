@@ -1293,7 +1293,7 @@ activities:
     figure: /figs/hemispherecontour.png
     external_url: "http://physics.oregonstate.edu/BridgeBook/book:math:level"
   - id: 42
-    name: Differentials Lectu
+    name: Differentials Lecture
     prereq_concepts: []
     new_concepts: []
     representations: []
