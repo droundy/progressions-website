@@ -1271,7 +1271,8 @@ activities:
     external_url: eenametheexperiment3
   - id: 40
     name: " Pizza and Cola"
-    prereq_concepts: []
+    prereq_concepts:
+      - concept: 11
     new_concepts: []
     representations:
       - 3
