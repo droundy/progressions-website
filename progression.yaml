@@ -1360,7 +1360,7 @@ representations:
     description: ""
     icon: $df$
   - id: 16
-    name: 3D plots
+    name: 3D models
     description: "FIXME: Need new image"
     icon: "<img src=\"/figs/3dplot.jpg\"/>"
   - id: 17
@@ -1400,9 +1400,9 @@ representations:
     description: ""
     icon: ""
   - id: 26
-    name: Del dot f
+    name: ""
     description: ""
-    icon: "$\\vec\\nabla\\cdot\\vec f$"
+    icon: ""
   - id: 27
     name: ""
     description: ""
