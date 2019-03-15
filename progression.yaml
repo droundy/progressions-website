@@ -1373,7 +1373,7 @@ representations:
     description: ""
     icon: $df$
   - id: 16
-    name: 3D models
+    name: 3D computer model
     description: "FIXME: Need new image"
     icon: "<img src=\"/figs/3dmodel.png\"/>"
   - id: 17
