@@ -733,12 +733,12 @@ concepts:
     representations: {}
     long_description: "\\[T = \\left(\\frac{\\partial U}{\\partial S}\\right)_V\\]\n        \\[p = -\\left(\\frac{\\partial U}{\\partial V}\\right)_S\\]"
   - id: 74
-    name: dbar Q = TdS (edit later)
+    name: $đQ = TdS$ (edit later)
     prereq_concepts: []
     representations: {}
     long_description: ""
   - id: 75
-    name: dbar w = - pdV (edit later)
+    name: $đW = - pdV$ (edit later)
     prereq_concepts: []
     representations: {}
     long_description: ""
