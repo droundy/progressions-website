@@ -108,7 +108,8 @@ concepts:
     long_description: "If $f=f(y)$ and $y=y(x), then \\frac{df}{dy}=\\frac{df}{dx}\\frac{dx}{dy}.$"
   - id: 14
     name: You can flip a derivative
-    prereq_concepts: []
+    prereq_concepts:
+      - 2
     representations:
       5:
         name: ""
@@ -744,9 +745,7 @@ concepts:
     long_description: ""
   - id: 76
     name: REUSE THIS
-    prereq_concepts:
-      - 59
-      - 55
+    prereq_concepts: []
     representations: {}
     long_description: $$ dU = dQ + dW $$
 activities:
