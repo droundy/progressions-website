@@ -689,6 +689,7 @@ concepts:
       - 58
       - 56
       - 57
+      - 63
     representations:
       15:
         name: ""
@@ -719,7 +720,8 @@ concepts:
     long_description: ""
   - id: 71
     name: The magnitude of the derivative at a point is the slope of a tangent line at that point
-    prereq_concepts: []
+    prereq_concepts:
+      - 3
     representations: {}
     long_description: ""
   - id: 72
