@@ -1308,6 +1308,25 @@ activities:
     representations: []
     long_description: ""
     external_url: "http://physics.oregonstate.edu/BridgeBook/book:math:chaindiag"
+  - id: 44
+    name: Divergence
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+  - id: 45
+    name: Curl
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+    external_url: "http://math.oregonstate.edu/BridgeBook/book/math/curl2"
+  - id: 46
+    name: "Stokes' Theorem"
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1470,6 +1489,9 @@ courses:
       - 8
       - 11
       - 12
+      - 44
+      - 45
+      - 46
   - id: 3
     number: PH 422
     name: Static Fields
