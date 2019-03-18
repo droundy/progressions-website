@@ -801,10 +801,11 @@ activities:
     name: The Hot Plate
     prereq_concepts:
       - concept: 6
-      - concept: 10
       - concept: 15
       - concept: 71
       - concept: 20
+      - concept: 70
+      - concept: 70
     new_concepts:
       - concept: 17
       - concept: 18
@@ -816,7 +817,7 @@ activities:
       - 7
       - 11
       - 10
-    long_description: "This small group activity using surfaces introduces a geometric interpretation of partial derivatives in terms of measured ratios of small changes. Students work in small groups to identify locations on their surface with particular properties. The whole class wrap-up discussion emphasizes the equivalence of multiple representations of partial derivatives.\\[\\]FIXME: Should \"the derivative at a cusp is undefined\" really be a prereq?"
+    long_description: This small group activity using surfaces introduces a geometric interpretation of partial derivatives in terms of measured ratios of small changes. Students work in small groups to identify locations on their surface with particular properties. The whole class wrap-up discussion emphasizes the equivalence of multiple representations of partial derivatives.
     figure: mvhotplate.jpg
     external_url: mvhotplate
   - id: 4
