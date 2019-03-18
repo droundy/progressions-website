@@ -274,7 +274,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "The value of the derivative is a function of the same variables as the original function. Thus, it's value depends on where the derivative is being evaluated. Geometrically, the derivative (slope) of a curve at a point is not a statement about the general shape of the curve but rather about the behavior of the curve immediately around that point. "
+    long_description: "The value of the derivative does not depend on what is happening far away from the point at which the derivative is being evaluated: it can be determined by what is happening in the neighborhood of the point. Geometrically, the derivative (slope) of a curve at a point is not a statement about the general shape of the curve but rather about the behavior of the curve immediately around that point."
   - id: 27
     name: Partial derivatives are functions
     prereq_concepts:
@@ -451,7 +451,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "The magnitude and direction of the gradient depends on the behavior of the function infinitesimally near the point of interest.  For example, the gradient does not point in the direction of maxima a finite distance away (except accidentally), but rather in the direction of steepest slope at the point of interest."
+    long_description: "The magnitude and direction of the gradient depends on the behavior of the function infinitesimally near the point of interest. One implication of this is that the gradient does not point in the direction of maxima a finite distance away (except sometimes accidentally), but rather in the direction of steepest slope at the point of interest."
   - id: 43
     name: The negative gradient of the electric potential is the electric field
     prereq_concepts:
@@ -1298,9 +1298,9 @@ activities:
     prereq_concepts: []
     new_concepts: []
     representations: []
-    long_description: ""
+    long_description: Link is broken.
     figure: /figs/dflecture.png
-    external_url: ""
+    external_url: "http://physics.oregonstate.edu/BridgeBook/book:math:partial"
   - id: 43
     name: Chain Rule Diagram Lecture
     prereq_concepts: []
