@@ -37,8 +37,12 @@ let content = {
       <div class="activity">
         [%
         if let Some(ref url) = self.external_url {
-          %]<a class="external_url"href="http://physics.oregonstate.edu/portfolioswiki/acts:[%
-                                         url as URL %]">Instructor guide</a>
+          if url.contains(":") {
+            %]<a class="external_url"href="[% url as URL %]">Instructor guide</a> [%
+          } else {
+            %]<a class="external_url"href="http://physics.oregonstate.edu/portfolioswiki/acts:[%
+                                           url as URL %]">Instructor guide</a> [%
+         } %]
         <span class="external_url hint" thisid="[% self.id %]" name="external_url">[%
              url as URL %]</span>[%
         } else {
