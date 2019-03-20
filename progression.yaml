@@ -31,7 +31,7 @@ concepts:
         figure: ~
     long_description: The value of the derivative at a point on a curve can be approximated by the slope of a line secant with the curve near that point.
   - id: 4
-    name: "FIXME: DELETE"
+    name: "Maxwell's Equations"
     prereq_concepts: []
     representations: {}
     long_description: ""
@@ -247,10 +247,10 @@ concepts:
         figure: ~
     long_description: The magnitude of the gradient is the value of the slope in the direction of greatest increase
   - id: 24
-    name: "FIXME: DELETE"
+    name: "Maxwell's Relations"
     prereq_concepts: []
     representations: {}
-    long_description: "FIXME: Does the derivative of a constant go in here?"
+    long_description: ""
   - id: 25
     name: All partial derivatives can be found as a slope of a tangent plane
     prereq_concepts:
@@ -415,10 +415,10 @@ concepts:
         figure: ~
     long_description: "1) In any coordinate system, there exists a formula for the curl. Examples include:\\[\\vec\\nabla\\times\\vec v = \\left(\\frac{\\partial v_z}{\\partial y}-\\frac{\\partial v_y}{\\partial z}\\right)\\hat x + \\left(\\frac{\\partial v_x}{\\partial z}-\\frac{\\partial v_z}{\\partial x}\\right)\\hat y + \\left(\\frac{\\partial v_y}{\\partial x}-\\frac{\\partial v_x}{\\partial y}\\right)\\hat z \\text{ in rectangular coodinates}\\]\\[\\vec\\nabla\\times\\vec v = \\left(\\frac{1}{s}\\frac{\\partial v_z}{\\partial \\phi} - \\frac{\\partial v_\\phi}{\\partial z}\\right) \\hat s + \\left(\\frac{\\partial v_s}{\\partial z} - \\frac{\\partial v_z}{\\partial s}\\right) \\hat \\phi + \\frac{1}{s}\\left(\\frac{\\partial \\left(s\\ v_\\phi\\right)}{\\partial s} - \\frac{\\partial v_s}{\\partial \\phi}\\right) \\hat z \\text{ in cylindrical coodinates}\\]\\[\\vec\\nabla\\times\\vec v = \\frac{1}{r \\sin(\\theta)}\\left(\\frac{\\partial \\left(\\sin(\\theta)\\ v_\\phi\\right)}{\\partial \\theta} - \\frac{\\partial v_\\theta}{\\partial \\phi}\\right) \\hat r + \\frac{1}{r}\\left(\\frac{1}{\\sin(\\theta)}\\frac{\\partial v_r}{\\partial \\phi} - \\frac{\\partial \\left(r\\ v_\\phi\\right)}{\\partial r}\\right)\\hat \\theta +\\frac{1}{r} \\left(\\frac{\\partial \\left(r\\ v_\\theta\\right)}{\\partial r} - \\frac{\\partial v_r}{\\partial \\theta}\\right) \\hat \\phi \\text{ in spherical coodinates}\\]2) The curl is geometric (i.e. it is independent of coordinate system) \\[\\]3) The curl is a particular geometric combination of partial derivatives\\[\\]4) In orthogonal coordinate systems, formulas for the curl $\\textit{never}$ have the component of the function being differentiated in each term match the coordinate variable with respect to which you are differentiating (e.g. $\\textbf{$\\alpha$} \\neq \\textbf{$\\beta$}$ in $\\frac{\\partial v_\\textbf{$\\alpha$}}{\\partial \\textbf{$\\beta$}}$.)\\[\\]5) The divergence is a mapping between vector fields."
   - id: 38
-    name: "$\\oint\\vec F\\cdot d\\vec A = \\int\\vec\\nabla\\cdot\\vec F dV$"
+    name: "$\\int\\vec\\nabla\\cdot\\vec F dV= \\oint\\vec F\\cdot d\\vec A$"
     prereq_concepts: []
     representations: {}
-    long_description: The flux of a function through a closed surface is equal to the total divergence of that function in the space bound by the closed surface
+    long_description: "1) The total divergence in a volume is the same as the total flux out of its surface.\\[\\]2) The divergence theorem is used to move between the integral and differential forms of Gauss's law."
   - id: 39
     name: "$\\oint \\vec F\\cdot d\\vec r = \\int \\vec\\nabla\\times\\vec F\\cdot d\\vec A$"
     prereq_concepts: []
@@ -703,7 +703,7 @@ concepts:
     representations: {}
     long_description: "FIXME: Add for Contours: \"The magnitude of a partial derivative is proportional to the density of contour lines along the path of the partial derivative.\"\\[\\]FIXME: Add for Surfaces: \"The magnitude of a partial derivative is the slope of the surface along the path of the partial derivative.\"\\[\\]FIXME: Add current concept: \"All partial derivatives can be found as a slope of a tangent plane\" and change to \"The Magnitude of a partial derivative a slope of the tangent plane in the direction of the partial derivative FIXME: Direction Language?\""
   - id: 68
-    name: "FIXME: DELETE"
+    name: Legendre Transformations
     prereq_concepts: []
     representations: {}
     long_description: ""
@@ -908,6 +908,7 @@ activities:
       - concept: 52
       - concept: 53
       - concept: 54
+      - concept: 4
     representations: []
     long_description: ""
   - id: 10
@@ -1041,7 +1042,9 @@ activities:
   - id: 18
     name: lower anchor PH 423
     prereq_concepts: []
-    new_concepts: []
+    new_concepts:
+      - concept: 24
+      - concept: 68
     representations: []
     long_description: ""
   - id: 19
