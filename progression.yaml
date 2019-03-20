@@ -404,7 +404,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "The divergence in rectangular coordinates can be expressed in terms of partial derivatives\\[\\]The divergence"
+    long_description: "In any coordinate system, there exists a formula for the divergance. Examples include:\\[\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}\\]\n        \\[\\]"
   - id: 37
     name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
     prereq_concepts: []
