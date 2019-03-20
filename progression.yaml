@@ -1283,7 +1283,7 @@ activities:
     representations:
       - 3
     long_description: This SWBQ provides an easy introduction to the graphical representation of functions of several variables.
-    figure: /figs/pizzathumbnail.png
+    figure: pizzathumbnail.png
     external_url: "http://physics.oregonstate.edu/portfolioswiki/swbq:mvsw:mvswpizza"
   - id: 41
     name: Contour Maps Lecture
@@ -1295,7 +1295,7 @@ activities:
       - 7
       - 16
     long_description: ""
-    figure: /figs/hemispherecontour.png
+    figure: hemispherecontour.png
     external_url: "http://physics.oregonstate.edu/BridgeBook/book:math:level"
   - id: 42
     name: Differentials Lecture
@@ -1303,7 +1303,7 @@ activities:
     new_concepts: []
     representations: []
     long_description: Link is broken.
-    figure: /figs/dflecture.png
+    figure: dflecture.png
     external_url: "http://physics.oregonstate.edu/BridgeBook/book:math:partial"
   - id: 43
     name: Chain Rule Diagram Lecture
