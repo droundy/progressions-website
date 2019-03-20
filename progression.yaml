@@ -1187,8 +1187,7 @@ activities:
   - id: 28
     name: REUSE THIS LATER
     prereq_concepts: []
-    new_concepts:
-      - concept: 30
+    new_concepts: []
     representations: []
     long_description: "\\"
   - id: 29
@@ -1334,6 +1333,12 @@ activities:
     long_description: ""
   - id: 47
     name: MECHANICS ACTIVITY I
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+  - id: 48
+    name: MECHANICS ACTIVITY II
     prereq_concepts: []
     new_concepts: []
     representations: []
@@ -1503,9 +1508,8 @@ courses:
     number: PH 335
     name: Mechanics
     activities:
-      - 5
-      - 6
       - 47
+      - 48
   - id: 4
     number: MTH 255
     name: Vector Calculus
