@@ -1374,7 +1374,7 @@ representations:
   - id: 2
     name: 1D Graph
     description: ""
-    icon: 1D Graph
+    icon: "<img src=\"/figs/1DGraph.png\"/>"
   - id: 3
     name: 2D Graph
     description: ""
