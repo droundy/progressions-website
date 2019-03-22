@@ -1185,7 +1185,7 @@ activities:
     long_description: ""
     external_url: eemeltingice
   - id: 28
-    name: REUSE THIS LATER
+    name: Partial Differential Equations
     prereq_concepts: []
     new_concepts: []
     representations: []
