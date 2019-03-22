@@ -1378,7 +1378,7 @@ representations:
   - id: 3
     name: 2D Graph
     description: ""
-    icon: 2D Graph
+    icon: "<img src=\"/figs/2DGraph.png\"/>"
   - id: 4
     name: Tangible Models
     description: ""
@@ -1456,9 +1456,9 @@ representations:
     description: ""
     icon: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
   - id: 23
-    name: 1D
+    name: ""
     description: ""
-    icon: 1D
+    icon: ""
   - id: 24
     name: ""
     description: ""
