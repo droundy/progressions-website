@@ -1364,7 +1364,7 @@ activities:
       - 4
     long_description: ""
   - id: 51
-    name: Power Series Lecture
+    name: Power Series Lecture / SGA
     prereq_concepts: []
     new_concepts: []
     representations: []
