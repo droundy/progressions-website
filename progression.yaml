@@ -1185,7 +1185,7 @@ activities:
     long_description: ""
     external_url: eemeltingice
   - id: 28
-    name: Partial Differential Equations
+    name: Guitar String Lecture ()
     prereq_concepts: []
     new_concepts: []
     representations: []
@@ -1254,7 +1254,7 @@ activities:
     long_description: ""
     external_url: eembpdmlegendretransforms
   - id: 37
-    name: USE FOR NEXT ACTIVITY
+    name: Guitar String Mathematica
     prereq_concepts: []
     new_concepts: []
     representations: []
