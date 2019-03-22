@@ -1378,6 +1378,19 @@ activities:
       - 2
     long_description: ""
     external_url: vfpowerapprox
+  - id: 53
+    name: Product Rules
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+    external_url: "http://physics.oregonstate.edu/BridgeBook/book:math:rules"
+  - id: 54
+    name: Energy for Continuous Distributions
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1569,6 +1582,8 @@ courses:
       - 15
       - 16
       - 17
+      - 53
+      - 54
   - id: 6
     number: PH 423
     name: Energy and Entropy
