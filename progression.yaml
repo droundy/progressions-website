@@ -1189,8 +1189,9 @@ activities:
     prereq_concepts:
       - concept: 16
     new_concepts: []
-    representations: []
-    long_description: "\\"
+    representations:
+      - 8
+    long_description: ""
   - id: 29
     name: Elevators
     prereq_concepts: []
