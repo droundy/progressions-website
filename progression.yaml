@@ -1203,7 +1203,8 @@ activities:
       - concept: 78
     representations:
       - 8
-    long_description: "3rd) Boundary conditions \\[\\] Get discrete solutions \\[\\] Superposition \\[\\]"
+      - 4
+    long_description: "3rd) Boundary conditions \\[\\] Get discrete solutions \\[\\] Superposition \\[\\] (Guitar)"
   - id: 29
     name: Elevators
     prereq_concepts: []
@@ -1366,7 +1367,8 @@ activities:
     representations:
       - 8
       - 2
-    long_description: ""
+      - 4
+    long_description: "Image from Ethan\n          Second derivatives of spacial coordinate relate to a kinetic energy (physical interpretation)"
   - id: 50
     name: Quantum Harmonic Oscillator (19)
     prereq_concepts: []
@@ -1411,6 +1413,13 @@ activities:
     new_concepts: []
     representations: []
     long_description: "Find under what conditions a second order pde is true.\\[\\]Develop familiarity with notation and make sure students know how to take derivatives and 2nd derivatives."
+  - id: 56
+    name: "Bugal (continuation, generalization)"
+    prereq_concepts: []
+    new_concepts: []
+    representations:
+      - 4
+    long_description: Solutions to PDEs(Bugal)
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1573,6 +1582,7 @@ courses:
       - 28
       - 55
       - 37
+      - 56
       - 49
       - 50
   - id: 3
