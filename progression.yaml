@@ -1374,7 +1374,8 @@ activities:
     name: Power Series Mathematica
     prereq_concepts: []
     new_concepts: []
-    representations: []
+    representations:
+      - 2
     long_description: ""
     external_url: vfpowerapprox
 representations:
