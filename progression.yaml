@@ -1390,7 +1390,8 @@ activities:
     prereq_concepts: []
     new_concepts: []
     representations: []
-    long_description: ""
+    long_description: No Wiki Page
+    external_url: ""
 representations:
   - id: 0
     name: "$\\Delta x$"
