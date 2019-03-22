@@ -1368,7 +1368,7 @@ activities:
       - 8
       - 2
       - 4
-    long_description: "Image from Ethan\n          Second derivatives of spacial coordinate relate to a kinetic energy (physical interpretation)"
+    long_description: "Image from Ethan Second derivatives of spacial coordinate relate to a kinetic energy (physical interpretation) \\[\\]Not finding solutions to PDEs, but making sense of solutions."
   - id: 50
     name: Quantum Harmonic Oscillator (19)
     prereq_concepts: []
