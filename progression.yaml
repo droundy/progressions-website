@@ -1363,6 +1363,12 @@ activities:
       - 2
       - 4
     long_description: ""
+  - id: 51
+    name: Power Series Lecture
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1547,6 +1553,7 @@ courses:
     name: Static Fields
     activities:
       - 9
+      - 51
       - 13
       - 14
       - 15
