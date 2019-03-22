@@ -1185,8 +1185,9 @@ activities:
     long_description: ""
     external_url: eemeltingice
   - id: 28
-    name: Guitar String Lecture ()
-    prereq_concepts: []
+    name: Guitar String Lecture (8)
+    prereq_concepts:
+      - concept: 16
     new_concepts: []
     representations: []
     long_description: "\\"
@@ -1254,10 +1255,11 @@ activities:
     long_description: ""
     external_url: eembpdmlegendretransforms
   - id: 37
-    name: Guitar String Mathematica
+    name: Guitar String Mathematica (9)
     prereq_concepts: []
     new_concepts: []
-    representations: []
+    representations:
+      - 2
     long_description: ""
   - id: 38
     name: Maxwell relations
@@ -1339,6 +1341,12 @@ activities:
     long_description: ""
   - id: 48
     name: MECHANICS ACTIVITY II
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: ""
+  - id: 49
+    name: Schrodinger Equation (18)
     prereq_concepts: []
     new_concepts: []
     representations: []
@@ -1504,6 +1512,7 @@ courses:
     activities:
       - 28
       - 37
+      - 49
   - id: 3
     number: PH 335
     name: Mechanics
