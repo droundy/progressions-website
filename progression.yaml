@@ -268,11 +268,11 @@ concepts:
     representations:
       2:
         name: ""
-        long_description: ""
+        long_description: "In order to find the derivative at a point on a 1D graph, one need only look at the region of the graph immediately around the point of interest"
         figure: ~
       5:
         name: ""
-        long_description: ""
+        long_description: "To find the derivative of a function at a point, one need only consider values of the function in the neighborhood of that point FIXME demonstrate with limit definition of derivative?"
         figure: ~
     long_description: "The value of the derivative does not depend on what is happening far away from the point at which the derivative is being evaluated: it can be determined by what is happening in the neighborhood of the point. Geometrically, the derivative (slope) of a curve at a point is not a statement about the general shape of the curve but rather about the behavior of the curve immediately around that point."
   - id: 27
