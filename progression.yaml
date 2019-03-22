@@ -750,6 +750,16 @@ concepts:
     prereq_concepts: []
     representations: {}
     long_description: $$ dU = dQ + dW $$
+  - id: 77
+    name: Developing physical interpretations of partial derivatives (dimensions)
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
+  - id: 78
+    name: Second partial Derivatives
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
 activities:
   - id: 0
     name: lower anchor MTH 251
@@ -1188,7 +1198,9 @@ activities:
     name: Guitar String Lecture (8)
     prereq_concepts:
       - concept: 16
-    new_concepts: []
+    new_concepts:
+      - concept: 77
+      - concept: 78
     representations:
       - 8
     long_description: ""
