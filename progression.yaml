@@ -1349,7 +1349,18 @@ activities:
     name: Schrodinger Equation (18)
     prereq_concepts: []
     new_concepts: []
-    representations: []
+    representations:
+      - 8
+      - 2
+    long_description: ""
+  - id: 50
+    name: Quantum Harmonic Oscillator (19)
+    prereq_concepts: []
+    new_concepts: []
+    representations:
+      - 8
+      - 2
+      - 4
     long_description: ""
 representations:
   - id: 0
@@ -1369,9 +1380,9 @@ representations:
     description: ""
     icon: 2D Graph
   - id: 4
-    name: ""
+    name: Tangible Models
     description: ""
-    icon: ""
+    icon: Tangible Models
   - id: 5
     name: "$\\frac{d f}{d x}$"
     description: ""
@@ -1445,9 +1456,9 @@ representations:
     description: ""
     icon: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
   - id: 23
-    name: ""
+    name: 1D
     description: ""
-    icon: ""
+    icon: 1D
   - id: 24
     name: ""
     description: ""
@@ -1513,6 +1524,7 @@ courses:
       - 28
       - 37
       - 49
+      - 50
   - id: 3
     number: PH 335
     name: Mechanics
