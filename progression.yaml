@@ -1203,7 +1203,7 @@ activities:
       - concept: 78
     representations:
       - 8
-    long_description: ""
+    long_description: "3rd) Boundary conditions \\[\\] Get discrete solutions \\[\\] Superposition \\[\\]"
   - id: 29
     name: Elevators
     prereq_concepts: []
@@ -1274,7 +1274,7 @@ activities:
     new_concepts: []
     representations:
       - 2
-    long_description: ""
+    long_description: Could ask about highest acceleration at different points in space / time
   - id: 38
     name: Maxwell relations
     prereq_concepts: []
@@ -1405,6 +1405,12 @@ activities:
     representations: []
     long_description: No Wiki Page
     external_url: ""
+  - id: 55
+    name: Guitar String SGA
+    prereq_concepts: []
+    new_concepts: []
+    representations: []
+    long_description: "Find under what conditions a second order pde is true.\\[\\]Develop familiarity with notation and make sure students know how to take derivatives and 2nd derivatives."
 representations:
   - id: 0
     name: "$\\Delta x$"
@@ -1565,6 +1571,7 @@ courses:
     name: Contemporary Challenges
     activities:
       - 28
+      - 55
       - 37
       - 49
       - 50
