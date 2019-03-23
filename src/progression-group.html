@@ -21,11 +21,7 @@
     </form>
     [% self.activity.addremove() %]
     <iframe style="display:none" name="hidden-form"></iframe>
-    <div class="activity" thisid="[% self.activity.id %]" name="name">[% self.activity.name %]</div>
-    <div class="hint"><br/></div>
-    <div class="description hint" thisid="[% self.activity.id %]" name="long_description">
-      [% self.activity.long_description %]
-    </div>[%
+    <div class="activity" thisid="[% self.activity.id %]" name="name">[% self.activity.name %]</div>[%
     for r in self.activity.representations.iter() {
       r
     } %]
@@ -38,10 +34,6 @@
          } %]" id="[% concept.id %]">
       <span thisid="[% concept.id %]" name="name">[% concept.summary_name %]</span>
       [% if let Some(r) = concept.representation.clone() { Child::none(r) } %]
-      <div class="description hint" thisid="[% concept.id %]" name="long_description">
-        <br/>
-        [% concept.long_description %]
-      </div>
     </a>
     [% } %]
   </div>

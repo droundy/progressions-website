@@ -111,10 +111,10 @@ fn main() {
                 .or(course)
                 .or(representation)
                 .or(representations)
-                .or(style_css)
                 .or(libraries)
                 .or(figs)
                 .or(figure)
-                .with(warp::reply::with::default_header("Cache-Control", "no-store")))
+                .with(warp::reply::with::default_header("Cache-Control", "no-store"))
+                .or(style_css))
         .run(([0, 0, 0, 0], 3030));
 }

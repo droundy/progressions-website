@@ -275,15 +275,15 @@ impl Data {
                 self.get_mut(id).icon = format!(r#"<img src="/figs/{}"/>"#, filename);
             }
             AnyID::Concept(id) => {
-                self.get_mut(id).figure = Some(format!("/figs/{}", filename));
+                self.get_mut(id).figure = Some(filename.to_string());
             }
             AnyID::Activity(id) => {
-                self.get_mut(id).figure = Some(format!("/figs/{}", filename));
+                self.get_mut(id).figure = Some(filename.to_string());
             }
             AnyID::ConceptRepresentation(id) => {
                 let rid = id.representation.unwrap();
                 self.get_mut(id.concept).representations.entry(rid)
-                    .and_modify(|e| e.figure = Some(format!("/figs/{}", filename)));
+                    .and_modify(|e| e.figure = Some(filename.to_string()));
             }
             _ => {
                 bail!("Unhandled id type on uploaded_figure: {:?}", id);
@@ -1173,7 +1173,8 @@ impl Data {
         let new_activity = ActivityChoice {
             id: format_as!(HTML, id),
             field: "activity".to_string(),
-            choices: self.activities.clone(),
+            choices: self.activities.iter().filter(|a| !course.activities.contains(&a.id))
+                .cloned().collect(),
         };
         CourseSequence { course, prereq_courses: Vec::new(), new_activity, groups }
     }
