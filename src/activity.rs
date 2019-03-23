@@ -7,6 +7,7 @@ use crate::data::{Course,
                   ConceptRepresentationChoice,
                   ActivityID,
                   PrereqCourse, ChangeRelationship};
+use crate::markdown::Markdown;
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Activity {
@@ -15,7 +16,7 @@ pub struct Activity {
     pub prereq_concepts: Vec<ConceptRepresentationID>,
     pub new_concepts: Vec<ConceptRepresentationID>,
     pub representations: Vec<RepresentationID>,
-    pub long_description: String,
+    pub long_description: Markdown,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub figure: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -43,7 +44,7 @@ pub struct ActivityView {
     pub representations: Vec<Child<Representation>>,
     pub courses: Vec<Course>,
     pub figure: Option<String>,
-    pub long_description: String,
+    pub long_description: Markdown,
     pub external_url: Option<String>,
 }
 

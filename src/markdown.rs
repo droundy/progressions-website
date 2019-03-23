@@ -6,14 +6,20 @@ use serde_derive::{Deserialize, Serialize};
 pub struct Markdown(String);
 
 impl Markdown {
-    pub fn new(md: String) -> Markdown {
-        Markdown(md)
+    pub fn new(md: &str) -> Markdown {
+        Markdown(md.to_string())
     }
     pub fn len(&self) -> usize {
         self.0.len()
     }
     pub fn from_html(html: &str) -> Markdown {
         Markdown(html2md::parse_html(html).trim().to_string())
+    }
+}
+
+impl From<&str> for Markdown {
+    fn from(x: &str) -> Self {
+        Markdown::new(x)
     }
 }
 

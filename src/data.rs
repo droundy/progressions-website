@@ -355,7 +355,7 @@ impl Data {
                     "long_description" => {
                         self.get_mut(id.concept).representations
                             .get_mut(&id.representation.unwrap()).unwrap()
-                            .long_description = c.content.trim().to_string();
+                            .long_description = Markdown::from_html(&c.html);
                     }
                     _ => {
                         bail!("Weird field for ConceptRepresentation: {}", c.field);
@@ -365,7 +365,7 @@ impl Data {
             AnyID::Concept(id) => {
                 match &c.field as &str {
                     "long_description" => {
-                        self.get_mut(id).long_description = c.content.trim().to_string();
+                        self.get_mut(id).long_description = Markdown::from_html(&c.html);
                     }
                     "name" => {
                         self.get_mut(id).name = c.content.trim().to_string();
@@ -452,7 +452,7 @@ impl Data {
             AnyID::Activity(id) => {
                 match &c.field as &str {
                     "long_description" => {
-                        self.get_mut(id).long_description = c.content.trim().to_string();
+                        self.get_mut(id).long_description = Markdown::from_html(&c.html);
                     }
                     "name" => {
                         self.get_mut(id).name = c.content.trim().to_string();
@@ -590,7 +590,7 @@ impl Data {
                                 } else {
                                     self.get_mut(id).name = "".to_string();
                                     self.get_mut(id).icon = "".to_string();
-                                    self.get_mut(id).description = Markdown::new("".to_string());
+                                    self.get_mut(id).description = "".into();
                                 }
                             }
                             "used by" => {
@@ -634,7 +634,7 @@ impl Data {
             prereq_concepts: Vec::new(),
             representations: std::collections::BTreeMap::new(),
             figure: None,
-            long_description: "".to_string(),
+            long_description: "".into(),
         });
         newid
     }
@@ -656,7 +656,7 @@ impl Data {
             new_concepts: Vec::new(),
             representations: Vec::new(),
             figure: None,
-            long_description: "".to_string(),
+            long_description: "".into(),
             external_url: None,
         });
         newid

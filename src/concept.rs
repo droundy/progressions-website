@@ -1,6 +1,7 @@
 use display_as::{with_template, format_as, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
 use std::collections::BTreeMap;
+use crate::markdown::Markdown;
 
 use crate::data::{Course,
                   RepresentationID, Child, Representation, ConceptRepresentationID,
@@ -16,13 +17,13 @@ pub struct Concept {
     pub representations: BTreeMap<RepresentationID,ConceptRepresentation>, // fixme change to ConceptRepresentation, possible BTreeMap
     #[serde(skip_serializing_if = "Option::is_none")]
     pub figure: Option<String>,
-    pub long_description: String,
+    pub long_description: Markdown,
 }
 impl Concept {
     pub fn add_representation(&mut self, id: RepresentationID) {
         self.representations.insert(id, ConceptRepresentation {
             name: "".to_string(),
-            long_description: "".to_string(),
+            long_description: "".into(),
             figure: None,
         });
     }
@@ -30,7 +31,7 @@ impl Concept {
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct ConceptRepresentation {
     pub name: String,
-    pub long_description: String,
+    pub long_description: Markdown,
     pub figure: Option<String>,
 }
 
@@ -59,7 +60,7 @@ pub struct ConceptView {
     pub representations: Vec<ActivityGroup>,
     pub courses: Vec<Course>,
     pub figure: Option<String>,
-    pub long_description: String,
+    pub long_description: Markdown,
 }
 #[with_template("[%" "%]" "concept-view.html")]
 impl DisplayAs<HTML> for ConceptView {}
@@ -120,7 +121,7 @@ pub struct ConceptRepresentationView {
     pub representation: Option<Representation>,
     pub summary_name: String,
     pub name: String,
-    pub long_description: String,
+    pub long_description: Markdown,
     pub figure: Option<String>,
 }
 #[with_template("[%" "%]" "concept-representation-view.html")]

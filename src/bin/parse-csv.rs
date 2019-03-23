@@ -102,7 +102,7 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                     prereq_concepts: prereqs,
                     representations: std::collections::BTreeMap::new(),
                     figure: nonempty_string(datum.figure),
-                    long_description: datum.long_description.to_string(),
+                    long_description: datum.long_description.into(),
                 };
                 for r in representations.iter().cloned() {
                     c.add_representation(r);
@@ -125,7 +125,7 @@ fn read_progression_csv() -> Result<(), Box<Error>> {
                 new_concepts,
                 representations,
                 figure: nonempty_string(datum.figure),
-                long_description: datum.long_description.to_string(),
+                long_description: datum.long_description.into(),
                 external_url: nonempty_string(datum.external_url),
             };
             for &course in courses.iter() {
