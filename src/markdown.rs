@@ -13,7 +13,17 @@ impl Markdown {
         self.0.len()
     }
     pub fn from_html(html: &str) -> Markdown {
-        Markdown(html2md::parse_html(html).trim().to_string())
+        // println!("\nstarting with:\n*************\n{}\n********\n", html);
+        let x = html2md::parse_html(html);
+        // preserve "\\" in math mode, which disallows escaping a
+        // backslash, but why would we want a backslash?
+        let x = x.replace(r"\\", r"\\\\");
+        // mode disallow escaping square brackets [] since we want
+        // math mode to *not* require extra escapes.
+        let x = x.replace(r"\[", r"\\[");
+        let x = x.replace(r"\]", r"\\]");
+        // println!("\nending with:\n*************\n{}\n********\n", x.trim());
+        Markdown(x.trim().to_string())
     }
 }
 
