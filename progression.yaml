@@ -126,7 +126,8 @@ concepts:
     long_description: "In other words, $\\frac{dy}{dx} = \\frac{1}{\\frac{dx}{dy}}$.  Note that this concept is challenging to express in Newton's notation, but arises naturally if implicit differentiation is covered."
   - id: 15
     name: "\"With respect to what\" matters"
-    prereq_concepts: []
+    prereq_concepts:
+      - 2
     representations:
       5:
         name: ""
@@ -577,6 +578,7 @@ concepts:
     name: Differentials are small changes or differences
     prereq_concepts:
       - 0
+      - 5
     representations:
       15:
         name: ""
