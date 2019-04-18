@@ -181,9 +181,12 @@ body .external_url {
     background-color: var(--representation-color);
     /* max-height: calc(2*var(--imgheight)); */
 
-    display: flex;
+    display: block;
+    text-align: center;
+
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 
     clear: right;
     float: right;
@@ -198,6 +201,9 @@ body .external_url {
     /* flex-grow: 1; */
     /* flex-shrink: 1; */
     /* flex-basis: var(--minwidth); */
+}
+article > .representation {
+    display: flex;
 }
 
 .description {

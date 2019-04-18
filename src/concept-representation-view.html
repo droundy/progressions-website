@@ -18,7 +18,7 @@
     } else {
       self.name
     }%]</[% h3 %]>
-    [% if let Some(r) = self.representation.clone() { Child::none(r) } %]
+    [% if let Some(r) = self.representation.clone() { Child::none(r).with_detail() } %]
   <div class="hint"><br/></div>
   <div class="description [% if !self.show_detail { %]hint[% } %]" thisid="[% self.id %]" name="long_description">
     [%

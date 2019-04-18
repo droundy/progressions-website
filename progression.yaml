@@ -1470,7 +1470,7 @@ representations:
     description: ""
     icon: "<img src=\"/figs/inclinometer.jpg\"/>"
   - id: 11
-    name: surface
+    name: Surface
     description: ""
     icon: "<img src=\"/figs/surface.jpg\"/>"
   - id: 12

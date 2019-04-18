@@ -1,5 +1,7 @@
 <div thisid="[% self.id %]" name="icon" onclick="document.location.href ='[% self as URL %]'; return false"
      style="cursor: pointer;"
      class="representation">
-  [% self.icon as UTF8 %] [% self.addremove() %]
+  <div>[% self.icon as UTF8 %]</div> [% self.addremove() %] [% if self.show_detail && self.icon != self.name {
+    %]<div>[% self.name %]</div>[%
+  } %]
 </div>
