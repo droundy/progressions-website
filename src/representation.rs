@@ -1,6 +1,6 @@
 use display_as::{with_template, HTML, URL, UTF8, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
-use crate::data::{RepresentationID, ActivityGroup, Child, ConceptRepresentationView};
+use crate::data::{absolute_url, RepresentationID, ActivityGroup, Child, ConceptRepresentationView};
 use crate::markdown::Markdown;
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]

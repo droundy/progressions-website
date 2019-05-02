@@ -1,6 +1,6 @@
 use display_as::{with_template, HTML, URL, DisplayAs};
 use serde_derive::{Deserialize, Serialize};
-use crate::data::{Course,
+use crate::data::{absolute_url, Course,
                   Child, Representation, RepresentationID, AnyChoice,
                   ActivityGroup,
                   ConceptRepresentationID, ConceptRepresentationView,

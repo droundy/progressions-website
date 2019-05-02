@@ -38,7 +38,7 @@ let content = {
         [%
         if let Some(ref url) = self.external_url {
           if url.contains(":") {
-            %]<a class="external_url"href="[% url as URL %]">Instructor guide</a> [%
+            %]<a class="external_url" href=[% absolute_url(url) %]>Instructor guide</a> [%
           } else {
             %]<a class="external_url"href="http://physics.oregonstate.edu/portfolioswiki/acts:[%
                                            url as URL %]">Instructor guide</a> [%

@@ -5,6 +5,29 @@ use display_as::{with_template, format_as, HTML, UTF8, URL, DisplayAs};
 use simple_error::bail;
 use crate::markdown::Markdown;
 
+lazy_static::lazy_static! {
+    static ref BASE: std::sync::Mutex<String> = std::sync::Mutex::new(String::new());
+}
+pub fn set_base_url(new_base: &str) {
+    *BASE.lock().unwrap() = new_base.to_string();
+}
+fn base_url() -> String {
+    BASE.lock().unwrap().clone()
+}
+#[derive(Debug, Clone)]
+struct AbsoluteURL(String);
+#[with_template(r#"""# base_url() as UTF8 "" self.0 as UTF8 r#"""#)]
+impl DisplayAs<HTML> for AbsoluteURL {}
+
+pub fn absolute_url(u: impl DisplayAs<URL>) -> impl DisplayAs<HTML> {
+    let x = format_as!(URL, u);
+    if x.starts_with("/") {
+        AbsoluteURL(x)
+    } else {
+        AbsoluteURL(format!("/{}", x))
+    }
+}
+
 #[derive(Debug, Hash, Clone, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Change {
     pub id: String,

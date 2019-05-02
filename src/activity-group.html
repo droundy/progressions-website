@@ -2,12 +2,12 @@
   <div class="taughtby">
     <div class="taughtby">
       [% if let Some(ref activity) = self.activity.iter().next() { %]
-      <a href="[% activity as URL %]" class="activity" thisid="[% activity.id %]" name="name">
+      <a href=[% absolute_url(activity.id) %] class="activity" thisid="[% activity.id %]" name="name">
         [% activity.addremove() %][% activity.name %]
       </a>
       [%
       } else { %]
-      <a href="activity/orphans" class="activity orphans">
+      <a href=[% absolute_url("activity/orphans") %] class="activity orphans">
         No activity!
       </a>
       [%
@@ -19,7 +19,7 @@
     c
   } %] [%
   for c in self.hint_concepts.iter() {
-     %]<a href="[% c as URL %]" class="concept hint">[% c.addremove() %]
+     %]<a href=[% absolute_url(c.id) %] class="concept hint">[% c.addremove() %]
        <span thisid="[% c.id %]" name="name">[% c.name %]</span></a> [%
   } %]
 </div>

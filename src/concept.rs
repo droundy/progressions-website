@@ -3,7 +3,7 @@ use serde_derive::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use crate::markdown::Markdown;
 
-use crate::data::{Course,
+use crate::data::{absolute_url, Course,
                   RepresentationID, Child, Representation, ConceptRepresentationID,
                   Activity, ActivityChoice, ActivityGroup, ConceptID,
                   ConceptChoice, AnyChoice, ChangeRelationship,
@@ -128,3 +128,5 @@ pub struct ConceptRepresentationView {
 impl DisplayAs<HTML> for Child<ConceptRepresentationView> {}
 #[with_template( self.id )]
 impl DisplayAs<URL> for ConceptRepresentationView {}
+#[with_template( self.id )]
+impl DisplayAs<URL> for Child<ConceptRepresentationView> {}

@@ -1,9 +1,17 @@
 use warp::{Filter, path};
-use progression_website::data::{ Data, Change, CourseID, AnyID,
+use progression_website::data::{ set_base_url, Data, Change, CourseID, AnyID,
                                  ConceptID, ActivityID, RepresentationID };
 use display_as::{HTML, display};
+use clapme::ClapMe;
+
+#[derive(Debug, ClapMe)]
+struct Args {
+    base_url: String,
+}
 
 fn main() {
+    let args = Args::from_args();
+    set_base_url(&args.base_url);
     let change = path!("change")
         .and(warp::filters::body::form())
         .map(|change: Change| {
