@@ -11,7 +11,9 @@ let extrajs = {
 let readyjs = {};
 let title = { %] Activity: [% self.name };
 let nav = {
-  %]<li>[% self.courses[0] %]</li>[%
+  if self.courses.len() > 0 {
+    %]<li>[% self.courses[0] %]</li>[%
+  }
 };
 let content = {
   %]<article>

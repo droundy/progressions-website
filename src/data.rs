@@ -782,7 +782,7 @@ impl Data {
         }
         false
     }
-    pub fn concept_map(&self, max_width: usize) -> ConceptMap
+    pub fn concept_map(&self, max_width: usize, num_iters: usize) -> ConceptMap
     {
         let mut edges = Vec::new();
         for c in self.concepts.iter() {
@@ -864,7 +864,7 @@ impl Data {
                 children: Vec::new(),
             })
             .collect();
-        let mut cmap = ConceptMap { rows }.optimize();
+        let mut cmap = ConceptMap { rows }.optimize(num_iters);
         for orph in orphans.chunks(max_width) {
             cmap.rows.push(orph.to_vec());
         }
@@ -1294,6 +1294,45 @@ impl Data {
             activity: Some(Child::remove(parentid, relationship, a)),
             concepts: Vec::new(),
         });
+    }
+
+    pub fn dump_mirror(&self) {
+        std::fs::create_dir_all("mirror/concept").unwrap();
+        println!("creating concepts...");
+        for a in self.concepts.iter() {
+            std::fs::write(format_as!(URL, "mirror/" a),
+                           format_as!(HTML, self.concept_view(a.id))).ok();
+        }
+        println!("creating activities...");
+        std::fs::create_dir_all("mirror/activity").unwrap();
+        for a in self.activities.iter() {
+            std::fs::write(format_as!(URL, "mirror/" a),
+                           format_as!(HTML, self.activity_view(a.id))).ok();
+        }
+        println!("creating courses...");
+        std::fs::create_dir_all("mirror/course").unwrap();
+        for a in self.courses.iter() {
+            std::fs::write(format_as!(URL, "mirror/" a),
+                           format_as!(HTML, self.course_view(a.id))).ok();
+        }
+        println!("creating representations...");
+        std::fs::create_dir_all("mirror/representation").unwrap();
+        for a in self.representations.iter() {
+            std::fs::write(format_as!(URL, "mirror/" a),
+                           format_as!(HTML, self.representation_view(a.id))).ok();
+        }
+        {
+            std::fs::write(format_as!(URL, "mirror/index.html"),
+                           format_as!(HTML, self.progression_view())).ok();
+        }
+        std::fs::create_dir_all("mirror/concept-map").unwrap();
+        for max_width in 1..18 {
+            std::fs::write(format_as!(URL, "mirror/concept-map/" max_width),
+                           format_as!(HTML, self.concept_map(max_width, 1 << 20))).ok();
+        }
+        std::fs::write(format_as!(URL, "mirror/concept-map/index.html"),
+                       format_as!(HTML, self.concept_map(4, 1 << 20))).ok();
+        println!("All done with the mirror!");
     }
 }
 
@@ -1863,14 +1902,13 @@ impl ConceptMap {
         out.rows[to_change].swap(to_swap1, to_swap2);
         out
     }
-    pub fn optimize(&self) -> Self {
+    pub fn optimize(&self, num_iters: usize) -> Self {
         let mut best = self.clone();
         let mut current = self.clone();
         let mut e_best = best.crossings(false);
         let mut e = e_best;
         let mut logw = std::collections::BTreeMap::new();
         logw.insert(e_best, 1);
-        let num_iters = 1<<18;
         for i in 0..num_iters {
             let trial = current.random_change();
             let e_trial = trial.crossings(false);

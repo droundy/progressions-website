@@ -12,6 +12,11 @@ struct Args {
 fn main() {
     let args = Args::from_args();
     set_base_url(&args.base_url);
+
+    {
+        let data = Data::new();
+        data.dump_mirror();
+    }
     let change = path!("change")
         .and(warp::filters::body::form())
         .map(|change: Change| {
@@ -49,12 +54,12 @@ fn main() {
     let map = path!("concept-map" / usize)
         .map(|max_width: usize| {
             let data = Data::new();
-            display(HTML, &data.concept_map(max_width)).http_response()
+            display(HTML, &data.concept_map(max_width, 1 << 18)).http_response()
         })
         .or(path!("concept-map")
             .map(|| {
                 let data = Data::new();
-                display(HTML, &data.concept_map(4)).http_response()
+                display(HTML, &data.concept_map(4, 1 << 18)).http_response()
             }));
     let dot = path!("concept-map.dot")
         .map(|| {
