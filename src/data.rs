@@ -180,7 +180,7 @@ impl DisplayAs<HTML> for Course {}
 pub use crate::concept::{Concept, ConceptView,
                          ConceptRepresentation, ConceptRepresentationView};
 pub use crate::activity::{Activity, ActivityView};
-pub use crate::representation::{Representation, RepresentationView};
+pub use crate::representation::{Icon, Representation, RepresentationView};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Data {
@@ -295,7 +295,7 @@ impl Data {
     {
         match id {
             AnyID::Representation(id) => {
-                self.get_mut(id).icon = format!(r#"<img src="/figs/{}"/>"#, filename);
+                self.get_mut(id).icon = Icon::Fig(format!("figs/{}", filename));
             }
             AnyID::Concept(id) => {
                 self.get_mut(id).figure = Some(filename.to_string());
@@ -581,7 +581,7 @@ impl Data {
             AnyID::Representation(id) => {
                 match &c.field as &str {
                     "icon" => {
-                        self.get_mut(id).icon = c.html.trim().to_string();
+                        self.get_mut(id).icon = Icon::Html(c.html.trim().to_string());
                     }
                     "name" => {
                         self.get_mut(id).name = c.content.trim().to_string();
@@ -612,7 +612,7 @@ impl Data {
                                     }
                                 } else {
                                     self.get_mut(id).name = "".to_string();
-                                    self.get_mut(id).icon = "".to_string();
+                                    self.get_mut(id).icon = Icon::Html("".to_string());
                                     self.get_mut(id).description = "".into();
                                 }
                             }
@@ -702,7 +702,7 @@ impl Data {
                 id: newid,
                 name: name.to_string(),
                 description: Default::default(),
-                icon: name.to_string(),
+                icon: Icon::Html(name.to_string()),
             };
             newid
         } else {
@@ -711,7 +711,7 @@ impl Data {
                 id: newid,
                 name: name.to_string(),
                 description: Default::default(),
-                icon: name.to_string(),
+                icon: Icon::Html(name.to_string()),
             });
             newid
         }

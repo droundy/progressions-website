@@ -1,9 +1,9 @@
 [%
 match &self {
-  Fig(fname) => {
+  Icon::Fig(fname) => {
     %]<img src=[% absolute_url(fname) %]/>[%
   },
-  Html(html) => {
+  Icon::Html(html) => {
     html as UTF8
   },
 }

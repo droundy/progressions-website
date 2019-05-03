@@ -1429,167 +1429,167 @@ representations:
     name: "$\\Delta x$"
     description: ""
     icon:
-      html: "$\\Delta x$"
+      Html: "$\\Delta x$"
   - id: 1
     name: "$\\frac{\\Delta f}{\\Delta x}$"
     description: ""
     icon:
-      html: "$\\frac{\\Delta f}{\\Delta x}$"
+      Html: "$\\frac{\\Delta f}{\\Delta x}$"
   - id: 2
     name: 1D Graph
     description: ""
     icon:
-      fig: figs/1DGraph.png
+      Fig: figs/1DGraph.png
   - id: 3
     name: 2D Graph
     description: ""
     icon:
-      fig: figs/2DGraph.png
+      Fig: figs/2DGraph.png
   - id: 4
     name: Tangible Models
     description: ""
     icon:
-      html: Tangible Models
+      Html: Tangible Models
   - id: 5
     name: "$\\frac{d f}{d x}$"
     description: ""
     icon:
-      html: "$\\frac{d f}{d x}$"
+      Html: "$\\frac{d f}{d x}$"
   - id: 6
     name: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
     description: ""
     icon:
-      html: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
+      Html: "$\\left(\\frac{\\partial f}{\\partial x}\\right)_y$"
   - id: 7
     name: Contour Maps
     description: "**How contour maps display information**\n\n[![](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-1.svg)]()Figure 1[![](http://physics.oregonstate.edu/%7Eroundyd/progression/representation-contour-maps-fig-2.png)]()Figure 2\n\nA contour graph shows the relationship between three variables using only two dimensions, as shown in Fig. 1. Two variables lie along the horizontal and vertical axes (*x*and *y* in the figure), while the other variable (*V*) is represented using curves along which that variable is constant. It is then possible to read information quickly: \\*e.g.,\\*where the value of *V* is high or low or where it is changing quickly or slowly. The canonical interpretation of a contour graph (as might be taught in multivariable calculus) is that the variable *V* is a function of *x* and *y*. In experimental contexts, however, one might construct a graph like Fig. 2, which shows pressure (*p*) *vs.* volume (*V*) collected at several different values of constant temperature (*T*). Although this can still be interpreted as a contour graph, it can be thought of as one of the axis variables expressed as a function both of the other axis variable and of the variable which is held constant. This usage of a contour graph is not commonly taught in mathematics courses, but may be used heavily by professional scientists.\n\n**Derivatives**\n\nDerivatives can be found from a contour graph in many different ways, which may depend on how the graph is to be interpreted. For example, in graphs like Fig. 1, a derivative of *V* can be found with respect to any variable and in any direction, including *x* and *y*, by choosing two points on adjacent contour lines and dividing the change in *V* by the corresponding change in, for example, *x* or *y*, where the perpendicular direction is typically held constant. The value of such a derivative can also be compared at different points by examining the density of the contour lines. A vector quantity like the gradient can also be found.\n\nDerivatives like the one described above can also be found for the graph in Fig. 2. However, it is also common to find the derivative of *p* with respect to *V*, holding *T* (or another variable) constant. Such a derivative can be found either by choosing points and computing a ratio of small changes or by sketching a line tangent to the constant temperature curve and computing its slope.\n\n**Affordances and limitations**\n\nContour graphs are flexible. The number of contour lines drawn can be changed to alter the resolution. The different curves or the regions between the curves can be given different colors. In cases where there are more than three variables, but only two independent variables, contour graphs for different variables can be overlaid using different colors or line styles, as in Fig. 2.\n\nHowever, contour graphs do not generalize well to functions of three or more variables. They necessarily cannot convey the exact value of *V* at every value of *x* and *y*, information that is carried by a representation like a plastic surface."
     icon:
-      fig: figs/contour-map.svg
+      Fig: figs/contour-map.svg
   - id: 8
     name: "$\\frac{\\partial f}{\\partial x}$"
     description: ""
     icon:
-      html: "$\\frac{\\partial f}{\\partial x}$"
+      Html: "$\\frac{\\partial f}{\\partial x}$"
   - id: 9
     name: "$\\vec \\nabla f$"
     description: ""
     icon:
-      html: "$\\vec \\nabla f$"
+      Html: "$\\vec \\nabla f$"
   - id: 10
     name: Inclinometer
     description: ""
     icon:
-      fig: figs/inclinometer.jpg
+      Fig: figs/inclinometer.jpg
   - id: 11
     name: Surface
     description: ""
     icon:
-      fig: figs/surface.jpg
+      Fig: figs/surface.jpg
   - id: 12
     name: "$d \\vec r$"
     description: ""
     icon:
-      html: "$d \\vec r$"
+      Html: "$d \\vec r$"
   - id: 13
     name: "$\\vec \\nabla \\cdot \\vec v$"
     description: ""
     icon:
-      html: "$\\vec \\nabla \\cdot \\vec v$"
+      Html: "$\\vec \\nabla \\cdot \\vec v$"
   - id: 14
     name: "$\\vec \\nabla \\times \\vec v$"
     description: ""
     icon:
-      html: "$\\vec \\nabla \\times \\vec v$"
+      Html: "$\\vec \\nabla \\times \\vec v$"
   - id: 15
     name: $df$
     description: ""
     icon:
-      html: $df$
+      Html: $df$
   - id: 16
     name: 3D computer model
     description: "FIXME: Need new image"
     icon:
-      fig: figs/3dmodel.png
+      Fig: figs/3dmodel.png
   - id: 17
     name: Kinesthetic
     description: ""
     icon:
-      fig: figs/kin.jpg
+      Fig: figs/kin.jpg
   - id: 18
     name: Vector Field Map
     description: ""
     icon:
-      fig: figs/vector-field-map.jpg
+      Fig: figs/vector-field-map.jpg
   - id: 19
     name: $dx$
     description: ""
     icon:
-      html: $dx$
+      Html: $dx$
   - id: 20
     name: Experiment
     description: ""
     icon:
-      html: Experiment
+      Html: Experiment
   - id: 21
     name: PDM
     description: ""
     icon:
-      fig: figs/pdm.jpg
+      Fig: figs/pdm.jpg
   - id: 22
     name: Table
     description: ""
     icon:
-      html: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
+      Html: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
   - id: 23
     name: ""
     description: ""
     icon:
-      html: ""
+      Html: ""
   - id: 24
     name: ""
     description: ""
     icon:
-      html: ""
+      Html: ""
   - id: 25
     name: ""
     description: ""
     icon:
-      html: ""
+      Html: ""
   - id: 26
     name: ""
     description: ""
     icon:
-      html: ""
+      Html: ""
   - id: 27
     name: ""
     description: ""
     icon:
-      html: ""
+      Html: ""
   - id: 28
     name: ""
     description: ""
     icon:
-      html: ""
+      Html: ""
   - id: 29
     name: ""
     description: ""
     icon:
-      html: ""
+      Html: ""
   - id: 30
     name: ""
     description: ""
     icon:
-      html: "<span style=\"text-align: start;\"><br></span><span style=\"text-align: start;\"><br></span>"
+      Html: "<span style=\"text-align: start;\"><br></span><span style=\"text-align: start;\"><br></span>"
   - id: 31
     name: ""
     description: ""
     icon:
-      html: ""
+      Html: ""
   - id: 32
     name: Chain Rule Diagrams
     description: ""
     icon:
-      html: Chain Rule Diagrams
+      Html: Chain Rule Diagrams
 courses:
   - id: 0
     number: MTH 251

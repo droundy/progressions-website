@@ -21,7 +21,7 @@ let content = {
             self.name
           } %]
         </h2>
-        <h1>[% self.icon as UTF8 %]</h1>
+        <h1>[% self.icon %]</h1>
         <form class="hint">
           <input class="custom-file-input" type="file" name="icon" accept="image/*"
                  onchange="handleIcon(this.files)">
