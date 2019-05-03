@@ -1,0 +1,10 @@
+[%
+match &self {
+  Fig(fname) => {
+    %]<img src=[% absolute_url(fname) %]/>[%
+  },
+  Html(html) => {
+    html as UTF8
+  },
+}
+%]
