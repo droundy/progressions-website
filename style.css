@@ -205,6 +205,9 @@ body .external_url {
 article > .representation {
     display: flex;
 }
+.hint {
+    display: none;
+}
 
 .description {
     text-align: justify;
