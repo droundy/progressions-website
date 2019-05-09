@@ -584,6 +584,10 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
+      23:
+        name: An inexact differential is a part of a change
+        long_description: Inexact differentials are
+        figure: ~
     figure: differentials.jpg
     long_description: "One typical notation used for derivatives is Leibniz notation ($e.g.,$ $df/dx$).  Physicists often think of the $df$ and $dx$ as distinct quantities (``differentials'') that can be measured, calculated, and manipulated independent of one another.  In particular, a differential can be thought of as the (small) change in a quantity when a small change is made to a physical system.  A differential can also be thought of as the difference between the values of a quantity between two different (nearby) physical states.  This line of thinking is also valuable for thinking about integration in physical situations."
   - id: 56
@@ -759,6 +763,11 @@ concepts:
     long_description: ""
   - id: 78
     name: Second partial Derivatives
+    prereq_concepts: []
+    representations: {}
+    long_description: ""
+  - id: 79
+    name: Inexact differentials
     prereq_concepts: []
     representations: {}
     long_description: ""
@@ -1216,7 +1225,8 @@ activities:
     long_description: ""
   - id: 30
     name: Using $pV$ and $TS$ plots
-    prereq_concepts: []
+    prereq_concepts:
+      - concept: 79
     new_concepts: []
     representations:
       - 15
@@ -1541,10 +1551,10 @@ representations:
     icon:
       Html: "$\\begin{array}{c|c}x&y\\\\\\hline3&0.2\\\\4&0.6\\\\5&0.9\\end{array}$"
   - id: 23
-    name: ""
+    name: $đf$
     description: ""
     icon:
-      Html: ""
+      Html: $đf$
   - id: 24
     name: ""
     description: ""
@@ -1671,7 +1681,7 @@ courses:
       - 32
       - 33
       - 34
-      - 35
       - 36
+      - 35
       - 38
       - 39
