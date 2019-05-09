@@ -586,7 +586,7 @@ concepts:
         figure: ~
       23:
         name: An inexact differential is a part of a change
-        long_description: Inexact differentials are
+        long_description: "Inexact differentials are extra confusing to students. There are only two examples of inexact differentials that students will encounter: heat and work. Thus there are not many opportunities to generalize. The essence of an inexact differential is that it represents just one way to change another thing (e.g. changing the internal energy by working, but not heating)."
         figure: ~
     figure: differentials.jpg
     long_description: "One typical notation used for derivatives is Leibniz notation ($e.g.,$ $df/dx$).  Physicists often think of the $df$ and $dx$ as distinct quantities (``differentials'') that can be measured, calculated, and manipulated independent of one another.  In particular, a differential can be thought of as the (small) change in a quantity when a small change is made to a physical system.  A differential can also be thought of as the difference between the values of a quantity between two different (nearby) physical states.  This line of thinking is also valuable for thinking about integration in physical situations."
@@ -1179,6 +1179,14 @@ activities:
       - concept: 63
       - concept: 76
       - concept: 59
+      - concept: 55
+        representation: 23
+      - concept: 55
+        representation: 23
+      - concept: 55
+        representation: 23
+      - concept: 55
+        representation: 23
     new_concepts:
       - concept: 73
       - concept: 74
