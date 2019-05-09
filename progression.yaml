@@ -766,11 +766,6 @@ concepts:
     prereq_concepts: []
     representations: {}
     long_description: ""
-  - id: 79
-    name: Inexact differentials
-    prereq_concepts: []
-    representations: {}
-    long_description: ""
 activities:
   - id: 0
     name: lower anchor MTH 251
@@ -1179,6 +1174,8 @@ activities:
       - concept: 63
       - concept: 76
       - concept: 59
+      - concept: 55
+        representation: 23
       - concept: 55
         representation: 23
       - concept: 55
