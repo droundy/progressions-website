@@ -13,10 +13,7 @@ fn main() {
     let args = Args::from_args();
     set_base_url(&args.base_url);
 
-    {
-        let data = Data::new();
-        data.dump_mirror();
-    }
+    Data::new().spawn_dump_mirror();
     let change = path!("change")
         .and(warp::filters::body::form())
         .map(|change: Change| {

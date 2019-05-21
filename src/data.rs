@@ -273,9 +273,10 @@ impl Data {
     fn get_mut<I: ID>(&mut self, id: I) -> &mut I::Target {
         id.get_mut(self)
     }
-    pub fn save(&self) {
+    pub fn save(self) {
         let f = AtomicFile::create("progression.yaml").expect("error creating save file");
-        serde_yaml::to_writer(&f, self).expect("error writing yaml");
+        serde_yaml::to_writer(&f, &self).expect("error writing yaml");
+        // self.spawn_dump_mirror();
     }
     pub fn new() -> Self {
         if let Ok(f) = std::fs::File::open("progression.yaml") {
@@ -290,7 +291,7 @@ impl Data {
             courses: Vec::new(),
         }
     }
-    pub fn uploaded_figure(&mut self, id: AnyID, filename: &str)
+    pub fn uploaded_figure(mut self, id: AnyID, filename: &str)
                            -> Result<(), Box<std::error::Error>>
     {
         match id {
@@ -315,7 +316,7 @@ impl Data {
         self.save();
         Ok(())
     }
-    pub fn change(&mut self, c: Change) -> Result<(), Box<std::error::Error>> {
+    pub fn change(mut self, c: Change) -> Result<(), Box<std::error::Error>> {
         println!("change is {:?}", c);
         match AnyID::parse(&c.id)? {
             AnyID::Course(id) => {
@@ -486,7 +487,8 @@ impl Data {
                         } else {
                             self.concept_by_name_or_create(&c.content).into()
                         };
-                        self.get_mut(id).prereq_concepts.push(prereq_id.into());
+                        println!("the prereq id is {:?}", prereq_id);
+                        self.get_mut(id).prereq_concepts.push(prereq_id);
                     }
                     "taught" => {
                         let prereq_id = if let Some(prereq_id) = self.concept_representation_to_id(&c.content) {
@@ -935,10 +937,23 @@ impl Data {
             None
         }
     }
+    fn untaught_concept_representations(&self) -> Vec<ConceptRepresentationID> {
+        let mut ids: Vec<ConceptRepresentationID> = self.concepts.iter()
+            .map(|c| c.id.into())
+            .chain(self.concepts.iter()
+                   .flat_map(|c| {
+                       let cid = c.id;
+                       c.representations.keys()
+                           .map(move |&x| (cid, x).into())
+                   }))
+            .collect();
+        ids.sort();
+        ids.dedup();
+        ids
+    }
     pub fn all_concept_representations(&self, id: impl Copy+DisplayAs<HTML>, field: &str)
                                        -> ConceptRepresentationChoice {
-        let mut names: Vec<_> = self.concepts.iter()
-            .map(|c| c.name.clone())
+        let mut names: Vec<String> = self.concepts.iter().map(|c| c.name.clone())
             .chain(self.concepts.iter()
                    .flat_map(|c| {
                        let cid = c.id;
@@ -1296,7 +1311,18 @@ impl Data {
         });
     }
 
-    pub fn dump_mirror(&self) {
+    pub fn spawn_dump_mirror(self) {
+        use std::sync::atomic::{AtomicBool, Ordering};
+
+        static AM_MIRRORING: AtomicBool = AtomicBool::new(false);
+        if !AM_MIRRORING.compare_and_swap(false, true, Ordering::Relaxed) {
+            std::thread::spawn(move || {
+                self.dump_mirror();
+                AM_MIRRORING.store(false, Ordering::Relaxed);
+            });
+        }
+    }
+    pub fn dump_mirror(self) {
         std::fs::create_dir_all("mirror/concept").unwrap();
         println!("creating concepts...");
         for a in self.concepts.iter() {
