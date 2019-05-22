@@ -1230,8 +1230,7 @@ activities:
     long_description: ""
   - id: 30
     name: Using $pV$ and $TS$ plots
-    prereq_concepts:
-      - concept: 79
+    prereq_concepts: []
     new_concepts: []
     representations:
       - 15
