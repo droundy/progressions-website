@@ -174,7 +174,7 @@ pub struct Course {
 }
 #[with_template( self.id )]
 impl DisplayAs<URL> for Course {}
-#[with_template(r#"<a href=""# self as URL r#"" class="course">"# self.name r#"</a>"#)]
+#[with_template(r#"<a href=""# absolute_url(self.id) r#"" class="course">"# self.name r#"</a>"#)]
 impl DisplayAs<HTML> for Course {}
 
 pub use crate::concept::{Concept, ConceptView,
