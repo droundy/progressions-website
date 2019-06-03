@@ -1358,7 +1358,7 @@ activities:
     prereq_concepts: []
     new_concepts: []
     representations: []
-    long_description: ""
+    long_description: "\\*\\*Note:\\*\\* Curl is needed for 3 different ideas in this progression: Conservative Work, Going from $\\vec A$ to $\\vec B$, and going from $\\vec B$ to $\\vec J$."
     external_url: "http://math.oregonstate.edu/BridgeBook/book/math/curl2"
   - id: 46
     name: "Stokes' Theorem"
