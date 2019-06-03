@@ -398,14 +398,14 @@ concepts:
         figure: ~
     long_description: "The divergence at a point is a scalar. Taking the divergence of a function yields a scalar at every value in the domain of that function: a scalar field"
   - id: 36
-    name: "$\\vec\\nabla\\cdot\\vec v = \\frac{\\partial v_x}{\\partial x} + \\frac{\\partial v_y}{\\partial y}+\\frac{\\partial v_z}{\\partial z}$"
+    name: Formulas for the Divergence
     prereq_concepts: []
     representations:
       13:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "1. In each coordinate system, there exists a formula for the divergance. The standard examples are: \\\\[\\begin{align}\\vec\\nabla\\cdot\\vec v &= \\frac{\\partial v\\_x}{\\partial x} + \\frac{\\partial v\\_y}{\\partial y}+\\frac{\\partial v\\_z}{\\partial z} \\text{ in rectangular coodinates} \\\\\\\\ \\vec\\nabla\\cdot\\vec v &= \\frac{1}{s}\\frac{\\partial \\left(s v\\_s\\right)}{\\partial s} + \\frac{1}{s}\\frac{\\partial v\\_\\phi}{\\partial \\phi}+\\frac{\\partial v\\_z}{\\partial z} \\text{ in cylindrical coodinates} \\\\\\\\ \\vec\\nabla\\cdot\\vec v &= \\frac{1}{r^2}\\frac{\\partial \\left(r^2 v\\_r\\right)}{\\partial r} + \\frac{1}{r \\sin(\\theta)}\\frac{\\partial \\left(\\sin(\\theta)\\ v\\_\\theta\\right)}{\\partial \\theta}+\\frac{1}{r \\sin(\\theta)}\\frac{\\partial v\\_\\phi}{\\partial \\phi} \\text{ in spherical coodinates}\\end{align}\\\\]\n2.  The divergence is geometric (i.e. it is independent of coordinate system)\n3. The divergence is a particular geometric combination of partial derivatives\n4.  For each partial derivative term in the divergence (in orthogonal coordinate systems), the direction of the component involved and the direction of the change agree (e.g. the $\\textbf{x}$'s match in $\\frac{\\partial v\\_\\textbf{x}}{\\partial \\textbf{x}}$.)\n5.  The divergence is a mapping from a vector field to a scalar field"
+    long_description: "In each coordinate system, there exists a formula for the divergance. The standard examples are: \\\\[\\begin{align}\\vec\\nabla\\cdot\\vec v &= \\frac{\\partial v\\_x}{\\partial x} + \\frac{\\partial v\\_y}{\\partial y}+\\frac{\\partial v\\_z}{\\partial z} \\text{ in rectangular coodinates} \\\\\\\\ \\vec\\nabla\\cdot\\vec v &= \\frac{1}{s}\\frac{\\partial \\left(s v\\_s\\right)}{\\partial s} + \\frac{1}{s}\\frac{\\partial v\\_\\phi}{\\partial \\phi}+\\frac{\\partial v\\_z}{\\partial z} \\text{ in cylindrical coodinates} \\\\\\\\ \\vec\\nabla\\cdot\\vec v &= \\frac{1}{r^2}\\frac{\\partial \\left(r^2 v\\_r\\right)}{\\partial r} + \\frac{1}{r \\sin(\\theta)}\\frac{\\partial \\left(\\sin(\\theta)\\ v\\_\\theta\\right)}{\\partial \\theta}+\\frac{1}{r \\sin(\\theta)}\\frac{\\partial v\\_\\phi}{\\partial \\phi} \\text{ in spherical coodinates}\\end{align}\\\\]"
   - id: 37
     name: "$\\vec\\nabla\\times\\vec v = \\cdots$"
     prereq_concepts: []
@@ -714,10 +714,10 @@ concepts:
     representations: {}
     long_description: ""
   - id: 69
-    name: "FIXME:DELETE"
+    name: The Divergence is Geometric
     prereq_concepts: []
     representations: {}
-    long_description: ""
+    long_description: The divergence is geometric (i.e. it is independent of coordinate system)
   - id: 70
     name: Partial derivatives are local quantities
     prereq_concepts:
@@ -731,7 +731,7 @@ concepts:
     representations: {}
     long_description: ""
   - id: 72
-    name: "FIXME: DELETE"
+    name: The Divergence is a Particular Geometric Combination of Partial Derivatives
     prereq_concepts: []
     representations: {}
     long_description: ""
@@ -752,10 +752,10 @@ concepts:
     representations: {}
     long_description: ""
   - id: 76
-    name: REUSE THIS
+    name: Components of the Divergence
     prereq_concepts: []
     representations: {}
-    long_description: $$ dU = dQ + dW $$
+    long_description: "For each partial derivative term in the divergence (in orthogonal coordinate systems), the direction of the component involved and the direction of the change agree (e.g. the $\\textbf{x}$'s match in $\\frac{\\partial v\\_\\textbf{x}}{\\partial \\textbf{x}}$.)"
   - id: 77
     name: Developing physical interpretations of partial derivatives (dimensions)
     prereq_concepts: []
