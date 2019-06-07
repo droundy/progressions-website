@@ -715,7 +715,8 @@ concepts:
     long_description: ""
   - id: 69
     name: The Divergence is Geometric
-    prereq_concepts: []
+    prereq_concepts:
+      - 36
     representations: {}
     long_description: The divergence is geometric (i.e. it is independent of coordinate system)
   - id: 70
@@ -732,7 +733,9 @@ concepts:
     long_description: ""
   - id: 72
     name: The Divergence is a Particular Geometric Combination of Partial Derivatives
-    prereq_concepts: []
+    prereq_concepts:
+      - 36
+      - 36
     representations: {}
     long_description: ""
   - id: 73
