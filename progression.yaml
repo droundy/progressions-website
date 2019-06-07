@@ -390,7 +390,8 @@ concepts:
     long_description: "$df=\\vec \\nabla f \\cdot d \\vec r$"
   - id: 35
     name: The divergence is a scalar field
-    prereq_concepts: []
+    prereq_concepts:
+      - 36
     representations:
       13:
         name: ""
@@ -414,7 +415,7 @@ concepts:
         name: ""
         long_description: ""
         figure: ~
-    long_description: "1) In any coordinate system, there exists a formula for the curl. Examples include:\\[\\vec\\nabla\\times\\vec v = \\left(\\frac{\\partial v_z}{\\partial y}-\\frac{\\partial v_y}{\\partial z}\\right)\\hat x + \\left(\\frac{\\partial v_x}{\\partial z}-\\frac{\\partial v_z}{\\partial x}\\right)\\hat y + \\left(\\frac{\\partial v_y}{\\partial x}-\\frac{\\partial v_x}{\\partial y}\\right)\\hat z \\text{ in rectangular coodinates}\\]\\[\\vec\\nabla\\times\\vec v = \\left(\\frac{1}{s}\\frac{\\partial v_z}{\\partial \\phi} - \\frac{\\partial v_\\phi}{\\partial z}\\right) \\hat s + \\left(\\frac{\\partial v_s}{\\partial z} - \\frac{\\partial v_z}{\\partial s}\\right) \\hat \\phi + \\frac{1}{s}\\left(\\frac{\\partial \\left(s\\ v_\\phi\\right)}{\\partial s} - \\frac{\\partial v_s}{\\partial \\phi}\\right) \\hat z \\text{ in cylindrical coodinates}\\]\\[\\vec\\nabla\\times\\vec v = \\frac{1}{r \\sin(\\theta)}\\left(\\frac{\\partial \\left(\\sin(\\theta)\\ v_\\phi\\right)}{\\partial \\theta} - \\frac{\\partial v_\\theta}{\\partial \\phi}\\right) \\hat r + \\frac{1}{r}\\left(\\frac{1}{\\sin(\\theta)}\\frac{\\partial v_r}{\\partial \\phi} - \\frac{\\partial \\left(r\\ v_\\phi\\right)}{\\partial r}\\right)\\hat \\theta +\\frac{1}{r} \\left(\\frac{\\partial \\left(r\\ v_\\theta\\right)}{\\partial r} - \\frac{\\partial v_r}{\\partial \\theta}\\right) \\hat \\phi \\text{ in spherical coodinates}\\]2) The curl is geometric (i.e. it is independent of coordinate system) \\[\\]3) The curl is a particular geometric combination of partial derivatives\\[\\]4) For each partial derivative term in the curl (in orthogonal coordinate systems), the direction of the component involved and the direction of the change differ (e.g. $\\textbf{$\\alpha$} \\neq \\textbf{$\\beta$}$ in $\\frac{\\partial v_\\textbf{$\\alpha$}}{\\partial \\textbf{$\\beta$}}$.)\\[\\]5) The divergence is a mapping from one vector field to another."
+    long_description: "1. In any coordinate system, there exists a formula for the curl. Examples include:\\\\[\\vec\\nabla\\times\\vec v = \\left(\\frac{\\partial v\\_z}{\\partial y}-\\frac{\\partial v\\_y}{\\partial z}\\right)\\hat x + \\left(\\frac{\\partial v\\_x}{\\partial z}-\\frac{\\partial v\\_z}{\\partial x}\\right)\\hat y + \\left(\\frac{\\partial v\\_y}{\\partial x}-\\frac{\\partial v\\_x}{\\partial y}\\right)\\hat z \\text{ in rectangular coodinates}\\\\]\\\\[\\vec\\nabla\\times\\vec v = \\left(\\frac{1}{s}\\frac{\\partial v\\_z}{\\partial \\phi} - \\frac{\\partial v\\_\\phi}{\\partial z}\\right) \\hat s + \\left(\\frac{\\partial v\\_s}{\\partial z} - \\frac{\\partial v\\_z}{\\partial s}\\right) \\hat \\phi + \\frac{1}{s}\\left(\\frac{\\partial \\left(s\\ v\\_\\phi\\right)}{\\partial s} - \\frac{\\partial v\\_s}{\\partial \\phi}\\right) \\hat z \\text{ in cylindrical coodinates}\\\\]\\\\[\\vec\\nabla\\times\\vec v = \\frac{1}{r \\sin(\\theta)}\\left(\\frac{\\partial \\left(\\sin(\\theta)\\ v\\_\\phi\\right)}{\\partial \\theta} - \\frac{\\partial v\\_\\theta}{\\partial \\phi}\\right) \\hat r + \\frac{1}{r}\\left(\\frac{1}{\\sin(\\theta)}\\frac{\\partial v\\_r}{\\partial \\phi} - \\frac{\\partial \\left(r\\ v\\_\\phi\\right)}{\\partial r}\\right)\\hat \\theta +\\frac{1}{r} \\left(\\frac{\\partial \\left(r\\ v\\_\\theta\\right)}{\\partial r} - \\frac{\\partial v\\_r}{\\partial \\theta}\\right) \\hat \\phi \\text{ in spherical coodinates}\\\\]2) The curl is geometric (i.e. it is independent of coordinate system) \\\\[\\\\]3) The curl is a particular geometric combination of partial derivatives\\\\[\\\\]4) For each partial derivative term in the curl (in orthogonal coordinate systems), the direction of the component involved and the direction of the change differ (e.g. $\\textbf{$\\alpha$} \\neq \\textbf{$\\beta$}$ in $\\frac{\\partial v\\_\\textbf{$\\alpha$}}{\\partial \\textbf{$\\beta$}}$.)\\\\[\\\\]5) The divergence is a mapping from one vector field to another."
   - id: 38
     name: "$\\int\\vec\\nabla\\cdot\\vec F dV= \\oint\\vec F\\cdot d\\vec A$"
     prereq_concepts: []
@@ -756,7 +757,8 @@ concepts:
     long_description: ""
   - id: 76
     name: Components of the Divergence
-    prereq_concepts: []
+    prereq_concepts:
+      - 36
     representations: {}
     long_description: "For each partial derivative term in the divergence (in orthogonal coordinate systems), the direction of the component involved and the direction of the change agree (e.g. the $\\textbf{x}$'s match in $\\frac{\\partial v\\_\\textbf{x}}{\\partial \\textbf{x}}$.)"
   - id: 77
@@ -767,6 +769,18 @@ concepts:
   - id: 78
     name: Second partial Derivatives
     prereq_concepts: []
+    representations: {}
+    long_description: ""
+  - id: 79
+    name: The curl is a vector field
+    prereq_concepts:
+      - 37
+    representations: {}
+    long_description: ""
+  - id: 80
+    name: Components of the curl
+    prereq_concepts:
+      - 37
     representations: {}
     long_description: ""
 activities:
