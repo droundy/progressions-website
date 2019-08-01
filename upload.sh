@@ -14,6 +14,8 @@ set -ev
 
 # fac
 
+# cargo run --release -- --base-url 'http://physics.oregonstate.edu/~roundyd/progression'
+
 SITEDIR=public_html/progression
 
 ssh science.oregonstate.edu "rm -rf $SITEDIR"
