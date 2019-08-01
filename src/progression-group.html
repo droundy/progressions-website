@@ -1,5 +1,5 @@
 <div class="activity-grouping">
-  <a href="[% absolute_url(self.activity.clone()) %]" class="activity[%
+  <a href=[% absolute_url(self.activity.id) %] class="activity[%
      for c in self.activity.prereq_concepts().into_iter() {
        %] from-[% c
        } %]" id="[% self.activity.id %]">
@@ -28,7 +28,7 @@
   </a>
   <div class="concepts">
     [% for concept in self.concepts.iter() { %]
-    <a href="[% absolute_url(concept.clone()) %]" class="concept[%
+    <a href=[% absolute_url(concept.clone()) %] class="concept[%
        for a in concept.activities.iter() {
          %] from-[% a.id
          } %]" id="[% concept.id %]">
