@@ -1,4 +1,4 @@
-use warp::{Filter, path};
+use warp::{Reply, Filter, path};
 use progression_website::data::{ set_base_url, Data, Change, CourseID, AnyID,
                                  ConceptID, ActivityID, RepresentationID };
 use display_as::{HTML, display};
@@ -24,14 +24,10 @@ fn main() {
         });
     let figure = path!("figure" / AnyID / String)
         .and(warp::body::content_length_limit(1024 * 1024 * 32))
-        .and(warp::body::concat())
-        .map(|id: AnyID, filename: String, full_body: warp::body::FullBody| {
+        .and(warp::body::bytes())
+        .map(|id: AnyID, filename: String, full_body: bytes::Bytes| {
             println!("got {:?} and {}", id, filename);
-            // FullBody is a `Buf`, which could have several non-contiguous
-            // slices of memory...
-            use bytes::buf::Buf;
-            let b: Vec<u8> = full_body.collect();
-            std::fs::write(format!("figs/{}", filename), &b).unwrap();
+            std::fs::write(format!("figs/{}", filename), &full_body).unwrap();
             if let Err(e) = Data::new().uploaded_figure(id, &filename) {
                 println!("Error {} while coping with new file {:?}", e, filename);
             }
@@ -41,22 +37,22 @@ fn main() {
         .map(|id: ConceptID| {
             let data = Data::new();
             display(HTML, &data.concept_view(id))
-                .http_response()
+                .into_response()
         });
     let course = path!("course" / CourseID)
         .map(|id: CourseID| {
             let data = Data::new();
-            display(HTML, &data.course_view(id)).http_response()
+            display(HTML, &data.course_view(id)).into_response()
         });
     let map = path!("concept-map" / usize)
         .map(|max_width: usize| {
             let data = Data::new();
-            display(HTML, &data.concept_map(max_width, 1 << 18)).http_response()
+            display(HTML, &data.concept_map(max_width, 1 << 18)).into_response()
         })
         .or(path!("concept-map")
             .map(|| {
                 let data = Data::new();
-                display(HTML, &data.concept_map(4, 1 << 18)).http_response()
+                display(HTML, &data.concept_map(4, 1 << 18)).into_response()
             }));
     let dot = path!("concept-map.dot")
         .map(|| {
@@ -91,21 +87,21 @@ fn main() {
     let representation = path!("representation" / RepresentationID)
         .map(|id: RepresentationID| {
             let data = Data::new();
-            display(HTML, &data.representation_view(id)).http_response()
+            display(HTML, &data.representation_view(id)).into_response()
         });
     let representations = path!("representations")
         .map(|| {
             let data = Data::new();
-            display(HTML, &data.all_representations()).http_response()
+            display(HTML, &data.all_representations()).into_response()
         });
     let activity = path!("activity" / ActivityID)
         .map(|id: ActivityID| {
             let data = Data::new();
-            display(HTML, &data.activity_view(id)).http_response()
+            display(HTML, &data.activity_view(id)).into_response()
         });
     let index = (warp::path::end().or(path!("index.html")))
         .map(|_| {
-            display(HTML, &Data::new().progression_view()).http_response()
+            display(HTML, &Data::new().progression_view()).into_response()
         });
     let style_css = path!("style.css").and(warp::fs::file("style.css"));
     let libraries = path!("libraries").and(warp::fs::dir("libraries"));

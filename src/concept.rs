@@ -1,5 +1,5 @@
 use display_as::{with_template, format_as, HTML, URL, DisplayAs};
-use serde_derive::{Deserialize, Serialize};
+use serde::{Serialize, Deserialize};
 use std::collections::BTreeMap;
 use crate::markdown::Markdown;
 

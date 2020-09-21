@@ -9,22 +9,23 @@ set -ev
 #     git add figs
 # fi
 
-# wget -O libraries/MathJax.js https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML
-# wget -O libraries/jquery.js https://code.jquery.com/jquery-3.3.1.min.js
+wget -O libraries/MathJax.js https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML
+wget -O libraries/jquery.js https://code.jquery.com/jquery-3.3.1.min.js
 
-# fac
+fac
 
 # cargo run --release -- --base-url 'http://physics.oregonstate.edu/~roundyd/progression'
+cargo run --release -- --base-url 'https://paradigms.oregonstate.edu/progressions/derivatives'
 
-SITEDIR=public_html/progression
+SITEDIR=progressions/derivatives
 
-ssh science.oregonstate.edu "rm -rf $SITEDIR"
-ssh science.oregonstate.edu "mkdir -p $SITEDIR"
+ssh paradigms.oregonstate.edu "rm -rf $SITEDIR"
+ssh paradigms.oregonstate.edu "mkdir -p $SITEDIR"
 
-scp -r mirror/* science.oregonstate.edu:$SITEDIR/
+scp -r mirror/* paradigms.oregonstate.edu:$SITEDIR/
 
-scp style.css science.oregonstate.edu:$SITEDIR/
+scp style.css paradigms.oregonstate.edu:$SITEDIR/
 
-scp -r libraries science.oregonstate.edu:$SITEDIR/
+scp -r libraries paradigms.oregonstate.edu:$SITEDIR/
 
-scp -r figs science.oregonstate.edu:$SITEDIR/
+scp -r figs paradigms.oregonstate.edu:$SITEDIR/

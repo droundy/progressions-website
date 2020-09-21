@@ -1,6 +1,6 @@
 use display_as::{HTML, DisplayAs};
 use std::fmt::{Formatter, Error};
-use serde_derive::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug,Clone,Eq,PartialEq, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Markdown(String);

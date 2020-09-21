@@ -1,8 +1,6 @@
 use crate::atomicfile::AtomicFile;
-use serde_derive::{Deserialize, Serialize};
-use serde_yaml;
+use serde::{Serialize, Deserialize};
 use display_as::{with_template, format_as, HTML, UTF8, URL, DisplayAs};
-use simple_error::bail;
 use crate::markdown::Markdown;
 
 lazy_static::lazy_static! {
@@ -213,7 +211,7 @@ impl AnyID {
             Some('C') => Ok(AnyID::Course(CourseID(s[1..].parse()?))),
             Some('a') => Ok(AnyID::Activity(ActivityID(s[1..].parse()?))),
             Some('r') => Ok(AnyID::Representation(RepresentationID(s[1..].parse()?))),
-            _ => bail!("Crazy kind: {}", s),
+            _ => panic!("Crazy kind: {}", s),
         }
     }
 }
@@ -310,7 +308,7 @@ impl Data {
                     .and_modify(|e| e.figure = Some(filename.to_string()));
             }
             _ => {
-                bail!("Unhandled id type on uploaded_figure: {:?}", id);
+                panic!("Unhandled id type on uploaded_figure: {:?}", id);
             }
         }
         self.save();
@@ -335,7 +333,7 @@ impl Data {
                                     .next().unwrap();
                                 a.swap(which-1, which);
                             }
-                            _ => bail!("Cannot handle \"up\" with other types"),
+                            _ => panic!("Cannot handle \"up\" with other types"),
                         }
                     }
                     "down" => {
@@ -348,7 +346,7 @@ impl Data {
                                     .next().unwrap();
                                 a.swap(which+1, which);
                             }
-                            _ => bail!("Cannot handle \"down\" with other types"),
+                            _ => panic!("Cannot handle \"down\" with other types"),
                         }
                     }
                     "Remove" => {
@@ -358,14 +356,14 @@ impl Data {
                                     AnyID::Activity(a_id) => {
                                         self.get_mut(id).activities.retain(|&x| x != a_id);
                                     }
-                                    _ => bail!("taughtby must be an activity in remove"),
+                                    _ => panic!("taughtby must be an activity in remove"),
                                 }
                             }
-                            _ => bail!("Unknown relationship on remove from course: {}", c.html),
+                            _ => panic!("Unknown relationship on remove from course: {}", c.html),
                         }
                     }
                     _ => {
-                        bail!("Weird field for course: {}", c.field);
+                        panic!("Weird field for course: {}", c.field);
                     }
                 }
             }
@@ -382,7 +380,7 @@ impl Data {
                             .long_description = Markdown::from_html(&c.html);
                     }
                     _ => {
-                        bail!("Weird field for ConceptRepresentation: {}", c.field);
+                        panic!("Weird field for ConceptRepresentation: {}", c.field);
                     }
                 }
             }
@@ -417,7 +415,7 @@ impl Data {
                                     AnyID::Concept(needed_for_id) => {
                                         self.get_mut(needed_for_id).prereq_concepts.push(id)
                                     }
-                                    _ => bail!("Cannot yet handle needed for with other types"),
+                                    _ => panic!("Cannot yet handle needed for with other types"),
                                 }
                             }
                             "prereq" => {
@@ -425,10 +423,10 @@ impl Data {
                                     AnyID::Concept(prereq_id) => {
                                         self.get_mut(id).prereq_concepts.push(prereq_id)
                                     }
-                                    _ => bail!("prereq must be a concept"),
+                                    _ => panic!("prereq must be a concept"),
                                 }
                             }
-                            _ => bail!("Unknown relationship: {}", c.html),
+                            _ => panic!("Unknown relationship: {}", c.html),
                         }
                     }
                     "Remove" => {
@@ -438,7 +436,7 @@ impl Data {
                                     AnyID::Concept(needed_for_id) => {
                                         self.get_mut(needed_for_id).prereq_concepts.retain(|&x| x != id);
                                     }
-                                    _ => bail!("Cannot yet remove needed for with other types"),
+                                    _ => panic!("Cannot yet remove needed for with other types"),
                                 }
                             }
                             "prereq" => {
@@ -446,7 +444,7 @@ impl Data {
                                     AnyID::Concept(prereq_id) => {
                                         self.get_mut(id).prereq_concepts.retain(|&x| x != prereq_id);
                                     }
-                                    _ => bail!("prereq must be a concept in remove"),
+                                    _ => panic!("prereq must be a concept in remove"),
                                 }
                             }
                             "taught by" => {
@@ -454,7 +452,7 @@ impl Data {
                                     AnyID::Activity(a_id) => {
                                         self.get_mut(a_id).new_concepts.retain(|&x| x.concept != id);
                                     }
-                                    _ => bail!("taughtby must be an activity in remove"),
+                                    _ => panic!("taughtby must be an activity in remove"),
                                 }
                             }
                             "with" => {
@@ -464,13 +462,13 @@ impl Data {
                                             self.get_mut(id).representations.remove(&r);
                                         }
                                     }
-                                    _ => bail!("prereq must be a concept in remove"),
+                                    _ => panic!("prereq must be a concept in remove"),
                                 }
                             }
-                            _ => bail!("Unknown relationship on remove from concept: {}", c.html),
+                            _ => panic!("Unknown relationship on remove from concept: {}", c.html),
                         }
                     }
-                    _ => bail!("Unknown field of concept: {}", c.field),
+                    _ => panic!("Unknown field of concept: {}", c.field),
                 }
             }
             AnyID::Activity(id) => {
@@ -516,7 +514,7 @@ impl Data {
                                     AnyID::ConceptRepresentation(c_id) => {
                                         self.get_mut(id).new_concepts.retain(|&x| x != c_id);
                                     }
-                                    _ => bail!("No new as other type {}", c.content),
+                                    _ => panic!("No new as other type {}", c.content),
                                 }
                             }
                             "prereq" => {
@@ -527,7 +525,7 @@ impl Data {
                                     AnyID::ConceptRepresentation(c_id) => {
                                         self.get_mut(id).prereq_concepts.retain(|&x| x != c_id);
                                     }
-                                    _ => bail!("No prereq as other type"),
+                                    _ => panic!("No prereq as other type"),
                                 }
                             }
                             "uses" => {
@@ -536,10 +534,10 @@ impl Data {
                                         self.get_mut(id).representations
                                             .retain(|&x| x != rid);
                                     }
-                                    _ => bail!("No prereq as other type"),
+                                    _ => panic!("No prereq as other type"),
                                 }
                             }
-                            _ => bail!("Unknown relationship on remove from activity: {}", c.html),
+                            _ => panic!("Unknown relationship on remove from activity: {}", c.html),
                         }
                     }
                     "Add" => {
@@ -552,7 +550,7 @@ impl Data {
                                     AnyID::ConceptRepresentation(c_id) => {
                                         self.get_mut(id).new_concepts.push(c_id);
                                     }
-                                    _ => bail!("No new as other type {}", c.content),
+                                    _ => panic!("No new as other type {}", c.content),
                                 }
                             }
                             "prereq" => {
@@ -563,7 +561,7 @@ impl Data {
                                     AnyID::ConceptRepresentation(c_id) => {
                                         self.get_mut(id).prereq_concepts.push(c_id);
                                     }
-                                    _ => bail!("No prereq as other type"),
+                                    _ => panic!("No prereq as other type"),
                                 }
                             }
                             "uses" => {
@@ -571,13 +569,13 @@ impl Data {
                                     AnyID::Representation(rid) => {
                                         self.get_mut(id).representations.push(rid);
                                     }
-                                    _ => bail!("No prereq as other type"),
+                                    _ => panic!("No prereq as other type"),
                                 }
                             }
-                            _ => bail!("Unknown relationship on add to activity: {}", c.html),
+                            _ => panic!("Unknown relationship on add to activity: {}", c.html),
                         }
                     }
-                    _ => bail!("Unknown field of activity: {}", c.field),
+                    _ => panic!("Unknown field of activity: {}", c.field),
                 }
             }
             AnyID::Representation(id) => {
@@ -598,10 +596,10 @@ impl Data {
                                     AnyID::Concept(child_id) => {
                                         self.get_mut(child_id).add_representation(id);
                                     }
-                                    _ => bail!("Weird used by type: {:?}", c.content),
+                                    _ => panic!("Weird used by type: {:?}", c.content),
                                 }
                             }
-                            _ => bail!("Unknown relationship: {}", c.html),
+                            _ => panic!("Unknown relationship: {}", c.html),
                         }
                     }
                     "Remove" => {
@@ -627,13 +625,13 @@ impl Data {
                                         self.get_mut(child_id).representations
                                             .retain(|&r| r != id);
                                     }
-                                    _ => bail!("Weird used by type to remove: {:?}", c.content),
+                                    _ => panic!("Weird used by type to remove: {:?}", c.content),
                                 }
                             }
-                            _ => bail!("Unknown relationship: {}", c.html),
+                            _ => panic!("Unknown relationship: {}", c.html),
                         }
                     }
-                    _ => bail!("Unknown field of representation: {}", c.field),
+                    _ => panic!("Unknown field of representation: {}", c.field),
                 }
             }
         }
