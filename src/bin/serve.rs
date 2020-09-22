@@ -9,7 +9,8 @@ struct Args {
     base_url: String,
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
     let args = Args::from_args();
     set_base_url(&args.base_url);
 
@@ -122,5 +123,5 @@ fn main() {
                 .or(figure)
                 .with(warp::reply::with::default_header("Cache-Control", "no-store"))
                 .or(style_css))
-        .run(([0, 0, 0, 0], 3030));
+        .run(([0, 0, 0, 0], 3030)).await;
 }

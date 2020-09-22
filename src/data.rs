@@ -197,7 +197,7 @@ pub enum AnyID {
     ConceptRepresentation(ConceptRepresentationID),
 }
 impl AnyID {
-    fn parse(s: &str) -> Result<Self, Box<std::error::Error>> {
+    fn parse(s: &str) -> Result<Self, Box<dyn std::error::Error>> {
         match s.chars().next() {
             Some('c') => {
                 if s.contains("r") {
@@ -216,7 +216,7 @@ impl AnyID {
     }
 }
 impl std::str::FromStr for AnyID {
-    type Err = Box<std::error::Error>;
+    type Err = Box<dyn std::error::Error>;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         AnyID::parse(s)
     }
@@ -290,7 +290,7 @@ impl Data {
         }
     }
     pub fn uploaded_figure(mut self, id: AnyID, filename: &str)
-                           -> Result<(), Box<std::error::Error>>
+                           -> Result<(), Box<dyn std::error::Error>>
     {
         match id {
             AnyID::Representation(id) => {
@@ -314,7 +314,7 @@ impl Data {
         self.save();
         Ok(())
     }
-    pub fn change(mut self, c: Change) -> Result<(), Box<std::error::Error>> {
+    pub fn change(mut self, c: Change) -> Result<(), Box<dyn std::error::Error>> {
         println!("change is {:?}", c);
         match AnyID::parse(&c.id)? {
             AnyID::Course(id) => {
